@@ -18,39 +18,45 @@ interface CPUCommonLoadProps {
   CPUCommonLoadCollectionItem: DataFromServerModel[],
   CPUCommonLoadCurrentItem: number,
   getCPUCommonLoadNextItem: (payload: number) => any,
+  makeRequestToServer: () => any,
 }
 
 export const CPUCommonLoad: React.SFC<CPUCommonLoadProps> = (props) => {
   const {
     getCPUCommonLoadNextItem,
+    makeRequestToServer,
     CPUCommonLoadCollectionItem,
     CPUCommonLoadCurrentItem,
   } = props;
 
-  const value = (): number => {
+  const getValue = (): number => {
     if ( CPUCommonLoadCollectionItem.length > CPUCommonLoadCurrentItem ) {
-      const { cpu } = CPUCommonLoadCollectionItem[CPUCommonLoadCurrentItem];      
+      const { cpu } = 
+        CPUCommonLoadCollectionItem[CPUCommonLoadCurrentItem];
       return Number(cpu);
     }
     return 0;
-  }
+  };
 
-  console.log('[CPU]:', value());
-
-
-  const color = ( value: number ) => {
+  const getColor = ( value: number ) => {
     if ( value > 25 && value < 51 ) return 'yellow';
     else if ( value > 50 && value < 76 ) return 'orange';
     else if ( value > 75 ) return 'red';
     else return 'green';
-  }
+  };
+  
+  const value = getValue();
+  const color = getColor(value);
 
   setTimeout(
     () => {
-      console.log('timeout');
-      console.log('CPUCommonLoadCurrentItem', CPUCommonLoadCurrentItem)
+      console.log('[TIMEOUT]:');
+      console.log('[CURRENT_INDEX]:', CPUCommonLoadCurrentItem)
       console.log(getCPUCommonLoadNextItem);
-      getCPUCommonLoadNextItem(CPUCommonLoadCurrentItem + 1)
+        makeRequestToServer();
+      if (value > 0 ) {
+        getCPUCommonLoadNextItem(CPUCommonLoadCurrentItem + 1);
+      }
     },
     1000
   );
@@ -60,9 +66,9 @@ export const CPUCommonLoad: React.SFC<CPUCommonLoadProps> = (props) => {
       <Header>CPUCommonLoad</Header>
       <PieChartWrapper>
         <PieChartOuterBoundary>
-          <PieChartIndicator value={value()}>
+          <PieChartIndicator value={value}>
             <PieChartIndicatorTop></PieChartIndicatorTop>
-            <PieChartIndicatorBottom color={color(value())}></PieChartIndicatorBottom>
+            <PieChartIndicatorBottom color={color}></PieChartIndicatorBottom>
           </PieChartIndicator>
           <PieChartInternalBoundary>
             <PieChartTextContent>

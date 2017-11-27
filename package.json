@@ -17,10 +17,12 @@
   "author": "Ivan Melnikov (melnikov-ivan@mail.ru)",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.17.1",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
     "styled-components": "^2.2.3",
     "tslib": "^1.8.0"

@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Dispatch } from '@src/redux';
 
-import { actionCreators } from '@src/redux/cpu';
+
+
+
+import { actionCreators, asyncActionCreators } from '@src/redux/cpu';
 import { CPUCommonLoad } from '@src/components';
 
 import {
@@ -18,6 +21,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
   getCPUCommonLoadNextItem: actionCreators.getCPUCommonLoadNextItem,
+  makeRequestToServer: asyncActionCreators.makeRequestToServer,
 }, dispatch);
 
 export const CPUCommonLoadConnected = 
