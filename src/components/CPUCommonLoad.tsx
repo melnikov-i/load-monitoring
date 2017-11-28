@@ -3,6 +3,7 @@ import * as React from 'react';
 import {
   CommonModel,
   makeRequestToAPIProps,
+  DataFromAPIModel,
 } from '@src/models';
 import {
   Header,
@@ -18,36 +19,49 @@ import {
 interface CPUCommonLoadProps {
   currentDataCollection: CommonModel['currentDataCollection'],
   dataAddInLastField: CommonModel['dataAddInLastField'],
-  data1,
-  data0,
+  currentDataCollectionItem: DataFromAPIModel,
+  // data1,
+  // data0,
   makeRequestToAPI: (payload: makeRequestToAPIProps) => any,
+  doDeferredIndexIncrement: () => any,
 }
 
 export const CPUCommonLoad: React.SFC<CPUCommonLoadProps> = (props) => {
   const {
     currentDataCollection,
     dataAddInLastField,
-    data1,
-    data0,
+    currentDataCollectionItem,
     makeRequestToAPI,
+    doDeferredIndexIncrement,
   } = props;
-
-  console.log(
-    '[COMPONENT:currentDataCollection]:',
-    currentDataCollection
-  );
-
-  console.log('[COMPONENT:data1]:', data1);
-
-  console.log('[COMPONENT:data0]:',data0);
 
   console.log(
     '[COMPONENT:dataAddInLastField]:',
     dataAddInLastField
   );
 
+  console.log(
+    '[COMPONENT]:currentDataCollectionItem',
+    currentDataCollectionItem
+  );
+
 
   const getValue = (): number => {
+    if ( dataAddInLastField === 0 ) {
+      const makeRequestToAPIProps: makeRequestToAPIProps = {
+        dataAddInLastField: dataAddInLastField,
+        currentDataCollection: currentDataCollection,
+      }
+      makeRequestToAPI(makeRequestToAPIProps);
+    } else {
+      doDeferredIndexIncrement();
+    }
+
+    if ( currentDataCollectionItem !== undefined )
+      return Number(currentDataCollectionItem.cpu);
+      
+    return 0;
+
     // const makeRequestToAPIProps: makeRequestToAPIProps = {
     //   dataAddInLastField: dataAddInLastField,
     //   currentDataCollection: currentDataCollection,
@@ -55,7 +69,6 @@ export const CPUCommonLoad: React.SFC<CPUCommonLoadProps> = (props) => {
     // if ( dataAddInLastField === 0 ){
     //   makeRequestToAPI(makeRequestToAPIProps);
     // }
-    return 0;
   };
 
   const getColor = ( value: number ) => {

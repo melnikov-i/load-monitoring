@@ -12,19 +12,18 @@ import { CPUCommonLoad } from '@src/components';
 import {
   currentDataCollectionSelector,
   dataAddInLastFieldSelector,
-  data1Selector,
-  data0Selector
+  currentDataCollectionItemSelector,
 } from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector({
   currentDataCollection: currentDataCollectionSelector,
   dataAddInLastField: dataAddInLastFieldSelector,
-  data1: data1Selector,
-  data0: data0Selector,
+  currentDataCollectionItem: currentDataCollectionItemSelector,
 });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
   makeRequestToAPI: asyncActionCreators.makeRequestToAPI,
+  doDeferredIndexIncrement: asyncActionCreators.doDeferredIndexIncrement,
 }, dispatch);
 
 export const CPUCommonLoadConnected = 

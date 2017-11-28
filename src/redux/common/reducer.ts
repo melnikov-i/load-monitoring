@@ -10,6 +10,7 @@ import {
   PUT_DATA_FROM_API_TO_DATA_1,
   SET_DATA_ADD_IN_LAST_FIELD,
   CHANGE_CURRENT_DATA_COLLECTION,
+  DO_INDEX_INCREMENT,
 } from '@src/redux/common';
 
 export type State = {
@@ -17,6 +18,7 @@ export type State = {
   readonly data1: DataFromAPIModel[],
   readonly dataAddInLastField: CommonModel['dataAddInLastField'],
   readonly currentDataCollection: CommonModel['currentDataCollection'],
+  readonly index: number,
 };
 
 export const reducer = combineReducers({
@@ -50,6 +52,14 @@ export const reducer = combineReducers({
         if ( state === "data0" )
           return "data1";
         return "data0";
+      default:
+        return state;
+    }
+  },
+  index: ( state = 0, action ) => {
+    switch ( action.type ) {
+      case DO_INDEX_INCREMENT:
+        return state + 1;      
       default:
         return state;
     }

@@ -22,22 +22,28 @@ export const dataAddInLastFieldSelector = createSelector(
   ( dataAddInLastField ) => dataAddInLastField
 );
 
-const data1 = 
-( state: RootState ) => (
-  state.common.data1
-);
-
-export const data1Selector = createSelector(
-  [ data1 ],
-  ( data1 ) => data1
-);
-
 const data0 = 
 ( state: RootState ) => (
   state.common.data0
 );
 
-export const data0Selector = createSelector(
-  [ data0 ],
-  ( data0 ) => data0
+const data1 = 
+( state: RootState ) => (
+  state.common.data1
+);
+
+const index =
+( state: RootState ) => (
+  state.common.index
+);
+
+export const currentDataCollectionItemSelector = createSelector(
+  [ data0, data1, currentDataCollection, index ],
+  ( data0, data1, currentDataCollection, index ) => {
+    if ( currentDataCollection === "data0" ) {
+      return data0[index];
+    } else {
+      return data1[index];
+    }
+  }
 );

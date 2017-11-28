@@ -19,6 +19,8 @@ export const SET_DATA_ADD_IN_LAST_FIELD =
 'SET_DATA_ADD_IN_LAST_FIELD';
 export const CHANGE_CURRENT_DATA_COLLECTION =
 'CHANGE_CURRENT_DATA_COLLECTION';
+export const DO_INDEX_INCREMENT =
+'DO_INDEX_INCREMENT';
 
 export type Actions = {
   PUT_DATA_FROM_API_TO_DATA_0: {
@@ -35,6 +37,9 @@ export type Actions = {
   },
   CHANGE_CURRENT_DATA_COLLECTION: {
     type: typeof CHANGE_CURRENT_DATA_COLLECTION,
+  },
+  DO_INDEX_INCREMENT: {
+    type: typeof DO_INDEX_INCREMENT,
   }
 };
 
@@ -59,7 +64,12 @@ export const syncActionCreators = {
   (): Actions[typeof CHANGE_CURRENT_DATA_COLLECTION] => ({
     type: CHANGE_CURRENT_DATA_COLLECTION,
   }),
+  doIndexIncrement:
+  (): Actions[typeof DO_INDEX_INCREMENT] => ({
+    type: DO_INDEX_INCREMENT,
+  }),
 };
+
 // Async Action Creators
 export const asyncActionCreators = {
   makeRequestToAPI: ( payload: makeRequestToAPIProps ) => {
@@ -76,9 +86,8 @@ export const asyncActionCreators = {
               syncActionCreators
               .putDataFromAPIToData0(preData)
             );
+
             /* Отправляем в store величину времени последнего поля */
-            console.log('[PRE_DATA]:', preData);
-            console.log('[PRE_DATA_LENGTH]:', preData.length);
             dispatch(
               syncActionCreators
               .setDataAddInLastField(
@@ -86,24 +95,15 @@ export const asyncActionCreators = {
               )
             );
           } else {
-            /* Запуск повторный, отсеиваем повторяющиеся */
+            /* Запуск повторный, отсеиваем повторяющиеся поля */
             let data: DataFromAPIModel[] = [];
             for ( let i in preData ) {
               const dataAdd: number = Number(preData[i].data_add);
-              
-              // console.log(
-              //   '[ACTIONS:dataAdd]',dataAdd
-              // );
-
-              // console.log(
-              //   '[ACTIONS:payload.dataAddInLastField]',
-              //   payload.dataAddInLastField
-              // );
-
               if ( dataAdd > payload.dataAddInLastField ) {
                 data = [...data, preData[i]];
               }
             }
+            
             /* Полученный массив отдаем в store */
             if ( payload.currentDataCollection === "data0" ) {
               dispatch(
@@ -116,9 +116,8 @@ export const asyncActionCreators = {
                 .putDataFromAPIToData0(data)
               );
             }
+
             /* Отправляем в store величину времени последнего поля */
-            console.log('[DATA]:', data);
-            console.log('[DATA_LENGTH]:', data.length);
             dispatch(
               syncActionCreators
               .setDataAddInLastField(
@@ -135,4 +134,11 @@ export const asyncActionCreators = {
       );
     };
   },
+  doDeferredIndexIncrement: () => {
+    return ( dispatch: Dispatch ) => {
+      setTimeout(() => {
+        dispatch(syncActionCreators.doIndexIncrement());
+      }, 5100);
+    }
+  }
 };

@@ -58,3 +58,26 @@ store = {
 Экшены можно обрабатывать в компоненте.
 
 Интервал выставлять в reselect
+
+
+Состояние 0
+-----------
+
+data0 = [];
+data1 = [];
+currentDataCollection = "data0";
+dataAddInLastField = 0
+
+  Запрос данных у API
+  Помещение данных в data0
+  В data0 - 50 записей
+  В dataAddInLastField - значение времени последней записи (той, что ближе к текущему времени)
+
+
+Состояние 2
+-----------
+
+data0 = [{...}];
+data1 = [];
+currentDataCollection = "data0";
+dataAddInLastField = 111111111;
