@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { DataFromServerModel } from '@src/models';
+import { DataFromAPIModel } from '@src/models';
 
 import {
   CPU_COMMON_LOAD_COLLECTION,
@@ -9,7 +9,7 @@ import {
 
 
 export type State = {
-  readonly CPUCommonLoadCollection: DataFromServerModel[],
+  readonly CPUCommonLoadCollection: DataFromAPIModel[],
   readonly CPUCommonLoadCurrentItem: number,
 };
 

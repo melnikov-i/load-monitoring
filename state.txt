@@ -1,0 +1,60 @@
+store = {
+  common: {
+    "data0": [
+      0: {cpu: "", ..., data_add: "", ...}
+      1: {cpu: "", ..., data_add: "", ...}
+      2: {cpu: "", ..., data_add: "", ...}
+    ],
+    "data1": [
+      0: {cpu: "", ..., data_add: "", ...}
+      1: {cpu: "", ..., data_add: "", ...}
+      2: {cpu: "", ..., data_add: "", ...}
+    ],
+    currentDataCollection: "data0" | "data1",
+    dataAddInLastField: 0,
+    dataAdd: '',
+    index: '',
+    interval: 0,
+  },
+}
+
+По умолчанию:
+  currentData: "data0"
+  isInitialState: true
+
+Действия (Actions):
+  changeCurrentData()
+  putDateTimeInLastField(response.data[last].date_time)
+  putDataFromAPIToStore(response.data.reverse())
+  resetIndex()
+
+  getDataFromAPI(dateTimeInLastField)
+    Асинхронный запрос, выполняет подзапросы:
+      - в случае успешного запроса:
+          получить response.data
+          реверсировать.
+
+        (Если dateTimeInLastField === 0) 
+          putDateTimeInLastField(response.data[last].date_time)
+        (Иначе)
+          // только не через map, а через for (let i in response.data)
+          response.data.map((e, i) => {
+            if ( e.date_time > dateTimeInLastField )
+              return e;
+          })
+          создать новый массив и его запихнуть в стор.
+          вывести длину нового массива в консоль.
+
+
+        putDataFromAPIToStore(response.data.reverse())
+          отдать в Store
+        
+
+
+Условия:
+  В момент запуска стор пуст, проверить isInitialState => Запросить данные
+
+
+Экшены можно обрабатывать в компоненте.
+
+Интервал выставлять в reselect

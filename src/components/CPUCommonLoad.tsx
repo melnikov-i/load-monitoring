@@ -1,7 +1,8 @@
 import * as React from 'react';
 
 import {
-  DataFromServerModel,
+  CommonModel,
+  makeRequestToAPIProps,
 } from '@src/models';
 import {
   Header,
@@ -15,26 +16,45 @@ import {
 } from '@src/styled';
 
 interface CPUCommonLoadProps {
-  CPUCommonLoadCollectionItem: DataFromServerModel[],
-  CPUCommonLoadCurrentItem: number,
-  getCPUCommonLoadNextItem: (payload: number) => any,
-  makeRequestToServer: () => any,
+  currentDataCollection: CommonModel['currentDataCollection'],
+  dataAddInLastField: CommonModel['dataAddInLastField'],
+  data1,
+  data0,
+  makeRequestToAPI: (payload: makeRequestToAPIProps) => any,
 }
 
 export const CPUCommonLoad: React.SFC<CPUCommonLoadProps> = (props) => {
   const {
-    getCPUCommonLoadNextItem,
-    makeRequestToServer,
-    CPUCommonLoadCollectionItem,
-    CPUCommonLoadCurrentItem,
+    currentDataCollection,
+    dataAddInLastField,
+    data1,
+    data0,
+    makeRequestToAPI,
   } = props;
 
+  console.log(
+    '[COMPONENT:currentDataCollection]:',
+    currentDataCollection
+  );
+
+  console.log('[COMPONENT:data1]:', data1);
+
+  console.log('[COMPONENT:data0]:',data0);
+
+  console.log(
+    '[COMPONENT:dataAddInLastField]:',
+    dataAddInLastField
+  );
+
+
   const getValue = (): number => {
-    if ( CPUCommonLoadCollectionItem.length > CPUCommonLoadCurrentItem ) {
-      const { cpu } = 
-        CPUCommonLoadCollectionItem[CPUCommonLoadCurrentItem];
-      return Number(cpu);
-    }
+    // const makeRequestToAPIProps: makeRequestToAPIProps = {
+    //   dataAddInLastField: dataAddInLastField,
+    //   currentDataCollection: currentDataCollection,
+    // }
+    // if ( dataAddInLastField === 0 ){
+    //   makeRequestToAPI(makeRequestToAPIProps);
+    // }
     return 0;
   };
 
@@ -48,18 +68,26 @@ export const CPUCommonLoad: React.SFC<CPUCommonLoadProps> = (props) => {
   const value = getValue();
   const color = getColor(value);
 
-  setTimeout(
-    () => {
-      console.log('[TIMEOUT]:');
-      console.log('[CURRENT_INDEX]:', CPUCommonLoadCurrentItem)
-      console.log(getCPUCommonLoadNextItem);
-        makeRequestToServer();
-      if (value > 0 ) {
-        getCPUCommonLoadNextItem(CPUCommonLoadCurrentItem + 1);
-      }
-    },
-    1000
-  );
+  // setTimeout(
+  //   () => {
+  //     console.log('[TIMEOUT]:');
+  //     console.log('[CURRENT_INDEX]:', CPUCommonLoadCurrentItem)
+  //     console.log(getCPUCommonLoadNextItem);
+  //       makeRequestToServer();
+  //     if (value > 0 ) {
+  //       getCPUCommonLoadNextItem(CPUCommonLoadCurrentItem + 1);
+  //     }
+  //   },
+  //   1000
+  // );
+
+  const testHandler = () => {
+    const makeRequestToAPIProps: makeRequestToAPIProps = {
+      dataAddInLastField: dataAddInLastField,
+      currentDataCollection: currentDataCollection,
+    }
+    makeRequestToAPI(makeRequestToAPIProps);
+  }
 
   return (
     <div>
@@ -77,6 +105,9 @@ export const CPUCommonLoad: React.SFC<CPUCommonLoadProps> = (props) => {
           </PieChartInternalBoundary>
         </PieChartOuterBoundary>
       </PieChartWrapper>
+      <button onClick={testHandler}>
+        TEST
+      </button>
     </div>
   );
 }

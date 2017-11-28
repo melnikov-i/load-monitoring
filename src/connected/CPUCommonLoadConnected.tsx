@@ -6,22 +6,25 @@ import { Dispatch } from '@src/redux';
 
 
 
-import { actionCreators, asyncActionCreators } from '@src/redux/cpu';
+import { /*syncActionCreators,*/ asyncActionCreators } from '@src/redux/common';
 import { CPUCommonLoad } from '@src/components';
 
 import {
-  CPUCommonLoadCollectionItemSelector,
-  CPUCommonLoadCurrentItemSelector,
+  currentDataCollectionSelector,
+  dataAddInLastFieldSelector,
+  data1Selector,
+  data0Selector
 } from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector({
-  CPUCommonLoadCollectionItem: CPUCommonLoadCollectionItemSelector,
-  CPUCommonLoadCurrentItem: CPUCommonLoadCurrentItemSelector,
+  currentDataCollection: currentDataCollectionSelector,
+  dataAddInLastField: dataAddInLastFieldSelector,
+  data1: data1Selector,
+  data0: data0Selector,
 });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
-  getCPUCommonLoadNextItem: actionCreators.getCPUCommonLoadNextItem,
-  makeRequestToServer: asyncActionCreators.makeRequestToServer,
+  makeRequestToAPI: asyncActionCreators.makeRequestToAPI,
 }, dispatch);
 
 export const CPUCommonLoadConnected = 

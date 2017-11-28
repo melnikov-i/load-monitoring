@@ -12,7 +12,7 @@ export type PieChartIndicatorProps =
 export type PieChartIndicatorBottomProps =
   PieChartIndicatorBottomColor & React.HTMLProps<HTMLDivElement>;
 
-export interface DataFromServerModel {
+export interface DataFromAPIModel {
   cpu: string,
   cpu1: string,
   cpu2: string,
@@ -47,4 +47,14 @@ export interface DataFromServerModel {
   net6: string | null,
   data_add: string,
   id: string,
+}
+
+export interface CommonModel {
+  dataAddInLastField: number,
+  currentDataCollection: string,
+}
+
+export interface makeRequestToAPIProps {
+  dataAddInLastField: CommonModel['dataAddInLastField'],
+  currentDataCollection: CommonModel['currentDataCollection'],
 }

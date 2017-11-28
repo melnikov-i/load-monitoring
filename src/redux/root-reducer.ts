@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 
-import { reducer as cpu, State as CPUState } from '@src/redux/cpu';
+import { reducer as common, State as CommonState } from '@src/redux/common';
 
 export interface RootState {
-  cpu: CPUState,
+  common: CommonState,
 }
 
 export const rootReducer = combineReducers<RootState>({
-  cpu,
+  common,
 });

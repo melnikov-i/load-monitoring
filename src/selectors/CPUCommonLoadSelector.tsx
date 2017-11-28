@@ -2,22 +2,42 @@ import { createSelector } from 'reselect';
 
 import { RootState } from '@src/redux';
 
-const CPUCommonLoadCollection =
+const currentDataCollection =
 ( state: RootState ) => (
-  state.cpu.CPUCommonLoadCollection
+  state.common.currentDataCollection
 );
 
-const CPUCommonLoadCurrentItem = 
+export const currentDataCollectionSelector = createSelector(
+  [ currentDataCollection ],
+  ( currentDataCollection ) => currentDataCollection
+);
+
+const dataAddInLastField = 
 ( state: RootState ) => (
-  state.cpu.CPUCommonLoadCurrentItem
+  state.common.dataAddInLastField
 );
 
-export const CPUCommonLoadCollectionItemSelector = createSelector(
-  [ CPUCommonLoadCollection ],
-  ( CPUCommonLoadCollection ) => CPUCommonLoadCollection
+export const dataAddInLastFieldSelector = createSelector(
+  [ dataAddInLastField ],
+  ( dataAddInLastField ) => dataAddInLastField
 );
 
-export const CPUCommonLoadCurrentItemSelector = createSelector(
-  [ CPUCommonLoadCurrentItem ],
-  ( CPUCommonLoadCurrentItem ) => CPUCommonLoadCurrentItem
+const data1 = 
+( state: RootState ) => (
+  state.common.data1
+);
+
+export const data1Selector = createSelector(
+  [ data1 ],
+  ( data1 ) => data1
+);
+
+const data0 = 
+( state: RootState ) => (
+  state.common.data0
+);
+
+export const data0Selector = createSelector(
+  [ data0 ],
+  ( data0 ) => data0
 );

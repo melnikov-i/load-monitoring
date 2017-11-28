@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { DataFromServerModel } from '@src/models';
+import { DataFromAPIModel } from '@src/models';
 import { Dispatch } from '@src/redux';
 
 const getDataFromServer = () => 
@@ -18,7 +18,7 @@ export const COMMON_COLLECTION_FROM_SERVER =
 export type Actions = {
   CPU_COMMON_LOAD_COLLECTION: {
     type: typeof CPU_COMMON_LOAD_COLLECTION,
-    payload: DataFromServerModel[],
+    payload: DataFromAPIModel[],
   },
   CPU_COMMON_LOAD_NEXT_ITEM: {
     type: typeof CPU_COMMON_LOAD_NEXT_ITEM,
@@ -26,14 +26,14 @@ export type Actions = {
   },
   COMMON_COLLECTION_FROM_SERVER: {
     type: typeof COMMON_COLLECTION_FROM_SERVER,
-    payload: DataFromServerModel[],
+    payload: DataFromAPIModel[],
   }
 };
 
 // Action Creators
 export const actionCreators = {
   getCPUCommonLoadCollection:
-  ( payload: DataFromServerModel[] ):
+  ( payload: DataFromAPIModel[] ):
   Actions[typeof CPU_COMMON_LOAD_COLLECTION] => ({
     type: CPU_COMMON_LOAD_COLLECTION, payload,
   }),
@@ -42,7 +42,7 @@ export const actionCreators = {
     type: CPU_COMMON_LOAD_NEXT_ITEM, payload
   }),
   getCommonCollectionFromServer:
-  ( payload: DataFromServerModel[] ):
+  ( payload: DataFromAPIModel[] ):
   Actions[typeof COMMON_COLLECTION_FROM_SERVER] => ({
     type: COMMON_COLLECTION_FROM_SERVER, payload
   }),
