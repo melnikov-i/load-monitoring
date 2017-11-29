@@ -2,48 +2,58 @@ import { createSelector } from 'reselect';
 
 import { RootState } from '@src/redux';
 
-const currentDataCollection =
+const CommonDataModel =
 ( state: RootState ) => (
-  state.common.currentDataCollection
+  state.common.CommonDataModel
 );
 
-export const currentDataCollectionSelector = createSelector(
-  [ currentDataCollection ],
-  ( currentDataCollection ) => currentDataCollection
+export const CommonDataModelSelector = createSelector(
+  [CommonDataModel],
+  ( CommonDataModel ) => CommonDataModel
 );
 
-const dataAddInLastField = 
-( state: RootState ) => (
-  state.common.dataAddInLastField
-);
+// const currentDataCollection =
+// ( state: RootState ) => (
+//   state.common.currentDataCollection
+// );
 
-export const dataAddInLastFieldSelector = createSelector(
-  [ dataAddInLastField ],
-  ( dataAddInLastField ) => dataAddInLastField
-);
+// export const currentDataCollectionSelector = createSelector(
+//   [ currentDataCollection ],
+//   ( currentDataCollection ) => currentDataCollection
+// );
 
-const data0 = 
-( state: RootState ) => (
-  state.common.data0
-);
+// const dataAddInLastField = 
+// ( state: RootState ) => (
+//   state.common.dataAddInLastField
+// );
 
-const data1 = 
-( state: RootState ) => (
-  state.common.data1
-);
+// export const dataAddInLastFieldSelector = createSelector(
+//   [ dataAddInLastField ],
+//   ( dataAddInLastField ) => dataAddInLastField
+// );
 
-const index =
-( state: RootState ) => (
-  state.common.index
-);
+// const data0 = 
+// ( state: RootState ) => (
+//   state.common.data0
+// );
 
-export const currentDataCollectionItemSelector = createSelector(
-  [ data0, data1, currentDataCollection, index ],
-  ( data0, data1, currentDataCollection, index ) => {
-    if ( currentDataCollection === "data0" ) {
-      return data0[index];
-    } else {
-      return data1[index];
-    }
-  }
-);
+// const data1 = 
+// ( state: RootState ) => (
+//   state.common.data1
+// );
+
+// const index =
+// ( state: RootState ) => (
+//   state.common.index
+// );
+
+// export const currentDataCollectionItemSelector = createSelector(
+//   [ data0, data1, currentDataCollection, index ],
+//   ( data0, data1, currentDataCollection, index ) => {
+//     if ( currentDataCollection === "data0" ) {
+//       return data0[index];
+//     } else {
+//       return data1[index];
+//     }
+//   }
+// );

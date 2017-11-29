@@ -1,10 +1,12 @@
 import * as React from 'react';
 
 import {
-  CommonModel,
-  makeRequestToAPIProps,
-  DataFromAPIModel,
-} from '@src/models';
+  CommonDataInterface,
+
+  // CommonModel,
+  // makeRequestToAPIProps,
+  // DataFromAPIModel,
+} from '@src/interfaces';
 import {
   Header,
   PieChartWrapper,
@@ -17,48 +19,52 @@ import {
 } from '@src/styled';
 
 interface CPUCommonLoadProps {
-  currentDataCollection: CommonModel['currentDataCollection'],
-  dataAddInLastField: CommonModel['dataAddInLastField'],
-  currentDataCollectionItem: DataFromAPIModel,
+  CommonDataModel: CommonDataInterface,
+  // currentDataCollection: CommonModel['currentDataCollection'],
+  // dataAddInLastField: CommonModel['dataAddInLastField'],
+  // currentDataCollectionItem: DataFromAPIModel,
   // data1,
   // data0,
-  makeRequestToAPI: (payload: makeRequestToAPIProps) => any,
-  doDeferredIndexIncrement: () => any,
+  makeRequestToAPI: () => any,
+  // doDeferredIndexIncrement: () => any,
 }
 
 export const CPUCommonLoad: React.SFC<CPUCommonLoadProps> = (props) => {
   const {
-    currentDataCollection,
-    dataAddInLastField,
-    currentDataCollectionItem,
+    CommonDataModel,
+    // currentDataCollection,
+    // dataAddInLastField,
+    // currentDataCollectionItem,
     makeRequestToAPI,
-    doDeferredIndexIncrement,
+    // doDeferredIndexIncrement,
   } = props;
 
-  console.log(
-    '[COMPONENT:dataAddInLastField]:',
-    dataAddInLastField
-  );
+  console.log('[COMMON_DATA_MODEL]:', CommonDataModel);
 
-  console.log(
-    '[COMPONENT]:currentDataCollectionItem',
-    currentDataCollectionItem
-  );
+  // console.log(
+  //   '[COMPONENT:dataAddInLastField]:',
+  //   dataAddInLastField
+  // );
+
+  // console.log(
+  //   '[COMPONENT]:currentDataCollectionItem',
+  //   currentDataCollectionItem
+  // );
 
 
   const getValue = (): number => {
-    if ( dataAddInLastField === 0 ) {
-      const makeRequestToAPIProps: makeRequestToAPIProps = {
-        dataAddInLastField: dataAddInLastField,
-        currentDataCollection: currentDataCollection,
-      }
-      makeRequestToAPI(makeRequestToAPIProps);
-    } else {
-      doDeferredIndexIncrement();
-    }
+    // if ( dataAddInLastField === 0 ) {
+    //   const makeRequestToAPIProps: makeRequestToAPIProps = {
+    //     dataAddInLastField: dataAddInLastField,
+    //     currentDataCollection: currentDataCollection,
+    //   }
+    //   makeRequestToAPI(makeRequestToAPIProps);
+    // } else {
+    //   doDeferredIndexIncrement();
+    // }
 
-    if ( currentDataCollectionItem !== undefined )
-      return Number(currentDataCollectionItem.cpu);
+    // if ( currentDataCollectionItem !== undefined )
+    //   return Number(currentDataCollectionItem.cpu);
       
     return 0;
 
@@ -95,11 +101,12 @@ export const CPUCommonLoad: React.SFC<CPUCommonLoadProps> = (props) => {
   // );
 
   const testHandler = () => {
-    const makeRequestToAPIProps: makeRequestToAPIProps = {
-      dataAddInLastField: dataAddInLastField,
-      currentDataCollection: currentDataCollection,
-    }
-    makeRequestToAPI(makeRequestToAPIProps);
+    // const makeRequestToAPIProps: makeRequestToAPIProps = {
+    //   dataAddInLastField: dataAddInLastField,
+    //   currentDataCollection: currentDataCollection,
+    // }
+    // makeRequestToAPI(makeRequestToAPIProps);
+    makeRequestToAPI();
   }
 
   return (

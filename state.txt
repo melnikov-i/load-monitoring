@@ -18,6 +18,22 @@ store = {
   },
 }
 
+store = {
+  common: {
+    CommonDataModel: {
+      data: [
+        0: {cpu: "", ..., data_add: "", ...}
+        1: {cpu: "", ..., data_add: "", ...}
+        2: {cpu: "", ..., data_add: "", ...}
+      ],
+      dataAddInLastField: 0,
+      index: -1,
+      interval: 5100,
+    }
+  }
+}
+
+
 По умолчанию:
   currentData: "data0"
   isInitialState: true

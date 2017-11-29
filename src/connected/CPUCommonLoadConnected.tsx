@@ -10,20 +10,22 @@ import { /*syncActionCreators,*/ asyncActionCreators } from '@src/redux/common';
 import { CPUCommonLoad } from '@src/components';
 
 import {
-  currentDataCollectionSelector,
-  dataAddInLastFieldSelector,
-  currentDataCollectionItemSelector,
+  CommonDataModelSelector,
+  // currentDataCollectionSelector,
+  // dataAddInLastFieldSelector,
+  // currentDataCollectionItemSelector,
 } from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector({
-  currentDataCollection: currentDataCollectionSelector,
-  dataAddInLastField: dataAddInLastFieldSelector,
-  currentDataCollectionItem: currentDataCollectionItemSelector,
+  CommonDataModel: CommonDataModelSelector,
+  // currentDataCollection: currentDataCollectionSelector,
+  // dataAddInLastField: dataAddInLastFieldSelector,
+  // currentDataCollectionItem: currentDataCollectionItemSelector,
 });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
   makeRequestToAPI: asyncActionCreators.makeRequestToAPI,
-  doDeferredIndexIncrement: asyncActionCreators.doDeferredIndexIncrement,
+  // doDeferredIndexIncrement: asyncActionCreators.doDeferredIndexIncrement,
 }, dispatch);
 
 export const CPUCommonLoadConnected = 

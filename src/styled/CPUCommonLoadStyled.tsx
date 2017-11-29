@@ -3,7 +3,7 @@ import styled, { StyledFunction } from 'styled-components';
 import {
   PieChartIndicatorProps,
   PieChartIndicatorBottomProps,
-} from '@src/models';
+} from '@src/interfaces';
 
 const PieChartIndicatorFunction: StyledFunction<PieChartIndicatorProps> = 
   styled.div;
