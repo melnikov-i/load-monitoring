@@ -56,7 +56,7 @@ const CommonDataInitialState: CommonDataInterface = {
     }
   ],
   dataAddInLastField: 0,
-  index: 0,
+  index: 45,
   interval: 5100,
 };
 
@@ -77,47 +77,37 @@ export const reducer = combineReducers({
         let newState = {...state};
         if ( state.data[0].data_add === "default" ) {
           /* Получение первичных данных от API */
-          // const newDataAddInLastField:
-          // CommonDataInterface['dataAddInLastField'] = 
-          //   Number(action.payload[action.payload.length -1].data_add);
-          console.log(
-            '[REDUCER_newDataAddInLastField]'
-          );
           newState = {
             ...newState,
             data: action.payload,
             dataAddInLastField: 
               Number(action
-              .payload[newState.index].data_add),
+              .payload[action.payload.length - 1].data_add),
           };
         } else {
           /* Последующие изменения State */
-          let newData: CommonDataInterface['data'] = [];
+          let newData: CommonDataInterface['data'] = [];          
+          /* Отсеивание уже отображенных данных */
+          for ( let i in state.data ) {
+            if ( i > newState.index ) {
+              newData = [...newData, state.data[i]];
+            }
+          }
+          /* Переопределяем State после отсеивания */
+          newState.data = [...newData];          
+          /* Отсеивание только недостающих данных, полученных от API */
           for ( let i in action.payload ) {
             const dataAddInPayload:
             CommonDataInterface['dataAddInLastField'] =
               Number(action.payload[i].data_add);
             if ( dataAddInPayload > state.dataAddInLastField ) {
-              newData = [
-                ...newData,
+              newState.data = [
+                ...newState.data,
                 action.payload[i]
               ];
             }
           }
-          newState = {
-            ...newState,
-            data: newData,
-          };
-          
         }
-
-
-        console.log(
-          '[REDUCER_dataAddInLastField]',
-          newState.dataAddInLastField
-        );
-
-        console.log('[REDUCER_newState]:', newState);
         return newState;
       default:
         return state;
