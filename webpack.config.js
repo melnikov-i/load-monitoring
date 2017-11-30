@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const coreJs = require('core-js');
 const path = require('path');
 const outputPath = path.resolve(__dirname, './dist');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -6,6 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpackConfig = {
   "entry": {
     "app": [
+      'core-js',
       path.resolve(__dirname, './src/index.tsx')
     ]
   },

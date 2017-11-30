@@ -2,84 +2,74 @@ import { combineReducers } from 'redux';
 
 import {
   CommonDataInterface,
-              // DataFromAPIModel,
-              // CommonModel,
 } from '@src/interfaces';
 
 import {
-  PUT_DATA_FROM_API_TO_MODEL
-  // PUT_DATA_FROM_API_TO_DATA_0,
-  // PUT_DATA_FROM_API_TO_DATA_1,
-  // SET_DATA_ADD_IN_LAST_FIELD,
-  // CHANGE_CURRENT_DATA_COLLECTION,
-  // DO_INDEX_INCREMENT,
+  PUT_DATA_FROM_API_TO_MODEL,
+  DO_INDEX_INCREMENT,
 } from '@src/redux/common';
 
 
 const CommonDataInitialState: CommonDataInterface = {
   data: [
     {
-      cpu: "default",
-      cpu1: "default",
-      cpu2: "default",
-      cpu3: "default",
-      cpu4: "default",
-      cpu5: "default",
-      cpu6: "default",
-      cpu7: "default",
-      cpu8: "default",
-      cpu9: "default",
-      cpu10: "default",
-      cpu11: "default",
-      cpu12: "default",
-      cpu13: "default",
-      cpu14: "default",
-      cpu15: "default",
-      cpu16: "default",
-      dwMemoryLoad: "default",
-      hdd1: "default",
-      hdd2: "default",
-      hdd3: "default",
-      hdd4: "default",
-      hdd5: "default",
-      hdd6: "default",
-      hdd7: "default",
-      hdd8: "default",
-      net1: "default",
-      net2: "default",
-      net3: "default",
-      net4: "default",
-      net5: "default",
-      net6: "default",
-      data_add: "default",
-      id: "default",
+      cpu: "",
+      cpu1: "",
+      cpu2: "",
+      cpu3: "",
+      cpu4: "",
+      cpu5: "",
+      cpu6: "",
+      cpu7: "",
+      cpu8: "",
+      cpu9: "",
+      cpu10: "",
+      cpu11: "",
+      cpu12: "",
+      cpu13: "",
+      cpu14: "",
+      cpu15: "",
+      cpu16: "",
+      dwMemoryLoad: "",
+      hdd1: "",
+      hdd2: "",
+      hdd3: "",
+      hdd4: "",
+      hdd5: "",
+      hdd6: "",
+      hdd7: "",
+      hdd8: "",
+      net1: "",
+      net2: "",
+      net3: "",
+      net4: "",
+      net5: "",
+      net6: "",
+      data_add: "",
+      id: "",
     }
   ],
   dataAddInLastField: 0,
-  index: 45,
+  index: 0,
   interval: 5100,
 };
 
 export type State = {
   readonly CommonDataModel: CommonDataInterface,
-
-  // readonly data0: DataFromAPIModel[],
-  // readonly data1: DataFromAPIModel[],
-  // readonly dataAddInLastField: CommonModel['dataAddInLastField'],
-  // readonly currentDataCollection: CommonModel['currentDataCollection'],
-  // readonly index: number,
 };
 
 export const reducer = combineReducers({
   CommonDataModel: ( state = CommonDataInitialState, action ) => {
     switch ( action.type ) {
       case PUT_DATA_FROM_API_TO_MODEL:
-        let newState = {...state};
-        if ( state.data[0].data_add === "default" ) {
+        let putDataFromAPIState = {...state};
+        if ( state.data[0].data_add === "" ) {
           /* Получение первичных данных от API */
-          newState = {
-            ...newState,
+          putDataFromAPIState = {
+            ...putDataFromAPIState,
+            /* Внесение данных из JSON-файла модель */
             data: action.payload,
+            /* Изменение величины времени последнего поля модели */
             dataAddInLastField: 
               Number(action
               .payload[action.payload.length - 1].data_add),
@@ -89,71 +79,52 @@ export const reducer = combineReducers({
           let newData: CommonDataInterface['data'] = [];          
           /* Отсеивание уже отображенных данных */
           for ( let i in state.data ) {
-            if ( i > newState.index ) {
+            if ( i > putDataFromAPIState.index ) {
               newData = [...newData, state.data[i]];
             }
           }
           /* Переопределяем State после отсеивания */
-          newState.data = [...newData];          
+          putDataFromAPIState.data = [...newData];          
           /* Отсеивание только недостающих данных, полученных от API */
           for ( let i in action.payload ) {
             const dataAddInPayload:
             CommonDataInterface['dataAddInLastField'] =
               Number(action.payload[i].data_add);
             if ( dataAddInPayload > state.dataAddInLastField ) {
-              newState.data = [
-                ...newState.data,
+              putDataFromAPIState.data = [
+                ...putDataFromAPIState.data,
                 action.payload[i]
               ];
             }
           }
+          putDataFromAPIState = {
+            ...putDataFromAPIState,
+            /* Сброс индекса */
+            index: 0,
+            /* Обновление величины времени последнего поля модели */
+            dataAddInLastField:
+              Number(putDataFromAPIState
+                .data[putDataFromAPIState.data.length - 1].data_add),
+          }
         }
-        return newState;
+        console.log(
+          '[REDUCER] - putDataFromAPIState',
+          putDataFromAPIState
+        );
+        
+        return putDataFromAPIState;
+      case DO_INDEX_INCREMENT:
+        const doIncrementState = {
+          ...state,
+          index: state.index + 1,
+        };
+        console.log(
+          '[REDUCER] - doIncrementState',
+          doIncrementState
+        );
+        return doIncrementState;
       default:
         return state;
     }
   },
-
-  // data0: ( state = [], action ) => {
-  //   switch ( action.type ) {
-  //     case PUT_DATA_FROM_API_TO_DATA_0:
-  //       return action.payload;
-  //     default:
-  //       return state;
-  //   }
-  // },
-  // data1: ( state = [], action ) => {
-  //   switch ( action.type ) {
-  //     case PUT_DATA_FROM_API_TO_DATA_1:
-  //       return action.payload;
-  //     default:
-  //       return state;
-  //   }
-  // },
-  // dataAddInLastField: ( state = 0, action ) => {
-  //   switch ( action.type ) {
-  //     case SET_DATA_ADD_IN_LAST_FIELD:
-  //       return action.payload;
-  //     default:
-  //       return state;
-  //   }
-  // },
-  // currentDataCollection: ( state = "data0", action ) => {
-  //   switch ( action.type ) {
-  //     case CHANGE_CURRENT_DATA_COLLECTION:
-  //       if ( state === "data0" )
-  //         return "data1";
-  //       return "data0";
-  //     default:
-  //       return state;
-  //   }
-  // },
-  // index: ( state = 0, action ) => {
-  //   switch ( action.type ) {
-  //     case DO_INDEX_INCREMENT:
-  //       return state + 1;      
-  //     default:
-  //       return state;
-  //   }
-  // }
 });

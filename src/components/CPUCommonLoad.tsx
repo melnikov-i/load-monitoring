@@ -25,21 +25,20 @@ interface CPUCommonLoadProps {
   // currentDataCollectionItem: DataFromAPIModel,
   // data1,
   // data0,
-  makeRequestToAPI: () => any,
-  // doDeferredIndexIncrement: () => any,
+  makeFirstRequestToAPI: (payload: string) => any,
+  makeNextRequestToAPI: (count: string, interval: number) => any,
+  doDeferredIndexIncrement: (payload: number) => any,
 }
 
 export const CPUCommonLoad: React.SFC<CPUCommonLoadProps> = (props) => {
   const {
     CommonDataModel,
-    // currentDataCollection,
-    // dataAddInLastField,
-    // currentDataCollectionItem,
-    makeRequestToAPI,
-    // doDeferredIndexIncrement,
+    makeFirstRequestToAPI,
+    makeNextRequestToAPI,
+    doDeferredIndexIncrement,
   } = props;
 
-  console.log('[COMMON_DATA_MODEL]:', CommonDataModel);
+  // console.log('[COMMON_DATA_MODEL]:', CommonDataModel);
 
   // console.log(
   //   '[COMPONENT:dataAddInLastField]:',
@@ -53,28 +52,35 @@ export const CPUCommonLoad: React.SFC<CPUCommonLoadProps> = (props) => {
 
 
   const getValue = (): number => {
-    // if ( dataAddInLastField === 0 ) {
-    //   const makeRequestToAPIProps: makeRequestToAPIProps = {
-    //     dataAddInLastField: dataAddInLastField,
-    //     currentDataCollection: currentDataCollection,
-    //   }
-    //   makeRequestToAPI(makeRequestToAPIProps);
-    // } else {
-    //   doDeferredIndexIncrement();
-    // }
+    /* Начальное состояние */
+    if ( CommonDataModel.data[CommonDataModel.index].data_add === "" ) {
+      makeFirstRequestToAPI('65');
+      return 0;
+    }
+    
+    console.log(
+      '[COMPONENT] - CommonDataModel.data.length',
+      CommonDataModel.data.length
+    );
 
-    // if ( currentDataCollectionItem !== undefined )
-    //   return Number(currentDataCollectionItem.cpu);
-      
-    return 0;
+    console.log(
+      '[COMPONENT] - CommonDataModel.index',
+      CommonDataModel.index
+    );
 
-    // const makeRequestToAPIProps: makeRequestToAPIProps = {
-    //   dataAddInLastField: dataAddInLastField,
-    //   currentDataCollection: currentDataCollection,
-    // }
-    // if ( dataAddInLastField === 0 ){
-    //   makeRequestToAPI(makeRequestToAPIProps);
-    // }
+    console.log(
+      '[COMPONENT] - DATA_ADD',
+      CommonDataModel.data[CommonDataModel.index].data_add
+    );
+    
+
+    if ( CommonDataModel.data.length - CommonDataModel.index < 5 ) {
+      console.log('[COMPONENT] - makeNextRequestToAPI');
+      makeNextRequestToAPI('65', CommonDataModel.interval);
+    } else {
+      doDeferredIndexIncrement(CommonDataModel.interval);
+    }
+    return Number(CommonDataModel.data[CommonDataModel.index].cpu);
   };
 
   const getColor = ( value: number ) => {
@@ -86,28 +92,6 @@ export const CPUCommonLoad: React.SFC<CPUCommonLoadProps> = (props) => {
   
   const value = getValue();
   const color = getColor(value);
-
-  // setTimeout(
-  //   () => {
-  //     console.log('[TIMEOUT]:');
-  //     console.log('[CURRENT_INDEX]:', CPUCommonLoadCurrentItem)
-  //     console.log(getCPUCommonLoadNextItem);
-  //       makeRequestToServer();
-  //     if (value > 0 ) {
-  //       getCPUCommonLoadNextItem(CPUCommonLoadCurrentItem + 1);
-  //     }
-  //   },
-  //   1000
-  // );
-
-  const testHandler = () => {
-    // const makeRequestToAPIProps: makeRequestToAPIProps = {
-    //   dataAddInLastField: dataAddInLastField,
-    //   currentDataCollection: currentDataCollection,
-    // }
-    // makeRequestToAPI(makeRequestToAPIProps);
-    makeRequestToAPI();
-  }
 
   return (
     <div>
@@ -125,9 +109,6 @@ export const CPUCommonLoad: React.SFC<CPUCommonLoadProps> = (props) => {
           </PieChartInternalBoundary>
         </PieChartOuterBoundary>
       </PieChartWrapper>
-      <button onClick={testHandler}>
-        TEST
-      </button>
     </div>
   );
 }

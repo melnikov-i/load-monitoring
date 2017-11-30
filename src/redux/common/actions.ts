@@ -2,23 +2,18 @@ import axios from 'axios';
 
 import {
   CommonDataInterface,
-                    // DataFromAPIModel,
-                    // makeRequestToAPIProps,
 } from '@src/interfaces';
 import { Dispatch } from '@src/redux';
 
-const getDataFromAPI = () => (
+const getDataFromAPI = (count: string) => (
   axios.get('http://dev.monyze.ru/get_live_load.php?' 
-    + 'machine_id=bcb4e11625385c1ae28e039256a52b78&limit=50')
+    + 'machine_id=bcb4e11625385c1ae28e039256a52b78&limit=' + count)
 );
-
-// interface putDataFromApiToModelPayload {
-//   data: CommonDataInterface['data'],
-//   dataAddInLastField: CommonDataInterface['dataAddInLastField'],
-// }
 
 export const PUT_DATA_FROM_API_TO_MODEL =
 'PUT_DATA_FROM_API_TO_MODEL';
+export const DO_INDEX_INCREMENT =
+'DO_INDEX_INCREMENT';
 
 
 
@@ -33,8 +28,6 @@ export const PUT_DATA_FROM_API_TO_MODEL =
 
 // export const CHANGE_CURRENT_DATA_COLLECTION =
 // 'CHANGE_CURRENT_DATA_COLLECTION';
-// export const DO_INDEX_INCREMENT =
-// 'DO_INDEX_INCREMENT';
 
 
 
@@ -45,6 +38,9 @@ export type Actions = {
     type: typeof PUT_DATA_FROM_API_TO_MODEL,
     payload: CommonDataInterface['data'],
   },
+  DO_INDEX_INCREMENT: {
+    type: typeof DO_INDEX_INCREMENT,
+  }
 
 
 
@@ -64,9 +60,6 @@ export type Actions = {
   // CHANGE_CURRENT_DATA_COLLECTION: {
   //   type: typeof CHANGE_CURRENT_DATA_COLLECTION,
   // },
-  // DO_INDEX_INCREMENT: {
-  //   type: typeof DO_INDEX_INCREMENT,
-  // }
 };
 
 // Sync Action Creators
@@ -75,6 +68,10 @@ export const syncActionCreators = {
   ( payload: CommonDataInterface['data'] ):
   Actions[typeof PUT_DATA_FROM_API_TO_MODEL] => ({
     type: PUT_DATA_FROM_API_TO_MODEL, payload,
+  }),
+  doIndexIncrement:
+  (): Actions[typeof DO_INDEX_INCREMENT] => ({
+    type: DO_INDEX_INCREMENT,
   }),
 
 
@@ -101,33 +98,19 @@ export const syncActionCreators = {
   // (): Actions[typeof CHANGE_CURRENT_DATA_COLLECTION] => ({
   //   type: CHANGE_CURRENT_DATA_COLLECTION,
   // }),
-  // doIndexIncrement:
-  // (): Actions[typeof DO_INDEX_INCREMENT] => ({
-  //   type: DO_INDEX_INCREMENT,
-  // }),
 };
 
 // Async Action Creators
 export const asyncActionCreators = {
-  makeRequestToAPI: () => {
+  makeFirstRequestToAPI:
+  ( payload: string ) => {
     return ( dispatch: Dispatch ) => {
-      getDataFromAPI().then(
+      getDataFromAPI(payload).then(
         ( response ) => {
-          /* Получили данные от API сервера */
-          // const dataFromAPI: CommonDataInterface['data'] = 
-          //   response.data.reverse();
-          /* Отправляем данные в store */
-          // const toStore:putDataFromApiToModelPayload = {
-          //   data: preData,
-          //   dataAddInLastField: Number(
-          //     preData[preData.length - 1].data_add
-          //   ),
-          // };
           dispatch(
             syncActionCreators
             .putDataFromAPIToModel(response.data.reverse())
-          );
-          
+          );          
         }
       )
       .catch(
@@ -137,11 +120,32 @@ export const asyncActionCreators = {
       );
     };
   },
-  // doDeferredIndexIncrement: () => {
-  //   return ( dispatch: Dispatch ) => {
-  //     setTimeout(() => {
-  //       dispatch(syncActionCreators.doIndexIncrement());
-  //     }, 5100);
-  //   }
-  // }
+  makeNextRequestToAPI:
+  ( count: string, interval: number ) => {
+    return ( dispatch: Dispatch ) => {
+      setTimeout(() => {
+        getDataFromAPI(count).then(
+          ( response ) => {
+            dispatch(
+              syncActionCreators
+              .putDataFromAPIToModel(response.data.reverse())
+            );          
+          }
+        )
+        .catch(
+          ( error ) => {
+            console.log('[ERROR]:', error);
+          }
+        );
+      }, interval);
+    }
+  },
+  doDeferredIndexIncrement: 
+  ( payload: number ) => {
+    return ( dispatch: Dispatch ) => {
+      setTimeout(() => {
+        dispatch(syncActionCreators.doIndexIncrement());
+      }, payload);
+    }
+  }
 };
