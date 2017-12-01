@@ -65,6 +65,7 @@ export const PieChartIndicatorBottom = PieChartIndicatorBottomFunction`
   width: 200px;
   height: 100px;
   background-color: ${(props) => props.color};
+  border-top: 1px solid #fff;
 `;
 
 export const PieChartTextContent = styled.p`
