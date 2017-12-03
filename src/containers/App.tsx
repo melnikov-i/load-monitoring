@@ -1,36 +1,56 @@
 import * as React from 'react';
-import styled from 'styled-components';
+import { Route, Switch } from 'react-router-dom';
+
+import {
+  MainMenu,
+  MainLayout,
+  MainPage,
+  MainTop,
+  MainContent,
+  MainFooter,
+  MainMenuItem,
+  MainMenuLink,
+} from '@src/styled';
 
 import {
   DashBoard,
+  PageOverview,
 } from '@src/containers';
-
-// import CPUCommonLoadConnected from '@src/connected/CPUCommonLoadConnected.usage'
-
-const Wrapper = styled.div`
-  max-width: 960px;
-  background: #aaa;
-  width: 100%;
-  margin: 50px auto 0;
-`;
-
-// const Header = styled.h1`
-//   font-family: 'Verdana', sans-serif;
-//   font-size: 16px;
-//   font-weight: normal;
-//   color: #505050;
-// `;
 
 export const App = () => {
   return (
-    <Wrapper>
-      <h1>Hello, App</h1>
-      <DashBoard />
-    </Wrapper>
+    <MainLayout>
+      <MainMenu>
+        <ul>
+          <MainMenuItem>
+            <MainMenuLink
+              to="/overview"
+            >Обзор Системы</MainMenuLink>
+          </MainMenuItem>
+          <MainMenuItem>
+            <MainMenuLink
+              to="/dashboard"
+            >Устройства</MainMenuLink>
+          </MainMenuItem>
+        </ul>
+      </MainMenu>
+      <MainPage>
+        <MainTop></MainTop>
+        <MainContent>
+          <Switch>
+            <Route exact path="/overview" component={PageOverview} />
+            <Route exact path="/dashboard" component={DashBoard} />            
+          </Switch>
+        </MainContent>
+        <MainFooter></MainFooter>        
+      </MainPage>
+      
+    </MainLayout>
   );
 }
 
 /*
+      <Route path={'/dashboard'} component={DashBoard} />
     <Wrapper>
       <Header>CPU Common Load</Header>
       <CPUCommonLoadConnected />

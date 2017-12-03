@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { HashRouter as Router } from 'react-router-dom';
 
 import {
   DashBoardWrapper,
@@ -16,11 +15,9 @@ interface DashBoardProps {
 
 export const DashBoard: React.SFC<DashBoardProps> = () => {
   return (
-    <Router hashtype={'slash'} basename={'/'}>
-      <DashBoardWrapper>
-        <DashBoardHeadConnected />
-        <DashBoardBodyConnected />
-      </DashBoardWrapper>
-    </Router>
+    <DashBoardWrapper>
+      <DashBoardHeadConnected />
+      <DashBoardBodyConnected />
+    </DashBoardWrapper>
   );
 };

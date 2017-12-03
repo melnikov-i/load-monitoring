@@ -1,4 +1,5 @@
 import styled/*, { StyledFunction }*/ from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 /*
   3 колонки:
@@ -13,17 +14,17 @@ import styled/*, { StyledFunction }*/ from 'styled-components';
     Ширина отступов: 1 х 3.125 
     Ширина колонок: 2 х 48.4375% ( 96.875% )
 
+  Серые элементы: #e0e0e0
+
 */
 
 export const DashBoardWrapper = styled.div`
   width: 100%;
   height: 300px;
-  background-color: #eee;
 `;
 
 export const DashBoardTop = styled.div`
-  border-bottom: 2px solid #ddd;
-  height: 30px;
+  height: 35px;
   width: 100%;
 `;
 
@@ -45,7 +46,7 @@ export const DashBoardMainHeader = styled.h1`
 
 export const DashBoardIntervalsAndSettingsWrapper = styled.div`
   width: 48.437599999999998%;
-  height: 30px;
+  height: 35px;
   display: inline-block;
   vertical-align: top;
   position: relative;
@@ -62,10 +63,10 @@ export const DashBoardSettingsWrapper = styled.div`
 export const DashBoardSettings = styled.a`
   display: inline-block;
   vertical-align: top;
-  background-color: #8AAD2E;
-  width: 90px;
-  height: 30px;
-  line-height: 30px;
+  background-color: #1AB394;
+  width: 100px;
+  height: 35px;
+  line-height: 35px;
   text-align: center;
   border-radius: 4px;
   text-transform: uppercase;
@@ -81,4 +82,26 @@ export const DashBoardSettings = styled.a`
 export const DashBoardMenuWrapper = styled.div`
   width: 100%;
   height: 40px;
+`;
+
+export const DashBoardMenuItem = styled.li`
+  list-style-position: inside;
+  list-style-type: none;
+  display: inline-block;
+  vertical-align: top;
+  padding: 0 10px;
+`;
+
+export const DashBoardMenuLink = styled(NavLink)`
+  font-size: 14px;
+  font-family: 'Verdana', sans-serif;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  color: #a7b1c2;
+  &::selection {
+    background: transparent;
+  }
 `;
