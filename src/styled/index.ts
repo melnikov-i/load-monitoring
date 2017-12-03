@@ -1,5 +1,6 @@
 export * from './CPUCommonLoadStyled';
-export * from './DashBoardHeadStyled';
+export * from './DevicesStyled';
+export * from './DashBoardStyled';
 export * from './DashBoardBodyStyled';
 export * from './OverviewStyled';
 export * from './AppStyled';

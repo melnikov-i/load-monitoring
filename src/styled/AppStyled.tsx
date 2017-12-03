@@ -53,8 +53,9 @@ export const MainMenuItem = styled.li`
 `;
 
 export const MainMenuLink = styled(NavLink)`
-  font-size: 16px;
-  font-family: 'Verdana', sans-serif;
+  font-size: 13px;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-weightt: bold;
   text-align: center;
   text-decoration: none;
   display: block;

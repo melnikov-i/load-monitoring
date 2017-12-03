@@ -13,7 +13,7 @@ import {
 } from '@src/styled';
 
 import {
-  DashBoard,
+  Devices,
   PageOverview,
 } from '@src/containers';
 
@@ -29,7 +29,7 @@ export const App = () => {
           </MainMenuItem>
           <MainMenuItem>
             <MainMenuLink
-              to="/dashboard"
+              to="/devices"
             >Устройства</MainMenuLink>
           </MainMenuItem>
         </ul>
@@ -39,7 +39,8 @@ export const App = () => {
         <MainContent>
           <Switch>
             <Route exact path="/overview" component={PageOverview} />
-            <Route exact path="/dashboard" component={DashBoard} />            
+            <Route exact path={'/devices'} component={Devices} />
+            <Route exact path={'/'} component={PageOverview} />
           </Switch>
         </MainContent>
         <MainFooter></MainFooter>        
@@ -48,12 +49,3 @@ export const App = () => {
     </MainLayout>
   );
 }
-
-/*
-      <Route path={'/dashboard'} component={DashBoard} />
-    <Wrapper>
-      <Header>CPU Common Load</Header>
-      <CPUCommonLoadConnected />
-    </Wrapper>
-
-*/
