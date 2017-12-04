@@ -1,23 +1,6 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
-/*
-  3 колонки:
-  ----------
-    
-    Ширина отступов: 2 х 3.125% ( 6.25% )
-    Ширина колонок: 3 х 31.25% ( 93.75% )
-
-  2 колонки:
-  ----------
-
-    Ширина отступов: 1 х 3.125 
-    Ширина колонок: 2 х 48.4375% ( 96.875% )
-
-  Серые элементы: #e0e0e0
-
-*/
-
 export const DashBoardLayout = styled.div`
   width: 100%;
   padding: 10px 20px;

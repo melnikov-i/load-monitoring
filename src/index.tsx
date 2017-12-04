@@ -35,6 +35,16 @@ injectGlobal`
   }
   .activeMainMenuItem {
     background-color: #293846;
+    color: #fff;
+    &::before {
+      content: "";
+      display: inline-block;
+      vertical-align: top;
+      width: 5px;
+      height: 100%;
+      background-color: #19aa8d;
+      margin-right: 20px;
+    }
   }
   @font-face {
     font-family: 'FontAwesome';
@@ -60,3 +70,4 @@ const Root: JSX.Element = (
 render(
   Root, document.getElementById('app')
 );
+

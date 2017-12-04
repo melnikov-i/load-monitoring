@@ -1,5 +1,10 @@
-import styled from 'styled-components';
+import styled, { StyledFunction } from 'styled-components';
 import { NavLink } from 'react-router-dom';
+
+import { MainMenuLinkIconProps } from '@src/interfaces';
+
+const MainMenuLinkIconFunction: StyledFunction<MainMenuLinkIconProps> =
+  styled.span;
 
 const HeaderProfile = require('@src/images/HeaderProfile');
 const Logo = require('@src/images/Logo');
@@ -83,6 +88,7 @@ export const MainMenuItem = styled.li`
   list-style-type: none;
 `;
 
+
 export const MainMenuLink = styled(NavLink)`
   font-size: 13px;
   font-weight: 600;
@@ -97,10 +103,24 @@ export const MainMenuLink = styled(NavLink)`
   &:hover {
     color: #fff;
   }
-  ::before {
-    content: "\f1fe";
+  &::before {
+    content: "";
+    display: inline-block;
+    vertical-align: top;
+    width: 5px;
+    height: 100%;
+    margin-right: 20px;
+}
+`;
+
+export const MainMenuLinkIcon = MainMenuLinkIconFunction`
+  &::before {
+    content: "${ (props) => props.value }";
+    display: inline-block;
+    vertical-align: top;
     font-family: 'FontAwesome';
-    font-size: 13px;
+    font-size: 28px;
+    width: 40px;
   }
 `;
 

@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-
-
 import {
   MainMenu,
   MainLayout,
@@ -12,6 +10,7 @@ import {
   MainFooter,
   MainMenuItem,
   MainMenuLink,
+  MainMenuLinkIcon,
   // MainMenuLinkBefore,
   MainMenuLogoWrapper,
   MainMenuLogo,
@@ -30,24 +29,23 @@ export const App = () => {
           <MainMenuLogo></MainMenuLogo>
         </MainMenuLogoWrapper>
         <ul>
-          <MainMenuItem>
-            
+          <MainMenuItem>            
             <MainMenuLink
               to={'/overview'}
               activeClassName={'activeMainMenuItem'}
-            >Обзор Системы</MainMenuLink>
+            ><MainMenuLinkIcon value={'\f0e8'} />Обзор Системы</MainMenuLink>
           </MainMenuItem>
           <MainMenuItem>
             <MainMenuLink
               to={'/devices'}
               activeClassName={'activeMainMenuItem'}
-            >Устройства</MainMenuLink>
+            ><MainMenuLinkIcon value={'\f233'} />Устройства</MainMenuLink>
           </MainMenuItem>
           <MainMenuItem>
             <MainMenuLink
               to={'/settings'}
               activeClassName={'activeMainMenuItem'}
-            >Настройка</MainMenuLink>
+            ><MainMenuLinkIcon value={'\f013'} />Настройка</MainMenuLink>
           </MainMenuItem>
         </ul>
       </MainMenu>
