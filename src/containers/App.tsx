@@ -10,6 +10,8 @@ import {
   MainFooter,
   MainMenuItem,
   MainMenuLink,
+  MainMenuLogoWrapper,
+  MainMenuLogo,
 } from '@src/styled';
 
 import {
@@ -19,8 +21,11 @@ import {
 
 export const App = () => {
   return (
-    <MainLayout>
+    <MainLayout>      
       <MainMenu>
+        <MainMenuLogoWrapper>
+          <MainMenuLogo></MainMenuLogo>
+        </MainMenuLogoWrapper>
         <ul>
           <MainMenuItem>
             <MainMenuLink

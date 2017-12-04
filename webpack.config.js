@@ -17,7 +17,7 @@ const webpackConfig = {
   },
   "devtool": 'source-map',
   "resolve": {
-    "extensions": ['.ts', '.tsx', '.js', '.json'],
+    "extensions": ['.ts', '.tsx', '.js', '.json', '.png'],
     "alias": {
       "@src": path.resolve(__dirname, './src')
     }
@@ -33,6 +33,18 @@ const webpackConfig = {
         "enforce": 'pre',
         "test": /\.js$/,
         "use": 'source-map-loader'
+      },
+      {
+        "test": /\.png$/,
+        "exclude": /(node_modules)/,
+        "use": {
+          "loader": 'url-loader',
+          "options": {
+            "limit": 10000,
+            "mimetype": 'image/png',
+            "name": '/images/[name].[ext]'
+          }
+        }
       }
     ]
   },

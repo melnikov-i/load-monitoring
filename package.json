@@ -19,6 +19,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "core-js": "^2.5.1",
+    "file-loader": "^1.1.5",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-redux": "^5.0.6",
@@ -27,7 +28,8 @@
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
     "styled-components": "^2.2.3",
-    "tslib": "^1.8.0"
+    "tslib": "^1.8.0",
+    "url-loader": "^0.6.2"
   },
   "devDependencies": {
     "@types/react": "^16.0.25",

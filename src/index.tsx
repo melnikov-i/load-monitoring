@@ -23,6 +23,7 @@ injectGlobal`
 
   #app {
     width: 100%;
+    min-width: 700px;
     height: 100%;
   }
 `;

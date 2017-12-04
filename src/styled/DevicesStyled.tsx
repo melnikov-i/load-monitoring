@@ -1,9 +1,26 @@
 import styled from 'styled-components';
 
+import {
+  Table,
+  TableHead,
+  TableHeadRow,
+  TableHeadColl,
+  TableHeadCollBigWidth,
+} from './TableStyled';
+
+import {
+  MIDDLE_SCREEN_MAX,
+} from '@src/styled';
+
+const DevicesTableHeadCollMargin = '1.53846153799998%';
+
 export const DevicesLayout = styled.div`
   box-sizing: border-box;
   width: 100%;
   padding: 20px 30px;
+  @media screen and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+    padding: 20px 5px;
+  }
 `;
 
 export const DevicesHeader = styled.h1`
@@ -11,39 +28,33 @@ export const DevicesHeader = styled.h1`
   font-weight: semibold;
 `;
 
-export const DevicesTable = styled.table`
-  width: 100%;
-  border-spacing: 0;
+export const DevicesTable = styled(Table)``;
+
+export const DevicesTableHead = styled(TableHead)``;
+
+export const DevicesTableHeadRow = styled(TableHeadRow)``;
+
+export const DevicesTableHeadColl = styled(TableHeadColl)`
+  margin-right: ${ DevicesTableHeadCollMargin };
 `;
 
-export const DevicesTableHead = styled.thead`
+export const DevicesTableHeadCollDev = DevicesTableHeadColl.extend`
+  padding-left: 23px;
+  width: calc(${ TableHeadCollBigWidth } * 2);
 `;
 
-export const DevicesTableHeadRow = styled.tr`
-  display: inline-block;
-  width: 100%;
-  border-bottom: 1px solid #e7eaec;
+export const DevicesTableHeadCollIP = DevicesTableHeadColl.extend`
+  width: calc(${ TableHeadCollBigWidth } * 2);
 `;
 
-export const DevicesTableHeadColl = styled.th`
-  display: inline-block;
-  vertical-align: top;
-  font-size: 12px;
-  font-weight: normal;
-  width: 7.40909090799998%;
-  margin-right: 1.51515151499998%;
-  background-color: green;
-  text-align: left;
+export const DevicesTableHeadCollInfo = DevicesTableHeadColl.extend`
+  width: calc(${ TableHeadCollBigWidth } * 4);
 `;
 
-export const DevicesTableHeadFirstColl = DevicesTableHeadColl.extend`
-  width: 2%;
+export const DevicesTableHeadCollLoad = DevicesTableHeadColl.extend`
+  width: calc(${ TableHeadCollBigWidth } * 2);
 `;
 
-export const DevicesTableHeadLastColl = DevicesTableHeadColl.extend`
+export const DevicesTableHeadLastColl = styled(TableHeadColl)`
   margin-right: 0;
-`;
-
-export const DevicesTableHeadBigColl = DevicesTableHeadColl.extend`
-  width: 53.03030302999998%;
 `;

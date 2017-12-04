@@ -7,9 +7,11 @@ import {
   DevicesTableHead,
   DevicesTableHeadRow,
   DevicesTableHeadColl,
-  DevicesTableHeadFirstColl,
+  DevicesTableHeadCollDev,
+  DevicesTableHeadCollIP,
+  DevicesTableHeadCollLoad,
   DevicesTableHeadLastColl,
-  DevicesTableHeadBigColl,
+  DevicesTableHeadCollInfo,
 } from '@src/styled';
 
 interface DevicesProps {
@@ -23,25 +25,22 @@ export const Devices: React.SFC<DevicesProps> = () => {
       <DevicesTable>
         <DevicesTableHead>
           <DevicesTableHeadRow>
-            <DevicesTableHeadFirstColl></DevicesTableHeadFirstColl>
-            <DevicesTableHeadColl>
+            <DevicesTableHeadCollDev>
               {'Устройство'}
-            </DevicesTableHeadColl>
-            <DevicesTableHeadColl>
+            </DevicesTableHeadCollDev>
+            <DevicesTableHeadCollIP>
               {'IP-адрес'}
-            </DevicesTableHeadColl>
-            <DevicesTableHeadBigColl>
+            </DevicesTableHeadCollIP>
+            <DevicesTableHeadCollInfo>
               {'Информация о системе'}
-            </DevicesTableHeadBigColl>
-            <DevicesTableHeadColl>
+            </DevicesTableHeadCollInfo>
+            <DevicesTableHeadCollLoad>
               {'Нагрузка'}
-            </DevicesTableHeadColl>
+            </DevicesTableHeadCollLoad>
             <DevicesTableHeadColl>
               {'Статус'}
             </DevicesTableHeadColl>
-            <DevicesTableHeadLastColl>
-              {'Устройство'}
-            </DevicesTableHeadLastColl>
+            <DevicesTableHeadLastColl></DevicesTableHeadLastColl>
           </DevicesTableHeadRow>
         </DevicesTableHead>
       </DevicesTable>
