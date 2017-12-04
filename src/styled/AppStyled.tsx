@@ -81,23 +81,31 @@ export const MainFooter = styled.div`
 export const MainMenuItem = styled.li`
   list-style-position: inside;
   list-style-type: none;
-  padding: 0 10px;
 `;
 
 export const MainMenuLink = styled(NavLink)`
   font-size: 13px;
-  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-  font-weightt: bold;
-  text-align: center;
+  font-weight: 600;
   text-decoration: none;
   display: block;
-  height: 20px;
-  line-height: 20px;
+  height: 46px;
+  line-height: 46px;
   color: #a7b1c2;
   &::selection {
     background: transparent;
   }
+  &:hover {
+    color: #fff;
+  }
+  ::before {
+    content: "\f1fe";
+    font-family: 'FontAwesome';
+    font-size: 13px;
+  }
 `;
+
+// 'export const MainMenuLinkBefore = styled(TestFontAwesome)`
+// `;'
 
 export const MainMenuLogoWrapper = styled.div`
   width: 100%;
@@ -108,6 +116,17 @@ export const MainMenuLogoWrapper = styled.div`
   background-size: cover;
   padding: 30px 25px;
   box-sizing: border-box;
+  @media screen 
+    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      background-image: none;
+      height: 30px;
+      padding: 0;
+    }
+  @media screen
+    and (max-width: ${ SMALL_SCREEN_MAX }) {
+      display: none;
+    }
 `;
 
 export const MainMenuLogo = styled.div`
@@ -117,5 +136,24 @@ export const MainMenuLogo = styled.div`
   background-position: left-top;
   background-repeat: no-repeat;
   background-size: 60%;
+    @media screen 
+    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      &::before {
+        content: "Monyze";
+        display: block;
+        font-size: 16px;
+        font-weight: 600;
+        height: 70px;
+        line-height: 70px;
+        color: #fff;
+        text-align: center;
+      }
+      background-image: none;
+
+    }
+  @media screen
+    and (max-width: ${ SMALL_SCREEN_MAX }) {
+      display: none;
+    }
 `;
-  // background-color: green;

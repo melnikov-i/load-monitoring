@@ -1,5 +1,5 @@
 export const MENU_BIG_WIDTH: string = '220px';
-export const MENU_MIDDLE_WIDTH: string = '100px';
+export const MENU_MIDDLE_WIDTH: string = '70px';
 export const MENU_SMALL_WIDTH: string = '0';
 export const MENU_LOGO_HEIGHT: string = '156px';
 export const MIDDLE_SCREEN_MAX: string = '940px';

@@ -4,8 +4,15 @@ import { Provider } from 'react-redux';
 import { HashRouter as Router } from 'react-router-dom';
 import { injectGlobal } from 'styled-components';
 
+const FontAwesomeEOT = require('@src/fonts/fontawesome-webfont.eot');
+const FontAwesomeWOFF2 = require('@src/fonts/fontawesome-webfont.woff2');
+const FontAwesomeWOFF = require('@src/fonts/fontawesome-webfont.woff');
+const FontAwesomeTTF = require('@src/fonts/fontawesome-webfont.ttf');
+const FontAwesomeSVG = require('@src/fonts/fontawesome-webfont.svg');
+
 import store from './store';
 import { App } from '@src/containers';
+
 
 injectGlobal`
   * {
@@ -26,12 +33,26 @@ injectGlobal`
     min-width: 700px;
     height: 100%;
   }
+  .activeMainMenuItem {
+    background-color: #293846;
+  }
+  @font-face {
+    font-family: 'FontAwesome';
+    src: url('${FontAwesomeEOT}?v=4.7.0');
+    src: url('${FontAwesomeEOT}?#iefix&v=4.7.0') format('embedded-opentype'), 
+         url('${FontAwesomeWOFF2}?v=4.7.0') format('woff2'), 
+         url('${FontAwesomeWOFF}?v=4.7.0') format('woff'), 
+         url('${FontAwesomeTTF}?v=4.7.0') format('truetype'), 
+         url('${FontAwesomeSVG}?v=4.7.0#fontawesomeregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+  }
 `;
 
 const Root: JSX.Element = (
   <Provider store={ store }>
     <Router hashType={'slash'} basename={'/'}>
-      <App />      
+      <App />
     </Router>
   </Provider>
 );
