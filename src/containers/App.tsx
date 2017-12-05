@@ -2,16 +2,16 @@ import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import {
-  MainMenu,
   MainLayout,
   MainPage,
   MainTop,
   MainContent,
   MainFooter,
+  MainMenu,
+  MainMenuLayout,
   MainMenuItem,
   MainMenuLink,
   MainMenuLinkIcon,
-  // MainMenuLinkBefore,
   MainMenuLogoWrapper,
   MainMenuLogo,
 } from '@src/styled';
@@ -28,7 +28,7 @@ export const App = () => {
         <MainMenuLogoWrapper>
           <MainMenuLogo></MainMenuLogo>
         </MainMenuLogoWrapper>
-        <ul>
+        <MainMenuLayout>
           <MainMenuItem>            
             <MainMenuLink
               to={'/overview'}
@@ -47,7 +47,7 @@ export const App = () => {
               activeClassName={'activeMainMenuItem'}
             ><MainMenuLinkIcon value={'\f013'} />Настройка</MainMenuLink>
           </MainMenuItem>
-        </ul>
+        </MainMenuLayout>
       </MainMenu>
       <MainPage>
         <MainTop></MainTop>

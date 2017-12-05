@@ -45,6 +45,20 @@ export const MainMenu = styled.div`
     }
 `;
 
+export const MainMenuLayout = styled.ul`
+  margin-top: 10px;
+    @media screen 
+    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      margin-top: 40px;
+    }
+  @media screen
+    and (max-width: ${ SMALL_SCREEN_MAX }) {
+      width: ${ MENU_SMALL_WIDTH };
+      display: none;
+    }
+`;
+
 export const MainPage = styled.div`
   width: calc(100% - ${ MENU_BIG_WIDTH });
   margin-left: ${ MENU_BIG_WIDTH };
@@ -110,7 +124,20 @@ export const MainMenuLink = styled(NavLink)`
     width: 5px;
     height: 100%;
     margin-right: 20px;
-}
+  }
+  @media screen 
+    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      font-size: 0;
+      &::before {
+        content: "";
+        display: inline-block;
+        vertical-align: top;
+        width: 5px;
+        height: 100%;
+        margin-right: 12px;
+      }
+    }
 `;
 
 export const MainMenuLinkIcon = MainMenuLinkIconFunction`
@@ -119,19 +146,28 @@ export const MainMenuLinkIcon = MainMenuLinkIconFunction`
     display: inline-block;
     vertical-align: top;
     font-family: 'FontAwesome';
-    font-size: 28px;
-    width: 40px;
+    font-size: 14px;
+    width: 20px;
   }
+    @media screen 
+    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      &::before {
+        content: "${ (props) => props.value }";
+        display: inline-block;
+        vertical-align: top;
+        font-family: 'FontAwesome';
+        font-size: 42px;
+        width: 42px;
+      }      
+    }
 `;
-
-// 'export const MainMenuLinkBefore = styled(TestFontAwesome)`
-// `;'
 
 export const MainMenuLogoWrapper = styled.div`
   width: 100%;
   height: ${ MENU_LOGO_HEIGHT };
   background-image: url( ${ HeaderProfile } );
-  background-position: center-center;
+  background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
   padding: 30px 25px;
@@ -153,7 +189,7 @@ export const MainMenuLogo = styled.div`
   width: 100%;
   height: 100%;
   background-image: url( ${ Logo } );
-  background-position: left-top;
+  background-position: left top;
   background-repeat: no-repeat;
   background-size: 60%;
     @media screen 

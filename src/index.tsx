@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { HashRouter as Router } from 'react-router-dom';
 import { injectGlobal } from 'styled-components';
 
 const FontAwesomeEOT = require('@src/fonts/fontawesome-webfont.eot');
@@ -10,8 +9,13 @@ const FontAwesomeWOFF = require('@src/fonts/fontawesome-webfont.woff');
 const FontAwesomeTTF = require('@src/fonts/fontawesome-webfont.ttf');
 const FontAwesomeSVG = require('@src/fonts/fontawesome-webfont.svg');
 
+import {
+  MIDDLE_SCREEN_MAX,
+  MIDDLE_SCREEN_MIN,
+} from '@src/styled';
+
 import store from './store';
-import { App } from '@src/containers';
+import MainConnected from '@src/connected/MainConnected.usage';
 
 
 injectGlobal`
@@ -45,6 +49,19 @@ injectGlobal`
       background-color: #19aa8d;
       margin-right: 20px;
     }
+    @media screen 
+    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      font-size: 0;
+      &::before {
+        content: "";
+        display: inline-block;
+        vertical-align: top;
+        width: 5px;
+        height: 100%;
+        margin-right: 12px;
+      }
+    }
   }
   @font-face {
     font-family: 'FontAwesome';
@@ -61,9 +78,7 @@ injectGlobal`
 
 const Root: JSX.Element = (
   <Provider store={ store }>
-    <Router hashType={'slash'} basename={'/'}>
-      <App />
-    </Router>
+    <MainConnected />
   </Provider>
 );
 

@@ -34,66 +34,38 @@ store = {
 }
 
 
-По умолчанию:
-  currentData: "data0"
-  isInitialState: true
+App AJAX
+--------
 
-Действия (Actions):
-  changeCurrentData()
-  putDateTimeInLastField(response.data[last].date_time)
-  putDataFromAPIToStore(response.data.reverse())
-  resetIndex()
+app = [
+  {
+    to: string
+    value: string,
+    icon: string,
+    children: []
+  },
+];
 
-  getDataFromAPI(dateTimeInLastField)
-    Асинхронный запрос, выполняет подзапросы:
-      - в случае успешного запроса:
-          получить response.data
-          реверсировать.
-
-        (Если dateTimeInLastField === 0) 
-          putDateTimeInLastField(response.data[last].date_time)
-        (Иначе)
-          // только не через map, а через for (let i in response.data)
-          response.data.map((e, i) => {
-            if ( e.date_time > dateTimeInLastField )
-              return e;
-          })
-          создать новый массив и его запихнуть в стор.
-          вывести длину нового массива в консоль.
-
-
-        putDataFromAPIToStore(response.data.reverse())
-          отдать в Store
-        
+menu = [
+  {
+    to: "/overview",
+    value: "Обзор Системы",
+    icon: "\f0e8",
+    children: [],
+  },
+  {
+    to: "/overview",
+    value: "Устройства",
+    
+  }
+]
 
 
-Условия:
-  В момент запуска стор пуст, проверить isInitialState => Запросить данные
 
 
-Экшены можно обрабатывать в компоненте.
 
-Интервал выставлять в reselect
-
-
-Состояние 0
------------
-
-data0 = [];
-data1 = [];
-currentDataCollection = "data0";
-dataAddInLastField = 0
-
-  Запрос данных у API
-  Помещение данных в data0
-  В data0 - 50 записей
-  В dataAddInLastField - значение времени последней записи (той, что ближе к текущему времени)
-
-
-Состояние 2
------------
-
-data0 = [{...}];
-data1 = [];
-currentDataCollection = "data0";
-dataAddInLastField = 111111111;
+App.tsx
+-------
+  @src/connected/MainMenuConnected.usage - Основное меню
+    @src/connected/MainMenuConnected
+      @src/components/MainMenu
