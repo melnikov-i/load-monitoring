@@ -6,3 +6,4 @@ export * from './DashBoardBodyStyled';
 export * from './OverviewStyled';
 export * from './MainStyled';
 export * from './TableStyled';
+export * from './SpinnerStyled';
