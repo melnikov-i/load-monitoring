@@ -5,21 +5,31 @@ import { CircularSpinnerProps } from '@src/interfaces';
 const CircularSpinnerFunction: StyledFunction<CircularSpinnerProps> =
   styled.div;
 
-const 
-
 import {
-  
+  MIDDLE_SCREEN_MIN,
+  MIDDLE_SCREEN_MAX,
+  SMALL_SCREEN_MAX
 } from '@src/styled';
 
 export const SpinnerLayout = styled.div`
   width: 240px;
   height: 240px;
-  position: relative;
+  background-color: rgba(0, 0, 255, .4);
+  position: fixed;
   top: 50%;
   left: 50%;
+  margin-top: -120px;
+  margin-left: -10px;
+  @media screen 
+    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      margin-left: -95px;
+    }
+  @media screen
+    and (max-width: ${ SMALL_SCREEN_MAX }) {
+      margin-left: -120px;
+    }
 `;
-  // margin-top: -120px;
-  // margin-left: -120px;
 
 export const CircularSpinner = CircularSpinnerFunction`
   background-color: orange;
@@ -29,7 +39,7 @@ export const CircularSpinner = CircularSpinnerFunction`
   width: calc(${ props => props.width } * 10);
   height: calc(${ props => props.width } * 10);
   box-shadow: inset 0 0 0 ${ props => props.width };
-  
+  margin: ${ props => (120 - Number(props.width) * 5)} auto;
   &::before {
     content: '';
     width: calc(${ props => props.width } * 6);
