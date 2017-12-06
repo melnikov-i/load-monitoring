@@ -15,14 +15,7 @@ import {
 } from '@src/styled';
 
 import store from './store';
-// import MainConnected from '@src/connected/MainConnected.usage';
-
-import {
-  SpinnerLayout,
-  DottedSpinner,
-  CircularSpinner
-} from '@src/styled';
-
+import MainConnected from '@src/connected/MainConnected.usage';
 
 injectGlobal`
   * {
@@ -84,18 +77,7 @@ injectGlobal`
 
 const Root: JSX.Element = (
   <Provider store={ store }>
-    <div>
-    <SpinnerLayout>
-      <CircularSpinner 
-        width={'62.5px'}
-        color={'#2f4050'}
-      >Load</CircularSpinner>
-    </SpinnerLayout>
-    <SpinnerLayout>
-      <DottedSpinner>Load</DottedSpinner>
-    </SpinnerLayout>
-      
-    </div>
+    <MainConnected />
   </Provider>
 );
 
@@ -103,4 +85,3 @@ render(
   Root, document.getElementById('app')
 );
 
-    // <MainConnected />

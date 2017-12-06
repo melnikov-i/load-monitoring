@@ -87,6 +87,7 @@ export const MainTop = styled.div`
 export const MainContent = styled.div`
   width: 100%;
   min-height: calc(100% - ${ TOP_HEIGHT } - ${ FOOTER_HEIGHT });
+  background-color: rgba(0, 255, 255, .4);
 `;
 
 export const MainFooter = styled.div`
