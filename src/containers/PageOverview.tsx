@@ -1,7 +1,7 @@
 import * as React from 'react';
 // import styled from 'styled-components';
 
-import SpinnerConnected from '@src/connected/SpinnerConnected.usage';
+import { Spinner } from '@src/components';
 
 // const Styledh3 = styled.h3`
 //   font-size: 16px;
@@ -14,5 +14,5 @@ import SpinnerConnected from '@src/connected/SpinnerConnected.usage';
 // `;
 
 export const PageOverview: React.SFC<undefined> = () => {
-  return (<SpinnerConnected />);
+  return (<Spinner width={5} color={'#2f4050'} />);
 }
