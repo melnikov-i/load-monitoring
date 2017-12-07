@@ -1,8 +1,10 @@
-interface CircularSpinnerInterface {
-  width: string,
+export interface CircularSpinnerInterface {
+  width: number,
   color: string,
-  degBefore: string,
-  degAfter: string,
+  deg: {
+    before: number,
+    after: number,
+  }
 }
 
 export type CircularSpinnerProps = 

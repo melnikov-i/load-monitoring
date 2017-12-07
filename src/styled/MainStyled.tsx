@@ -87,7 +87,7 @@ export const MainTop = styled.div`
 export const MainContent = styled.div`
   width: 100%;
   min-height: calc(100% - ${ TOP_HEIGHT } - ${ FOOTER_HEIGHT });
-  background-color: rgba(0, 255, 255, .4);
+  background-color: #fff;
 `;
 
 export const MainFooter = styled.div`
@@ -213,4 +213,8 @@ export const MainMenuLogo = styled.div`
     and (max-width: ${ SMALL_SCREEN_MAX }) {
       display: none;
     }
+`;
+
+export const TestMain = styled.button`
+  font-size: 16px;
 `;

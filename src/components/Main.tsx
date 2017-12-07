@@ -14,6 +14,7 @@ import {
   MainMenuLinkIcon,
   MainMenuLogoWrapper,
   MainMenuLogo,
+  TestMain,
 } from '@src/styled';
 
 import {
@@ -22,10 +23,15 @@ import {
 } from '@src/containers';
 
 interface MainProps {
-
+  MainMenuModel: any,
+  makeMenuRequestToAPI: () => any,
 }
 
 export const Main: React.SFC<MainProps> = (props) => {
+  const { makeMenuRequestToAPI } = props;
+  const testHandler = () => {
+    makeMenuRequestToAPI();
+  }
   return (
     <Router hashType={'slash'} basename={'/'}>
       <MainLayout>      
@@ -54,6 +60,7 @@ export const Main: React.SFC<MainProps> = (props) => {
               ><MainMenuLinkIcon value={'\f013'} />Настройка</MainMenuLink>
             </MainMenuItem>
           </MainMenuLayout>
+        <TestMain onClick={testHandler}>Test</TestMain>
         </MainMenu>
         <MainPage>
           <MainTop></MainTop>
