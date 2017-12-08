@@ -11,6 +11,7 @@ import {
   MainMenuLayout,
   MainMenuItem,
   MainMenuLink,
+  MainMenuLinkSpan,
   MainMenuLinkIcon,
   MainMenuLogoWrapper,
   MainMenuLogo,
@@ -24,43 +25,80 @@ import {
 
 interface MainProps {
   MainMenuModel: any,
+  CompositeFieldSwitch: boolean,
   makeMenuRequestToAPI: () => any,
+  compositeFieldChangeState: (payload: boolean) => any,
 }
 
 export const Main: React.SFC<MainProps> = (props) => {
-  const { makeMenuRequestToAPI } = props;
+  const {
+    makeMenuRequestToAPI,
+    CompositeFieldSwitch,
+    // compositeFieldChangeState,
+  } = props;
+  
+  console.log('[CompositeFieldSwitch]', CompositeFieldSwitch)
+
   const testHandler = () => {
     makeMenuRequestToAPI();
   }
+
+  const CompositeFieldActiveHandler = (match, location) => {
+    // if ( !match ) {
+    //   return false;
+    // } else {
+      console.log('[match]', match);
+      console.log('[location]', location);
+    //   return true;
+    // }
+    // compositeFieldChangeState(false);
+  }
+
   return (
     <Router hashType={'slash'} basename={'/'}>
-      <MainLayout>      
-
+      <MainLayout>
         <MainMenu>
           <MainMenuLogoWrapper>
             <MainMenuLogo></MainMenuLogo>
           </MainMenuLogoWrapper>
           <MainMenuLayout>
-            <MainMenuItem>            
+            <MainMenuItem>
               <MainMenuLink
                 to={'/overview'}
                 activeClassName={'activeMainMenuItem'}
-              ><MainMenuLinkIcon value={'\f0e8'} />Обзор Системы</MainMenuLink>
+                 isActive={CompositeFieldActiveHandler}
+              ><MainMenuLinkIcon icon={'\f0e8'} />
+                <MainMenuLinkSpan fontSize={'13px'}>
+                  {'Обзор Системы'}
+                </MainMenuLinkSpan>
+              </MainMenuLink>
             </MainMenuItem>
             <MainMenuItem>
               <MainMenuLink
                 to={'/devices'}
                 activeClassName={'activeMainMenuItem'}
-              ><MainMenuLinkIcon value={'\f233'} />Устройства</MainMenuLink>
+                isActive={CompositeFieldActiveHandler}
+              ><MainMenuLinkIcon icon={'\f233'} />
+                <MainMenuLinkSpan fontSize={'13px'}>
+                  {'Устройства'}                  
+                </MainMenuLinkSpan>
+              </MainMenuLink>
             </MainMenuItem>
             <MainMenuItem>
               <MainMenuLink
                 to={'/settings'}
                 activeClassName={'activeMainMenuItem'}
-              ><MainMenuLinkIcon value={'\f013'} />Настройка</MainMenuLink>
+                isActive={CompositeFieldActiveHandler}
+              ><MainMenuLinkIcon icon={'\f013'} />
+                <MainMenuLinkSpan fontSize={'13px'}>
+                  {'Настройка'}
+                </MainMenuLinkSpan>
+              </MainMenuLink>
             </MainMenuItem>
           </MainMenuLayout>
+          
         <TestMain onClick={testHandler}>Test</TestMain>
+        
         </MainMenu>
         <MainPage>
           <MainTop></MainTop>
@@ -71,7 +109,7 @@ export const Main: React.SFC<MainProps> = (props) => {
               <Route exact path={'/'} component={PageOverview} />
             </Switch>
           </MainContent>
-          <MainFooter></MainFooter>        
+          <MainFooter></MainFooter>
         </MainPage>      
       </MainLayout>
     </Router>

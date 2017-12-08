@@ -7,7 +7,17 @@ const MainMenuModel =
   state.main.MainMenuModel
 );
 
+const CompositeFieldSwitch =
+( state: RootState ) => (
+  state.main.CompositeFieldSwitch
+);
+
 export const MainMenuModelSelector = createSelector(
   [MainMenuModel],
   ( MainMenuModel ) => MainMenuModel
+);
+
+export const CompositeFieldSwitchSelector = createSelector(
+  [CompositeFieldSwitch],
+  ( CompositeFieldSwitch ) => CompositeFieldSwitch
 );

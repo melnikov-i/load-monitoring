@@ -1,9 +1,15 @@
 import styled, { StyledFunction } from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
-import { MainMenuLinkIconProps } from '@src/interfaces';
+import {
+  MainMenuLinkIconProps,
+  MainMenuLinkSpanProps
+} from '@src/interfaces';
 
 const MainMenuLinkIconFunction: StyledFunction<MainMenuLinkIconProps> =
+  styled.span;
+
+const MainMenuLinkSpanFunction: StyledFunction<MainMenuLinkSpanProps> =
   styled.span;
 
 const HeaderProfile = require('@src/images/HeaderProfile');
@@ -47,6 +53,7 @@ export const MainMenu = styled.div`
 
 export const MainMenuLayout = styled.ul`
   margin-top: 10px;
+  width: 100%;
     @media screen 
     and (min-width: ${ MIDDLE_SCREEN_MIN }) 
     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
@@ -56,6 +63,80 @@ export const MainMenuLayout = styled.ul`
     and (max-width: ${ SMALL_SCREEN_MAX }) {
       width: ${ MENU_SMALL_WIDTH };
       display: none;
+    }
+`;
+
+export const MainMenuItem = styled.li`
+  list-style-position: inside;
+  list-style-type: none;
+`;
+
+
+export const MainMenuLink = styled(NavLink)`
+  text-decoration: none;
+  display: block;
+  height: 46px;
+  line-height: 46px;
+  color: #a7b1c2;
+  &::selection {
+    background: transparent;
+  }
+  &:hover {
+    color: #fff;
+  }
+  &::before {
+    content: "";
+    display: inline-block;
+    vertical-align: top;
+    width: 5px;
+    height: 100%;
+    margin-right: 20px;
+  }
+  @media screen 
+    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      font-size: 0;
+      &::before {
+        content: "";
+        display: inline-block;
+        vertical-align: top;
+        width: 5px;
+        height: 100%;
+        margin-right: 12px;
+      }
+    }  
+`;
+
+export const MainMenuLinkSpan = MainMenuLinkSpanFunction`
+  font-size: ${ props => props.fontSize };
+  font-weight: 600;
+  @media screen 
+    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      font-size: 0;
+    }
+`;
+
+export const MainMenuLinkIcon = MainMenuLinkIconFunction`
+  &::before {
+    content: "${ (props) => props.icon }";
+    display: inline-block;
+    vertical-align: top;
+    font-family: 'FontAwesome';
+    font-size: 14px;
+    width: 20px;
+  }
+    @media screen 
+    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      &::before {
+        content: "${ (props) => props.icon }";
+        display: inline-block;
+        vertical-align: top;
+        font-family: 'FontAwesome';
+        font-size: 42px;
+        width: 42px;
+      }      
     }
 `;
 
@@ -95,73 +176,6 @@ export const MainFooter = styled.div`
   height: ${ FOOTER_HEIGHT };
   box-sizing: border-box;
   border-top: 1px solid #e7eaec;
-`;
-
-
-export const MainMenuItem = styled.li`
-  list-style-position: inside;
-  list-style-type: none;
-`;
-
-
-export const MainMenuLink = styled(NavLink)`
-  font-size: 13px;
-  font-weight: 600;
-  text-decoration: none;
-  display: block;
-  height: 46px;
-  line-height: 46px;
-  color: #a7b1c2;
-  &::selection {
-    background: transparent;
-  }
-  &:hover {
-    color: #fff;
-  }
-  &::before {
-    content: "";
-    display: inline-block;
-    vertical-align: top;
-    width: 5px;
-    height: 100%;
-    margin-right: 20px;
-  }
-  @media screen 
-    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      font-size: 0;
-      &::before {
-        content: "";
-        display: inline-block;
-        vertical-align: top;
-        width: 5px;
-        height: 100%;
-        margin-right: 12px;
-      }
-    }
-`;
-
-export const MainMenuLinkIcon = MainMenuLinkIconFunction`
-  &::before {
-    content: "${ (props) => props.value }";
-    display: inline-block;
-    vertical-align: top;
-    font-family: 'FontAwesome';
-    font-size: 14px;
-    width: 20px;
-  }
-    @media screen 
-    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      &::before {
-        content: "${ (props) => props.value }";
-        display: inline-block;
-        vertical-align: top;
-        font-family: 'FontAwesome';
-        font-size: 42px;
-        width: 42px;
-      }      
-    }
 `;
 
 export const MainMenuLogoWrapper = styled.div`

@@ -5,12 +5,12 @@ import {
 } from '@src/interfaces';
 
 import {
-  // DO_INDEX_INCREMENT,
-} from '@src/redux/spinner';
+  COMPOSITE_FIELD_CHANGE_STATE
+} from '@src/redux/main';
 
 export type State = {
   readonly MainMenuModel: any, // Поменять на интерфейс основного меню
-  // readonly CircularSpinnerModel: CircularSpinnerInterface['deg'],
+  readonly CompositeFieldSwitch: boolean,
 };
 
 export const reducer = combineReducers({
@@ -19,16 +19,22 @@ export const reducer = combineReducers({
       default:
         return state;
     }
+  },
+  CompositeFieldSwitch: ( state = false, action ) => {
+    switch ( action.type ) {
+      case COMPOSITE_FIELD_CHANGE_STATE:
+        return action.payload;
+      default:
+        return state;
+    }
   }
-  // CircularSpinnerModel: ( state = CircularSpinnerInitialState, action ) => {
-  //   switch ( action.type ) {
-  //     case DO_INCREMENT_OF_BEFORE_VALUE:
-  //       return {
-  //         ...state,
-  //         before: ( action.payload >= 720 ) ? 0 : action.payload + 10
-  //       }
-  //     default:
-  //       return state;
-  //   }
-  // }
 });
+
+/*
+  state: {
+    CompositeFieldActiveKey: boolean
+  }
+
+
+
+*/
