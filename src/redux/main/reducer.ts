@@ -1,16 +1,16 @@
 import { combineReducers } from 'redux';
 
 import {
-  
+  MainMenuLinkSpanInterface
 } from '@src/interfaces';
 
 import {
-  COMPOSITE_FIELD_CHANGE_STATE
+  DO_COMPOSITE_SWITCH
 } from '@src/redux/main';
 
 export type State = {
   readonly MainMenuModel: any, // Поменять на интерфейс основного меню
-  readonly CompositeFieldSwitch: boolean,
+  readonly isCompositeActive: MainMenuLinkSpanInterface['isCompositeActive'],
 };
 
 export const reducer = combineReducers({
@@ -20,10 +20,14 @@ export const reducer = combineReducers({
         return state;
     }
   },
-  CompositeFieldSwitch: ( state = false, action ) => {
+  isCompositeActive: ( state = false, action ) => {
     switch ( action.type ) {
-      case COMPOSITE_FIELD_CHANGE_STATE:
-        return action.payload;
+      case DO_COMPOSITE_SWITCH:
+        console.log('[REDUCER]', action.payload);
+        switch ( action.payload ) {
+          case '/devices': return true;
+          default: return false;
+        }
       default:
         return state;
     }
@@ -32,8 +36,17 @@ export const reducer = combineReducers({
 
 /*
   state: {
-    CompositeFieldActiveKey: boolean
-  }
+  mainMenu: [
+    {
+      to: string,
+      icon: string,
+      value: string,
+      childrens: []
+    }
+  ],
+  isCompositeActive: {
+    boolean}
+
 
 
 

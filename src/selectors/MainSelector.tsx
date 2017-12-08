@@ -7,9 +7,9 @@ const MainMenuModel =
   state.main.MainMenuModel
 );
 
-const CompositeFieldSwitch =
+const isCompositeActive =
 ( state: RootState ) => (
-  state.main.CompositeFieldSwitch
+  state.main.isCompositeActive
 );
 
 export const MainMenuModelSelector = createSelector(
@@ -17,7 +17,7 @@ export const MainMenuModelSelector = createSelector(
   ( MainMenuModel ) => MainMenuModel
 );
 
-export const CompositeFieldSwitchSelector = createSelector(
-  [CompositeFieldSwitch],
-  ( CompositeFieldSwitch ) => CompositeFieldSwitch
+export const isCompositeActiveSelector = createSelector(
+  [isCompositeActive],
+  ( isCompositeActive ) => isCompositeActive
 );

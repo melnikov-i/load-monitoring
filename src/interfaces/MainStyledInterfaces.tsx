@@ -5,17 +5,10 @@ export interface MainMenuLinksInterface {
   childrens: MainMenuLinksInterface[],
 }
 
-interface MainMenuLinkIconInterface {
+export interface MainMenuLinkSpanInterface {
   icon: MainMenuLinksInterface['icon'],
+  isCompositeActive: boolean,
 }
-
-interface MainMenuLinkSpanInterface {
-  fontSize: string,
-}
-
-export type MainMenuLinkIconProps = 
-  MainMenuLinkIconInterface & React.HTMLProps<HTMLSpanElement>;
-
 
 export type MainMenuLinkSpanProps =
   MainMenuLinkSpanInterface & React.HTMLProps<HTMLLinkElement>;

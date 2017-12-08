@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import {
-  
+  MainMenuLinksInterface
 } from '@src/interfaces';
 
 import { Dispatch } from '@src/redux';
@@ -12,17 +12,17 @@ const getMenuFromAPI = () => (
 
 export const PUT_MENU_FROM_API_TO_MODEL =
 'PUT_MENU_FROM_API_TO_MODEL';
-export const COMPOSITE_FIELD_CHANGE_STATE =
-'COMPOSITE_FIELD_CHANGE_STATE';
+export const DO_COMPOSITE_SWITCH =
+'DO_COMPOSITE_SWITCH';
 
 export type Actions = {
   PUT_MENU_FROM_API_TO_MODEL: {
     type: typeof PUT_MENU_FROM_API_TO_MODEL,
-    payload: any, // Потом заменить на интерфейс меню
+    payload: MainMenuLinksInterface[],
   },
-  COMPOSITE_FIELD_CHANGE_STATE: {
-    type: typeof COMPOSITE_FIELD_CHANGE_STATE,
-    payload: boolean,
+  DO_COMPOSITE_SWITCH: {
+    type: typeof DO_COMPOSITE_SWITCH,
+    payload: MainMenuLinksInterface['to'],
   }
 };
 
@@ -33,10 +33,10 @@ export const syncActionCreators = {
   Actions[typeof PUT_MENU_FROM_API_TO_MODEL] => ({
     type: PUT_MENU_FROM_API_TO_MODEL, payload
   }),
-  compositeFieldChangeState:
-  ( payload: boolean ):
-  Actions[typeof COMPOSITE_FIELD_CHANGE_STATE] => ({
-    type: COMPOSITE_FIELD_CHANGE_STATE, payload
+  doCompositeSwitch:
+  ( payload: MainMenuLinksInterface['to'] ):
+  Actions[typeof DO_COMPOSITE_SWITCH] => ({
+    type: DO_COMPOSITE_SWITCH, payload
   }),
 };
 

@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 
+import { MainMenuLinksInterface } from '@src/interfaces';
+
 import {
   MainLayout,
   MainPage,
@@ -12,7 +14,7 @@ import {
   MainMenuItem,
   MainMenuLink,
   MainMenuLinkSpan,
-  MainMenuLinkIcon,
+  // MainMenuLinkIcon,
   MainMenuLogoWrapper,
   MainMenuLogo,
   TestMain,
@@ -24,35 +26,34 @@ import {
 } from '@src/containers';
 
 interface MainProps {
+  isCompositeActive: boolean,
   MainMenuModel: any,
-  CompositeFieldSwitch: boolean,
   makeMenuRequestToAPI: () => any,
-  compositeFieldChangeState: (payload: boolean) => any,
+  doCompositeSwitch: ( payload: MainMenuLinksInterface['to'] ) => any,
 }
 
 export const Main: React.SFC<MainProps> = (props) => {
   const {
     makeMenuRequestToAPI,
-    CompositeFieldSwitch,
-    // compositeFieldChangeState,
+    isCompositeActive,
+    doCompositeSwitch,
   } = props;
   
-  console.log('[CompositeFieldSwitch]', CompositeFieldSwitch)
+  console.log('[isCompositeActive]', isCompositeActive)
 
   const testHandler = () => {
     makeMenuRequestToAPI();
   }
 
-  const CompositeFieldActiveHandler = (match, location) => {
-    // if ( !match ) {
-    //   return false;
-    // } else {
+  const activeLinkHandler = (match) => {
+    if ( match ) {
       console.log('[match]', match);
-      console.log('[location]', location);
-    //   return true;
-    // }
-    // compositeFieldChangeState(false);
+      doCompositeSwitch(match.path);
+    }
   }
+              // ><MainMenuLinkIcon icon={'\f0e8'} />
+              // ><MainMenuLinkIcon icon={'\f233'} />
+              // ><MainMenuLinkIcon icon={'\f013'} />
 
   return (
     <Router hashType={'slash'} basename={'/'}>
@@ -65,33 +66,36 @@ export const Main: React.SFC<MainProps> = (props) => {
             <MainMenuItem>
               <MainMenuLink
                 to={'/overview'}
-                activeClassName={'activeMainMenuItem'}
-                 isActive={CompositeFieldActiveHandler}
-              ><MainMenuLinkIcon icon={'\f0e8'} />
-                <MainMenuLinkSpan fontSize={'13px'}>
-                  {'Обзор Системы'}
+                isActive={activeLinkHandler}
+                activeStyle={{
+                  color: 'red',
+                }}
+              ><MainMenuLinkSpan 
+                isCompositeActive={isCompositeActive}
+                icon={'\f0e8'}
+              >{'Обзор Системы'}
                 </MainMenuLinkSpan>
               </MainMenuLink>
             </MainMenuItem>
             <MainMenuItem>
               <MainMenuLink
                 to={'/devices'}
-                activeClassName={'activeMainMenuItem'}
-                isActive={CompositeFieldActiveHandler}
-              ><MainMenuLinkIcon icon={'\f233'} />
-                <MainMenuLinkSpan fontSize={'13px'}>
-                  {'Устройства'}                  
+                isActive={activeLinkHandler}
+              ><MainMenuLinkSpan 
+                isCompositeActive={isCompositeActive}
+                icon={'\f233'}
+              >{'Устройства'}                  
                 </MainMenuLinkSpan>
               </MainMenuLink>
             </MainMenuItem>
             <MainMenuItem>
               <MainMenuLink
                 to={'/settings'}
-                activeClassName={'activeMainMenuItem'}
-                isActive={CompositeFieldActiveHandler}
-              ><MainMenuLinkIcon icon={'\f013'} />
-                <MainMenuLinkSpan fontSize={'13px'}>
-                  {'Настройка'}
+                isActive={activeLinkHandler}
+              ><MainMenuLinkSpan 
+                isCompositeActive={isCompositeActive}
+                icon={'\f013'}
+              >{'Настройка'}
                 </MainMenuLinkSpan>
               </MainMenuLink>
             </MainMenuItem>

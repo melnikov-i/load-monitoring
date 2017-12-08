@@ -8,18 +8,17 @@ import { Main } from '@src/components';
 
 import {
   MainMenuModelSelector,
-  CompositeFieldSwitchSelector
+  isCompositeActiveSelector
 } from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector({
   MainMenuModel: MainMenuModelSelector,
-  CompositeFieldSwitch: CompositeFieldSwitchSelector,
+  isCompositeActive: isCompositeActiveSelector,
 });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
   makeMenuRequestToAPI: asyncActionCreators.makeMenuRequestToAPI,
-  compositeFieldChangeState: 
-    syncActionCreators.compositeFieldChangeState,
+  doCompositeSwitch: syncActionCreators.doCompositeSwitch,
 }, dispatch);
 
 export const MainConnected = 

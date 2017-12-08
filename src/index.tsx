@@ -36,6 +36,7 @@ injectGlobal`
     min-width: 700px;
     height: 100%;
   }
+  
   .activeMainMenuItem {
     background-color: #293846;
     color: #fff;
@@ -62,6 +63,7 @@ injectGlobal`
       }
     }
   }
+
   @font-face {
     font-family: 'FontAwesome';
     src: url('${FontAwesomeEOT}?v=4.7.0');

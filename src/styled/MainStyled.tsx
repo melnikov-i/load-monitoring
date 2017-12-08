@@ -2,12 +2,11 @@ import styled, { StyledFunction } from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 import {
-  MainMenuLinkIconProps,
   MainMenuLinkSpanProps
 } from '@src/interfaces';
 
-const MainMenuLinkIconFunction: StyledFunction<MainMenuLinkIconProps> =
-  styled.span;
+// const MainMenuLinkIconFunction: StyledFunction<MainMenuLinkIconProps> =
+//   styled.span;
 
 const MainMenuLinkSpanFunction: StyledFunction<MainMenuLinkSpanProps> =
   styled.span;
@@ -71,13 +70,44 @@ export const MainMenuItem = styled.li`
   list-style-type: none;
 `;
 
+  // &::before {
+  //   content: "";
+  //   display: inline-block;
+  //   vertical-align: top;
+  //   width: 5px;
+  //   height: 100%;
+  //   margin-right: 20px;
+  // }
+  // @media screen 
+  //   and (min-width: ${ MIDDLE_SCREEN_MIN }) 
+  //   and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+  //     font-size: 0;
+  //     &::before {
+  //       content: "";
+  //       display: inline-block;
+  //       vertical-align: top;
+  //       width: 5px;
+  //       height: 100%;
+  //       margin-right: 12px;
+  //     }
+  //   }  
+  // background-color: #293846;
 
 export const MainMenuLink = styled(NavLink)`
-  text-decoration: none;
   display: block;
+  width: 100%;
+  height: 46px;
+  text-decoration: none;
+`;
+
+export const MainMenuLinkSpan = MainMenuLinkSpanFunction`
+  display: block;
+  width: 100%;
   height: 46px;
   line-height: 46px;
   color: #a7b1c2;
+  font-size: ${ props => ( props.isCompositeActive ? '0' : '13px' ) };
+  font-weight: 600;
   &::selection {
     background: transparent;
   }
@@ -85,60 +115,37 @@ export const MainMenuLink = styled(NavLink)`
     color: #fff;
   }
   &::before {
-    content: "";
-    display: inline-block;
-    vertical-align: top;
-    width: 5px;
-    height: 100%;
-    margin-right: 20px;
-  }
-  @media screen 
-    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      font-size: 0;
-      &::before {
-        content: "";
-        display: inline-block;
-        vertical-align: top;
-        width: 5px;
-        height: 100%;
-        margin-right: 12px;
-      }
-    }  
-`;
-
-export const MainMenuLinkSpan = MainMenuLinkSpanFunction`
-  font-size: ${ props => props.fontSize };
-  font-weight: 600;
-  @media screen 
-    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      font-size: 0;
-    }
-`;
-
-export const MainMenuLinkIcon = MainMenuLinkIconFunction`
-  &::before {
     content: "${ (props) => props.icon }";
     display: inline-block;
     vertical-align: top;
     font-family: 'FontAwesome';
-    font-size: 14px;
+    font-size: ${ props => ( props.isCompositeActive ? '42px' : '14px' ) };
     width: 20px;
   }
-    @media screen 
+  
+  @media screen
     and (min-width: ${ MIDDLE_SCREEN_MIN }) 
     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      &::before {
-        content: "${ (props) => props.icon }";
-        display: inline-block;
-        vertical-align: top;
-        font-family: 'FontAwesome';
-        font-size: 42px;
-        width: 42px;
-      }      
+      font-size: 0;
     }
 `;
+
+// export const MainMenuLinkIcon = MainMenuLinkIconFunction`
+//   &::before {
+//   }
+//     @media screen 
+//     and (min-width: ${ MIDDLE_SCREEN_MIN }) 
+//     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+//       &::before {
+//         content: "${ (props) => props.icon }";
+//         display: inline-block;
+//         vertical-align: top;
+//         font-family: 'FontAwesome';
+//         font-size: 42px;
+//         width: 42px;
+//       }      
+//     }
+// `;
 
 export const MainPage = styled.div`
   width: calc(100% - ${ MENU_BIG_WIDTH });
