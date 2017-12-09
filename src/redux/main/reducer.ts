@@ -1,21 +1,26 @@
 import { combineReducers } from 'redux';
 
 import {
+  MainMenuLinksInterface,
   MainMenuLinkSpanInterface
 } from '@src/interfaces';
 
 import {
-  DO_COMPOSITE_SWITCH
+  PUT_MENU_FROM_API_TO_MODEL,
+  DO_COMPOSITE_SWITCH,
 } from '@src/redux/main';
 
 export type State = {
-  readonly MainMenuModel: any, // Поменять на интерфейс основного меню
-  readonly isCompositeActive: MainMenuLinkSpanInterface['isCompositeActive'],
+  readonly MainMenuModel: MainMenuLinksInterface[],
+  readonly isCompositeActive: 
+  MainMenuLinkSpanInterface['isCompositeActive'],
 };
 
 export const reducer = combineReducers({
   MainMenuModel: ( state = [], action ) => {
     switch ( action.type ) {
+      case PUT_MENU_FROM_API_TO_MODEL:
+        return [...action.payload];
       default:
         return state;
     }
@@ -33,21 +38,3 @@ export const reducer = combineReducers({
     }
   }
 });
-
-/*
-  state: {
-  mainMenu: [
-    {
-      to: string,
-      icon: string,
-      value: string,
-      childrens: []
-    }
-  ],
-  isCompositeActive: {
-    boolean}
-
-
-
-
-*/

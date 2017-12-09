@@ -2,14 +2,18 @@ import styled, { StyledFunction } from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 import {
-  MainMenuLinkSpanProps
+  MainMenuLinkSpanProps,
+  MainMenuLayoutProps
 } from '@src/interfaces';
-
-// const MainMenuLinkIconFunction: StyledFunction<MainMenuLinkIconProps> =
-//   styled.span;
 
 const MainMenuLinkSpanFunction: StyledFunction<MainMenuLinkSpanProps> =
   styled.span;
+
+const MainMenuLayoutFunction: StyledFunction<MainMenuLayoutProps> =
+  styled.ul;
+
+const MainMenuSubLayoutFunction: StyledFunction<MainMenuLayoutProps> =
+  styled.ul;
 
 const HeaderProfile = require('@src/images/HeaderProfile');
 const Logo = require('@src/images/Logo');
@@ -24,6 +28,12 @@ import {
   MIDDLE_SCREEN_MIN,
   TOP_HEIGHT,
   FOOTER_HEIGHT,
+  BIG_LINK_HEIGHT,
+  SUB_LINK_HEIGHT,
+  FA_BIG_FONT_SIZE,
+  FA_SMALL_FONT_SIZE,
+  SUB_MENU_WIDTH,
+  SUB_MENU_TOP_POSITION
 } from '@src/styled';
 
 export const MainLayout = styled.div`
@@ -34,6 +44,7 @@ export const MainLayout = styled.div`
 export const MainMenu = styled.div`
   width: ${ MENU_BIG_WIDTH };
   height: 100%;
+  positon: relative;
   background-color: #2f4050;
   position: fixed;
   top: 0;
@@ -50,10 +61,16 @@ export const MainMenu = styled.div`
     }
 `;
 
-export const MainMenuLayout = styled.ul`
+export const MainMenuLayout = MainMenuLayoutFunction`
   margin-top: 10px;
-  width: 100%;
-    @media screen 
+  width: ${
+    props => (
+      props.isCompositeActive
+      ? `${ MENU_MIDDLE_WIDTH }` 
+      : '100%'
+    )
+  };
+  @media screen 
     and (min-width: ${ MIDDLE_SCREEN_MIN }) 
     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
       margin-top: 40px;
@@ -65,48 +82,64 @@ export const MainMenuLayout = styled.ul`
     }
 `;
 
+export const MainMenuSubLayout = MainMenuSubLayoutFunction`
+  display: ${
+    props => (
+      props.isCompositeActive
+      ? 'block'
+      : 'none'
+    )
+  };
+  background-color: #293846;
+  width: ${ SUB_MENU_WIDTH };
+  height: calc(100% - ${ SUB_MENU_TOP_POSITION });
+  position: absolute;
+  top: ${ SUB_MENU_TOP_POSITION };
+  left: ${ MENU_MIDDLE_WIDTH };
+  padding-top: 5px;
+  @media screen 
+    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      display: none;
+    }
+`;
+
 export const MainMenuItem = styled.li`
   list-style-position: inside;
   list-style-type: none;
 `;
 
-  // &::before {
-  //   content: "";
-  //   display: inline-block;
-  //   vertical-align: top;
-  //   width: 5px;
-  //   height: 100%;
-  //   margin-right: 20px;
-  // }
-  // @media screen 
-  //   and (min-width: ${ MIDDLE_SCREEN_MIN }) 
-  //   and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-  //     font-size: 0;
-  //     &::before {
-  //       content: "";
-  //       display: inline-block;
-  //       vertical-align: top;
-  //       width: 5px;
-  //       height: 100%;
-  //       margin-right: 12px;
-  //     }
-  //   }  
-  // background-color: #293846;
-
 export const MainMenuLink = styled(NavLink)`
   display: block;
-  width: 100%;
-  height: 46px;
   text-decoration: none;
+  color: #a7b1c2;
+  margin-bottom: 5px;
+  &::before {
+    content: "";
+    display: inline-block;
+    vertical-align: top;
+    width: 5px;
+    height: ${ BIG_LINK_HEIGHT };
+  }
+  @media screen 
+    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {}
+`;
+
+  export const MainMenuSubLink = MainMenuLink.extend`
+  height: ${ SUB_LINK_HEIGHT };
+  margin-bottom: 2px;
+  &::before {
+    height: ${ SUB_LINK_HEIGHT };
+  }
 `;
 
 export const MainMenuLinkSpan = MainMenuLinkSpanFunction`
-  display: block;
-  width: 100%;
-  height: 46px;
-  line-height: 46px;
-  color: #a7b1c2;
-  font-size: ${ props => ( props.isCompositeActive ? '0' : '13px' ) };
+  display: inline-block;
+  vertical-align: top;
+  height: ${ BIG_LINK_HEIGHT };
+  line-height: ${ BIG_LINK_HEIGHT };
+  font-size: ${ props => ( props.isCompositeActive ? '0' : '13px' )};
   font-weight: 600;
   &::selection {
     background: transparent;
@@ -119,33 +152,52 @@ export const MainMenuLinkSpan = MainMenuLinkSpanFunction`
     display: inline-block;
     vertical-align: top;
     font-family: 'FontAwesome';
-    font-size: ${ props => ( props.isCompositeActive ? '42px' : '14px' ) };
-    width: 20px;
-  }
-  
+    margin-left: ${
+      props => (
+        props.isCompositeActive 
+        ? '8px' 
+        : '20px' 
+      )
+    };
+    margin-right: ${
+      props => ( 
+        props.isCompositeActive 
+        ? '0' 
+        : '10px' 
+      )
+    };
+    font-size: ${
+      props => (
+        props.isCompositeActive
+        ? `${ FA_BIG_FONT_SIZE }` 
+        : `${ FA_SMALL_FONT_SIZE }` 
+      )
+    };
+  }  
   @media screen
     and (min-width: ${ MIDDLE_SCREEN_MIN }) 
     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
       font-size: 0;
+      &::before {
+        font-size: ${ FA_BIG_FONT_SIZE };
+        margin-left: 8px;
+        margin-right: 0;
+      }
     }
 `;
 
-// export const MainMenuLinkIcon = MainMenuLinkIconFunction`
-//   &::before {
-//   }
-//     @media screen 
-//     and (min-width: ${ MIDDLE_SCREEN_MIN }) 
-//     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-//       &::before {
-//         content: "${ (props) => props.icon }";
-//         display: inline-block;
-//         vertical-align: top;
-//         font-family: 'FontAwesome';
-//         font-size: 42px;
-//         width: 42px;
-//       }      
-//     }
-// `;
+export const MainMenuSubLinkSpan = MainMenuLinkSpan.extend`
+  height: 18px;
+  line-height: 18px;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0;
+  &::before {
+    margin-left: 8px;
+    font-size: 14px;
+    width: 20px;
+  }
+`;
 
 export const MainPage = styled.div`
   width: calc(100% - ${ MENU_BIG_WIDTH });
@@ -217,18 +269,17 @@ export const MainMenuLogo = styled.div`
     @media screen 
     and (min-width: ${ MIDDLE_SCREEN_MIN }) 
     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      background-image: none;
       &::before {
         content: "Monyze";
         display: block;
-        font-size: 16px;
+        font-size: 12px;
         font-weight: 600;
         height: 70px;
         line-height: 70px;
         color: #fff;
         text-align: center;
       }
-      background-image: none;
-
     }
   @media screen
     and (max-width: ${ SMALL_SCREEN_MAX }) {
@@ -236,6 +287,3 @@ export const MainMenuLogo = styled.div`
     }
 `;
 
-export const TestMain = styled.button`
-  font-size: 16px;
-`;

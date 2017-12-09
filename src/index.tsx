@@ -9,11 +9,6 @@ const FontAwesomeWOFF = require('@src/fonts/fontawesome-webfont.woff');
 const FontAwesomeTTF = require('@src/fonts/fontawesome-webfont.ttf');
 const FontAwesomeSVG = require('@src/fonts/fontawesome-webfont.svg');
 
-import {
-  MIDDLE_SCREEN_MAX,
-  MIDDLE_SCREEN_MIN,
-} from '@src/styled';
-
 import store from './store';
 import MainConnected from '@src/connected/MainConnected.usage';
 
@@ -41,26 +36,7 @@ injectGlobal`
     background-color: #293846;
     color: #fff;
     &::before {
-      content: "";
-      display: inline-block;
-      vertical-align: top;
-      width: 5px;
-      height: 100%;
       background-color: #19aa8d;
-      margin-right: 20px;
-    }
-    @media screen 
-    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      font-size: 0;
-      &::before {
-        content: "";
-        display: inline-block;
-        vertical-align: top;
-        width: 5px;
-        height: 100%;
-        margin-right: 12px;
-      }
     }
   }
 

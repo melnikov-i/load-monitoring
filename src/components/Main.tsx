@@ -1,5 +1,9 @@
 import * as React from 'react';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  HashRouter as Router,
+  Route,
+  Switch
+} from 'react-router-dom';
 
 import { MainMenuLinksInterface } from '@src/interfaces';
 
@@ -13,11 +17,12 @@ import {
   MainMenuLayout,
   MainMenuItem,
   MainMenuLink,
+  MainMenuSubLink,
   MainMenuLinkSpan,
-  // MainMenuLinkIcon,
+  MainMenuSubLinkSpan,
   MainMenuLogoWrapper,
   MainMenuLogo,
-  TestMain,
+  MainMenuSubLayout
 } from '@src/styled';
 
 import {
@@ -26,34 +31,36 @@ import {
 } from '@src/containers';
 
 interface MainProps {
-  isCompositeActive: boolean,
-  MainMenuModel: any,
+  MainMenuModel: MainMenuLinksInterface[],
   makeMenuRequestToAPI: () => any,
-  doCompositeSwitch: ( payload: MainMenuLinksInterface['to'] ) => any,
+
+  isCompositeActive: boolean,
+  doCompositeSwitch: 
+  ( payload: MainMenuLinksInterface['to'] ) => any,
 }
 
 export const Main: React.SFC<MainProps> = (props) => {
   const {
+    MainMenuModel,
     makeMenuRequestToAPI,
-    isCompositeActive,
-    doCompositeSwitch,
+    // isCompositeActive,
+    // doCompositeSwitch,
   } = props;
-  
-  console.log('[isCompositeActive]', isCompositeActive)
 
-  const testHandler = () => {
-    makeMenuRequestToAPI();
-  }
-
-  const activeLinkHandler = (match) => {
-    if ( match ) {
-      console.log('[match]', match);
-      doCompositeSwitch(match.path);
+  const getMainMenu = (): MainMenuLinksInterface[] => {
+    if ( MainMenuModel.length === 0 ) {
+      makeMenuRequestToAPI();
+      return [];
+    } else {
+      return MainMenuModel;
     }
-  }
-              // ><MainMenuLinkIcon icon={'\f0e8'} />
-              // ><MainMenuLinkIcon icon={'\f233'} />
-              // ><MainMenuLinkIcon icon={'\f013'} />
+  };
+
+  const mainMenuItems: MainMenuLinksInterface[] = getMainMenu();
+  const isCompositeActive: boolean = false;
+  
+  console.log('[MainMenu]', MainMenuModel)
+
 
   return (
     <Router hashType={'slash'} basename={'/'}>
@@ -62,55 +69,62 @@ export const Main: React.SFC<MainProps> = (props) => {
           <MainMenuLogoWrapper>
             <MainMenuLogo></MainMenuLogo>
           </MainMenuLogoWrapper>
-          <MainMenuLayout>
-            <MainMenuItem>
-              <MainMenuLink
-                to={'/overview'}
-                isActive={activeLinkHandler}
-                activeStyle={{
-                  color: 'red',
-                }}
-              ><MainMenuLinkSpan 
-                isCompositeActive={isCompositeActive}
-                icon={'\f0e8'}
-              >{'Обзор Системы'}
-                </MainMenuLinkSpan>
-              </MainMenuLink>
-            </MainMenuItem>
-            <MainMenuItem>
-              <MainMenuLink
-                to={'/devices'}
-                isActive={activeLinkHandler}
-              ><MainMenuLinkSpan 
-                isCompositeActive={isCompositeActive}
-                icon={'\f233'}
-              >{'Устройства'}                  
-                </MainMenuLinkSpan>
-              </MainMenuLink>
-            </MainMenuItem>
-            <MainMenuItem>
-              <MainMenuLink
-                to={'/settings'}
-                isActive={activeLinkHandler}
-              ><MainMenuLinkSpan 
-                isCompositeActive={isCompositeActive}
-                icon={'\f013'}
-              >{'Настройка'}
-                </MainMenuLinkSpan>
-              </MainMenuLink>
-            </MainMenuItem>
+          <MainMenuLayout isCompositeActive={isCompositeActive}>
+          {
+            mainMenuItems.map((e, i) =>{
+              return (
+                <MainMenuItem key={i}>
+                  <MainMenuLink
+                    to={'/' + e.to}
+                    activeClassName={'activeMainMenuItem'}
+                  ><MainMenuLinkSpan 
+                      isCompositeActive={isCompositeActive}
+                      icon={'\\' + e.icon}
+                      height={'46px'}
+                    >{e.value}</MainMenuLinkSpan>
+                  </MainMenuLink>
+                  {
+                    ( e.childrens !== undefined )
+                    ? <MainMenuSubLayout
+                      isCompositeActive={isCompositeActive}
+                    >
+                      { e.childrens.map((e, i) => {
+                        return (
+                          <MainMenuItem key={i}>
+                            <MainMenuSubLink
+                              to={'/devices/' + e.to}
+                              activeClassName={'activeSubMenuItem'}
+                            ><MainMenuSubLinkSpan
+                                isCompositeActive={false}
+                                icon={'\\' + e.icon}
+                              >{e.value}</MainMenuSubLinkSpan>
+                            </MainMenuSubLink>
+                            }
+                          </MainMenuItem>
+                        );
+                      })
+                    }
+                    </MainMenuSubLayout>
+                    : null }
+                </MainMenuItem>
+              );
+            })
+          }
           </MainMenuLayout>
-          
-        <TestMain onClick={testHandler}>Test</TestMain>
-        
         </MainMenu>
         <MainPage>
           <MainTop></MainTop>
           <MainContent>
             <Switch>
-              <Route exact path="/overview" component={PageOverview} />
-              <Route exact path={'/devices'} component={Devices} />
-              <Route exact path={'/'} component={PageOverview} />
+              <Route
+                exact path="/overview"
+                component={PageOverview} />
+              <Route
+                exact path={'/devices'}
+                component={Devices} />
+              <Route 
+                exact path={'/'}
+                component={PageOverview} />
             </Switch>
           </MainContent>
           <MainFooter></MainFooter>
