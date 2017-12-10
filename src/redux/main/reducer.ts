@@ -6,33 +6,39 @@ import {
 } from '@src/interfaces';
 
 import {
-  PUT_MENU_FROM_API_TO_MODEL,
-  DO_COMPOSITE_SWITCH,
+  PUT_MAIN_MENU_FROM_API_TO_MODEL,
+  PUT_DEVICES_MENU_FROM_API_TO_MODEL,
+  DO_DEVICES_MENU_VIEW_SWITCH,
 } from '@src/redux/main';
 
 export type State = {
   readonly MainMenuModel: MainMenuLinksInterface[],
-  readonly isCompositeActive: 
-  MainMenuLinkSpanInterface['isCompositeActive'],
+  readonly DevicesMenuModel: MainMenuLinksInterface[],
+  readonly isOpened: 
+  MainMenuLinkSpanInterface['isOpened'],
 };
 
 export const reducer = combineReducers({
   MainMenuModel: ( state = [], action ) => {
     switch ( action.type ) {
-      case PUT_MENU_FROM_API_TO_MODEL:
+      case PUT_MAIN_MENU_FROM_API_TO_MODEL:
         return [...action.payload];
       default:
         return state;
     }
   },
-  isCompositeActive: ( state = false, action ) => {
+  DevicesMenuModel: ( state = [], action ) => {
     switch ( action.type ) {
-      case DO_COMPOSITE_SWITCH:
-        console.log('[REDUCER]', action.payload);
-        switch ( action.payload ) {
-          case '/devices': return true;
-          default: return false;
-        }
+      case PUT_DEVICES_MENU_FROM_API_TO_MODEL:
+        return [...action.payload];
+      default:
+        return state;
+    }
+  },
+  isOpened: ( state = false, action ) => {
+    switch ( action.type ) {
+      case DO_DEVICES_MENU_VIEW_SWITCH:
+        return ( state ) ? false : true;
       default:
         return state;
     }

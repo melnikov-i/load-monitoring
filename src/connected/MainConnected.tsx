@@ -8,17 +8,20 @@ import { Main } from '@src/components';
 
 import {
   MainMenuModelSelector,
-  isCompositeActiveSelector
+  DevicesMenuModelSelector,
+  isOpenedSelector
 } from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector({
   MainMenuModel: MainMenuModelSelector,
-  isCompositeActive: isCompositeActiveSelector,
+  DevicesMenuModel: DevicesMenuModelSelector,
+  isOpened: isOpenedSelector,
 });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
-  makeMenuRequestToAPI: asyncActionCreators.makeMenuRequestToAPI,
-  doCompositeSwitch: syncActionCreators.doCompositeSwitch,
+  makeMainMenuRequestToAPI: asyncActionCreators.makeMainMenuRequestToAPI,
+  makeDevicesMenuRequestToAPI: asyncActionCreators.makeDevicesMenuRequestToAPI,
+  doDevicesMenuViewSwitch: syncActionCreators.doDevicesMenuViewSwitch,
 }, dispatch);
 
 export const MainConnected = 

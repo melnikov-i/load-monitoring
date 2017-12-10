@@ -7,9 +7,14 @@ const MainMenuModel =
   state.main.MainMenuModel
 );
 
-const isCompositeActive =
+const DevicesMenuModel = 
 ( state: RootState ) => (
-  state.main.isCompositeActive
+  state.main.DevicesMenuModel
+);
+
+const isOpened =
+( state: RootState ) => (
+  state.main.isOpened
 );
 
 export const MainMenuModelSelector = createSelector(
@@ -17,7 +22,12 @@ export const MainMenuModelSelector = createSelector(
   ( MainMenuModel ) => MainMenuModel
 );
 
-export const isCompositeActiveSelector = createSelector(
-  [isCompositeActive],
-  ( isCompositeActive ) => isCompositeActive
+export const DevicesMenuModelSelector = createSelector(
+  [DevicesMenuModel],
+  ( DevicesMenuModel ) => DevicesMenuModel
+);
+
+export const isOpenedSelector = createSelector(
+  [isOpened],
+  ( isOpened ) => isOpened
 );

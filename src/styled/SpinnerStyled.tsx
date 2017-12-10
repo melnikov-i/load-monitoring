@@ -62,7 +62,7 @@ export const CircularSpinner = CircularSpinnerFunction.attrs({})`
     top: ${ props => String(Math.imul(props.width, -1))}px;
     left: ${ props => String(Math.imul(props.width, -1))}px;
     transform-origin: 100% 50%;
-    animation: ${ rotateBefore } 4s linear 0s infinite normal;
+    animation: ${ rotateBefore } 2s linear 0s infinite normal;
     background-color: #fff;
   }
   &::after {
@@ -73,7 +73,7 @@ export const CircularSpinner = CircularSpinnerFunction.attrs({})`
     top: ${ props => String(Math.imul(props.width, -1))}px;
     left: ${ props => String(Math.imul(props.width, 5))}px;
     transform-origin: 0% 50%;
-    animation: ${ rotateAfter } 4s linear 0s infinite normal;
+    animation: ${ rotateAfter } 2s linear 0s infinite normal;
     background-color: #fff;
   }
 `;

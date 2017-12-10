@@ -9,58 +9,71 @@ import { MainMenuLinksInterface } from '@src/interfaces';
 
 import {
   MainLayout,
+  MainMenu,
+  MainMenuLogoWrapper,
+  MainMenuLogo,
+  MainMenuWrapper,
+  MainMenuLayout,
+  MainMenuItem,
+  MainMenuLink,
+  MainMenuLinkSpan,
+  DevicesMenuLayout,
+  DoOpenDevices,
+  DevicesMenuLink,
+  DevicesMenuLinkSpan,
   MainPage,
   MainTop,
   MainContent,
   MainFooter,
-  MainMenu,
-  MainMenuLayout,
-  MainMenuItem,
-  MainMenuLink,
-  MainMenuSubLink,
-  MainMenuLinkSpan,
-  MainMenuSubLinkSpan,
-  MainMenuLogoWrapper,
-  MainMenuLogo,
-  MainMenuSubLayout
 } from '@src/styled';
 
 import {
-  Devices,
+  DevicesLoadable,
   PageOverview,
 } from '@src/containers';
 
 interface MainProps {
   MainMenuModel: MainMenuLinksInterface[],
-  makeMenuRequestToAPI: () => any,
-
-  isCompositeActive: boolean,
-  doCompositeSwitch: 
-  ( payload: MainMenuLinksInterface['to'] ) => any,
+  DevicesMenuModel: MainMenuLinksInterface[],
+  isOpened: boolean,
+  makeMainMenuRequestToAPI: () => any,
+  makeDevicesMenuRequestToAPI: () => any,
+  doDevicesMenuViewSwitch: () => any,
 }
 
 export const Main: React.SFC<MainProps> = (props) => {
   const {
     MainMenuModel,
-    makeMenuRequestToAPI,
-    // isCompositeActive,
-    // doCompositeSwitch,
+    DevicesMenuModel,
+    isOpened,
+    makeMainMenuRequestToAPI,
+    makeDevicesMenuRequestToAPI,
+    doDevicesMenuViewSwitch,
   } = props;
 
   const getMainMenu = (): MainMenuLinksInterface[] => {
     if ( MainMenuModel.length === 0 ) {
-      makeMenuRequestToAPI();
+      makeMainMenuRequestToAPI();
       return [];
     } else {
       return MainMenuModel;
     }
   };
-
   const mainMenuItems: MainMenuLinksInterface[] = getMainMenu();
-  const isCompositeActive: boolean = false;
-  
-  console.log('[MainMenu]', MainMenuModel)
 
+  const getDevicesMenu = (): MainMenuLinksInterface[] => {
+    if ( DevicesMenuModel.length === 0 ) {
+      makeDevicesMenuRequestToAPI();
+      return [];
+    } else {
+      return DevicesMenuModel;
+    }
+  }
+  const devicesMenuItems: MainMenuLinksInterface[] = getDevicesMenu();
+  
+  const doOpenDevicesHandler = () => {
+    doDevicesMenuViewSwitch();
+  }
 
   return (
     <Router hashType={'slash'} basename={'/'}>
@@ -69,48 +82,56 @@ export const Main: React.SFC<MainProps> = (props) => {
           <MainMenuLogoWrapper>
             <MainMenuLogo></MainMenuLogo>
           </MainMenuLogoWrapper>
-          <MainMenuLayout isCompositeActive={isCompositeActive}>
-          {
-            mainMenuItems.map((e, i) =>{
-              return (
-                <MainMenuItem key={i}>
-                  <MainMenuLink
-                    to={'/' + e.to}
-                    activeClassName={'activeMainMenuItem'}
-                  ><MainMenuLinkSpan 
-                      isCompositeActive={isCompositeActive}
-                      icon={'\\' + e.icon}
-                      height={'46px'}
-                    >{e.value}</MainMenuLinkSpan>
-                  </MainMenuLink>
-                  {
-                    ( e.childrens !== undefined )
-                    ? <MainMenuSubLayout
-                      isCompositeActive={isCompositeActive}
-                    >
-                      { e.childrens.map((e, i) => {
-                        return (
-                          <MainMenuItem key={i}>
-                            <MainMenuSubLink
-                              to={'/devices/' + e.to}
-                              activeClassName={'activeSubMenuItem'}
-                            ><MainMenuSubLinkSpan
-                                isCompositeActive={false}
-                                icon={'\\' + e.icon}
-                              >{e.value}</MainMenuSubLinkSpan>
-                            </MainMenuSubLink>
-                            }
-                          </MainMenuItem>
-                        );
-                      })
-                    }
-                    </MainMenuSubLayout>
-                    : null }
-                </MainMenuItem>
-              );
-            })
-          }
-          </MainMenuLayout>
+          <MainMenuWrapper>
+            <MainMenuLayout isOpened={isOpened}>
+              {
+                mainMenuItems.map((e, i) => {
+                  return (
+                    <MainMenuItem key={i}>
+                      <MainMenuLink
+                        to={'/' + e.to}
+                        activeClassName={'activeMainMenuItem'}
+                        title={e.value}
+                      >
+                        <MainMenuLinkSpan 
+                          isOpened={isOpened}
+                          icon={'\\' + e.icon}
+                        >
+                          {e.value}
+                        </MainMenuLinkSpan>
+                      </MainMenuLink>
+                    </MainMenuItem>
+                  );
+                })
+              }
+            </MainMenuLayout>
+            <DevicesMenuLayout isOpened={isOpened}>
+              <DoOpenDevices
+                onClick={doOpenDevicesHandler}
+                isOpened={isOpened}
+              ></DoOpenDevices>
+              {
+                devicesMenuItems.map((e, i) => {
+                  return (
+                    <MainMenuItem key={i}>
+                      <DevicesMenuLink
+                        to={'/devices/' + e.to}
+                        activeClassName={'activeDevicesMenuItem'}
+                        title={e.value}
+                      >
+                        <DevicesMenuLinkSpan 
+                          isOpened={isOpened}
+                          icon={'\\' + e.icon}
+                        >
+                          {e.value}
+                        </DevicesMenuLinkSpan>
+                      </DevicesMenuLink>
+                    </MainMenuItem>
+                  );
+                })
+              }
+            </DevicesMenuLayout>
+          </MainMenuWrapper>
         </MainMenu>
         <MainPage>
           <MainTop></MainTop>
@@ -121,7 +142,7 @@ export const Main: React.SFC<MainProps> = (props) => {
                 component={PageOverview} />
               <Route
                 exact path={'/devices'}
-                component={Devices} />
+                component={DevicesLoadable} />
               <Route 
                 exact path={'/'}
                 component={PageOverview} />
@@ -132,4 +153,4 @@ export const Main: React.SFC<MainProps> = (props) => {
       </MainLayout>
     </Router>
   );
-}
+};

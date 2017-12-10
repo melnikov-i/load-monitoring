@@ -2,20 +2,22 @@ export interface MainMenuLinksInterface {
   to: string,
   icon: string,
   value: string,
-  childrens?: MainMenuLinksInterface[],
 }
 
 export interface MainMenuLinkSpanInterface {
   icon: MainMenuLinksInterface['icon'],
-  isCompositeActive: boolean,
+  isOpened: boolean,
 }
 
-interface MainMenuLayoutInterface {
-  isCompositeActive: boolean,
+interface MenuLayoutInterface {
+  isOpened: boolean,
 }
 
 export type MainMenuLinkSpanProps =
   MainMenuLinkSpanInterface & React.HTMLProps<HTMLSpanElement>;
 
-export type MainMenuLayoutProps =
-  MainMenuLayoutInterface & React.HTMLProps<HTMLUListElement>;
+export type MenuLayoutProps =
+  MenuLayoutInterface & React.HTMLProps<HTMLUListElement>;
+
+export type DevicesButtonProps =
+  MenuLayoutInterface & React.HTMLProps<HTMLButtonElement>;

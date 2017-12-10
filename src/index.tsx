@@ -40,6 +40,10 @@ injectGlobal`
     }
   }
 
+  .activeDevicesMenuItem {
+    color: #19aa8d;
+  }
+
   @font-face {
     font-family: 'FontAwesome';
     src: url('${FontAwesomeEOT}?v=4.7.0');
