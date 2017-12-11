@@ -1,18 +1,18 @@
-import * as React from 'react';
-import Loadable, {
-  LoadingComponentProps
-} from 'react-loadable';
+// import * as React from 'react';
+// import Loadable, {
+//   LoadingComponentProps
+// } from 'react-loadable';
 
-const LoadingComponent: React.SFC<LoadingComponentProps> = (props) => {
-  return (
-    <div>
-      { props.error }
-      { props.isLoading }
-      { props.pastDelay }
-      { props.timedOut }
-    </div>
-  );
-};
+// const LoadingComponent: React.SFC<LoadingComponentProps> = (props) => {
+//   return (
+//     <div>
+//       { props.error }
+//       { props.isLoading }
+//       { props.pastDelay }
+//       { props.timedOut }
+//     </div>
+//   );
+// };
 
 // import { Spinner } from '@src/components';
 
@@ -24,20 +24,20 @@ const LoadingComponent: React.SFC<LoadingComponentProps> = (props) => {
 //   }
 // }
 
-function fakeDelay(ms) {
-  return new Promise(resolve => {
-    setTimeout(resolve, ms);
-  });
-}
+// function fakeDelay(ms) {
+//   return new Promise(resolve => {
+//     setTimeout(resolve, ms);
+//   });
+// }
 
-import {
-  // Devices,
-  // PageOverview,
-} from '@src/containers';
+// import {
+//   // Devices,
+//   // PageOverview,
+// } from '@src/containers';
 
-export const DevicesLoadable = Loadable({
-  loader: new Promise(resolve => resolve).then(() => import('./Devices')),
-  loading: LoadingComponent,
-  delay: 2000,
-  timeout: 10000,
-});
+// export const DevicesLoadable = Loadable({
+//   loader: new Promise(resolve => resolve).then(() => import('./Devices')),
+//   loading: LoadingComponent,
+//   delay: 2000,
+//   timeout: 10000,
+// });

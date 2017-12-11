@@ -16,69 +16,69 @@ const getDevicesMenuFromAPI = () => (
 
 /* TEMP MENU (f0c9) */
 
-const menu: MainMenuLinksInterface[] = [
-    {
-      "value": "Обзор системы",
-      "to": "overview",
-      "icon": "f1e5",
-    },
-    {
-      "value": "Устройства",
-      "to": "devices",
-      "icon": "f233",
-    },
-    {
-      "value": "Сообщения",
-      "to": "messages",
-      "icon": "f003",
-    },
-    {
-      "value": "Пользователи",
-      "to": "users",
-      "icon": "f2c0",
-    },
-    {
-      "value": "Настройки",
-      "to": "options",
-      "icon": "f085",
-    },
-    {
-      "value": "Обновление агента",
-      "to": "agent_update",
-      "icon":"f021",
-    },
-    {
-      "value": "Резервные копии",
-      "to": "backups",
-      "icon": "f24d",
-    },
-  ];
+// const menu: MainMenuLinksInterface[] = [
+//     {
+//       "value": "Обзор системы",
+//       "to": "overview",
+//       "icon": "f1e5",
+//     },
+//     {
+//       "value": "Устройства",
+//       "to": "devices",
+//       "icon": "f233",
+//     },
+//     {
+//       "value": "Сообщения",
+//       "to": "messages",
+//       "icon": "f003",
+//     },
+//     {
+//       "value": "Пользователи",
+//       "to": "users",
+//       "icon": "f2c0",
+//     },
+//     {
+//       "value": "Настройки",
+//       "to": "options",
+//       "icon": "f085",
+//     },
+//     {
+//       "value": "Обновление агента",
+//       "to": "agent_update",
+//       "icon":"f021",
+//     },
+//     {
+//       "value": "Резервные копии",
+//       "to": "backups",
+//       "icon": "f24d",
+//     },
+//   ];
 
-const devices: MainMenuLinksInterface[] =  [
-    {
-      "value": "ubuntutest",
-      "to": "00000000-0000-0000-0000-000c291aaea4",
-      "icon": "f17c"
-    },
-    {
-      "value": "SRVDC1",
-      "to": "5F03B658-0003-44BF-98FF-2D0A81E2863B",
-      "icon": "f17a"
-    },{
-      "value": "toolbox",
-      "to": "00000000-0000-0000-0000-e0b9a566e1c8",
-      "icon": "f17c"
-    },
-    {
-      "value": "solovievd",
-      "to": "f2e54ae3fa8646a78eaf8d93784301be",
-      "icon": "f17c"
-    },{
-      "value": "SRVDC8",
-      "to": "5F03B658-0053-44BF-98FF-2D0A81E2863B",
-      "icon": "f17a"
-    }
-  ];
+// const devices: MainMenuLinksInterface[] =  [
+//     {
+//       "value": "ubuntutest",
+//       "to": "00000000-0000-0000-0000-000c291aaea4",
+//       "icon": "f17c"
+//     },
+//     {
+//       "value": "SRVDC1",
+//       "to": "5F03B658-0003-44BF-98FF-2D0A81E2863B",
+//       "icon": "f17a"
+//     },{
+//       "value": "toolbox",
+//       "to": "00000000-0000-0000-0000-e0b9a566e1c8",
+//       "icon": "f17c"
+//     },
+//     {
+//       "value": "solovievd",
+//       "to": "f2e54ae3fa8646a78eaf8d93784301be",
+//       "icon": "f17c"
+//     },{
+//       "value": "SRVDC8",
+//       "to": "5F03B658-0053-44BF-98FF-2D0A81E2863B",
+//       "icon": "f17a"
+//     }
+//   ];
 
 
 export const PUT_MAIN_MENU_FROM_API_TO_MODEL =
@@ -128,7 +128,8 @@ export const asyncActionCreators = {
     return ( dispatch: Dispatch ) => {
       getMainMenuFromAPI().then(
         ( response ) => {
-          console.log('[RESPONSE.data]:', response.data);
+          console.log('[RESPONSE_MAIN.data]:', response.data);
+          const menu: MainMenuLinksInterface[] = response.data.menu;
           dispatch(
             syncActionCreators.putMainMenuFromAPIToModel(menu)
           );
@@ -145,6 +146,9 @@ export const asyncActionCreators = {
     return ( dispatch: Dispatch ) => {
       getDevicesMenuFromAPI().then(
         ( response ) => {
+          console.log('[RESPONSE_DEVICES.data]:', response.data);
+          const devices: MainMenuLinksInterface[] = 
+            response.data.devices_list;
           dispatch(
             syncActionCreators.putDevicesMenuFromAPIToModel(devices)
           );          

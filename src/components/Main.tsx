@@ -28,7 +28,8 @@ import {
 } from '@src/styled';
 
 import {
-  DevicesLoadable,
+  // DevicesLoadable,
+  Devices,
   PageOverview,
 } from '@src/containers';
 
@@ -41,6 +42,11 @@ interface MainProps {
   doDevicesMenuViewSwitch: () => any,
 }
 
+// type Menu = {
+//   main: MainMenuLinksInterface[],
+//   devices: MainMenuLinksInterface[],
+// };
+
 export const Main: React.SFC<MainProps> = (props) => {
   const {
     MainMenuModel,
@@ -51,25 +57,37 @@ export const Main: React.SFC<MainProps> = (props) => {
     doDevicesMenuViewSwitch,
   } = props;
 
+  // const getMenu = (): Menu => {
+  //   let key: number = 0;
+  //   if ( MainMenuModel.length === 0 ) {
+  //     key = 1; // Зпросить только главное меню
+  //   }
+  //   if ( DevicesMenuModel.length === 0 ) {
+  //     if ( key === 0 ) key = 2; // запросить только меню устройств
+  //     else key = 3; // запросить оба
+  //   }
+  //     // makeMainMenuRequestToAPI();i
+  //     console.log('[GET_MAIN_MENU]', MainMenuModel);
+  //   return {main: MainMenuModel, devices: DevicesMenuModel};
+  // }
+
   const getMainMenu = (): MainMenuLinksInterface[] => {
     if ( MainMenuModel.length === 0 ) {
+      console.log('[GET_MAIN_MENU]', MainMenuModel);
       makeMainMenuRequestToAPI();
-      return [];
-    } else {
-      return MainMenuModel;
     }
+    return MainMenuModel;
   };
-  const mainMenuItems: MainMenuLinksInterface[] = getMainMenu();
+  // const mainMenuItems: MainMenuLinksInterface[] = getMainMenu();
 
   const getDevicesMenu = (): MainMenuLinksInterface[] => {
     if ( DevicesMenuModel.length === 0 ) {
+      console.log('[GET_DEVICES_MENU]', DevicesMenuModel);
       makeDevicesMenuRequestToAPI();
-      return [];
-    } else {
-      return DevicesMenuModel;
     }
+    return DevicesMenuModel;
   }
-  const devicesMenuItems: MainMenuLinksInterface[] = getDevicesMenu();
+  // const devicesMenuItems: MainMenuLinksInterface[] = getDevicesMenu();
   
   const doOpenDevicesHandler = () => {
     doDevicesMenuViewSwitch();
@@ -85,7 +103,7 @@ export const Main: React.SFC<MainProps> = (props) => {
           <MainMenuWrapper>
             <MainMenuLayout isOpened={isOpened}>
               {
-                mainMenuItems.map((e, i) => {
+                getMainMenu().map((e, i) => {
                   return (
                     <MainMenuItem key={i}>
                       <MainMenuLink
@@ -111,7 +129,7 @@ export const Main: React.SFC<MainProps> = (props) => {
                 isOpened={isOpened}
               ></DoOpenDevices>
               {
-                devicesMenuItems.map((e, i) => {
+                getDevicesMenu().map((e, i) => {
                   return (
                     <MainMenuItem key={i}>
                       <DevicesMenuLink
@@ -142,7 +160,7 @@ export const Main: React.SFC<MainProps> = (props) => {
                 component={PageOverview} />
               <Route
                 exact path={'/devices'}
-                component={DevicesLoadable} />
+                component={Devices} />
               <Route 
                 exact path={'/'}
                 component={PageOverview} />

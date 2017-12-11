@@ -19,8 +19,10 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
-  makeMainMenuRequestToAPI: asyncActionCreators.makeMainMenuRequestToAPI,
-  makeDevicesMenuRequestToAPI: asyncActionCreators.makeDevicesMenuRequestToAPI,
+  makeMainMenuRequestToAPI: 
+    asyncActionCreators.makeMainMenuRequestToAPI,
+  makeDevicesMenuRequestToAPI: 
+    asyncActionCreators.makeDevicesMenuRequestToAPI,
   doDevicesMenuViewSwitch: syncActionCreators.doDevicesMenuViewSwitch,
 }, dispatch);
 
