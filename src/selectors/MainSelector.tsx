@@ -2,9 +2,19 @@ import { createSelector } from 'reselect';
 
 import { RootState } from '@src/redux';
 
+const MainMenuWasRequestedFromAPI =
+( state: RootState ) => (
+  state.main.MainMenuWasRequestedFromAPI
+);
+
 const MainMenuModel =
 ( state: RootState ) => (
   state.main.MainMenuModel
+);
+
+const DevicesMenuWasRequestedFromAPI =
+( state: RootState ) => (
+  state.main.MainMenuWasRequestedFromAPI
 );
 
 const DevicesMenuModel = 
@@ -17,10 +27,22 @@ const isOpened =
   state.main.isOpened
 );
 
+export const MainMenuWasRequestedFromAPISelector = 
+  createSelector(
+    [MainMenuWasRequestedFromAPI],
+    (MainMenuWasRequestedFromAPI) => MainMenuWasRequestedFromAPI
+  );
+
 export const MainMenuModelSelector = createSelector(
   [MainMenuModel],
   ( MainMenuModel ) => MainMenuModel
 );
+
+export const DevicesMenuWasRequestedFromAPISelector = 
+  createSelector(
+    [DevicesMenuWasRequestedFromAPI],
+    (DevicesMenuWasRequestedFromAPI) => DevicesMenuWasRequestedFromAPI
+  );
 
 export const DevicesMenuModelSelector = createSelector(
   [DevicesMenuModel],

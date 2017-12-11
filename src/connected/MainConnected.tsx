@@ -7,13 +7,17 @@ import { syncActionCreators, asyncActionCreators } from '@src/redux/main';
 import { Main } from '@src/components';
 
 import {
+  MainMenuWasRequestedFromAPISelector,
   MainMenuModelSelector,
+  DevicesMenuWasRequestedFromAPISelector,
   DevicesMenuModelSelector,
   isOpenedSelector
 } from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector({
+  MainMenuWasRequestedFromAPI: MainMenuWasRequestedFromAPISelector,
   MainMenuModel: MainMenuModelSelector,
+  DevicesMenuWasRequestedFromAPI: DevicesMenuWasRequestedFromAPISelector,
   DevicesMenuModel: DevicesMenuModelSelector,
   isOpened: isOpenedSelector,
 });

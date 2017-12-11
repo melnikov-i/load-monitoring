@@ -6,18 +6,17 @@ export interface MainMenuLinksInterface {
 
 export interface MainMenuLinkSpanInterface {
   icon: MainMenuLinksInterface['icon'],
-  isOpened: boolean,
 }
 
-interface MenuLayoutInterface {
+export interface DevicesMenuLayoutInterface {
   isOpened: boolean,
 }
 
 export type MainMenuLinkSpanProps =
   MainMenuLinkSpanInterface & React.HTMLProps<HTMLSpanElement>;
 
-export type MenuLayoutProps =
-  MenuLayoutInterface & React.HTMLProps<HTMLUListElement>;
+export type DevicesMenuLayoutProps =
+  DevicesMenuLayoutInterface & React.HTMLProps<HTMLUListElement>;
 
 export type DevicesButtonProps =
-  MenuLayoutInterface & React.HTMLProps<HTMLButtonElement>;
+  DevicesMenuLayoutInterface & React.HTMLProps<HTMLButtonElement>;

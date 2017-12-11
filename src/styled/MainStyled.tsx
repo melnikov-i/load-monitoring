@@ -3,17 +3,20 @@ import { NavLink } from 'react-router-dom';
 
 import {
   MainMenuLinkSpanProps,
-  MenuLayoutProps,
+  DevicesMenuLayoutProps,
   DevicesButtonProps,
 } from '@src/interfaces';
 
 const MainMenuLinkSpanFunction: StyledFunction<MainMenuLinkSpanProps> =
   styled.span;
 
-const MainMenuLayoutFunction: StyledFunction<MenuLayoutProps> =
-  styled.ul;
+const MainMenuFakeLinkFunction: StyledFunction<DevicesMenuLayoutProps> = 
+  styled.div;
 
-const DeviceMenuLayoutFunction: StyledFunction<MenuLayoutProps> =
+// const MainMenuLayoutFunction: StyledFunction<DevicesMenuLayoutProps> =
+//   styled.ul;
+
+const DevicesMenuLayoutFunction: StyledFunction<DevicesMenuLayoutProps> =
   styled.ul;
 
 const DevicesButtonFunction: StyledFunction<DevicesButtonProps> =
@@ -30,10 +33,10 @@ import {
   MENU_LAYOUT_MIDDLE_WIDTH,
   MENU_LAYOUT_SMALL_WIDTH,
   MENU_LOGO_HEIGHT,
-  MAIN_MENU_BIG_WIDTH,
-  MAIN_MENU_MIDDLE_WIDTH,
-  DEVICES_MENU_MIDDLE_WIDTH,
-  DEVICES_MENU_BIG_WIDTH,
+  // MAIN_MENU_BIG_WIDTH,
+  // MAIN_MENU_MIDDLE_WIDTH,
+  // DEVICES_MENU_MIDDLE_WIDTH,
+  // DEVICES_MENU_BIG_WIDTH,
   DEVICES_LINK_HEADER,
   BIG_MAIN_LINK_HEIGHT,
   FA_BIG_FONT_SIZE,
@@ -113,32 +116,17 @@ export const MainMenuLogo = styled.div`
     }
 `;
 
-export const MainMenuWrapper = styled.div`
+export const MainMenuLayout = styled.ul`
   width: 100%;
-  padding-top: 10px;
+  margin-top: 10px;
   @media screen 
     and (min-width: ${ MIDDLE_SCREEN_MIN }) 
     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
       margin-top: 40px;
       padding-top: 5;
     }
-`;
 
-export const MainMenuLayout = MainMenuLayoutFunction`
-  width: ${
-    props => (
-      props.isOpened
-      ? `${ MAIN_MENU_MIDDLE_WIDTH }`
-      : `${ MAIN_MENU_BIG_WIDTH }`
-    )
-  };
-  display: inline-block;
-  vertical-align: top;
-  @media screen 
-    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      width: ${ MAIN_MENU_MIDDLE_WIDTH };
-    }
+background-color: rgba(255, 0, 0, .4);
 `;
 
 export const MainMenuItem = styled.li`
@@ -159,10 +147,44 @@ export const MainMenuLink = styled(NavLink)`
   }
 `;
 
+export const MainMenuFakeLink = MainMenuFakeLinkFunction`
+  color: ${ 
+    props => (
+      props.isOpened
+      ? '#fff'
+      : '#a7b1c2'
+    )
+  };
+  background-color: ${
+    props =>
+      props.isOpened
+      ? '#293846'
+      : 'transparent'
+  };
+  position: relative;
+  cursor: pointer;
+  &::selection {
+    background: transparent;
+  }
+  &::before {
+    content: "";
+    display: inline-block;
+    vertical-align: top;
+    width: 5px;
+    height: ${ BIG_MAIN_LINK_HEIGHT };
+    background-color: ${
+      props =>
+        props.isOpened
+        ? '#19aa8d'
+        : 'transparent'
+    };
+  }
+`;
+
 export const MainMenuLinkSpan = MainMenuLinkSpanFunction`
-  font-size: ${ props => ( props.isOpened ? '0' : '13px' )};
   height: ${ BIG_MAIN_LINK_HEIGHT };
   line-height: ${ BIG_MAIN_LINK_HEIGHT };
+  font-size: 13px;
   font-weight: 600;
   display: inline-block;
   vertical-align: top;
@@ -175,27 +197,9 @@ export const MainMenuLinkSpan = MainMenuLinkSpanFunction`
   &::before {
     content: "${ (props) => props.icon }";
     font-family: 'FontAwesome';
-    font-size: ${
-      props => (
-        props.isOpened
-        ? `${ FA_BIG_FONT_SIZE }` 
-        : `${ FA_SMALL_FONT_SIZE }` 
-      )
-    };
-    margin-left: ${
-      props => (
-        props.isOpened 
-        ? '8px' 
-        : '14px' 
-      )
-    };
-    margin-right: ${
-      props => ( 
-        props.isOpened 
-        ? '0' 
-        : '6px' 
-      )
-    };
+    font-size: ${ FA_SMALL_FONT_SIZE };
+    margin-left: 14px;
+    margin-right: 6px;
   }
   @media screen
     and (min-width: ${ MIDDLE_SCREEN_MIN }) 
@@ -203,39 +207,45 @@ export const MainMenuLinkSpan = MainMenuLinkSpanFunction`
       font-size: 0;
       &::before {
         font-size: ${ FA_BIG_FONT_SIZE };
-        margin-left: 8px;
+        margin-left: 10px;
         margin-right: 0;
       }
     }
 `;
 
-export const DevicesMenuLayout = DeviceMenuLayoutFunction`
-  margin-left: 5px;
-  position: relative;
-  background-color: #293846;
-  width: ${
-    props => (
+  // margin-left: 5px;
+  // position: relative;
+  // background-color: #293846;
+  // width: ${
+  //   props => (
+  //     props.isOpened
+  //     ? `${ DEVICES_MENU_BIG_WIDTH }`
+  //     : `${ DEVICES_MENU_MIDDLE_WIDTH }`
+  //   )
+  // };
+  // display: inline-block;
+  // vertical-align: top;
+  // padding-top: ${
+  //   props => (
+  //     props.isOpened
+  //     ? '0'
+  //     : '35px'
+  //   )
+  // };
+  // @media screen 
+  //   and (min-width: ${ MIDDLE_SCREEN_MIN }) 
+  //   and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+  //     width: ${ DEVICES_MENU_MIDDLE_WIDTH };
+  //     margin: 0;
+  //     padding: 0;
+  //   }
+export const DevicesMenuLayout = DevicesMenuLayoutFunction`
+  display: ${
+    props => 
       props.isOpened
-      ? `${ DEVICES_MENU_BIG_WIDTH }`
-      : `${ DEVICES_MENU_MIDDLE_WIDTH }`
-    )
+      ? 'block'
+      : 'none'
   };
-  display: inline-block;
-  vertical-align: top;
-  padding-top: ${
-    props => (
-      props.isOpened
-      ? '0'
-      : '35px'
-    )
-  };
-  @media screen 
-    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      width: ${ DEVICES_MENU_MIDDLE_WIDTH };
-      margin: 0;
-      padding: 0;
-    }
 `;
 
 export const DoOpenDevices = DevicesButtonFunction`
@@ -243,14 +253,14 @@ export const DoOpenDevices = DevicesButtonFunction`
   height: 30px;
   background-color: #293846;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 8px;
+  right: 10px;
   &::before {
     content: "${
       props => (
         props.isOpened 
-        ? "\f0a9" 
-        : "\f0a8"
+        ? "\f13a" 
+        : "\f138"
       )
     }";
     font-family: 'FontAwesome';
@@ -275,7 +285,7 @@ export const DevicesMenuLink = styled(NavLink)`
 export const DevicesMenuLinkSpan = MainMenuLinkSpanFunction`
   display: inline-block;
   vertical-align: top;
-  font-size: ${ props => ( props.isOpened ? '13px' : '0' )};
+  font-size: 13px;
   font-weight: 600;
   height: ${ DEVICES_LINK_HEADER };
   line-height: ${ DEVICES_LINK_HEADER };
@@ -292,13 +302,7 @@ export const DevicesMenuLinkSpan = MainMenuLinkSpanFunction`
     font-family: 'FontAwesome';
     font-size: ${ FA_SMALL_FONT_SIZE };
     margin-left: 8px;
-    margin-right: ${
-      props => ( 
-        props.isOpened 
-        ? '6px' 
-        : '0' 
-      )
-    };
+    margin-right: 6px;
   }
   @media screen
     and (min-width: ${ MIDDLE_SCREEN_MIN }) 

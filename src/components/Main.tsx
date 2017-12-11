@@ -5,17 +5,21 @@ import {
   Switch
 } from 'react-router-dom';
 
-import { MainMenuLinksInterface } from '@src/interfaces';
+import {
+  MainMenuLinksInterface,
+  DevicesMenuLayoutInterface,
+} from '@src/interfaces';
 
 import {
   MainLayout,
   MainMenu,
   MainMenuLogoWrapper,
   MainMenuLogo,
-  MainMenuWrapper,
+  // MainMenuWrapper,
   MainMenuLayout,
   MainMenuItem,
   MainMenuLink,
+  MainMenuFakeLink,
   MainMenuLinkSpan,
   DevicesMenuLayout,
   DoOpenDevices,
@@ -34,22 +38,21 @@ import {
 } from '@src/containers';
 
 interface MainProps {
+  MainMenuWasRequestedFromAPI: boolean,
   MainMenuModel: MainMenuLinksInterface[],
+  DevicesMenuWasRequestedFromAPI: boolean,
   DevicesMenuModel: MainMenuLinksInterface[],
-  isOpened: boolean,
+  isOpened: DevicesMenuLayoutInterface['isOpened'],
   makeMainMenuRequestToAPI: () => any,
   makeDevicesMenuRequestToAPI: () => any,
   doDevicesMenuViewSwitch: () => any,
 }
 
-// type Menu = {
-//   main: MainMenuLinksInterface[],
-//   devices: MainMenuLinksInterface[],
-// };
-
 export const Main: React.SFC<MainProps> = (props) => {
   const {
+    MainMenuWasRequestedFromAPI,
     MainMenuModel,
+    DevicesMenuWasRequestedFromAPI,
     DevicesMenuModel,
     isOpened,
     makeMainMenuRequestToAPI,
@@ -57,38 +60,22 @@ export const Main: React.SFC<MainProps> = (props) => {
     doDevicesMenuViewSwitch,
   } = props;
 
-  // const getMenu = (): Menu => {
-  //   let key: number = 0;
-  //   if ( MainMenuModel.length === 0 ) {
-  //     key = 1; // Зпросить только главное меню
-  //   }
-  //   if ( DevicesMenuModel.length === 0 ) {
-  //     if ( key === 0 ) key = 2; // запросить только меню устройств
-  //     else key = 3; // запросить оба
-  //   }
-  //     // makeMainMenuRequestToAPI();i
-  //     console.log('[GET_MAIN_MENU]', MainMenuModel);
-  //   return {main: MainMenuModel, devices: DevicesMenuModel};
-  // }
-
   const getMainMenu = (): MainMenuLinksInterface[] => {
-    if ( MainMenuModel.length === 0 ) {
+    if ( !MainMenuWasRequestedFromAPI ) {
       console.log('[GET_MAIN_MENU]', MainMenuModel);
       makeMainMenuRequestToAPI();
     }
     return MainMenuModel;
   };
-  // const mainMenuItems: MainMenuLinksInterface[] = getMainMenu();
 
   const getDevicesMenu = (): MainMenuLinksInterface[] => {
-    if ( DevicesMenuModel.length === 0 ) {
+    if ( !DevicesMenuWasRequestedFromAPI ) {
       console.log('[GET_DEVICES_MENU]', DevicesMenuModel);
       makeDevicesMenuRequestToAPI();
     }
     return DevicesMenuModel;
-  }
-  // const devicesMenuItems: MainMenuLinksInterface[] = getDevicesMenu();
-  
+  };
+
   const doOpenDevicesHandler = () => {
     doDevicesMenuViewSwitch();
   }
@@ -100,56 +87,72 @@ export const Main: React.SFC<MainProps> = (props) => {
           <MainMenuLogoWrapper>
             <MainMenuLogo></MainMenuLogo>
           </MainMenuLogoWrapper>
-          <MainMenuWrapper>
-            <MainMenuLayout isOpened={isOpened}>
+            <MainMenuLayout>
               {
                 getMainMenu().map((e, i) => {
-                  return (
-                    <MainMenuItem key={i}>
-                      <MainMenuLink
-                        to={'/' + e.to}
-                        activeClassName={'activeMainMenuItem'}
-                        title={e.value}
-                      >
-                        <MainMenuLinkSpan 
-                          isOpened={isOpened}
-                          icon={'\\' + e.icon}
+                  if ( e.to !== 'devices' ) {
+                    return (
+                      <MainMenuItem key={i}>
+                        <MainMenuLink
+                          to={'/' + e.to}
+                          activeClassName={'activeMainMenuItem'}
+                          title={e.value}
                         >
-                          {e.value}
-                        </MainMenuLinkSpan>
-                      </MainMenuLink>
-                    </MainMenuItem>
-                  );
+                          <MainMenuLinkSpan
+                            icon={ '\\' + e.icon }
+                          >
+                            { e.value }
+                          </MainMenuLinkSpan>
+                        </MainMenuLink>
+                      </MainMenuItem>
+                    );
+                  } else {
+                    return (
+                      <MainMenuItem key={i}>
+                        <MainMenuFakeLink
+                          isOpened={isOpened}
+                          onClick={doOpenDevicesHandler}
+                        >
+                          <MainMenuLinkSpan
+                            icon={ '\\' + e.icon }
+                          >
+                            { e.value }
+                            <DoOpenDevices
+                              onClick={doOpenDevicesHandler}
+                              isOpened={isOpened}
+                            ></DoOpenDevices>
+                            <DevicesMenuLayout
+                              isOpened={isOpened}
+                            >
+                              {
+                                getDevicesMenu().map((e, i) => {
+                                  console.log(e);
+                                  return (
+                                    <MainMenuItem key={i}>
+                                      <DevicesMenuLink
+                                        to={'/devices/' + e.to}
+                                        activeClassName={'activeDevicesMenuItem'}
+                                        title={e.value}
+                                      >
+                                        <DevicesMenuLinkSpan
+                                          icon={'\\' + e.icon}
+                                        >
+                                          {e.value}
+                                        </DevicesMenuLinkSpan>
+                                      </DevicesMenuLink>
+                                    </MainMenuItem>
+                                  );
+                                })
+                              }
+                            </DevicesMenuLayout>
+                          </MainMenuLinkSpan>                          
+                        </MainMenuFakeLink>
+                      </MainMenuItem>
+                    )
+                  }
                 })
               }
             </MainMenuLayout>
-            <DevicesMenuLayout isOpened={isOpened}>
-              <DoOpenDevices
-                onClick={doOpenDevicesHandler}
-                isOpened={isOpened}
-              ></DoOpenDevices>
-              {
-                getDevicesMenu().map((e, i) => {
-                  return (
-                    <MainMenuItem key={i}>
-                      <DevicesMenuLink
-                        to={'/devices/' + e.to}
-                        activeClassName={'activeDevicesMenuItem'}
-                        title={e.value}
-                      >
-                        <DevicesMenuLinkSpan 
-                          isOpened={isOpened}
-                          icon={'\\' + e.icon}
-                        >
-                          {e.value}
-                        </DevicesMenuLinkSpan>
-                      </DevicesMenuLink>
-                    </MainMenuItem>
-                  );
-                })
-              }
-            </DevicesMenuLayout>
-          </MainMenuWrapper>
         </MainMenu>
         <MainPage>
           <MainTop></MainTop>
@@ -172,3 +175,29 @@ export const Main: React.SFC<MainProps> = (props) => {
     </Router>
   );
 };
+            // <DevicesMenuLayout isOpened={isOpened}>
+            //   <DoOpenDevices
+            //     onClick={doOpenDevicesHandler}
+            //     isOpened={isOpened}
+            //   ></DoOpenDevices>
+            //   {
+            //     getDevicesMenu().map((e, i) => {
+            //       return (
+            //         <MainMenuItem key={i}>
+            //           <DevicesMenuLink
+            //             to={'/devices/' + e.to}
+            //             activeClassName={'activeDevicesMenuItem'}
+            //             title={e.value}
+            //           >
+            //             <DevicesMenuLinkSpan 
+            //               isOpened={isOpened}
+            //               icon={'\\' + e.icon}
+            //             >
+            //               {e.value}
+            //             </DevicesMenuLinkSpan>
+            //           </DevicesMenuLink>
+            //         </MainMenuItem>
+            //       );
+            //     })
+            //   }
+            // </DevicesMenuLayout>
