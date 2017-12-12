@@ -17,7 +17,7 @@ export const BIG_MAIN_LINK_HEIGHT: string = '46px';
 
   export const DEVICES_MENU_BIG_WIDTH: string = '165px';
   export const DEVICES_MENU_MIDDLE_WIDTH: string = '30px';
-export const DEVICES_LINK_HEADER: string = '20px';
+export const DEVICES_LINK_HEADER: string = '25px';
 
 export const FA_BIG_FONT_SIZE: string = '28px';
 export const FA_SMALL_FONT_SIZE: string = '14px';

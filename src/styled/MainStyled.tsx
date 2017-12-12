@@ -123,7 +123,7 @@ export const MainMenuLayout = styled.ul`
     and (min-width: ${ MIDDLE_SCREEN_MIN }) 
     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
       margin-top: 40px;
-      padding-top: 5;
+      padding-top: 5px;
     }
 
 background-color: rgba(255, 0, 0, .4);
@@ -186,8 +186,8 @@ export const MainMenuLinkSpan = MainMenuLinkSpanFunction`
   line-height: ${ BIG_MAIN_LINK_HEIGHT };
   font-size: 13px;
   font-weight: 600;
-  display: inline-block;
-  vertical-align: top;
+  --display: inline-block;
+  --vertical-align: top;
   &::selection {
     background: transparent;
   }
@@ -246,12 +246,18 @@ export const DevicesMenuLayout = DevicesMenuLayoutFunction`
       ? 'block'
       : 'none'
   };
+  @media screen 
+    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      display: none;
+    }
 `;
 
 export const DoOpenDevices = DevicesButtonFunction`
   width: 30px;
   height: 30px;
   background-color: #293846;
+  cursor: pointer;
   position: absolute;
   top: 8px;
   right: 10px;
@@ -282,34 +288,55 @@ export const DevicesMenuLink = styled(NavLink)`
   
 `;
 
-export const DevicesMenuLinkSpan = MainMenuLinkSpanFunction`
-  display: inline-block;
-  vertical-align: top;
-  font-size: 13px;
-  font-weight: 600;
+  // font-size: 13px;
+  // font-weight: 600;
+  // --display: inline-block;
+  // --vertical-align: top;
+  // &::selection {
+  //   background: transparent;
+  // }
+  // &:hover {
+  //   color: #fff;
+  // }
+  // &::before {
+  //   content: "${ (props) => props.icon }";
+  //   font-family: 'FontAwesome';
+  //   font-size: ${ FA_SMALL_FONT_SIZE };
+  //   margin-left: 14px;
+  //   margin-right: 6px;
+  // }
+  // @media screen
+  //   and (min-width: ${ MIDDLE_SCREEN_MIN }) 
+  //   and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+  //     font-size: 0;
+  //     &::before {
+  //       font-size: ${ FA_BIG_FONT_SIZE };
+  //       margin-left: 10px;
+  //       margin-right: 0;
+  //     }
+  //   }
+
+  
+  // &::before {
+  //   content: "${ (props) => props.icon }";
+  //   display: inline-block;
+  //   vertical-align: top;
+  //   font-family: 'FontAwesome';
+  //   font-size: ${ FA_SMALL_FONT_SIZE };
+  //   margin-left: 8px;
+  //   margin-right: 6px;
+  // }
+  // @media screen
+  //   and (min-width: ${ MIDDLE_SCREEN_MIN }) 
+  //   and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+  //     font-size: 0;
+  //   }
+export const DevicesMenuLinkSpan = MainMenuLinkSpan.extend`
   height: ${ DEVICES_LINK_HEADER };
   line-height: ${ DEVICES_LINK_HEADER };
-  &::selection {
-    background: transparent;
-  }
-  &:hover {
-    color: #fff;
-  }
   &::before {
-    content: "${ (props) => props.icon }";
-    display: inline-block;
-    vertical-align: top;
-    font-family: 'FontAwesome';
-    font-size: ${ FA_SMALL_FONT_SIZE };
-    margin-left: 8px;
-    margin-right: 6px;
+    margin-left: 38px;
   }
-  @media screen
-    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      font-size: 0;
-    }
-
 `;
 
 export const MainPage = styled.div`

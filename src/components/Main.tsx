@@ -76,6 +76,8 @@ export const Main: React.SFC<MainProps> = (props) => {
     return DevicesMenuModel;
   };
 
+  console.log('[GET_DEVICES]:',getDevicesMenu());
+
   const doOpenDevicesHandler = () => {
     doDevicesMenuViewSwitch();
   }
@@ -118,35 +120,47 @@ export const Main: React.SFC<MainProps> = (props) => {
                           >
                             { e.value }
                             <DoOpenDevices
-                              onClick={doOpenDevicesHandler}
                               isOpened={isOpened}
                             ></DoOpenDevices>
-                            <DevicesMenuLayout
-                              isOpened={isOpened}
-                            >
-                              {
-                                getDevicesMenu().map((e, i) => {
-                                  console.log(e);
-                                  return (
-                                    <MainMenuItem key={i}>
-                                      <DevicesMenuLink
-                                        to={'/devices/' + e.to}
-                                        activeClassName={'activeDevicesMenuItem'}
-                                        title={e.value}
-                                      >
-                                        <DevicesMenuLinkSpan
-                                          icon={'\\' + e.icon}
-                                        >
-                                          {e.value}
-                                        </DevicesMenuLinkSpan>
-                                      </DevicesMenuLink>
-                                    </MainMenuItem>
-                                  );
-                                })
-                              }
-                            </DevicesMenuLayout>
                           </MainMenuLinkSpan>                          
                         </MainMenuFakeLink>
+                        <DevicesMenuLayout
+                          isOpened={isOpened}
+                        >
+                          <MainMenuItem>
+                            <DevicesMenuLink
+                              to={'/devices'}
+                              activeClassName={'activeDevicesMenuItem'}
+                              title={'Все устройства'}
+                            >
+                              <DevicesMenuLinkSpan
+                                icon={'\\f069'}
+                              >
+                                { 'Все устройства' }
+                              </DevicesMenuLinkSpan>
+                            </DevicesMenuLink>
+                          </MainMenuItem>
+                          {
+                            getDevicesMenu().map((e, i) => {
+                              console.log(e);
+                              return (
+                                <MainMenuItem key={i}>
+                                  <DevicesMenuLink
+                                    to={'/' + e.to}
+                                    activeClassName={'activeDevicesMenuItem'}
+                                    title={e.value}
+                                  >
+                                    <DevicesMenuLinkSpan
+                                      icon={'\\' + e.icon}
+                                    >
+                                      {e.value}
+                                    </DevicesMenuLinkSpan>
+                                  </DevicesMenuLink>
+                                </MainMenuItem>
+                              );
+                            })
+                          }
+                        </DevicesMenuLayout>
                       </MainMenuItem>
                     )
                   }
