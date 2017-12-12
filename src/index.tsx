@@ -42,6 +42,7 @@ injectGlobal`
 
   .activeDevicesMenuItem {
     color: #19aa8d;
+    background-color: #293846;
   }
 
   @font-face {
