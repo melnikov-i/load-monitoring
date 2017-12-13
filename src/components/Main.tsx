@@ -24,9 +24,11 @@ import {
   DevicesMenuLayout,
   DoOpenDevices,
   DevicesMenuLink,
+  DevicesMenuLinkMiddleClother,
   DevicesMenuLinkSpan,
   MainPage,
   MainTop,
+  SmallMenuButton,
   MainContent,
   MainFooter,
 } from '@src/styled';
@@ -43,9 +45,11 @@ interface MainProps {
   DevicesMenuWasRequestedFromAPI: boolean,
   DevicesMenuModel: MainMenuLinksInterface[],
   isOpened: DevicesMenuLayoutInterface['isOpened'],
+  isMainMenuOpened: DevicesMenuLayoutInterface['isOpened'],
   makeMainMenuRequestToAPI: () => any,
   makeDevicesMenuRequestToAPI: () => any,
   doDevicesMenuViewSwitch: () => any,
+  doOpenMainMenuWhenSmallScreenSwitch: () => any,
 }
 
 export const Main: React.SFC<MainProps> = (props) => {
@@ -55,43 +59,54 @@ export const Main: React.SFC<MainProps> = (props) => {
     DevicesMenuWasRequestedFromAPI,
     DevicesMenuModel,
     isOpened,
+    isMainMenuOpened,
     makeMainMenuRequestToAPI,
     makeDevicesMenuRequestToAPI,
     doDevicesMenuViewSwitch,
+    doOpenMainMenuWhenSmallScreenSwitch,
   } = props;
 
   const getMainMenu = (): MainMenuLinksInterface[] => {
     if ( !MainMenuWasRequestedFromAPI ) {
-      console.log('[GET_MAIN_MENU]', MainMenuModel);
       makeMainMenuRequestToAPI();
     }
     return MainMenuModel;
   };
 
+  const mainMenu = getMainMenu();
+
   const getDevicesMenu = (): MainMenuLinksInterface[] => {
     if ( !DevicesMenuWasRequestedFromAPI ) {
-      console.log('[GET_DEVICES_MENU]', DevicesMenuModel);
       makeDevicesMenuRequestToAPI();
     }
     return DevicesMenuModel;
   };
 
-  console.log('[GET_DEVICES]:',getDevicesMenu());
+  const devicesMenu = getDevicesMenu();
 
   const doOpenDevicesHandler = () => {
     doDevicesMenuViewSwitch();
+  }
+
+  console.log('[isMainMenuOpened]',isMainMenuOpened);
+
+  const doOpenMainMenuWhenSmallScreenHandler = () => {
+    doOpenMainMenuWhenSmallScreenSwitch();
   }
 
   return (
     <Router hashType={'slash'} basename={'/'}>
       <MainLayout>
         <MainMenu>
+          <SmallMenuButton 
+          onClick={doOpenMainMenuWhenSmallScreenHandler} 
+          isOpened={isMainMenuOpened} />
           <MainMenuLogoWrapper>
             <MainMenuLogo></MainMenuLogo>
           </MainMenuLogoWrapper>
             <MainMenuLayout>
               {
-                getMainMenu().map((e, i) => {
+                mainMenu.map((e, i) => {
                   if ( e.to !== 'devices' ) {
                     return (
                       <MainMenuItem key={i}>
@@ -133,6 +148,9 @@ export const Main: React.SFC<MainProps> = (props) => {
                               activeClassName={'activeDevicesMenuItem'}
                               title={'Все устройства'}
                             >
+                              <DevicesMenuLinkMiddleClother
+                                onClick={doOpenDevicesHandler}
+                              /> 
                               <DevicesMenuLinkSpan
                                 icon={'\\f069'}
                               >
@@ -141,8 +159,7 @@ export const Main: React.SFC<MainProps> = (props) => {
                             </DevicesMenuLink>
                           </MainMenuItem>
                           {
-                            getDevicesMenu().map((e, i) => {
-                              console.log(e);
+                            devicesMenu.map((e, i) => {
                               return (
                                 <MainMenuItem key={i}>
                                   <DevicesMenuLink
@@ -150,6 +167,9 @@ export const Main: React.SFC<MainProps> = (props) => {
                                     activeClassName={'activeDevicesMenuItem'}
                                     title={e.value}
                                   >
+                                    <DevicesMenuLinkMiddleClother
+                                      onClick={doOpenDevicesHandler}
+                                    />
                                     <DevicesMenuLinkSpan
                                       icon={'\\' + e.icon}
                                     >
@@ -169,7 +189,9 @@ export const Main: React.SFC<MainProps> = (props) => {
             </MainMenuLayout>
         </MainMenu>
         <MainPage>
-          <MainTop></MainTop>
+          <MainTop>
+            
+          </MainTop>
           <MainContent>
             <Switch>
               <Route

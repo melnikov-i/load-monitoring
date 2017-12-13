@@ -11,7 +11,8 @@ import {
   MainMenuModelSelector,
   DevicesMenuWasRequestedFromAPISelector,
   DevicesMenuModelSelector,
-  isOpenedSelector
+  isOpenedSelector,
+  isMainMenuOpenedSelector,
 } from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector({
@@ -20,6 +21,7 @@ const mapStateToProps = createStructuredSelector({
   DevicesMenuWasRequestedFromAPI: DevicesMenuWasRequestedFromAPISelector,
   DevicesMenuModel: DevicesMenuModelSelector,
   isOpened: isOpenedSelector,
+  isMainMenuOpened: isMainMenuOpenedSelector,
 });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
@@ -28,6 +30,8 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
   makeDevicesMenuRequestToAPI: 
     asyncActionCreators.makeDevicesMenuRequestToAPI,
   doDevicesMenuViewSwitch: syncActionCreators.doDevicesMenuViewSwitch,
+  doOpenMainMenuWhenSmallScreenSwitch:
+    syncActionCreators.doOpenMainMenuWhenSmallScreenSwitch,
 }, dispatch);
 
 export const MainConnected = 

@@ -15,15 +15,17 @@ const getDevicesMenuFromAPI = () => (
 );
 
 export const MAIN_MENU_WAS_REQUESTED_FROM_API =
-'MAIN_MENU_WAS_REQUESTED_FROM_API';
+  'MAIN_MENU_WAS_REQUESTED_FROM_API';
 export const PUT_MAIN_MENU_FROM_API_TO_MODEL =
-'PUT_MAIN_MENU_FROM_API_TO_MODEL';
+  'PUT_MAIN_MENU_FROM_API_TO_MODEL';
 export const DEVICES_MENU_WAS_REQUESTED_FROM_API =
-'DEVICES_MENU_WAS_REQUESTED_FROM_API';
+  'DEVICES_MENU_WAS_REQUESTED_FROM_API';
 export const PUT_DEVICES_MENU_FROM_API_TO_MODEL =
-'PUT_DEVICES_MENU_FROM_API_TO_MODEL';
+  'PUT_DEVICES_MENU_FROM_API_TO_MODEL';
 export const DO_DEVICES_MENU_VIEW_SWITCH =
-'DO_DEVICES_MENU_VIEW_SWITCH';
+  'DO_DEVICES_MENU_VIEW_SWITCH';
+export const DO_OPEN_MAIN_MENU_WHEN_SMALL_SCREEN_SWITCH =
+  'DO_OPEN_MAIN_MENU_WHEN_SMALL_SCREEN_SWITCH';
 
 export type Actions = {
   MAIN_MENU_WAS_REQUESTED_FROM_API: {
@@ -42,7 +44,9 @@ export type Actions = {
   }
   DO_DEVICES_MENU_VIEW_SWITCH: {
     type: typeof DO_DEVICES_MENU_VIEW_SWITCH,
-    payload: MainMenuLinksInterface['to'],
+  }
+  DO_OPEN_MAIN_MENU_WHEN_SMALL_SCREEN_SWITCH: {
+    type: typeof DO_OPEN_MAIN_MENU_WHEN_SMALL_SCREEN_SWITCH,
   }
 };
 
@@ -66,10 +70,13 @@ export const syncActionCreators = {
   Actions[typeof PUT_DEVICES_MENU_FROM_API_TO_MODEL] => ({
     type: PUT_DEVICES_MENU_FROM_API_TO_MODEL, payload,
   }),
-  doDevicesMenuViewSwitch:
-  ( payload: MainMenuLinksInterface['to'] ):
+  doDevicesMenuViewSwitch:():
   Actions[typeof DO_DEVICES_MENU_VIEW_SWITCH] => ({
-    type: DO_DEVICES_MENU_VIEW_SWITCH, payload
+    type: DO_DEVICES_MENU_VIEW_SWITCH,
+  }),
+  doOpenMainMenuWhenSmallScreenSwitch: ():
+  Actions[typeof DO_OPEN_MAIN_MENU_WHEN_SMALL_SCREEN_SWITCH] => ({
+    type: DO_OPEN_MAIN_MENU_WHEN_SMALL_SCREEN_SWITCH,
   }),
 };
 
@@ -82,7 +89,6 @@ export const asyncActionCreators = {
       );
       getMainMenuFromAPI().then(
         ( response ) => {
-          console.log('[RESPONSE_MAIN.data]:', response.data);
           const menu: MainMenuLinksInterface[] = response.data.menu;
           dispatch(
             syncActionCreators.putMainMenuFromAPIToModel(menu)
@@ -103,7 +109,6 @@ export const asyncActionCreators = {
       );
       getDevicesMenuFromAPI().then(
         ( response ) => {
-          console.log('[RESPONSE_DEVICES.data]:', response.data);
           const devices: MainMenuLinksInterface[] = 
             response.data.devices_list;
           dispatch(

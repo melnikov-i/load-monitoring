@@ -27,6 +27,11 @@ const isOpened =
   state.main.isOpened
 );
 
+const isMainMenuOpened =
+( state: RootState ) => (
+  state.main.isMainMenuOpened
+);
+
 export const MainMenuWasRequestedFromAPISelector = 
   createSelector(
     [MainMenuWasRequestedFromAPI],
@@ -52,4 +57,9 @@ export const DevicesMenuModelSelector = createSelector(
 export const isOpenedSelector = createSelector(
   [isOpened],
   ( isOpened ) => isOpened
+);
+
+export const isMainMenuOpenedSelector = createSelector(
+  [isMainMenuOpened],
+  ( isMainMenuOpened ) => isMainMenuOpened
 );
