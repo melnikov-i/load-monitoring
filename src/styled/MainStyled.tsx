@@ -199,6 +199,7 @@ export const MainMenuLinkSpan = MainMenuLinkSpanFunction`
   &::before {
     content: "${ (props) => props.icon }";
     font-family: 'FontAwesome';
+    font-weight: normal;
     font-size: ${ FA_SMALL_FONT_SIZE };
     margin-left: 14px;
     margin-right: 6px;
@@ -254,12 +255,13 @@ export const DoOpenDevices = DevicesButtonFunction`
     content: "${
       props => (
         props.isOpened 
-        ? "\f13a" 
-        : "\f138"
+        ? "\f078" 
+        : "\f053"
       )
     }";
     font-family: 'FontAwesome';
-    font-size: ${ FA_BIG_FONT_SIZE };
+    font-weight: normal;
+    font-size: ${ FA_SMALL_FONT_SIZE };
     color: #a7b1c2;
     }
   }

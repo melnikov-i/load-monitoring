@@ -50,8 +50,8 @@ injectGlobal`
     src: url('${FontAwesomeEOT}?v=4.7.0');
     src: url('${FontAwesomeEOT}?#iefix&v=4.7.0') format('embedded-opentype'), 
          url('${FontAwesomeWOFF2}?v=4.7.0') format('woff2'), 
-         url('${FontAwesomeWOFF}?v=4.7.0') format('woff'), 
          url('${FontAwesomeTTF}?v=4.7.0') format('truetype'), 
+         url('${FontAwesomeWOFF}?v=4.7.0') format('woff'), 
          url('${FontAwesomeSVG}?v=4.7.0#fontawesomeregular') format('svg');
     font-weight: normal;
     font-style: normal;
