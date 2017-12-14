@@ -66,6 +66,8 @@ export const Main: React.SFC<MainProps> = (props) => {
     doOpenMainMenuWhenSmallScreenSwitch,
   } = props;
 
+
+  
   const getMainMenu = (): MainMenuLinksInterface[] => {
     if ( !MainMenuWasRequestedFromAPI ) {
       makeMainMenuRequestToAPI();
@@ -89,17 +91,45 @@ export const Main: React.SFC<MainProps> = (props) => {
   }
 
   console.log('[isMainMenuOpened]',isMainMenuOpened);
+  console.log('[isOpened]',isOpened);
 
   const doOpenMainMenuWhenSmallScreenHandler = () => {
+    if ( isOpened ) {
+      doDevicesMenuViewSwitch();
+    }
     doOpenMainMenuWhenSmallScreenSwitch();
   }
+
+  // if ( isMainMenuOpened ) {
+  //   if ( !isOpened ) {
+  //     setTimeout(doOpenMainMenuWhenSmallScreenHandler, 5000);
+  //   }
+  // }
+
+  /*
+    BIG_SCREEN: 
+    -----------
+      1. Основное меню не убирается.
+      2. Меню устройств не складывается
+    MIDDLE_SCREEN:
+    --------------
+      1. Основное меню не убирается.
+      2. Меню устройств убирается
+    SMALL_SCREEN:
+    -------------
+      1. Основное меню убирается по таймауту
+      2. Меню устройств убирается
+  */
 
   return (
     <Router hashType={'slash'} basename={'/'}>
       <MainLayout>
-        <MainMenu>
+        <MainMenu
+          isOpened={isMainMenuOpened}
+        >
           <SmallMenuButton 
-          onClick={doOpenMainMenuWhenSmallScreenHandler} 
+          onClick={doOpenMainMenuWhenSmallScreenHandler}
+          onLoad={() => console.log('loaded.')}
           isOpened={isMainMenuOpened} />
           <MainMenuLogoWrapper>
             <MainMenuLogo></MainMenuLogo>
@@ -150,12 +180,13 @@ export const Main: React.SFC<MainProps> = (props) => {
                             >
                               <DevicesMenuLinkMiddleClother
                                 onClick={doOpenDevicesHandler}
-                              /> 
-                              <DevicesMenuLinkSpan
-                                icon={'\\f069'}
-                              >
-                                { 'Все устройства' }
-                              </DevicesMenuLinkSpan>
+                              > 
+                                <DevicesMenuLinkSpan
+                                  icon={'\\f069'}
+                                >
+                                  { 'Все устройства' }
+                                </DevicesMenuLinkSpan>
+                              </DevicesMenuLinkMiddleClother>
                             </DevicesMenuLink>
                           </MainMenuItem>
                           {
@@ -169,12 +200,13 @@ export const Main: React.SFC<MainProps> = (props) => {
                                   >
                                     <DevicesMenuLinkMiddleClother
                                       onClick={doOpenDevicesHandler}
-                                    />
-                                    <DevicesMenuLinkSpan
-                                      icon={'\\' + e.icon}
                                     >
-                                      {e.value}
-                                    </DevicesMenuLinkSpan>
+                                      <DevicesMenuLinkSpan
+                                        icon={'\\' + e.icon}
+                                      >
+                                        {e.value}
+                                      </DevicesMenuLinkSpan>
+                                    </DevicesMenuLinkMiddleClother>>
                                   </DevicesMenuLink>
                                 </MainMenuItem>
                               );
@@ -211,29 +243,3 @@ export const Main: React.SFC<MainProps> = (props) => {
     </Router>
   );
 };
-            // <DevicesMenuLayout isOpened={isOpened}>
-            //   <DoOpenDevices
-            //     onClick={doOpenDevicesHandler}
-            //     isOpened={isOpened}
-            //   ></DoOpenDevices>
-            //   {
-            //     getDevicesMenu().map((e, i) => {
-            //       return (
-            //         <MainMenuItem key={i}>
-            //           <DevicesMenuLink
-            //             to={'/devices/' + e.to}
-            //             activeClassName={'activeDevicesMenuItem'}
-            //             title={e.value}
-            //           >
-            //             <DevicesMenuLinkSpan 
-            //               isOpened={isOpened}
-            //               icon={'\\' + e.icon}
-            //             >
-            //               {e.value}
-            //             </DevicesMenuLinkSpan>
-            //           </DevicesMenuLink>
-            //         </MainMenuItem>
-            //       );
-            //     })
-            //   }
-            // </DevicesMenuLayout>

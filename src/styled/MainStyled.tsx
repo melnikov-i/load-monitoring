@@ -53,7 +53,7 @@ export const MainLayout = styled.div`
   height: 100%;
 `;
 
-export const MainMenu = styled.div`
+export const MainMenu = MainMenuFakeLinkFunction`
   width: ${ MENU_LAYOUT_BIG_WIDTH };
   height: 100%;
   background-color: #2f4050;
@@ -68,7 +68,13 @@ export const MainMenu = styled.div`
   @media screen
     and (max-width: ${ SMALL_SCREEN_MAX }) {
       width: ${ MENU_LAYOUT_MIDDLE_WIDTH };
-      margin-left: -${ MENU_LAYOUT_MIDDLE_WIDTH };
+      margin-left: ${
+        props => (
+          props.isOpened
+          ? '0px'
+          : `-${ MENU_LAYOUT_MIDDLE_WIDTH }`
+        )
+      };
     }
 `;
 
@@ -79,13 +85,26 @@ export const SmallMenuButton = IsOpenButtonFunction`
       display: block;
       position: fixed;
       top: 15px;
-      left: 20px;
-      width: 30px;
+      left: ${
+        props => (
+          props.isOpened
+          ? `calc(${ MENU_LAYOUT_MIDDLE_WIDTH } + 15px)`
+          : '15px'
+        )
+      };
+      width: 40px;
       height: 40px;
       line-height: 40px;
-      margin-top: 10px;
+      --margin-top: 10px;
       background-color: #19aa8d;
       border-radius: 4px;
+      &::before {
+        content: "\f0c9";
+        font-family: 'FontAwesome';
+        font-weight: normal;
+        font-size: ${ FA_BIG_FONT_SIZE };
+        color: #fff;
+      }
     }
 `;
 
@@ -125,7 +144,7 @@ export const MainMenuLogo = styled.div`
       &::before {
         content: "Monyze";
         display: block;
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 600;
         height: 70px;
         line-height: 70px;
@@ -298,17 +317,19 @@ export const DevicesMenuLink = styled(NavLink)`
   position: relative;
 `;
 
-export const DevicesMenuLinkMiddleClother = styled.div`
-  display: none;
-  @media screen 
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      display: block;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
+  // @media screen 
+  //   and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+  //     display: block;
+  //     width: 100%;
+  //     height: 100%;
+  //     position: absolute;
+  //     top: 0;
+  //     left: 0;
+  //   }
+export const DevicesMenuLinkMiddleClother = styled.span`
+  --display: none;
+
+background-color: rgba(255, 0, 0, .4);
 `;
 
 export const DevicesMenuLinkSpan = MainMenuLinkSpan.extend`

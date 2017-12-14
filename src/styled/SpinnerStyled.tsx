@@ -12,22 +12,22 @@ import {
 } from '@src/styled';
 
 export const SpinnerLayout = styled.div`
-  width: 240px;
-  height: 240px;
+  width: 50px;
+  height: 50px;
   background-color: #fff;
   position: fixed;
   top: 50%;
   left: 50%;
-  margin-top: -120px;
-  margin-left: -10px;
+  margin-top: -25px;
+  margin-left: 85px;
   @media screen 
     and (min-width: ${ MIDDLE_SCREEN_MIN }) 
     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      margin-left: -95px;
+      margin-left: 5px;
     }
   @media screen
     and (max-width: ${ SMALL_SCREEN_MAX }) {
-      margin-left: -120px;
+      margin-left: -25px;
     }
 `;
 
@@ -53,7 +53,7 @@ export const CircularSpinner = CircularSpinnerFunction.attrs({})`
   width: ${ props => String(Math.imul(props.width, 10))}px;
   height: ${ props => String(Math.imul(props.width, 10))}px;
   box-shadow: inset 0 0 0 ${ props => String(props.width)}px;
-  margin: calc(50% - ${props => String(Math.imul(props.width, 5))}px) auto;
+  --margin: calc(50% - ${props => String(Math.imul(props.width, 5))}px) auto;
   &::before {
     content: '';
     width: ${ props => String(Math.imul(props.width, 6))}px;
