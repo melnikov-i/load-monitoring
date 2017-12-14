@@ -317,17 +317,17 @@ export const DevicesMenuLink = styled(NavLink)`
   position: relative;
 `;
 
-  // @media screen 
-  //   and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-  //     display: block;
-  //     width: 100%;
-  //     height: 100%;
-  //     position: absolute;
-  //     top: 0;
-  //     left: 0;
-  //   }
 export const DevicesMenuLinkMiddleClother = styled.span`
-  --display: none;
+  display: none;
+  @media screen 
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
 
 background-color: rgba(255, 0, 0, .4);
 `;

@@ -24,7 +24,7 @@ import {
   DevicesMenuLayout,
   DoOpenDevices,
   DevicesMenuLink,
-  DevicesMenuLinkMiddleClother,
+  // DevicesMenuLinkMiddleClother,
   DevicesMenuLinkSpan,
   MainPage,
   MainTop,
@@ -86,8 +86,23 @@ export const Main: React.SFC<MainProps> = (props) => {
 
   const devicesMenu = getDevicesMenu();
 
-  const doOpenDevicesHandler = () => {
-    doDevicesMenuViewSwitch();
+  const doOpenDevicesHandler = (e: React.MouseEvent<HTMLLinkElement & HTMLUListElement>) => {
+    // e.preventDefault();
+    if ( Boolean(e.currentTarget.id) ) {
+      switch ( e.currentTarget.id ) {
+        case "fakeLink": doDevicesMenuViewSwitch();
+      }
+    } else {
+      if ( e.currentTarget.clientWidth !== 215 ) {
+        doDevicesMenuViewSwitch();
+      }
+    }
+
+
+    console.log(e.currentTarget.clientWidth);
+    console.log('"' + e.currentTarget.id + '"');
+    console.log(Boolean(e.currentTarget.id));
+    // doDevicesMenuViewSwitch();
   }
 
   console.log('[isMainMenuOpened]',isMainMenuOpened);
@@ -99,12 +114,6 @@ export const Main: React.SFC<MainProps> = (props) => {
     }
     doOpenMainMenuWhenSmallScreenSwitch();
   }
-
-  // if ( isMainMenuOpened ) {
-  //   if ( !isOpened ) {
-  //     setTimeout(doOpenMainMenuWhenSmallScreenHandler, 5000);
-  //   }
-  // }
 
   /*
     BIG_SCREEN: 
@@ -158,6 +167,7 @@ export const Main: React.SFC<MainProps> = (props) => {
                       <MainMenuItem key={i}>
                         <MainMenuFakeLink
                           isOpened={isOpened}
+                          id={'fakeLink'}
                           onClick={doOpenDevicesHandler}
                         >
                           <MainMenuLinkSpan
@@ -178,15 +188,11 @@ export const Main: React.SFC<MainProps> = (props) => {
                               activeClassName={'activeDevicesMenuItem'}
                               title={'Все устройства'}
                             >
-                              <DevicesMenuLinkMiddleClother
-                                onClick={doOpenDevicesHandler}
-                              > 
-                                <DevicesMenuLinkSpan
-                                  icon={'\\f069'}
-                                >
-                                  { 'Все устройства' }
-                                </DevicesMenuLinkSpan>
-                              </DevicesMenuLinkMiddleClother>
+                              <DevicesMenuLinkSpan
+                                icon={'\\f069'}
+                              >
+                                { 'Все устройства' }
+                              </DevicesMenuLinkSpan>
                             </DevicesMenuLink>
                           </MainMenuItem>
                           {
@@ -197,16 +203,13 @@ export const Main: React.SFC<MainProps> = (props) => {
                                     to={'/' + e.to}
                                     activeClassName={'activeDevicesMenuItem'}
                                     title={e.value}
+                                    onClick={doOpenDevicesHandler}
                                   >
-                                    <DevicesMenuLinkMiddleClother
-                                      onClick={doOpenDevicesHandler}
+                                    <DevicesMenuLinkSpan
+                                      icon={'\\' + e.icon}
                                     >
-                                      <DevicesMenuLinkSpan
-                                        icon={'\\' + e.icon}
-                                      >
-                                        {e.value}
-                                      </DevicesMenuLinkSpan>
-                                    </DevicesMenuLinkMiddleClother>>
+                                      {e.value}
+                                    </DevicesMenuLinkSpan>
                                   </DevicesMenuLink>
                                 </MainMenuItem>
                               );
@@ -243,3 +246,9 @@ export const Main: React.SFC<MainProps> = (props) => {
     </Router>
   );
 };
+                                    // <DevicesMenuLinkMiddleClother
+                                    //   onClick={doOpenDevicesHandler}
+                                    // ></DevicesMenuLinkMiddleClother>
+                              // <DevicesMenuLinkMiddleClother
+                              //   onClick={doOpenDevicesHandler}
+                              // ></DevicesMenuLinkMiddleClother>
