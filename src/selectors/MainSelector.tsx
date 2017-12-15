@@ -22,9 +22,9 @@ const DevicesMenuModel =
   state.main.DevicesMenuModel
 );
 
-const isOpened =
+const isDevicesMenuOpened =
 ( state: RootState ) => (
-  state.main.isOpened
+  state.main.isDevicesMenuOpened
 );
 
 const isMainMenuOpened =
@@ -54,9 +54,9 @@ export const DevicesMenuModelSelector = createSelector(
   ( DevicesMenuModel ) => DevicesMenuModel
 );
 
-export const isOpenedSelector = createSelector(
-  [isOpened],
-  ( isOpened ) => isOpened
+export const isDevicesMenuOpenedSelector = createSelector(
+  [isDevicesMenuOpened],
+  ( isDevicesMenuOpened ) => isDevicesMenuOpened
 );
 
 export const isMainMenuOpenedSelector = createSelector(

@@ -36,6 +36,7 @@ const Logo = require('@src/images/Logo');
   // DEVICES_MENU_MIDDLE_WIDTH,
   // DEVICES_MENU_BIG_WIDTH,
   // DEVICES_LINK_HEADER,
+  // FOOTER_HEIGHT,
 import {
   SMALL_SCREEN_MAX,
   MIDDLE_SCREEN_MAX,
@@ -47,7 +48,6 @@ import {
   FA_BIG_FONT_SIZE,
   FA_SMALL_FONT_SIZE,
   TOP_HEIGHT,
-  FOOTER_HEIGHT,
 } from '@src/styled';
 
 export const MainLayout = styled.div`
@@ -85,7 +85,7 @@ export const MainMenu = MainMenuFunction`
       width: ${ MENU_LAYOUT_MIDDLE_WIDTH };
       margin-left: ${
         props => (
-          props.isOpened
+          props.onMiddleScreen
           ? '0px'
           : `-${ MENU_LAYOUT_MIDDLE_WIDTH }`
         )
@@ -94,7 +94,7 @@ export const MainMenu = MainMenuFunction`
         width: ${ MENU_LAYOUT_MIDDLE_WIDTH };
         margin-left: ${
           props => (
-            props.isOpened
+            props.onSmallScreen
             ? '0px'
             : `-${ MENU_LAYOUT_MIDDLE_WIDTH }`
           )
@@ -112,7 +112,7 @@ export const SmallMenuButton = IsOpenButtonFunction`
       top: 15px;
       left: ${
         props => (
-          props.isOpened
+          props.onSmallScreen
           ? `calc(${ MENU_LAYOUT_MIDDLE_WIDTH } + 15px)`
           : '15px'
         )
@@ -210,14 +210,14 @@ export const MainMenuFakeLink = MainMenuFakeLinkFunction`
   display: block;
   color: ${ 
     props => (
-      props.isOpened
+      props.onBigScreen
       ? '#fff'
       : '#a7b1c2'
     )
   };
   background-color: ${
     props =>
-      props.isOpened
+      props.onBigScreen
       ? '#293846'
       : 'transparent'
   };
@@ -234,7 +234,7 @@ export const MainMenuFakeLink = MainMenuFakeLinkFunction`
     height: ${ BIG_MAIN_LINK_HEIGHT };
     background-color: ${
       props =>
-        props.isOpened
+        props.onBigScreen
         ? '#19aa8d'
         : 'transparent'
     };
@@ -246,7 +246,7 @@ export const MainMenuFakeLink = MainMenuFakeLinkFunction`
     text-align: center;
     content: "${
       props => (
-        props.isOpened 
+        props.onBigScreen 
         ? "\f078" 
         : "\f053"
       )
@@ -267,17 +267,17 @@ export const MainMenuFakeLink = MainMenuFakeLinkFunction`
     }
 `;
 
-export const DoOpenDevices = IsOpenButtonFunction`
-  background-color: ${
-    props => (
-      props.isOpened
-      ? '#293846'
-      : '#2f4050'
-    )
-  };
-  cursor: pointer;
-  &::before {
-`;
+// export const DoOpenDevices = IsOpenButtonFunction`
+//   background-color: ${
+//     props => (
+//       props.isOpened
+//       ? '#293846'
+//       : '#2f4050'
+//     )
+//   };
+//   cursor: pointer;
+//   &::before {
+// `;
 
 export const MainMenuLinkSpan = MainMenuLinkSpanFunction`
   height: ${ BIG_MAIN_LINK_HEIGHT };
@@ -314,7 +314,7 @@ export const MainMenuLinkSpan = MainMenuLinkSpanFunction`
 export const DevicesMenuLayout = DevicesMenuLayoutFunction`
   display: ${
     props => 
-      props.isOpened
+      props.onBigScreen
       ? 'block'
       : 'none'
   };
@@ -322,6 +322,12 @@ export const DevicesMenuLayout = DevicesMenuLayoutFunction`
   margin-right: 5px;
   @media screen 
     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      display: ${
+        props => 
+          props.onMiddleScreen
+          ? 'block'
+          : 'none'
+      };
       background-color: #2f4050;
       position: absolute;
       left: ${ MENU_LAYOUT_MIDDLE_WIDTH };
@@ -383,9 +389,10 @@ export const MainPage = MainPageFunction`
     }
   @media screen
     and (max-width: ${ SMALL_SCREEN_MAX }) {
+      background-color: green;
       width: ${
         props => (
-          props.isOpened
+          props.onSmallScreen
           ? `calc(100% - ${ MENU_LAYOUT_MIDDLE_WIDTH })`
           : '100%'
         )
@@ -399,16 +406,11 @@ export const MainTop = styled.div`
   background-color: #f3f3f3;
   border-bottom: 1px solid #e7eaec;
   box-sizing: border-box;
+
+background-color: rgba(255, 0, 0, .4);
 `;
 
 export const MainContent = styled.div`
   width: 100%;
   background-color: #fff;
-`;
-
-export const MainFooter = styled.div`
-  width: 100%;
-  height: ${ FOOTER_HEIGHT };
-  box-sizing: border-box;
-  border-top: 1px solid #e7eaec;
 `;

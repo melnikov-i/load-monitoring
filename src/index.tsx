@@ -73,6 +73,8 @@ injectGlobal`
         width: 100%;
         margin-left: 0;
       }
+
+background-color: rgba(0, 255, 0, .4);
   }
 
   @font-face {

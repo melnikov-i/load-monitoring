@@ -10,8 +10,12 @@ import {
   PUT_MAIN_MENU_FROM_API_TO_MODEL,
   DEVICES_MENU_WAS_REQUESTED_FROM_API,
   PUT_DEVICES_MENU_FROM_API_TO_MODEL,
-  DO_DEVICES_MENU_VIEW_SWITCH,
-  DO_OPEN_MAIN_MENU_WHEN_SMALL_SCREEN_SWITCH,
+  DO_MAIN_MENU_ON_SMALL_SCREEN_SWITCH,
+  DO_DEVICES_MENU_ON_BIG_SCREEN_SWITCH,
+
+
+  // DO_DEVICES_MENU_VIEW_SWITCH,
+  // DO_OPEN_MAIN_MENU_WHEN_SMALL_SCREEN_SWITCH,
 } from '@src/redux/main';
 
 export type State = {
@@ -19,9 +23,21 @@ export type State = {
   readonly MainMenuModel: MainMenuLinksInterface[],
   readonly DevicesMenuWasRequestedFromAPI: boolean,
   readonly DevicesMenuModel: MainMenuLinksInterface[],
-  readonly isOpened: IsOpenedInterface['isOpened'],
-  readonly isMainMenuOpened: IsOpenedInterface['isOpened'],
+  readonly isDevicesMenuOpened: IsOpenedInterface,
+  readonly isMainMenuOpened: IsOpenedInterface,
 };
+
+const isMainMenuOpenedInitialState: IsOpenedInterface = {
+  onSmallScreen: false,
+  onBigScreen: false,
+  onMiddleScreen: false,
+};
+
+const isDevicesMenuOpenedInitialState: IsOpenedInterface = {
+  onSmallScreen: false,
+  onBigScreen: false,
+  onMiddleScreen: false,
+}
 
 export const reducer = combineReducers({
   MainMenuWasRequestedFromAPI: ( state = false, action ) => {
@@ -56,20 +72,30 @@ export const reducer = combineReducers({
         return state;
     }
   },
-  isOpened: ( state = false, action ) => {
+  isMainMenuOpened: 
+  ( state = isMainMenuOpenedInitialState, action ) => {
     switch ( action.type ) {
-      case DO_DEVICES_MENU_VIEW_SWITCH:
-        return ( state ) ? false : true;
+      case DO_MAIN_MENU_ON_SMALL_SCREEN_SWITCH:
+        return {
+          ...state,
+          onSmallScreen: ( state.onSmallScreen ) ? false : true
+        };
+        // return ( state ) ? false : true;
       default:
         return state;
     }
   },
-  isMainMenuOpened: ( state = false, action ) => {
+  isDevicesMenuOpened: 
+  ( state = isDevicesMenuOpenedInitialState, action ) => {
     switch ( action.type ) {
-      case DO_OPEN_MAIN_MENU_WHEN_SMALL_SCREEN_SWITCH:
-        return ( state ) ? false : true;
+      case DO_DEVICES_MENU_ON_BIG_SCREEN_SWITCH:
+        return {
+          ...state,
+          onBigScreen: ( state.onBigScreen ) ? false : true
+        };
+        // return ( state ) ? false : true;
       default:
         return state;
     }
-  }
+  },
 });

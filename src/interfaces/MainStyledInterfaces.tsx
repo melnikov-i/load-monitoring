@@ -9,7 +9,9 @@ export interface MainMenuIconInterface {
 }
 
 export interface IsOpenedInterface {
-  isOpened: boolean,
+  onSmallScreen?: boolean,
+  onMiddleScreen?: boolean,
+  onBigScreen?: boolean,
 }
 
 export type MMSpanIconProps =

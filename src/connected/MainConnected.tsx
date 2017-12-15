@@ -11,7 +11,7 @@ import {
   MainMenuModelSelector,
   DevicesMenuWasRequestedFromAPISelector,
   DevicesMenuModelSelector,
-  isOpenedSelector,
+  isDevicesMenuOpenedSelector,
   isMainMenuOpenedSelector,
 } from '@src/selectors';
 
@@ -20,7 +20,7 @@ const mapStateToProps = createStructuredSelector({
   MainMenuModel: MainMenuModelSelector,
   DevicesMenuWasRequestedFromAPI: DevicesMenuWasRequestedFromAPISelector,
   DevicesMenuModel: DevicesMenuModelSelector,
-  isOpened: isOpenedSelector,
+  isDevicesMenuOpened: isDevicesMenuOpenedSelector,
   isMainMenuOpened: isMainMenuOpenedSelector,
 });
 
@@ -29,6 +29,12 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
     asyncActionCreators.makeMainMenuRequestToAPI,
   makeDevicesMenuRequestToAPI: 
     asyncActionCreators.makeDevicesMenuRequestToAPI,
+  doMainMenuOnSmallScreenSwitch: 
+    syncActionCreators.doMainMenuOnSmallScreenSwitch,
+  
+  doDevicesMenuOnBigScreenSwitch: 
+    syncActionCreators.doDevicesMenuOnBigScreenSwitch,
+
   doDevicesMenuViewSwitch: syncActionCreators.doDevicesMenuViewSwitch,
   doOpenMainMenuWhenSmallScreenSwitch:
     syncActionCreators.doOpenMainMenuWhenSmallScreenSwitch,
