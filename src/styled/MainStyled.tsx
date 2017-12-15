@@ -2,45 +2,47 @@ import styled, { StyledFunction } from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 import {
-  MainMenuLinkSpanProps,
-  DevicesMenuLayoutProps,
-  DevicesButtonProps,
+  MMSpanIconProps,
+  MMUListIsOpenedProps,
+  MMDivIsOpenedProps,
+  MMLinkIsOpenedProps,
+  MMButtonIsOpenedProps,
 } from '@src/interfaces';
 
-const MainMenuLinkSpanFunction: StyledFunction<MainMenuLinkSpanProps> =
+const MainMenuLinkSpanFunction: StyledFunction<MMSpanIconProps> =
   styled.span;
 
-const MainMenuFakeLinkFunction: StyledFunction<DevicesMenuLayoutProps> = 
+const MainMenuFunction: StyledFunction<MMDivIsOpenedProps> =
   styled.div;
 
-// const MainMenuLayoutFunction: StyledFunction<DevicesMenuLayoutProps> =
-//   styled.ul;
+const MainMenuFakeLinkFunction: StyledFunction<MMLinkIsOpenedProps> =
+  styled.a;
 
-const DevicesMenuLayoutFunction: StyledFunction<DevicesMenuLayoutProps> =
+const MainPageFunction: StyledFunction<MMDivIsOpenedProps> =
+  styled.div;
+
+const DevicesMenuLayoutFunction: StyledFunction<MMUListIsOpenedProps> =
   styled.ul;
 
-// const DevicesMenuLinkSpanWrapperFunction: StyledFunction<DevicesMenuLayoutProps> =
-//   styled.div;
-
-const IsOpenButtonFunction: StyledFunction<DevicesButtonProps> =
+const IsOpenButtonFunction: StyledFunction<MMButtonIsOpenedProps> =
   styled.button;
 
 const HeaderProfile = require('@src/images/HeaderProfile');
 const Logo = require('@src/images/Logo');
 
+  // MENU_LAYOUT_SMALL_WIDTH,
+  // MAIN_MENU_BIG_WIDTH,
+  // MAIN_MENU_MIDDLE_WIDTH,
+  // DEVICES_MENU_MIDDLE_WIDTH,
+  // DEVICES_MENU_BIG_WIDTH,
+  // DEVICES_LINK_HEADER,
 import {
   SMALL_SCREEN_MAX,
   MIDDLE_SCREEN_MAX,
   MIDDLE_SCREEN_MIN,
   MENU_LAYOUT_BIG_WIDTH,
   MENU_LAYOUT_MIDDLE_WIDTH,
-  MENU_LAYOUT_SMALL_WIDTH,
   MENU_LOGO_HEIGHT,
-  // MAIN_MENU_BIG_WIDTH,
-  // MAIN_MENU_MIDDLE_WIDTH,
-  // DEVICES_MENU_MIDDLE_WIDTH,
-  // DEVICES_MENU_BIG_WIDTH,
-  // DEVICES_LINK_HEADER,
   BIG_MAIN_LINK_HEIGHT,
   FA_BIG_FONT_SIZE,
   FA_SMALL_FONT_SIZE,
@@ -50,20 +52,33 @@ import {
 
 export const MainLayout = styled.div`
   width: 100%;
-  height: 100%;
+  min-height: 100%;
+  height: auto;
 `;
 
-export const MainMenu = MainMenuFakeLinkFunction`
+export const MainMenu = MainMenuFunction`
   width: ${ MENU_LAYOUT_BIG_WIDTH };
-  height: 100%;
-  background-color: #2f4050;
-  position: fixed;
-  top: 0;
-  left: 0;
+  display: inline-block;
+  vertical-align: top;
+  &::before {
+    content: "";
+    display: block;
+    width: ${ MENU_LAYOUT_BIG_WIDTH };
+    min-height: 100%;
+    height: auto;
+    background-color: #2f4050;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
   @media screen 
     and (min-width: ${ MIDDLE_SCREEN_MIN }) 
     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
       width: ${ MENU_LAYOUT_MIDDLE_WIDTH };
+      &::before {
+        width: ${ MENU_LAYOUT_MIDDLE_WIDTH };
+      }
     }
   @media screen
     and (max-width: ${ SMALL_SCREEN_MAX }) {
@@ -75,6 +90,16 @@ export const MainMenu = MainMenuFakeLinkFunction`
           : `-${ MENU_LAYOUT_MIDDLE_WIDTH }`
         )
       };
+      &::before {
+        width: ${ MENU_LAYOUT_MIDDLE_WIDTH };
+        margin-left: ${
+          props => (
+            props.isOpened
+            ? '0px'
+            : `-${ MENU_LAYOUT_MIDDLE_WIDTH }`
+          )
+        };
+      }
     }
 `;
 
@@ -95,7 +120,6 @@ export const SmallMenuButton = IsOpenButtonFunction`
       width: 40px;
       height: 40px;
       line-height: 40px;
-      --margin-top: 10px;
       background-color: #19aa8d;
       border-radius: 4px;
       &::before {
@@ -124,16 +148,11 @@ export const MainMenuLogoWrapper = styled.div`
       padding: 0;
     }
 `;
-  // @media screen
-  //   and (max-width: ${ SMALL_SCREEN_MAX }) {
-  //     background-image: none;
-  //     height: 30px;
-  //     padding: 0;
-  //   }
 
 export const MainMenuLogo = styled.div`
   width: 100%;
-  height: 100%;
+  min-height: 100%;
+  height: auto;
   background-image: url( ${ Logo } );
   background-position: center top;
   background-repeat: no-repeat;
@@ -153,14 +172,11 @@ export const MainMenuLogo = styled.div`
       }
     }
 `;
-  // @media screen
-  //   and (max-width: ${ SMALL_SCREEN_MAX }) {
-  //     display: none;
-  //   }
 
 export const MainMenuLayout = styled.ul`
   width: 100%;
   margin-top: 10px;
+  padding-bottom: ${ BIG_MAIN_LINK_HEIGHT };
   @media screen 
     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
       margin-top: 40px;
@@ -191,6 +207,7 @@ export const MainMenuLink = styled(NavLink)`
 `;
 
 export const MainMenuFakeLink = MainMenuFakeLinkFunction`
+  display: block;
   color: ${ 
     props => (
       props.isOpened
@@ -222,6 +239,44 @@ export const MainMenuFakeLink = MainMenuFakeLinkFunction`
         : 'transparent'
     };
   }
+  &::after {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    content: "${
+      props => (
+        props.isOpened 
+        ? "\f078" 
+        : "\f053"
+      )
+    }";
+    font-family: 'FontAwesome';
+    font-weight: normal;
+    font-size: ${ FA_SMALL_FONT_SIZE };
+    color: #a7b1c2;
+    position: absolute;
+    top: 8px;
+    right: 10px;
+  }
+  @media screen 
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      &::after {
+        display: none;          
+      }
+    }
+`;
+
+export const DoOpenDevices = IsOpenButtonFunction`
+  background-color: ${
+    props => (
+      props.isOpened
+      ? '#293846'
+      : '#2f4050'
+    )
+  };
+  cursor: pointer;
+  &::before {
 `;
 
 export const MainMenuLinkSpan = MainMenuLinkSpanFunction`
@@ -276,40 +331,6 @@ export const DevicesMenuLayout = DevicesMenuLayoutFunction`
     }
 `;
 
-export const DoOpenDevices = IsOpenButtonFunction`
-  width: 30px;
-  height: 30px;
-  background-color: ${
-    props => (
-      props.isOpened
-      ? '#293846'
-      : '#2f4050'
-    )
-  };
-  cursor: pointer;
-  position: absolute;
-  top: 8px;
-  right: 10px;
-  &::before {
-    content: "${
-      props => (
-        props.isOpened 
-        ? "\f078" 
-        : "\f053"
-      )
-    }";
-    font-family: 'FontAwesome';
-    font-weight: normal;
-    font-size: ${ FA_SMALL_FONT_SIZE };
-    color: #a7b1c2;
-    }
-  }
-  @media screen 
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      display: none;
-    }
-`;
-
 export const DevicesMenuLink = styled(NavLink)`
   display: block;
   text-decoration: none;
@@ -323,13 +344,12 @@ export const DevicesMenuLinkMiddleClother = styled.span`
     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
       display: block;
       width: 100%;
-      height: 100%;
+      min-height: 100%;
+      height: auto;
       position: absolute;
       top: 0;
       left: 0;
     }
-
-background-color: rgba(255, 0, 0, .4);
 `;
 
 export const DevicesMenuLinkSpan = MainMenuLinkSpan.extend`
@@ -352,20 +372,24 @@ export const DevicesMenuLinkSpan = MainMenuLinkSpan.extend`
     }
 `;
 
-export const MainPage = styled.div`
+export const MainPage = MainPageFunction`
+  display: inline-block;
+  vertical-align: top;
   width: calc(100% - ${ MENU_LAYOUT_BIG_WIDTH });
-  margin-left: ${ MENU_LAYOUT_BIG_WIDTH };
-  height: 100%;
   @media screen 
     and (min-width: ${ MIDDLE_SCREEN_MIN }) 
     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
       width: calc(100% - ${ MENU_LAYOUT_MIDDLE_WIDTH });
-      margin-left: ${ MENU_LAYOUT_MIDDLE_WIDTH };
     }
   @media screen
     and (max-width: ${ SMALL_SCREEN_MAX }) {
-      width: 100%;
-      margin-left: ${ MENU_LAYOUT_SMALL_WIDTH };
+      width: ${
+        props => (
+          props.isOpened
+          ? `calc(100% - ${ MENU_LAYOUT_MIDDLE_WIDTH })`
+          : '100%'
+        )
+      };
     }
 `;
 
@@ -379,7 +403,6 @@ export const MainTop = styled.div`
 
 export const MainContent = styled.div`
   width: 100%;
-  min-height: calc(100% - ${ TOP_HEIGHT } - ${ FOOTER_HEIGHT });
   background-color: #fff;
 `;
 

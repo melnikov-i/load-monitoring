@@ -7,7 +7,7 @@ import {
 
 import {
   MainMenuLinksInterface,
-  DevicesMenuLayoutInterface,
+  IsOpenedInterface,
 } from '@src/interfaces';
 
 import {
@@ -22,7 +22,7 @@ import {
   MainMenuFakeLink,
   MainMenuLinkSpan,
   DevicesMenuLayout,
-  DoOpenDevices,
+  // DoOpenDevices,
   DevicesMenuLink,
   // DevicesMenuLinkMiddleClother,
   DevicesMenuLinkSpan,
@@ -30,7 +30,6 @@ import {
   MainTop,
   SmallMenuButton,
   MainContent,
-  MainFooter,
 } from '@src/styled';
 
 import {
@@ -44,8 +43,8 @@ interface MainProps {
   MainMenuModel: MainMenuLinksInterface[],
   DevicesMenuWasRequestedFromAPI: boolean,
   DevicesMenuModel: MainMenuLinksInterface[],
-  isOpened: DevicesMenuLayoutInterface['isOpened'],
-  isMainMenuOpened: DevicesMenuLayoutInterface['isOpened'],
+  isOpened: IsOpenedInterface['isOpened'],
+  isMainMenuOpened: IsOpenedInterface['isOpened'],
   makeMainMenuRequestToAPI: () => any,
   makeDevicesMenuRequestToAPI: () => any,
   doDevicesMenuViewSwitch: () => any,
@@ -174,9 +173,7 @@ export const Main: React.SFC<MainProps> = (props) => {
                             icon={ '\\' + e.icon }
                           >
                             { e.value }
-                            <DoOpenDevices
-                              isOpened={isOpened}
-                            ></DoOpenDevices>
+
                           </MainMenuLinkSpan>                          
                         </MainMenuFakeLink>
                         <DevicesMenuLayout
@@ -223,10 +220,8 @@ export const Main: React.SFC<MainProps> = (props) => {
               }
             </MainMenuLayout>
         </MainMenu>
-        <MainPage>
-          <MainTop>
-            
-          </MainTop>
+        <MainPage isOpened={isOpened}>
+          <MainTop></MainTop>
           <MainContent>
             <Switch>
               <Route
@@ -240,15 +235,8 @@ export const Main: React.SFC<MainProps> = (props) => {
                 component={PageOverview} />
             </Switch>
           </MainContent>
-          <MainFooter></MainFooter>
-        </MainPage>      
+        </MainPage>
       </MainLayout>
     </Router>
   );
 };
-                                    // <DevicesMenuLinkMiddleClother
-                                    //   onClick={doOpenDevicesHandler}
-                                    // ></DevicesMenuLinkMiddleClother>
-                              // <DevicesMenuLinkMiddleClother
-                              //   onClick={doOpenDevicesHandler}
-                              // ></DevicesMenuLinkMiddleClother>

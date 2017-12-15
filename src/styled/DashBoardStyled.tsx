@@ -23,7 +23,7 @@ export const DashBoardMainHeaderWrapper = styled.div`
 export const DashBoardMainHeader = styled.h1`
   font-family: 'Verdana', sans-serif;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 600;
   color: #333;
 `;
 

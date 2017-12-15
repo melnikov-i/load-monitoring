@@ -12,6 +12,15 @@ const FontAwesomeSVG = require('@src/fonts/fontawesome-webfont.svg');
 import store from './store';
 import MainConnected from '@src/connected/MainConnected.usage';
 
+import {
+  MIDDLE_SCREEN_MIN,
+  MIDDLE_SCREEN_MAX,
+  SMALL_SCREEN_MAX,
+  MENU_LAYOUT_MIDDLE_WIDTH,
+  FOOTER_HEIGHT,
+  MENU_LAYOUT_BIG_WIDTH,
+} from '@src/styled';
+
 injectGlobal`
   * {
     margin: 0;
@@ -29,7 +38,8 @@ injectGlobal`
   #app {
     width: 100%;
     min-width: 700px;
-    height: 100%;
+    min-height: 100%;
+    height: auto;
   }
   
   .activeMainMenuItem {
@@ -43,6 +53,26 @@ injectGlobal`
   .activeDevicesMenuItem {
     color: #19aa8d;
     background-color: #293846;
+  }
+
+  #footer {
+    width: calc(100% - ${ MENU_LAYOUT_BIG_WIDTH });
+    margin-left: ${ MENU_LAYOUT_BIG_WIDTH };
+    height: ${ FOOTER_HEIGHT };
+    margin-top: -${ FOOTER_HEIGHT };
+    box-sizing: border-box;
+    border-top: 1px solid #e7eaec;
+    @media screen 
+      and (min-width: ${ MIDDLE_SCREEN_MIN }) 
+      and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+        width: calc(100% - ${ MENU_LAYOUT_MIDDLE_WIDTH });
+        margin-left: ${ MENU_LAYOUT_MIDDLE_WIDTH };
+      }
+    @media screen
+      and (max-width: ${ SMALL_SCREEN_MAX }) {
+        width: 100%;
+        margin-left: 0;
+      }
   }
 
   @font-face {

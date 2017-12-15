@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 import {
   MainMenuLinksInterface,
-  DevicesMenuLayoutInterface
+  IsOpenedInterface
 } from '@src/interfaces';
 
 import {
@@ -19,8 +19,8 @@ export type State = {
   readonly MainMenuModel: MainMenuLinksInterface[],
   readonly DevicesMenuWasRequestedFromAPI: boolean,
   readonly DevicesMenuModel: MainMenuLinksInterface[],
-  readonly isOpened: DevicesMenuLayoutInterface['isOpened'],
-  readonly isMainMenuOpened: DevicesMenuLayoutInterface['isOpened'],
+  readonly isOpened: IsOpenedInterface['isOpened'],
+  readonly isMainMenuOpened: IsOpenedInterface['isOpened'],
 };
 
 export const reducer = combineReducers({

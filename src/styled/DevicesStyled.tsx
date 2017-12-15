@@ -17,7 +17,7 @@ const DevicesTableHeadCollMargin = '1.53846153799998%';
 export const DevicesLayout = styled.div`
   box-sizing: border-box;
   width: 100%;
-  padding: 20px 30px;
+  padding: 20px 30px 70px;
   @media screen and (max-width: ${ MIDDLE_SCREEN_MAX }) {
     padding: 20px 5px;
   }
@@ -25,7 +25,7 @@ export const DevicesLayout = styled.div`
 
 export const DevicesHeader = styled.h1`
   font-size: 18px;
-  font-weight: semibold;
+  font-weight: 600;
 `;
 
 export const DevicesTable = styled(Table)``;
