@@ -13,9 +13,7 @@ import store from './store';
 import MainConnected from '@src/connected/MainConnected.usage';
 
 import {
-  MIDDLE_SCREEN_MIN,
   MIDDLE_SCREEN_MAX,
-  SMALL_SCREEN_MAX,
   MENU_LAYOUT_MIDDLE_WIDTH,
   FOOTER_HEIGHT,
   MENU_LAYOUT_BIG_WIDTH,
@@ -63,18 +61,22 @@ injectGlobal`
     box-sizing: border-box;
     border-top: 1px solid #e7eaec;
     @media screen 
-      and (min-width: ${ MIDDLE_SCREEN_MIN }) 
       and (max-width: ${ MIDDLE_SCREEN_MAX }) {
         width: calc(100% - ${ MENU_LAYOUT_MIDDLE_WIDTH });
         margin-left: ${ MENU_LAYOUT_MIDDLE_WIDTH };
+        &::before {
+          content: "";
+          display: block;
+          width: ${ MENU_LAYOUT_MIDDLE_WIDTH };
+          height: ${ FOOTER_HEIGHT };
+          box-sizing: border-box;
+          border-top: 1px solid #e7eaec;
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          z-index: -2;
+        }
       }
-    @media screen
-      and (max-width: ${ SMALL_SCREEN_MAX }) {
-        width: 100%;
-        margin-left: 0;
-      }
-
-background-color: rgba(0, 255, 0, .4);
   }
 
   @font-face {

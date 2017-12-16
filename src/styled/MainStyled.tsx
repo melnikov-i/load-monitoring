@@ -30,13 +30,6 @@ const IsOpenButtonFunction: StyledFunction<MMButtonIsOpenedProps> =
 const HeaderProfile = require('@src/images/HeaderProfile');
 const Logo = require('@src/images/Logo');
 
-  // MENU_LAYOUT_SMALL_WIDTH,
-  // MAIN_MENU_BIG_WIDTH,
-  // MAIN_MENU_MIDDLE_WIDTH,
-  // DEVICES_MENU_MIDDLE_WIDTH,
-  // DEVICES_MENU_BIG_WIDTH,
-  // DEVICES_LINK_HEADER,
-  // FOOTER_HEIGHT,
 import {
   SMALL_SCREEN_MAX,
   MIDDLE_SCREEN_MAX,
@@ -85,8 +78,8 @@ export const MainMenu = MainMenuFunction`
       width: ${ MENU_LAYOUT_MIDDLE_WIDTH };
       margin-left: ${
         props => (
-          props.onMiddleScreen
-          ? '0px'
+          props.onSmallScreen
+          ? '0'
           : `-${ MENU_LAYOUT_MIDDLE_WIDTH }`
         )
       };
@@ -95,7 +88,7 @@ export const MainMenu = MainMenuFunction`
         margin-left: ${
           props => (
             props.onSmallScreen
-            ? '0px'
+            ? '0'
             : `-${ MENU_LAYOUT_MIDDLE_WIDTH }`
           )
         };
@@ -208,6 +201,11 @@ export const MainMenuLink = styled(NavLink)`
 
 export const MainMenuFakeLink = MainMenuFakeLinkFunction`
   display: block;
+  position: relative;
+  cursor: pointer;
+  &::selection {
+    background: transparent;
+  }
   color: ${ 
     props => (
       props.onBigScreen
@@ -221,11 +219,6 @@ export const MainMenuFakeLink = MainMenuFakeLinkFunction`
       ? '#293846'
       : 'transparent'
   };
-  position: relative;
-  cursor: pointer;
-  &::selection {
-    background: transparent;
-  }
   &::before {
     content: "";
     display: inline-block;
@@ -261,23 +254,32 @@ export const MainMenuFakeLink = MainMenuFakeLinkFunction`
   }
   @media screen 
     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      color: ${ 
+        props => (
+          props.onMiddleScreen
+          ? '#fff'
+          : '#a7b1c2'
+        )
+      };
+      background-color: ${
+        props =>
+          props.onMiddleScreen
+          ? '#293846'
+          : 'transparent'
+      };
+      &::before {
+        background-color: ${
+          props =>
+            props.onMiddleScreen
+            ? '#19aa8d'
+            : 'transparent'
+        };
+      }
       &::after {
         display: none;          
       }
     }
 `;
-
-// export const DoOpenDevices = IsOpenButtonFunction`
-//   background-color: ${
-//     props => (
-//       props.isOpened
-//       ? '#293846'
-//       : '#2f4050'
-//     )
-//   };
-//   cursor: pointer;
-//   &::before {
-// `;
 
 export const MainMenuLinkSpan = MainMenuLinkSpanFunction`
   height: ${ BIG_MAIN_LINK_HEIGHT };
@@ -389,7 +391,6 @@ export const MainPage = MainPageFunction`
     }
   @media screen
     and (max-width: ${ SMALL_SCREEN_MAX }) {
-      background-color: green;
       width: ${
         props => (
           props.onSmallScreen

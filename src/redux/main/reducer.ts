@@ -12,10 +12,7 @@ import {
   PUT_DEVICES_MENU_FROM_API_TO_MODEL,
   DO_MAIN_MENU_ON_SMALL_SCREEN_SWITCH,
   DO_DEVICES_MENU_ON_BIG_SCREEN_SWITCH,
-
-
-  // DO_DEVICES_MENU_VIEW_SWITCH,
-  // DO_OPEN_MAIN_MENU_WHEN_SMALL_SCREEN_SWITCH,
+  DO_DEVICES_MENU_ON_MIDDLE_SCREEN_SWITCH,
 } from '@src/redux/main';
 
 export type State = {
@@ -77,10 +74,10 @@ export const reducer = combineReducers({
     switch ( action.type ) {
       case DO_MAIN_MENU_ON_SMALL_SCREEN_SWITCH:
         return {
-          ...state,
-          onSmallScreen: ( state.onSmallScreen ) ? false : true
+          onBigScreen: false,
+          onMiddleScreen: false,
+          onSmallScreen: ( state.onSmallScreen ) ? false : true,
         };
-        // return ( state ) ? false : true;
       default:
         return state;
     }
@@ -90,10 +87,16 @@ export const reducer = combineReducers({
     switch ( action.type ) {
       case DO_DEVICES_MENU_ON_BIG_SCREEN_SWITCH:
         return {
-          ...state,
-          onBigScreen: ( state.onBigScreen ) ? false : true
+          onBigScreen: ( state.onBigScreen ) ? false : true,
+          onMiddleScreen: false,
+          onSmallScreen: false,
         };
-        // return ( state ) ? false : true;
+      case DO_DEVICES_MENU_ON_MIDDLE_SCREEN_SWITCH:
+        return {
+          onBigScreen: false,
+          onMiddleScreen: ( state.onMiddleScreen ) ? false : true,
+          onSmallScreen: false,
+        };
       default:
         return state;
     }

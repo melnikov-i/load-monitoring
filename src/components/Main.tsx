@@ -49,9 +49,7 @@ interface MainProps {
   makeDevicesMenuRequestToAPI: () => any,
   doMainMenuOnSmallScreenSwitch: () => any,
   doDevicesMenuOnBigScreenSwitch: () => any,
-
-  doDevicesMenuViewSwitch: () => any,
-  doOpenMainMenuWhenSmallScreenSwitch: () => any,
+  doDevicesMenuOnMiddleScreenSwitch: () => any,
 }
 
 export const Main: React.SFC<MainProps> = (props) => {
@@ -64,22 +62,17 @@ export const Main: React.SFC<MainProps> = (props) => {
     isMainMenuOpened,
     makeMainMenuRequestToAPI,
     makeDevicesMenuRequestToAPI,
-    // doMainMenuOnSmallScreenSwitch,
+    doMainMenuOnSmallScreenSwitch,
     doDevicesMenuOnBigScreenSwitch,
-
-    doDevicesMenuViewSwitch,
-    doOpenMainMenuWhenSmallScreenSwitch,
+    doDevicesMenuOnMiddleScreenSwitch,
   } = props;
 
-
-  
   const getMainMenu = (): MainMenuLinksInterface[] => {
     if ( !MainMenuWasRequestedFromAPI ) {
       makeMainMenuRequestToAPI();
     }
     return MainMenuModel;
   };
-
   const mainMenu = getMainMenu();
 
   const getDevicesMenu = (): MainMenuLinksInterface[] => {
@@ -88,64 +81,31 @@ export const Main: React.SFC<MainProps> = (props) => {
     }
     return DevicesMenuModel;
   };
-
   const devicesMenu = getDevicesMenu();
 
-  const doOpenDevicesHandler = (e: React.MouseEvent<HTMLLinkElement & HTMLUListElement>) => {
-    if ( e.currentTarget.clientWidth === 220 ) {
+  /* Обработчики событий */
+
+  const doOpenMainMenuHandler = () => {
+    doMainMenuOnSmallScreenSwitch();
+  }
+
+  const mainMenuFakeLinkHandler = (e: React.MouseEvent<HTMLLinkElement>) => {
+    if ( e.currentTarget.clientWidth === 60 ) {
+      doDevicesMenuOnMiddleScreenSwitch();
+    } else {
       doDevicesMenuOnBigScreenSwitch();
     }
-    // e.preventDefault();
-    // if ( Boolean(e.currentTarget.id) ) {
-    //   switch ( e.currentTarget.id ) {
-    //     case "fakeLink": doDevicesMenuViewSwitch();
-    //   }
-    // } else {
-    // }
+  };
 
-
-    console.log(e.currentTarget.clientWidth);
-    console.log('"' + e.currentTarget.id + '"');
-    console.log(Boolean(e.currentTarget.id));
-    // doDevicesMenuViewSwitch();
+  const devicesMenuLinkHandler = (e: React.MouseEvent<HTMLLinkElement>) => {
+    if ( e.currentTarget.clientWidth !== 215 ) {
+      doDevicesMenuOnMiddleScreenSwitch();
+    }
   }
 
   console.log('[isMainMenuOpened]',isMainMenuOpened);
   console.log('[isDevicesMenuOpened]',isDevicesMenuOpened);
 
-  const doOpenMainMenuHandler = () => {
-    if ( isDevicesMenuOpened ) {
-      doDevicesMenuViewSwitch();
-    }
-    doOpenMainMenuWhenSmallScreenSwitch();
-  }
-
-  /*
-    BIG_SCREEN: 
-    -----------
-      По нажатию на FakeLink раскрывается меню устройств.
-      FakeLink должна переключать:
-        - ключ isDevicesMenuOpenedOnBigScreen при большом разрешении
-        - ключ isDevicesMenuOpenedOnMiddleScreen при среднем разрешении
-        - ключ isDevicesMenuOpenedOnSmallScreen при малом разрешении
-
-      В StyledComponents необходимо передавать все три, 
-      а менять их по обработке события (ширина страницы) 
-
-      
-
-      По нажатию на пункт меню устройств, меню устройств 
-      не схлопывается
-      
-    MIDDLE_SCREEN:
-    --------------
-      1. Основное меню не убирается.
-      2. Меню устройств убирается
-    SMALL_SCREEN:
-    -------------
-      1. Основное меню убирается по таймауту
-      2. Меню устройств убирается
-  */
 
   return (
     <Router hashType={'slash'} basename={'/'}>
@@ -154,9 +114,8 @@ export const Main: React.SFC<MainProps> = (props) => {
           onSmallScreen={isMainMenuOpened.onSmallScreen}
         >
           <SmallMenuButton 
-          onClick={doOpenMainMenuHandler}
-          onLoad={() => console.log('loaded.')}
-          onSmallScreen={isMainMenuOpened.onSmallScreen} />
+            onClick={doOpenMainMenuHandler}
+            onSmallScreen={isMainMenuOpened.onSmallScreen} />
           <MainMenuLogoWrapper>
             <MainMenuLogo></MainMenuLogo>
           </MainMenuLogoWrapper>
@@ -171,9 +130,7 @@ export const Main: React.SFC<MainProps> = (props) => {
                           activeClassName={'activeMainMenuItem'}
                           title={e.value}
                         >
-                          <MainMenuLinkSpan
-                            icon={ '\\' + e.icon }
-                          >
+                          <MainMenuLinkSpan icon={ '\\' + e.icon }>
                             { e.value }
                           </MainMenuLinkSpan>
                         </MainMenuLink>
@@ -184,14 +141,11 @@ export const Main: React.SFC<MainProps> = (props) => {
                       <MainMenuItem key={i}>
                         <MainMenuFakeLink
                           onBigScreen={isDevicesMenuOpened.onBigScreen}
-                          id={'fakeLink'}
-                          onClick={doOpenDevicesHandler}
+                          onMiddleScreen={isDevicesMenuOpened.onMiddleScreen}
+                          onClick={mainMenuFakeLinkHandler}
                         >
-                          <MainMenuLinkSpan
-                            icon={ '\\' + e.icon }
-                          >
+                          <MainMenuLinkSpan icon={ '\\' + e.icon }>
                             { e.value }
-
                           </MainMenuLinkSpan>                          
                         </MainMenuFakeLink>
                         <DevicesMenuLayout
@@ -203,6 +157,7 @@ export const Main: React.SFC<MainProps> = (props) => {
                               to={'/devices'}
                               activeClassName={'activeDevicesMenuItem'}
                               title={'Все устройства'}
+                              onClick={devicesMenuLinkHandler}
                             >
                               <DevicesMenuLinkSpan
                                 icon={'\\f069'}
@@ -219,7 +174,7 @@ export const Main: React.SFC<MainProps> = (props) => {
                                     to={'/' + e.to}
                                     activeClassName={'activeDevicesMenuItem'}
                                     title={e.value}
-                                    onClick={doOpenDevicesHandler}
+                                    onClick={devicesMenuLinkHandler}
                                   >
                                     <DevicesMenuLinkSpan
                                       icon={'\\' + e.icon}
@@ -239,7 +194,7 @@ export const Main: React.SFC<MainProps> = (props) => {
               }
             </MainMenuLayout>
         </MainMenu>
-        <MainPage onSmallScreen={isDevicesMenuOpened.onSmallScreen}>
+        <MainPage onSmallScreen={isMainMenuOpened.onSmallScreen}>
           <MainTop></MainTop>
           <MainContent>
             <Switch>
