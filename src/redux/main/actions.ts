@@ -2,22 +2,17 @@ import axios from 'axios';
 
 import {
   MainMenuLinksInterface,
+  UserInterface,
 } from '@src/interfaces';
 
 import { Dispatch } from '@src/redux';
-
-const getMainMenuFromAPI = () => (
-  axios.get('http://dev.monyze.ru/menu_data.php')
-);
-
-const getDevicesMenuFromAPI = () => (
-  axios.get('http://dev.monyze.ru/menu_devices.php')
-);
 
 export const MAIN_MENU_WAS_REQUESTED_FROM_API =
   'MAIN_MENU_WAS_REQUESTED_FROM_API';
 export const PUT_MAIN_MENU_FROM_API_TO_MODEL =
   'PUT_MAIN_MENU_FROM_API_TO_MODEL';
+export const PUT_USER_MENU_FROM_API_TO_MODEL =
+  'PUT_USER_MENU_FROM_API_TO_MODEL';
 export const DEVICES_MENU_WAS_REQUESTED_FROM_API =
   'DEVICES_MENU_WAS_REQUESTED_FROM_API';
 export const PUT_DEVICES_MENU_FROM_API_TO_MODEL =
@@ -34,6 +29,8 @@ export const DO_DEVICES_MENU_ON_SMALL_SCREEN_SWITCH =
   'DO_DEVICES_MENU_ON_SMALL_SCREEN_SWITCH';
 export const DO_BOTH_MENU_ON_SMALL_SCREEN_OFF =
   'DO_BOTH_MENU_ON_SMALL_SCREEN_OFF';
+export const DO_USER_MENU_ON_BIG_SCREEN_SWITCH =
+  'DO_USER_MENU_ON_BIG_SCREEN_SWITCH';
 
 
 export type Actions = {
@@ -43,6 +40,10 @@ export type Actions = {
   PUT_MAIN_MENU_FROM_API_TO_MODEL: {
     type: typeof PUT_MAIN_MENU_FROM_API_TO_MODEL,
     payload: MainMenuLinksInterface[],
+  },
+  PUT_USER_MENU_FROM_API_TO_MODEL: {
+    type: typeof PUT_USER_MENU_FROM_API_TO_MODEL,
+    payload: UserInterface,
   },
   DEVICES_MENU_WAS_REQUESTED_FROM_API: {
     type: typeof DEVICES_MENU_WAS_REQUESTED_FROM_API,
@@ -67,6 +68,9 @@ export type Actions = {
   },
   DO_BOTH_MENU_ON_SMALL_SCREEN_OFF: {
     type: typeof DO_BOTH_MENU_ON_SMALL_SCREEN_OFF,
+  },
+  DO_USER_MENU_ON_BIG_SCREEN_SWITCH: {
+    type: typeof DO_USER_MENU_ON_BIG_SCREEN_SWITCH,
   }
 };
 
@@ -80,6 +84,11 @@ export const syncActionCreators = {
   ( payload: MainMenuLinksInterface[] ):
   Actions[typeof PUT_MAIN_MENU_FROM_API_TO_MODEL] => ({
     type: PUT_MAIN_MENU_FROM_API_TO_MODEL, payload
+  }),
+  putUserMenuFromAPIToModel:
+  ( payload: UserInterface ):
+  Actions[typeof PUT_USER_MENU_FROM_API_TO_MODEL] => ({
+    type: PUT_USER_MENU_FROM_API_TO_MODEL, payload,
   }),
   devicesMenuWasRequestedFromAPI: ():
   Actions[typeof DEVICES_MENU_WAS_REQUESTED_FROM_API] => ({
@@ -110,10 +119,23 @@ export const syncActionCreators = {
   doBothMenuOnSmallScreenOff:():
   Actions[typeof DO_BOTH_MENU_ON_SMALL_SCREEN_OFF] => ({
     type: DO_BOTH_MENU_ON_SMALL_SCREEN_OFF,
+  }),
+  doUserMenuOnBigScreenSwitch:():
+  Actions[typeof DO_USER_MENU_ON_BIG_SCREEN_SWITCH] => ({
+    type: DO_USER_MENU_ON_BIG_SCREEN_SWITCH,
   })
 };
 
 // Async Action Creators
+
+const getMainMenuFromAPI = () => (
+  axios.get('http://dev.monyze.ru/menu_data.php')
+);
+
+const getDevicesMenuFromAPI = () => (
+  axios.get('http://dev.monyze.ru/menu_devices.php')
+);
+
 export const asyncActionCreators = {
   makeMainMenuRequestToAPI: () => {
     return ( dispatch: Dispatch ) => {
@@ -125,6 +147,15 @@ export const asyncActionCreators = {
           const menu: MainMenuLinksInterface[] = response.data.menu;
           dispatch(
             syncActionCreators.putMainMenuFromAPIToModel(menu)
+          );
+          const login: UserInterface = response.data.user[0].login;
+          return login;
+        }
+      )
+      .then(
+        ( login ) => {
+          dispatch(
+            syncActionCreators.putUserMenuFromAPIToModel(login)
           );
         }
       )

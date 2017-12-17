@@ -2,28 +2,34 @@ import { combineReducers } from 'redux';
 
 import {
   MainMenuLinksInterface,
-  IsOpenedInterface
+  IsOpenedInterface,
+  UserMenuInterface,
+  IsOpenedUserMenuInterface,
 } from '@src/interfaces';
 
 import {
   MAIN_MENU_WAS_REQUESTED_FROM_API,
   PUT_MAIN_MENU_FROM_API_TO_MODEL,
+  PUT_USER_MENU_FROM_API_TO_MODEL,
   DEVICES_MENU_WAS_REQUESTED_FROM_API,
   PUT_DEVICES_MENU_FROM_API_TO_MODEL,
   DO_MAIN_MENU_ON_SMALL_SCREEN_SWITCH,
   DO_DEVICES_MENU_ON_BIG_SCREEN_SWITCH,
   DO_DEVICES_MENU_ON_MIDDLE_SCREEN_SWITCH,
   DO_DEVICES_MENU_ON_SMALL_SCREEN_SWITCH,
-  DO_BOTH_MENU_ON_SMALL_SCREEN_OFF
+  DO_BOTH_MENU_ON_SMALL_SCREEN_OFF,
+  DO_USER_MENU_ON_BIG_SCREEN_SWITCH
 } from '@src/redux/main';
 
 export type State = {
   readonly MainMenuWasRequestedFromAPI: boolean,
   readonly MainMenuModel: MainMenuLinksInterface[],
+  readonly UserMenuModel: UserMenuInterface,
   readonly DevicesMenuWasRequestedFromAPI: boolean,
   readonly DevicesMenuModel: MainMenuLinksInterface[],
   readonly isDevicesMenuOpened: IsOpenedInterface,
   readonly isMainMenuOpened: IsOpenedInterface,
+  readonly isUserMenuOpened: IsOpenedUserMenuInterface,
 };
 
 const isMainMenuOpenedInitialState: IsOpenedInterface = {
@@ -36,6 +42,28 @@ const isDevicesMenuOpenedInitialState: IsOpenedInterface = {
   onSmallScreen: false,
   onBigScreen: false,
   onMiddleScreen: false,
+};
+
+const isUserMenuOpenedInitialState: IsOpenedUserMenuInterface = {
+  onBigScreen: false,
+};
+
+const UserMenuInitialState: UserMenuInterface = {
+  user: [
+    {
+      login: '',
+    }
+  ],
+  links: [
+    {
+      to: 'details',
+      value: 'Мои данные',
+    },
+    {
+      to: 'exit',
+      value: 'Выход',
+    },
+  ]
 }
 
 export const reducer = combineReducers({
@@ -55,7 +83,22 @@ export const reducer = combineReducers({
         return state;
     }
   },
-    DevicesMenuWasRequestedFromAPI: ( state = false, action ) => {
+  UserMenuModel: ( state = UserMenuInitialState, action ) => {
+    switch ( action.type ) {
+      case PUT_USER_MENU_FROM_API_TO_MODEL:
+        return {
+          ...state,
+          user: [
+            {
+              login: action.payload
+            }
+          ]
+        };
+      default:
+        return state;
+    }
+  },
+  DevicesMenuWasRequestedFromAPI: ( state = false, action ) => {
     switch ( action.type ) {
       case DEVICES_MENU_WAS_REQUESTED_FROM_API:
         return true;
@@ -130,4 +173,15 @@ export const reducer = combineReducers({
         return state;
     }
   },
+  isUserMenuOpened:
+  ( state = isUserMenuOpenedInitialState, action ) => {
+    switch ( action.type ) {
+      case DO_USER_MENU_ON_BIG_SCREEN_SWITCH:
+        return {
+          onBigScreen: ( state.onBigScreen ) ? false : true,
+        };
+      default:
+        return state;
+    }
+  }
 });

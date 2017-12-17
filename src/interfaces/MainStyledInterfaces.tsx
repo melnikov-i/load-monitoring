@@ -4,14 +4,42 @@ export interface MainMenuLinksInterface {
   value: string,
 }
 
+// "user":[{"login":"admin"}]
+
+export interface UserInterface {
+  login: string,
+}
+
+export interface UserLinkInterface {
+  to: string,
+  value: string,
+}
+
+export interface UserMenuInterface {
+  user: UserInterface[],
+  links: UserLinkInterface[],
+}
+
 export interface MainMenuIconInterface {
   icon: MainMenuLinksInterface['icon'],
 }
 
+type onSmallScreenType = boolean;
+type onMiddleScreenType = boolean;
+type onBigScreenType = boolean;
+
 export interface IsOpenedInterface {
-  onSmallScreen?: boolean,
-  onMiddleScreen?: boolean,
-  onBigScreen?: boolean,
+  onSmallScreen: onSmallScreenType,
+  onMiddleScreen: onMiddleScreenType,
+  onBigScreen: onBigScreenType,
+}
+
+export interface IsOpenedOnSmallScreenInterface {
+  onSmallScreen: onSmallScreenType,
+}
+
+export interface IsOpenedUserMenuInterface {
+  onBigScreen: onBigScreenType,
 }
 
 export type MMSpanIconProps =
@@ -21,10 +49,16 @@ export type MMUListIsOpenedProps =
   IsOpenedInterface & React.HTMLProps<HTMLUListElement>;
 
 export type MMDivIsOpenedProps =
-  IsOpenedInterface & React.HTMLProps<HTMLDivElement>;
+  IsOpenedOnSmallScreenInterface & React.HTMLProps<HTMLDivElement>;
 
 export type MMLinkIsOpenedProps =
   IsOpenedInterface & React.HTMLProps<HTMLLinkElement>;
 
 export type MMButtonIsOpenedProps =
-  IsOpenedInterface & React.HTMLProps<HTMLButtonElement>;
+  IsOpenedOnSmallScreenInterface & React.HTMLProps<HTMLButtonElement>;
+
+export type UMUListIsOpenedProps =
+  IsOpenedUserMenuInterface & React.HTMLProps<HTMLUListElement>;
+
+export type UMLinkIsOpenedProps =
+  IsOpenedUserMenuInterface & React.HTMLProps<HTMLLinkElement>;

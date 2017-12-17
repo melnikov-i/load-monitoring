@@ -10,6 +10,7 @@ export const TOP_HEIGHT: string = '70px';
 export const FOOTER_HEIGHT: string = '50px';
 
 export const BIG_MAIN_LINK_HEIGHT: string = '46px';
+export const BIG_USER_FAKE_LINK_HEIGHT: string = '22px';
 
 export const FA_BIG_FONT_SIZE: string = '28px';
 export const FA_SMALL_FONT_SIZE: string = '14px';

@@ -12,6 +12,11 @@ const MainMenuModel =
   state.main.MainMenuModel
 );
 
+const UserMenuModel =
+( state: RootState ) => (
+  state.main.UserMenuModel
+);
+
 const DevicesMenuWasRequestedFromAPI =
 ( state: RootState ) => (
   state.main.MainMenuWasRequestedFromAPI
@@ -32,6 +37,11 @@ const isMainMenuOpened =
   state.main.isMainMenuOpened
 );
 
+const isUserMenuOpened =
+( state: RootState ) => (
+  state.main.isUserMenuOpened
+);
+
 export const MainMenuWasRequestedFromAPISelector = 
   createSelector(
     [MainMenuWasRequestedFromAPI],
@@ -41,6 +51,11 @@ export const MainMenuWasRequestedFromAPISelector =
 export const MainMenuModelSelector = createSelector(
   [MainMenuModel],
   ( MainMenuModel ) => MainMenuModel
+);
+
+export const UserMenuModelSelector = createSelector(
+  [UserMenuModel],
+  (UserMenuModel) => UserMenuModel
 );
 
 export const DevicesMenuWasRequestedFromAPISelector = 
@@ -62,4 +77,9 @@ export const isDevicesMenuOpenedSelector = createSelector(
 export const isMainMenuOpenedSelector = createSelector(
   [isMainMenuOpened],
   ( isMainMenuOpened ) => isMainMenuOpened
+);
+
+export const isUserMenuOpenedSeelctor = createSelector(
+  [isUserMenuOpened],
+  ( isUserMenuOpened ) => isUserMenuOpened
 );

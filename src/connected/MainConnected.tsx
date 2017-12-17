@@ -9,19 +9,23 @@ import { Main } from '@src/components';
 import {
   MainMenuWasRequestedFromAPISelector,
   MainMenuModelSelector,
+  UserMenuModelSelector,
   DevicesMenuWasRequestedFromAPISelector,
   DevicesMenuModelSelector,
   isDevicesMenuOpenedSelector,
   isMainMenuOpenedSelector,
+  isUserMenuOpenedSeelctor,
 } from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector({
   MainMenuWasRequestedFromAPI: MainMenuWasRequestedFromAPISelector,
   MainMenuModel: MainMenuModelSelector,
+  UserMenuModel: UserMenuModelSelector,
   DevicesMenuWasRequestedFromAPI: DevicesMenuWasRequestedFromAPISelector,
   DevicesMenuModel: DevicesMenuModelSelector,
   isDevicesMenuOpened: isDevicesMenuOpenedSelector,
   isMainMenuOpened: isMainMenuOpenedSelector,
+  isUserMenuOpened: isUserMenuOpenedSeelctor,
 });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
@@ -40,6 +44,8 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
     syncActionCreators.doDevicesMenuOnSmallScreenSwitch,
   doBothMenuOnSmallScreenOff: 
     syncActionCreators.doBothMenuOnSmallScreenOff,
+  doUserMenuOnBigScreenSwitch: 
+    syncActionCreators.doUserMenuOnBigScreenSwitch
 }, dispatch);
 
 export const MainConnected = 

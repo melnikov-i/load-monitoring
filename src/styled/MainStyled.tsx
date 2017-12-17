@@ -7,6 +7,8 @@ import {
   MMDivIsOpenedProps,
   MMLinkIsOpenedProps,
   MMButtonIsOpenedProps,
+  UMUListIsOpenedProps,
+  UMLinkIsOpenedProps,
 } from '@src/interfaces';
 
 const MainMenuLinkSpanFunction: StyledFunction<MMSpanIconProps> =
@@ -18,6 +20,9 @@ const MainMenuFunction: StyledFunction<MMDivIsOpenedProps> =
 const MainMenuFakeLinkFunction: StyledFunction<MMLinkIsOpenedProps> =
   styled.a;
 
+const UserMenuFakeLinkFunction: StyledFunction<UMLinkIsOpenedProps> =
+  styled.a;
+
 const MainPageFunction: StyledFunction<MMDivIsOpenedProps> =
   styled.div;
 
@@ -26,6 +31,9 @@ const DevicesMenuLayoutFunction: StyledFunction<MMUListIsOpenedProps> =
 
 const IsOpenButtonFunction: StyledFunction<MMButtonIsOpenedProps> =
   styled.button;
+
+const UserMenuLayoutFunction: StyledFunction<UMUListIsOpenedProps> =
+  styled.ul;
 
 const HeaderProfile = require('@src/images/HeaderProfile');
 const Logo = require('@src/images/Logo');
@@ -38,6 +46,7 @@ import {
   MENU_LAYOUT_MIDDLE_WIDTH,
   MENU_LOGO_HEIGHT,
   BIG_MAIN_LINK_HEIGHT,
+  BIG_USER_FAKE_LINK_HEIGHT,
   FA_BIG_FONT_SIZE,
   FA_SMALL_FONT_SIZE,
   TOP_HEIGHT,
@@ -165,6 +174,131 @@ export const MainMenuLogo = styled.div`
       }
     }
 `;
+
+export const UserMenuFakeLink = UserMenuFakeLinkFunction`
+  display: block;
+  width: 100%;
+  position: relative;
+  top: 65px;
+  height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+  line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+  font-size: 13px;
+  font-weight: 600;
+  color: #dfe4fe;
+  cursor: pointer;
+  &::selection {
+    background: transparent;
+  }
+  &::after {
+      width: ${ BIG_USER_FAKE_LINK_HEIGHT };
+      height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+      line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+      text-align: center;
+      content: "${
+        props => (
+          props.onBigScreen 
+          ? "\f078" 
+          : "\f053"
+        )
+      }";
+      font-family: 'FontAwesome';
+      font-weight: normal;
+      font-size: calc(${ FA_SMALL_FONT_SIZE } - 4px);
+      color: #dfe4fe;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  @media screen 
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      display: none;
+    }
+`;
+
+export const UserMenuLayout = UserMenuLayoutFunction`
+  display: ${
+    props => (
+      props.onBigScreen
+      ? 'block'
+      : 'none'
+    )
+  };
+  width: 100%;
+  background-color: #fff;
+  border-radius: 3px;
+  padding: 3px 0;
+  position: relative;
+  top: 70px;
+  left: 0;
+  @media screen 
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      display: none;
+    }
+`;
+
+export const UserMenuItem = styled.li`
+  list-style-position: inside;
+  list-style-type: none;
+`;
+
+export const UserMenuLink = styled(NavLink)`
+  display: block;
+  text-decoration: none;
+`;
+
+export const UserMenuLinkSpan = styled.span`
+  display: block;
+  height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+  line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+  font-size: 13px;
+  font-weight: normal;
+  color: #333;
+  white-space: no-wrap;
+  padding: 3px 5px;
+  &::selection {
+    background-color: transparent;
+  }
+  &:hover {
+    background-color: #f5f5f5;
+    color: #262626;
+  }
+  @media screen
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      display: none;
+    }
+`;
+
+// export const MainMenuLinkSpan = MainMenuLinkSpanFunction`
+//   height: ${ BIG_MAIN_LINK_HEIGHT };
+//   line-height: ${ BIG_MAIN_LINK_HEIGHT };
+//   font-size: 13px;
+//   font-weight: 600;
+//   display: inline-block;
+//   vertical-align: top;
+//   &::selection {
+//     background: transparent;
+//   }
+//   &:hover {
+//     color: #fff;
+//   }
+//   &::before {
+//     content: "${ (props) => props.icon }";
+//     font-family: 'FontAwesome';
+//     font-weight: normal;
+//     font-size: ${ FA_SMALL_FONT_SIZE };
+//     margin-left: 14px;
+//     margin-right: 6px;
+//   }
+//   @media screen
+//     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+//       font-size: 0;
+//       &::before {
+//         font-size: ${ FA_BIG_FONT_SIZE };
+//         margin-left: 10px;
+//         margin-right: 0;
+//       }
+//     }
+// `;
 
 export const MainMenuLayout = styled.ul`
   width: 100%;

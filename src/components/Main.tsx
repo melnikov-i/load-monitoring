@@ -8,6 +8,8 @@ import {
 import {
   MainMenuLinksInterface,
   IsOpenedInterface,
+  UserMenuInterface,
+  IsOpenedUserMenuInterface
 } from '@src/interfaces';
 
 import {
@@ -27,6 +29,11 @@ import {
   MainTop,
   SmallMenuButton,
   MainContent,
+  UserMenuFakeLink,
+  UserMenuLayout,
+  UserMenuItem,
+  UserMenuLink,
+  UserMenuLinkSpan,
 } from '@src/styled';
 
 import {
@@ -38,10 +45,12 @@ import {
 interface MainProps {
   MainMenuWasRequestedFromAPI: boolean,
   MainMenuModel: MainMenuLinksInterface[],
+  UserMenuModel: UserMenuInterface,
   DevicesMenuWasRequestedFromAPI: boolean,
   DevicesMenuModel: MainMenuLinksInterface[],
   isDevicesMenuOpened: IsOpenedInterface,
   isMainMenuOpened: IsOpenedInterface,
+  isUserMenuOpened: IsOpenedUserMenuInterface,
   makeMainMenuRequestToAPI: () => any,
   makeDevicesMenuRequestToAPI: () => any,
   doMainMenuOnSmallScreenSwitch: () => any,
@@ -49,23 +58,27 @@ interface MainProps {
   doDevicesMenuOnMiddleScreenSwitch: () => any,
   doDevicesMenuOnSmallScreenSwitch: () => any,
   doBothMenuOnSmallScreenOff: () => any,
+  doUserMenuOnBigScreenSwitch: () => any,
 }
 
 export const Main: React.SFC<MainProps> = (props) => {
   const {
     MainMenuWasRequestedFromAPI,
     MainMenuModel,
+    UserMenuModel,
     DevicesMenuWasRequestedFromAPI,
     DevicesMenuModel,
     isDevicesMenuOpened,
     isMainMenuOpened,
+    isUserMenuOpened,
     makeMainMenuRequestToAPI,
     makeDevicesMenuRequestToAPI,
     doMainMenuOnSmallScreenSwitch,
     doDevicesMenuOnBigScreenSwitch,
     doDevicesMenuOnMiddleScreenSwitch,
     doDevicesMenuOnSmallScreenSwitch,
-    doBothMenuOnSmallScreenOff
+    doBothMenuOnSmallScreenOff,
+    doUserMenuOnBigScreenSwitch,
   } = props;
 
   const getMainMenu = (): MainMenuLinksInterface[] => {
@@ -110,7 +123,10 @@ export const Main: React.SFC<MainProps> = (props) => {
         doDevicesMenuOnMiddleScreenSwitch();
       }
     }
+  };
 
+  const userMenuLinkHandler = () => {
+    doUserMenuOnBigScreenSwitch();
   }
 
   return (
@@ -124,7 +140,35 @@ export const Main: React.SFC<MainProps> = (props) => {
             onSmallScreen={isMainMenuOpened.onSmallScreen}
             id={'smallMenuButton'} />
           <MainMenuLogoWrapper>
-            <MainMenuLogo></MainMenuLogo>
+            <MainMenuLogo>
+              <UserMenuFakeLink 
+                onBigScreen={isUserMenuOpened.onBigScreen}
+                onClick={userMenuLinkHandler}
+              >
+                { UserMenuModel.user[0].login }
+              </UserMenuFakeLink>
+              <UserMenuLayout
+                onBigScreen={isUserMenuOpened.onBigScreen}
+              >
+                {
+                  UserMenuModel.links.map((e, i) => {
+                    return (
+                      <UserMenuItem key={i}>
+                        <UserMenuLink
+                          to={'/' + e.to}
+                          title={e.value}
+                          onClick={userMenuLinkHandler}
+                        >
+                          <UserMenuLinkSpan>
+                            { e.value }
+                          </UserMenuLinkSpan>
+                        </UserMenuLink>
+                      </UserMenuItem>
+                    );
+                  })
+                }
+              </UserMenuLayout>
+            </MainMenuLogo>
           </MainMenuLogoWrapper>
           <MainMenuLayout>
             {
