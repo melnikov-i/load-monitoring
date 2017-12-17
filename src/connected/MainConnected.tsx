@@ -36,6 +36,10 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
     syncActionCreators.doDevicesMenuOnBigScreenSwitch,
   doDevicesMenuOnMiddleScreenSwitch: 
     syncActionCreators.doDevicesMenuOnMiddleScreenSwitch,
+  doDevicesMenuOnSmallScreenSwitch:
+    syncActionCreators.doDevicesMenuOnSmallScreenSwitch,
+  doBothMenuOnSmallScreenOff: 
+    syncActionCreators.doBothMenuOnSmallScreenOff,
 }, dispatch);
 
 export const MainConnected = 

@@ -30,6 +30,10 @@ export const DO_DEVICES_MENU_ON_BIG_SCREEN_SWITCH =
   'DO_DEVICES_MENU_ON_BIG_SCREEN_SWITCH';
 export const DO_DEVICES_MENU_ON_MIDDLE_SCREEN_SWITCH =
   'DO_DEVICES_MENU_ON_MIDDLE_SCREEN_SWITCH';
+export const DO_DEVICES_MENU_ON_SMALL_SCREEN_SWITCH =
+  'DO_DEVICES_MENU_ON_SMALL_SCREEN_SWITCH';
+export const DO_BOTH_MENU_ON_SMALL_SCREEN_OFF =
+  'DO_BOTH_MENU_ON_SMALL_SCREEN_OFF';
 
 
 export type Actions = {
@@ -57,6 +61,12 @@ export type Actions = {
   },
   DO_DEVICES_MENU_ON_MIDDLE_SCREEN_SWITCH: {
     type: typeof DO_DEVICES_MENU_ON_MIDDLE_SCREEN_SWITCH,
+  },
+  DO_DEVICES_MENU_ON_SMALL_SCREEN_SWITCH: {
+    type: typeof DO_DEVICES_MENU_ON_SMALL_SCREEN_SWITCH,
+  },
+  DO_BOTH_MENU_ON_SMALL_SCREEN_OFF: {
+    type: typeof DO_BOTH_MENU_ON_SMALL_SCREEN_OFF,
   }
 };
 
@@ -93,6 +103,14 @@ export const syncActionCreators = {
   Actions[typeof DO_DEVICES_MENU_ON_MIDDLE_SCREEN_SWITCH] => ({
     type: DO_DEVICES_MENU_ON_MIDDLE_SCREEN_SWITCH
   }),
+  doDevicesMenuOnSmallScreenSwitch:():
+  Actions[typeof DO_DEVICES_MENU_ON_SMALL_SCREEN_SWITCH] => ({
+    type: DO_DEVICES_MENU_ON_SMALL_SCREEN_SWITCH
+  }),
+  doBothMenuOnSmallScreenOff:():
+  Actions[typeof DO_BOTH_MENU_ON_SMALL_SCREEN_OFF] => ({
+    type: DO_BOTH_MENU_ON_SMALL_SCREEN_OFF,
+  })
 };
 
 // Async Action Creators

@@ -28,9 +28,4 @@ export const TableHeadColl = styled.th`
   min-height: 25px;
   line-height: 25px;
   text-align: left;
-  background-color: green;
 `;
-  // @media screen and (min-width: 941px) and (max-width: 1180px) {
-  //   width: ${ DevicesTableHeadCollMiddleWidth };
-  //   background-color: red;
-  // }

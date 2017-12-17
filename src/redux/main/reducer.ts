@@ -13,6 +13,8 @@ import {
   DO_MAIN_MENU_ON_SMALL_SCREEN_SWITCH,
   DO_DEVICES_MENU_ON_BIG_SCREEN_SWITCH,
   DO_DEVICES_MENU_ON_MIDDLE_SCREEN_SWITCH,
+  DO_DEVICES_MENU_ON_SMALL_SCREEN_SWITCH,
+  DO_BOTH_MENU_ON_SMALL_SCREEN_OFF
 } from '@src/redux/main';
 
 export type State = {
@@ -78,6 +80,21 @@ export const reducer = combineReducers({
           onMiddleScreen: false,
           onSmallScreen: ( state.onSmallScreen ) ? false : true,
         };
+      case DO_DEVICES_MENU_ON_BIG_SCREEN_SWITCH:
+        return {
+          ...state,
+          onSmallScreen: false,
+        };
+      case DO_DEVICES_MENU_ON_MIDDLE_SCREEN_SWITCH:
+        return {
+          ...state,
+          onSmallScreen: false,
+        };
+      case DO_BOTH_MENU_ON_SMALL_SCREEN_OFF:
+        return {
+          ...state,
+          onSmallScreen: false,
+        };
       default:
         return state;
     }
@@ -96,6 +113,18 @@ export const reducer = combineReducers({
           onBigScreen: false,
           onMiddleScreen: ( state.onMiddleScreen ) ? false : true,
           onSmallScreen: false,
+        };
+      case DO_DEVICES_MENU_ON_SMALL_SCREEN_SWITCH:
+        return {
+          onBigScreen: false,
+          onMiddleScreen: false,
+          onSmallScreen: ( state.onSmallScreen ) ? false : true,
+        };
+      case DO_BOTH_MENU_ON_SMALL_SCREEN_OFF:
+        return {
+          onBigScreen: false,
+          onMiddleScreen: false,
+          onSmallScreen: ( state.onSmallScreen ) ? false : true,
         };
       default:
         return state;

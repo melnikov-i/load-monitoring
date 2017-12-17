@@ -253,6 +253,7 @@ export const MainMenuFakeLink = MainMenuFakeLinkFunction`
     right: 10px;
   }
   @media screen 
+    and (min-width: ${ MIDDLE_SCREEN_MIN })
     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
       color: ${ 
         props => (
@@ -271,6 +272,33 @@ export const MainMenuFakeLink = MainMenuFakeLinkFunction`
         background-color: ${
           props =>
             props.onMiddleScreen
+            ? '#19aa8d'
+            : 'transparent'
+        };
+      }
+      &::after {
+        display: none;          
+      }
+    }
+  @media screen 
+    and (max-width: ${ SMALL_SCREEN_MAX }) {
+      color: ${ 
+        props => (
+          props.onSmallScreen
+          ? '#fff'
+          : '#a7b1c2'
+        )
+      };
+      background-color: ${
+        props =>
+          props.onSmallScreen
+          ? '#293846'
+          : 'transparent'
+      };
+      &::before {
+        background-color: ${
+          props =>
+            props.onSmallScreen
             ? '#19aa8d'
             : 'transparent'
         };
@@ -323,10 +351,26 @@ export const DevicesMenuLayout = DevicesMenuLayoutFunction`
   overflow: hidden;
   margin-right: 5px;
   @media screen 
+    and (min-width: ${ MIDDLE_SCREEN_MIN })
     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
       display: ${
         props => 
           props.onMiddleScreen
+          ? 'block'
+          : 'none'
+      };
+      background-color: #2f4050;
+      position: absolute;
+      left: ${ MENU_LAYOUT_MIDDLE_WIDTH };
+      top: 0;
+      min-width: 300%;
+      padding-right: 5px;
+    }
+  @media screen
+    and (max-width: ${ SMALL_SCREEN_MAX }) {
+      display: ${
+        props => 
+          props.onSmallScreen
           ? 'block'
           : 'none'
       };
@@ -344,20 +388,6 @@ export const DevicesMenuLink = styled(NavLink)`
   text-decoration: none;
   color: #a7b1c2;
   position: relative;
-`;
-
-export const DevicesMenuLinkMiddleClother = styled.span`
-  display: none;
-  @media screen 
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      display: block;
-      width: 100%;
-      min-height: 100%;
-      height: auto;
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
 `;
 
 export const DevicesMenuLinkSpan = MainMenuLinkSpan.extend`
@@ -407,8 +437,6 @@ export const MainTop = styled.div`
   background-color: #f3f3f3;
   border-bottom: 1px solid #e7eaec;
   box-sizing: border-box;
-
-background-color: rgba(255, 0, 0, .4);
 `;
 
 export const MainContent = styled.div`
