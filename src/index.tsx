@@ -10,13 +10,14 @@ const FontAwesomeTTF = require('@src/fonts/fontawesome-webfont.ttf');
 const FontAwesomeSVG = require('@src/fonts/fontawesome-webfont.svg');
 
 import store from './store';
-import MainConnected from '@src/connected/MainConnected.usage';
+import { MainContainer } from '@src/containers';
 
 import {
   MIDDLE_SCREEN_MAX,
   MENU_LAYOUT_MIDDLE_WIDTH,
   FOOTER_HEIGHT,
   MENU_LAYOUT_BIG_WIDTH,
+  FA_SMALL_FONT_SIZE
 } from '@src/styled';
 
 injectGlobal`
@@ -60,6 +61,7 @@ injectGlobal`
     margin-top: -${ FOOTER_HEIGHT };
     box-sizing: border-box;
     border-top: 1px solid #e7eaec;
+    position: relative;
     @media screen 
       and (max-width: ${ MIDDLE_SCREEN_MAX }) {
         width: calc(100% - ${ MENU_LAYOUT_MIDDLE_WIDTH });
@@ -79,6 +81,29 @@ injectGlobal`
       }
   }
 
+  #copyright {
+    --width: 50px;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: calc(${ FA_SMALL_FONT_SIZE } - 2px);
+    font-weight: 600;
+    color: #676a6c;
+    &::before {
+      content: "\f1f9";
+      font-family: 'FontAwesome';
+      font-size: calc(${ FA_SMALL_FONT_SIZE } - 2px);
+      color: #676a6c;
+      margin-right: 3px;
+    }
+    &::after {
+      content: "${ new Date().getFullYear() }";
+      font-size: calc(${ FA_SMALL_FONT_SIZE } - 2px);
+      color: #676a6c;
+      margin-left: 3px;
+    }
+  }
+
   @font-face {
     font-family: 'FontAwesome';
     src: url('${FontAwesomeEOT}?v=4.7.0');
@@ -94,7 +119,7 @@ injectGlobal`
 
 const Root: JSX.Element = (
   <Provider store={ store }>
-    <MainConnected />
+    <MainContainer />
   </Provider>
 );
 

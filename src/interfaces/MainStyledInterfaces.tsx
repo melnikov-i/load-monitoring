@@ -4,8 +4,6 @@ export interface MainMenuLinksInterface {
   value: string,
 }
 
-// "user":[{"login":"admin"}]
-
 export interface UserInterface {
   login: string,
 }

@@ -268,38 +268,6 @@ export const UserMenuLinkSpan = styled.span`
     }
 `;
 
-// export const MainMenuLinkSpan = MainMenuLinkSpanFunction`
-//   height: ${ BIG_MAIN_LINK_HEIGHT };
-//   line-height: ${ BIG_MAIN_LINK_HEIGHT };
-//   font-size: 13px;
-//   font-weight: 600;
-//   display: inline-block;
-//   vertical-align: top;
-//   &::selection {
-//     background: transparent;
-//   }
-//   &:hover {
-//     color: #fff;
-//   }
-//   &::before {
-//     content: "${ (props) => props.icon }";
-//     font-family: 'FontAwesome';
-//     font-weight: normal;
-//     font-size: ${ FA_SMALL_FONT_SIZE };
-//     margin-left: 14px;
-//     margin-right: 6px;
-//   }
-//   @media screen
-//     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-//       font-size: 0;
-//       &::before {
-//         font-size: ${ FA_BIG_FONT_SIZE };
-//         margin-left: 10px;
-//         margin-right: 0;
-//       }
-//     }
-// `;
-
 export const MainMenuLayout = styled.ul`
   width: 100%;
   margin-top: 10px;
