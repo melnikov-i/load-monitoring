@@ -2,9 +2,6 @@ import styled, { keyframes } from 'styled-components';
 
 import { CircularSpinnerProps } from '@src/interfaces';
 
-// const CircularSpinnerFunction: StyledFunction<CircularSpinnerProps> =
-//   styled.div;
-
 import {
   MIDDLE_SCREEN_MIN,
   MIDDLE_SCREEN_MAX,

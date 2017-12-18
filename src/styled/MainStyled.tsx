@@ -11,32 +11,6 @@ import {
   UMLinkIsOpenedProps,
 } from '@src/interfaces';
 
-// type MainMenuLinkSpanProps<P> = ThemedStyledProps<P, MMSpanIconProps>;
-
-// const MainMenuLinkSpanFunction: StyledFunction<MMSpanIconProps> =
-//   styled.span;
-
-// const MainMenuFunction: StyledFunction<MMDivIsOpenedProps> =
-//   styled.div;
-
-// const MainMenuFakeLinkFunction: StyledFunction<MMLinkIsOpenedProps> =
-//   styled.a;
-
-// const UserMenuFakeLinkFunction: StyledFunction<UMLinkIsOpenedProps> =
-//   styled.a;
-
-// const MainPageFunction: StyledFunction<MMDivIsOpenedProps> =
-//   styled.div;
-
-// const DevicesMenuLayoutFunction: StyledFunction<MMUListIsOpenedProps> =
-//   styled.ul;
-
-// const IsOpenButtonFunction: StyledFunction<MMButtonIsOpenedProps> =
-//   styled.button;
-
-// const UserMenuLayoutFunction: StyledFunction<UMUListIsOpenedProps> =
-//   styled.ul;
-
 const HeaderProfile = require('@src/images/HeaderProfile');
 const Logo = require('@src/images/Logo');
 
