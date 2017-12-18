@@ -1,4 +1,4 @@
-import styled, { StyledFunction } from 'styled-components';
+import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 import {
@@ -11,29 +11,31 @@ import {
   UMLinkIsOpenedProps,
 } from '@src/interfaces';
 
-const MainMenuLinkSpanFunction: StyledFunction<MMSpanIconProps> =
-  styled.span;
+// type MainMenuLinkSpanProps<P> = ThemedStyledProps<P, MMSpanIconProps>;
 
-const MainMenuFunction: StyledFunction<MMDivIsOpenedProps> =
-  styled.div;
+// const MainMenuLinkSpanFunction: StyledFunction<MMSpanIconProps> =
+//   styled.span;
 
-const MainMenuFakeLinkFunction: StyledFunction<MMLinkIsOpenedProps> =
-  styled.a;
+// const MainMenuFunction: StyledFunction<MMDivIsOpenedProps> =
+//   styled.div;
 
-const UserMenuFakeLinkFunction: StyledFunction<UMLinkIsOpenedProps> =
-  styled.a;
+// const MainMenuFakeLinkFunction: StyledFunction<MMLinkIsOpenedProps> =
+//   styled.a;
 
-const MainPageFunction: StyledFunction<MMDivIsOpenedProps> =
-  styled.div;
+// const UserMenuFakeLinkFunction: StyledFunction<UMLinkIsOpenedProps> =
+//   styled.a;
 
-const DevicesMenuLayoutFunction: StyledFunction<MMUListIsOpenedProps> =
-  styled.ul;
+// const MainPageFunction: StyledFunction<MMDivIsOpenedProps> =
+//   styled.div;
 
-const IsOpenButtonFunction: StyledFunction<MMButtonIsOpenedProps> =
-  styled.button;
+// const DevicesMenuLayoutFunction: StyledFunction<MMUListIsOpenedProps> =
+//   styled.ul;
 
-const UserMenuLayoutFunction: StyledFunction<UMUListIsOpenedProps> =
-  styled.ul;
+// const IsOpenButtonFunction: StyledFunction<MMButtonIsOpenedProps> =
+//   styled.button;
+
+// const UserMenuLayoutFunction: StyledFunction<UMUListIsOpenedProps> =
+//   styled.ul;
 
 const HeaderProfile = require('@src/images/HeaderProfile');
 const Logo = require('@src/images/Logo');
@@ -58,7 +60,7 @@ export const MainLayout = styled.div`
   height: auto;
 `;
 
-export const MainMenu = MainMenuFunction`
+export const MainMenu = styled.div`
   width: ${ MENU_LAYOUT_BIG_WIDTH };
   display: inline-block;
   vertical-align: top;
@@ -86,7 +88,7 @@ export const MainMenu = MainMenuFunction`
     and (max-width: ${ SMALL_SCREEN_MAX }) {
       width: ${ MENU_LAYOUT_MIDDLE_WIDTH };
       margin-left: ${
-        props => (
+        ( props: MMDivIsOpenedProps ) => (
           props.onSmallScreen
           ? '0'
           : `-${ MENU_LAYOUT_MIDDLE_WIDTH }`
@@ -95,7 +97,7 @@ export const MainMenu = MainMenuFunction`
       &::before {
         width: ${ MENU_LAYOUT_MIDDLE_WIDTH };
         margin-left: ${
-          props => (
+          ( props: MMDivIsOpenedProps ) => (
             props.onSmallScreen
             ? '0'
             : `-${ MENU_LAYOUT_MIDDLE_WIDTH }`
@@ -105,7 +107,7 @@ export const MainMenu = MainMenuFunction`
     }
 `;
 
-export const SmallMenuButton = IsOpenButtonFunction`
+export const SmallMenuButton = styled.button`
   display: none;
   @media screen
     and (max-width: ${ SMALL_SCREEN_MAX }) {
@@ -113,7 +115,7 @@ export const SmallMenuButton = IsOpenButtonFunction`
       position: fixed;
       top: 15px;
       left: ${
-        props => (
+        ( props: MMButtonIsOpenedProps ) => (
           props.onSmallScreen
           ? `calc(${ MENU_LAYOUT_MIDDLE_WIDTH } + 15px)`
           : '15px'
@@ -175,7 +177,7 @@ export const MainMenuLogo = styled.div`
     }
 `;
 
-export const UserMenuFakeLink = UserMenuFakeLinkFunction`
+export const UserMenuFakeLink = styled.a`
   display: block;
   width: 100%;
   position: relative;
@@ -195,7 +197,7 @@ export const UserMenuFakeLink = UserMenuFakeLinkFunction`
       line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
       text-align: center;
       content: "${
-        props => (
+        ( props: UMLinkIsOpenedProps ) => (
           props.onBigScreen 
           ? "\f078" 
           : "\f053"
@@ -215,9 +217,9 @@ export const UserMenuFakeLink = UserMenuFakeLinkFunction`
     }
 `;
 
-export const UserMenuLayout = UserMenuLayoutFunction`
+export const UserMenuLayout = styled.ul`
   display: ${
-    props => (
+    ( props: UMUListIsOpenedProps ) => (
       props.onBigScreen
       ? 'block'
       : 'none'
@@ -292,6 +294,9 @@ export const MainMenuLink = styled(NavLink)`
   display: block;
   text-decoration: none;
   color: #a7b1c2;
+  &:hover {
+    color: #fff;
+  }
   &::before {
     content: "";
     display: inline-block;
@@ -301,22 +306,25 @@ export const MainMenuLink = styled(NavLink)`
   }
 `;
 
-export const MainMenuFakeLink = MainMenuFakeLinkFunction`
+export const MainMenuFakeLink = styled.a`
   display: block;
   position: relative;
   cursor: pointer;
+  &:hover {
+    color: #fff;
+  }
   &::selection {
     background: transparent;
   }
   color: ${ 
-    props => (
+    ( props: MMLinkIsOpenedProps ) => (
       props.onBigScreen
       ? '#fff'
       : '#a7b1c2'
     )
   };
   background-color: ${
-    props =>
+    ( props: MMLinkIsOpenedProps ) =>
       props.onBigScreen
       ? '#293846'
       : 'transparent'
@@ -328,7 +336,7 @@ export const MainMenuFakeLink = MainMenuFakeLinkFunction`
     width: 5px;
     height: ${ BIG_MAIN_LINK_HEIGHT };
     background-color: ${
-      props =>
+      ( props: MMLinkIsOpenedProps ) =>
         props.onBigScreen
         ? '#19aa8d'
         : 'transparent'
@@ -340,7 +348,7 @@ export const MainMenuFakeLink = MainMenuFakeLinkFunction`
     line-height: 30px;
     text-align: center;
     content: "${
-      props => (
+      ( props: MMLinkIsOpenedProps ) => (
         props.onBigScreen 
         ? "\f078" 
         : "\f053"
@@ -349,7 +357,6 @@ export const MainMenuFakeLink = MainMenuFakeLinkFunction`
     font-family: 'FontAwesome';
     font-weight: normal;
     font-size: ${ FA_SMALL_FONT_SIZE };
-    color: #a7b1c2;
     position: absolute;
     top: 8px;
     right: 10px;
@@ -358,21 +365,21 @@ export const MainMenuFakeLink = MainMenuFakeLinkFunction`
     and (min-width: ${ MIDDLE_SCREEN_MIN })
     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
       color: ${ 
-        props => (
+        ( props: MMLinkIsOpenedProps ) => (
           props.onMiddleScreen
           ? '#fff'
           : '#a7b1c2'
         )
       };
       background-color: ${
-        props =>
+        ( props: MMLinkIsOpenedProps ) =>
           props.onMiddleScreen
           ? '#293846'
           : 'transparent'
       };
       &::before {
         background-color: ${
-          props =>
+          ( props: MMLinkIsOpenedProps ) =>
             props.onMiddleScreen
             ? '#19aa8d'
             : 'transparent'
@@ -385,21 +392,21 @@ export const MainMenuFakeLink = MainMenuFakeLinkFunction`
   @media screen 
     and (max-width: ${ SMALL_SCREEN_MAX }) {
       color: ${ 
-        props => (
+        ( props: MMLinkIsOpenedProps ) => (
           props.onSmallScreen
           ? '#fff'
           : '#a7b1c2'
         )
       };
       background-color: ${
-        props =>
+        ( props: MMLinkIsOpenedProps ) =>
           props.onSmallScreen
           ? '#293846'
           : 'transparent'
       };
       &::before {
         background-color: ${
-          props =>
+          ( props: MMLinkIsOpenedProps ) =>
             props.onSmallScreen
             ? '#19aa8d'
             : 'transparent'
@@ -411,7 +418,8 @@ export const MainMenuFakeLink = MainMenuFakeLinkFunction`
     }
 `;
 
-export const MainMenuLinkSpan = MainMenuLinkSpanFunction`
+export const MainMenuLinkSpan = styled.span`
+  width: calc(100% - 5px);
   height: ${ BIG_MAIN_LINK_HEIGHT };
   line-height: ${ BIG_MAIN_LINK_HEIGHT };
   font-size: 13px;
@@ -421,11 +429,8 @@ export const MainMenuLinkSpan = MainMenuLinkSpanFunction`
   &::selection {
     background: transparent;
   }
-  &:hover {
-    color: #fff;
-  }
   &::before {
-    content: "${ (props) => props.icon }";
+    content: "${ (props: MMSpanIconProps) => props.icon }";
     font-family: 'FontAwesome';
     font-weight: normal;
     font-size: ${ FA_SMALL_FONT_SIZE };
@@ -443,9 +448,9 @@ export const MainMenuLinkSpan = MainMenuLinkSpanFunction`
     }
 `;
 
-export const DevicesMenuLayout = DevicesMenuLayoutFunction`
+export const DevicesMenuLayout = styled.ul`
   display: ${
-    props => 
+    ( props: MMUListIsOpenedProps ) => 
       props.onBigScreen
       ? 'block'
       : 'none'
@@ -456,7 +461,7 @@ export const DevicesMenuLayout = DevicesMenuLayoutFunction`
     and (min-width: ${ MIDDLE_SCREEN_MIN })
     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
       display: ${
-        props => 
+        ( props: MMUListIsOpenedProps ) => 
           props.onMiddleScreen
           ? 'block'
           : 'none'
@@ -471,7 +476,7 @@ export const DevicesMenuLayout = DevicesMenuLayoutFunction`
   @media screen
     and (max-width: ${ SMALL_SCREEN_MAX }) {
       display: ${
-        props => 
+        ( props: MMUListIsOpenedProps ) => 
           props.onSmallScreen
           ? 'block'
           : 'none'
@@ -512,7 +517,7 @@ export const DevicesMenuLinkSpan = MainMenuLinkSpan.extend`
     }
 `;
 
-export const MainPage = MainPageFunction`
+export const MainPage = styled.div`
   display: inline-block;
   vertical-align: top;
   width: calc(100% - ${ MENU_LAYOUT_BIG_WIDTH });
@@ -524,7 +529,7 @@ export const MainPage = MainPageFunction`
   @media screen
     and (max-width: ${ SMALL_SCREEN_MAX }) {
       width: ${
-        props => (
+        ( props: MMDivIsOpenedProps ) => (
           props.onSmallScreen
           ? `calc(100% - ${ MENU_LAYOUT_MIDDLE_WIDTH })`
           : '100%'

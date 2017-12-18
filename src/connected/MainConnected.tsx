@@ -1,10 +1,17 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Dispatch } from '@src/redux';
+import { Dispatch, RootState } from '@src/redux';
 
 import { syncActionCreators, asyncActionCreators } from '@src/redux/main';
 import { Main } from '@src/components';
+
+import {
+  MainMenuLinksInterface,
+  IsOpenedInterface,
+  UserMenuInterface,
+  IsOpenedUserMenuInterface,
+} from '@src/interfaces';
 
 import {
   MainMenuWasRequestedFromAPISelector,
@@ -17,16 +24,25 @@ import {
   isUserMenuOpenedSeelctor,
 } from '@src/selectors';
 
-const mapStateToProps = createStructuredSelector({
-  MainMenuWasRequestedFromAPI: MainMenuWasRequestedFromAPISelector,
-  MainMenuModel: MainMenuModelSelector,
-  UserMenuModel: UserMenuModelSelector,
-  DevicesMenuWasRequestedFromAPI: DevicesMenuWasRequestedFromAPISelector,
-  DevicesMenuModel: DevicesMenuModelSelector,
-  isDevicesMenuOpened: isDevicesMenuOpenedSelector,
-  isMainMenuOpened: isMainMenuOpenedSelector,
-  isUserMenuOpened: isUserMenuOpenedSeelctor,
-});
+const mapStateToProps = createStructuredSelector<RootState, {
+    MainMenuWasRequestedFromAPI: boolean;
+    MainMenuModel: MainMenuLinksInterface[];
+    UserMenuModel: UserMenuInterface;
+    DevicesMenuWasRequestedFromAPI: boolean;
+    DevicesMenuModel: MainMenuLinksInterface[];
+    isDevicesMenuOpened: IsOpenedInterface;
+    isMainMenuOpened: IsOpenedInterface;
+    isUserMenuOpened: IsOpenedUserMenuInterface;
+  }>({
+    MainMenuWasRequestedFromAPI: MainMenuWasRequestedFromAPISelector,
+    MainMenuModel: MainMenuModelSelector,
+    UserMenuModel: UserMenuModelSelector,
+    DevicesMenuWasRequestedFromAPI: DevicesMenuWasRequestedFromAPISelector,
+    DevicesMenuModel: DevicesMenuModelSelector,
+    isDevicesMenuOpened: isDevicesMenuOpenedSelector,
+    isMainMenuOpened: isMainMenuOpenedSelector,
+    isUserMenuOpened: isUserMenuOpenedSeelctor,
+  });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
   makeMainMenuRequestToAPI: 
@@ -34,8 +50,7 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
   makeDevicesMenuRequestToAPI: 
     asyncActionCreators.makeDevicesMenuRequestToAPI,
   doMainMenuOnSmallScreenSwitch: 
-    syncActionCreators.doMainMenuOnSmallScreenSwitch,
-  
+    syncActionCreators.doMainMenuOnSmallScreenSwitch,  
   doDevicesMenuOnBigScreenSwitch: 
     syncActionCreators.doDevicesMenuOnBigScreenSwitch,
   doDevicesMenuOnMiddleScreenSwitch: 
@@ -49,4 +64,4 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
 }, dispatch);
 
 export const MainConnected = 
-  connect(mapStateToProps, mapDispatchToProps)(Main);  
+  connect(mapStateToProps, mapDispatchToProps)(Main);

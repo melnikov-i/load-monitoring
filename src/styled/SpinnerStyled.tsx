@@ -1,9 +1,9 @@
-import styled, { StyledFunction, keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 import { CircularSpinnerProps } from '@src/interfaces';
 
-const CircularSpinnerFunction: StyledFunction<CircularSpinnerProps> =
-  styled.div;
+// const CircularSpinnerFunction: StyledFunction<CircularSpinnerProps> =
+//   styled.div;
 
 import {
   MIDDLE_SCREEN_MIN,
@@ -45,9 +45,9 @@ const rotateAfter = keyframes`
   100% { transform: rotateZ(720deg); }
 `;
 
-export const CircularSpinner = CircularSpinnerFunction.attrs({})`
+export const CircularSpinner = styled.div`
   background-color: #fff;
-  color: ${ props => props.color };
+  color: ${ ( props: CircularSpinnerProps ) => props.color };
   border-radius: 50%;
   position: relative;
   width: ${ props => String(Math.imul(props.width, 10))}px;

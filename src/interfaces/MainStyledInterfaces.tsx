@@ -52,6 +52,9 @@ export type MMDivIsOpenedProps =
 export type MMLinkIsOpenedProps =
   IsOpenedInterface & React.HTMLProps<HTMLLinkElement>;
 
+export type MMSpanIsOpenedProps =
+  IsOpenedInterface & React.HTMLProps<HTMLSpanElement>;
+
 export type MMButtonIsOpenedProps =
   IsOpenedOnSmallScreenInterface & React.HTMLProps<HTMLButtonElement>;
 

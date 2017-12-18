@@ -190,22 +190,25 @@ export const Main: React.SFC<MainProps> = (props) => {
                 } else {
                   return (
                     <MainMenuItem key={i}>
-                      <MainMenuFakeLink
-                        onBigScreen={
-                          isDevicesMenuOpened.onBigScreen
-                        }
-                        onMiddleScreen={
-                          isDevicesMenuOpened.onMiddleScreen
-                        }
-                        onSmallScreen={
-                          isDevicesMenuOpened.onSmallScreen
-                        }
-                        onClick={mainMenuFakeLinkHandler}
-                      >
-                        <MainMenuLinkSpan icon={ '\\' + e.icon }>
-                          { e.value }
-                        </MainMenuLinkSpan>                          
-                      </MainMenuFakeLink>
+                      <span onClick={mainMenuFakeLinkHandler}>
+                        <MainMenuFakeLink
+                          onBigScreen={
+                            isDevicesMenuOpened.onBigScreen
+                          }
+                          onMiddleScreen={
+                            isDevicesMenuOpened.onMiddleScreen
+                          }
+                          onSmallScreen={
+                            isDevicesMenuOpened.onSmallScreen
+                          }
+                        >
+                          <MainMenuLinkSpan
+                            icon={ '\\' + e.icon }
+                          >
+                            { e.value }
+                          </MainMenuLinkSpan>                          
+                        </MainMenuFakeLink>
+                      </span>
                       <DevicesMenuLayout
                         onBigScreen={
                           isDevicesMenuOpened.onBigScreen
