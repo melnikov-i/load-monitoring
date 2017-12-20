@@ -15,7 +15,9 @@ export const BIG_USER_FAKE_LINK_HEIGHT: string = '22px';
 export const FA_BIG_FONT_SIZE: string = '28px';
 export const FA_SMALL_FONT_SIZE: string = '14px';
 
-
+export const LOGIN_LAYOUT_BIG_WIDTH: string = '780px';
+export const LOGIN_LAYOUT_BIG_HEIGHT: string = '300px';
+export const LOGIN_FORM_INPUT_BIG_HEIGHT: string = '34px';
 
 
   // export const MENU_LAYOUT_SMALL_WIDTH: string = '0';
