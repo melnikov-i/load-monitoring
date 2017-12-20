@@ -146,18 +146,21 @@ export const reducer = combineReducers({
   ( state = isDevicesMenuOpenedInitialState, action ) => {
     switch ( action.type ) {
       case DO_DEVICES_MENU_ON_BIG_SCREEN_SWITCH:
+        console.log('DO_DEVICES_MENU_ON_BIG_SCREEN_SWITCH');
         return {
           onBigScreen: ( state.onBigScreen ) ? false : true,
           onMiddleScreen: false,
           onSmallScreen: false,
         };
       case DO_DEVICES_MENU_ON_MIDDLE_SCREEN_SWITCH:
+        console.log('DO_DEVICES_MENU_ON_MIDDLE_SCREEN_SWITCH');
         return {
           onBigScreen: false,
           onMiddleScreen: ( state.onMiddleScreen ) ? false : true,
           onSmallScreen: false,
         };
       case DO_DEVICES_MENU_ON_SMALL_SCREEN_SWITCH:
+        console.log('DO_DEVICES_MENU_ON_SMALL_SCREEN_SWITCH');
         return {
           onBigScreen: false,
           onMiddleScreen: false,

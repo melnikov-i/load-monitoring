@@ -469,6 +469,16 @@ export const DevicesMenuLink = styled(NavLink)`
   text-decoration: none;
   color: #a7b1c2;
   position: relative;
+  &:hover {
+    color: #19aa8d;
+  }
+  @media screen
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      &:hover {
+        color: #fff;
+        background-color: #293846;
+      }      
+    }
 `;
 
 export const DevicesMenuLinkSpan = MainMenuLinkSpan.extend`
@@ -479,10 +489,6 @@ export const DevicesMenuLinkSpan = MainMenuLinkSpan.extend`
   @media screen
     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
       width: 100%;
-      &:hover {
-        color: #fff;
-        background-color: #293846;
-      }
       font-size: 13px;
       &::before {
         margin-left: 20px;

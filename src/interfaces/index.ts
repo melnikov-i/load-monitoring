@@ -1,2 +1,3 @@
-export * from './MainStyledInterfaces';
-export * from './SpinnerStyledInterface';
+export * from './MainInterfaces';
+export * from './LoginInterfaces';
+export * from './SpinnerInterface';
