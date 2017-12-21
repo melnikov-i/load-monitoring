@@ -29,7 +29,6 @@ export const LoginInnerPart = styled.div`
   vertical-align: top;
   width: calc(${ LOGIN_LAYOUT_BIG_WIDTH } / 2);
   height: ${ LOGIN_LAYOUT_BIG_HEIGHT };
-
 `;
 
 export const LoginLogotype = styled.div`
@@ -59,6 +58,7 @@ export const LoginFormLayout = styled.form`
   box-shadow: 0 0 5px 0 rgb(231, 234, 236);
   border-radius: 4px;  
   padding: 0 20px;
+  position: relative;
 `;
 
 export const LoginFormHeader = styled.h4`
@@ -96,4 +96,14 @@ export const LoginFormButton = styled.button`
   background-color: #1ab395;
   border-radius: 2px;
   cursor: pointer;
+`;
+
+export const LoginFormSpinner = styled.div`
+  width: 100%;
+  height: 88px;
+  position: absolute;
+  z-index: 2;
+  top: 50px;
+  left: 0;
+  background-color: #fff;
 `;

@@ -11,8 +11,10 @@ import {
 export const SpinnerLayout = styled.div`
   width: 50px;
   height: 50px;
-  background-color: #f3f3f4;
-  position: fixed;
+  background-color: ${ 
+    ( props: CircularSpinnerProps ) => props.bgColor 
+  };
+  position: absolute;
   top: 50%;
   left: 50%;
   margin-top: -25px;
@@ -43,23 +45,31 @@ const rotateAfter = keyframes`
 `;
 
 export const CircularSpinner = styled.div`
-  background-color: #f3f3f4;
+  background-color: ${ 
+    ( props: CircularSpinnerProps ) => props.bgColor 
+  };
   color: ${ ( props: CircularSpinnerProps ) => props.color };
   border-radius: 50%;
   position: relative;
+  top: 50%;
+  left: 50%;
+  margin-top: -${ props => String(Math.imul(props.width, 5))}px;
+  margin-left: -${ props => String(Math.imul(props.width, 5))}px;
   width: ${ props => String(Math.imul(props.width, 10))}px;
   height: ${ props => String(Math.imul(props.width, 10))}px;
   box-shadow: inset 0 0 0 ${ props => String(props.width)}px;
   &::before {
     content: '';
     width: ${ props => String(Math.imul(props.width, 6))}px;
-    height: ${ props => String(Math.imul(props.width, 12))}px ;
+    height: ${ props => String(Math.imul(props.width, 12))}px;
     position: absolute;
     top: ${ props => String(Math.imul(props.width, -1))}px;
     left: ${ props => String(Math.imul(props.width, -1))}px;
     transform-origin: 100% 50%;
     animation: ${ rotateBefore } 2s linear 0s infinite normal;
-    background-color: #f3f3f4;
+    background-color: ${ 
+    ( props: CircularSpinnerProps ) => props.bgColor 
+  };
   }
   &::after {
     content: '';
@@ -70,6 +80,8 @@ export const CircularSpinner = styled.div`
     left: ${ props => String(Math.imul(props.width, 5))}px;
     transform-origin: 0% 50%;
     animation: ${ rotateAfter } 2s linear 0s infinite normal;
-    background-color: #f3f3f4;
+    background-color: ${ 
+      ( props: CircularSpinnerProps ) => props.bgColor 
+    };
   }
 `;

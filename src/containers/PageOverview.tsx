@@ -14,5 +14,11 @@ import { Spinner } from '@src/components';
 // `;
 
 export const PageOverview: React.SFC<undefined> = () => {
-  return (<Spinner width={5} color={'#2f4050'} />);
+  return (
+    <Spinner
+      width={5}
+      color={'#2f4050'}
+      bgColor={'#f3f3f4'}
+    />
+  );
 }

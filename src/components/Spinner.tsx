@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import {
-  SpinnerLayout,
+  // SpinnerLayout,
   CircularSpinner
 } from '@src/styled';
 
@@ -10,16 +10,19 @@ import { CircularSpinnerProps } from '@src/interfaces';
 interface SpinnerProps {
   width: CircularSpinnerProps['width'],
   color: CircularSpinnerProps['color'],
+  bgColor: CircularSpinnerProps['bgColor'],
 }
 
 export const Spinner: React.SFC<SpinnerProps> = (props) => {
-  const { width, color } = props;
+  const { width, color, bgColor } = props;
 
   return (
-    <SpinnerLayout>
       <CircularSpinner
         width={width}
-        color={color} />
-    </SpinnerLayout>
+        color={color} 
+        bgColor={bgColor}
+      />
   );
 }
+    // <SpinnerLayout bgColor={bgColor} width={0} color={''}>
+    // </SpinnerLayout>

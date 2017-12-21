@@ -9,13 +9,16 @@ import {
   LoginFormLayout,
   LoginFormHeader,
   LoginFormInput,
-  LoginFormButton
+  LoginFormButton,
+  LoginFormSpinner
 } from '@src/styled';
 
 import {
   LoginFormInterface,
   LoginInputValid,
 } from '@src/interfaces';
+
+import { Spinner } from '@src/components';
 
 interface LoginProps {
   LoginValue: LoginFormInterface['login'],
@@ -69,20 +72,32 @@ export const Login: React.SFC<LoginProps> = (props) => {
               <LoginFormHeader>
                 {'Введите учетные данные'}
               </LoginFormHeader>
-              <LoginFormInput
-                isValid={LoginFailed}
-                onChange={updateLoginValue}
-                type={'text'}
-                placeholder={'Имя пользователя'}
-                value={LoginValue}
-              />
-              <LoginFormInput
-                isValid={LoginFailed}
-                onChange={updatePasswordValue}
-                type={'password'}
-                placeholder={'Пароль'}
-                value={PasswordValue}
-              />
+            {
+              ( false ) ? (
+                <LoginFormSpinner>
+                  <Spinner
+                    width={5}
+                    color={'#2f4050'}
+                    bgColor={'#fff'}
+                  />
+                </LoginFormSpinner>
+              ) : (null)}
+                <div>
+                  <LoginFormInput
+                    isValid={LoginFailed}
+                    onChange={updateLoginValue}
+                    type={'text'}
+                    placeholder={'Имя пользователя'}
+                    value={LoginValue}
+                  />
+                  <LoginFormInput
+                    isValid={LoginFailed}
+                    onChange={updatePasswordValue}
+                    type={'password'}
+                    placeholder={'Пароль'}
+                    value={PasswordValue}
+                  />                        
+                </div>
               <LoginFormButton
                 onClick={buttonHandler}
               >{'Вход'}</LoginFormButton>
