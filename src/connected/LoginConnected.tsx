@@ -8,19 +8,23 @@ import { Login } from '@src/components';
 
 import {
   LoginFormInterface,
+  LoginInputValid,
 } from '@src/interfaces';
 
 import {
   LoginValueSelector,
-  PasswordValueSelector
+  PasswordValueSelector,
+  LoginFailedSelector,
 } from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector<RootState, {
-    LoginValue: LoginFormInterface['login'];
-    PasswordValue: LoginFormInterface['password'];
+    LoginValue: LoginFormInterface['login'],
+    PasswordValue: LoginFormInterface['password'],
+    LoginFailed: LoginInputValid,
   }>({
     LoginValue: LoginValueSelector,
     PasswordValue: PasswordValueSelector,
+    LoginFailed: LoginFailedSelector,
   });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({

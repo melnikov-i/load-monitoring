@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { injectGlobal } from 'styled-components';
-import {  
-  HashRouter as Router,
+import {
   Route,
   Switch,
-  Redirect
+  Redirect,
 } from 'react-router-dom';
 
 const FontAwesomeEOT = require('@src/fonts/fontawesome-webfont.eot');
@@ -13,16 +12,13 @@ const FontAwesomeWOFF = require('@src/fonts/fontawesome-webfont.woff');
 const FontAwesomeTTF = require('@src/fonts/fontawesome-webfont.ttf');
 const FontAwesomeSVG = require('@src/fonts/fontawesome-webfont.svg');
 
-import {
+import { 
   MainContainer,
   LoginContainer,
 } from '@src/containers';
 
 import {
-  MIDDLE_SCREEN_MAX,
-  MENU_LAYOUT_MIDDLE_WIDTH,
   FOOTER_HEIGHT,
-  MENU_LAYOUT_BIG_WIDTH,
   FA_SMALL_FONT_SIZE
 } from '@src/styled';
 
@@ -45,6 +41,7 @@ injectGlobal`
     min-width: 700px;
     min-height: 100%;
     height: auto;
+    background-color: #f3f3f4;
   }
   
   .activeMainMenuItem {
@@ -61,30 +58,14 @@ injectGlobal`
   }
 
   #footer {
-    width: calc(100% - ${ MENU_LAYOUT_BIG_WIDTH });
-    margin-left: ${ MENU_LAYOUT_BIG_WIDTH };
+    width: 100%;
     height: ${ FOOTER_HEIGHT };
     margin-top: -${ FOOTER_HEIGHT };
+    margin-left: 0;
     box-sizing: border-box;
     border-top: 1px solid #e7eaec;
     position: relative;
-    @media screen 
-      and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-        width: calc(100% - ${ MENU_LAYOUT_MIDDLE_WIDTH });
-        margin-left: ${ MENU_LAYOUT_MIDDLE_WIDTH };
-        &::before {
-          content: "";
-          display: block;
-          width: ${ MENU_LAYOUT_MIDDLE_WIDTH };
-          height: ${ FOOTER_HEIGHT };
-          box-sizing: border-box;
-          border-top: 1px solid #e7eaec;
-          position: fixed;
-          bottom: 0;
-          left: 0;
-          z-index: -2;
-        }
-      }
+    background-color: #fff;
   }
 
   #copyright {
@@ -128,18 +109,23 @@ interface AppProps {
 
 export const App: React.SFC<AppProps> = (props) => {
   const { isAuthorized } = props;
+  console.log('[isAuthorized]:', isAuthorized);
   return (
-    <Router hashType={'slash'} basename={'/'}>
-      <Switch>
-        <Route exact path={'/'} render={() => (
-          isAuthorized ? (
-            <MainContainer />
-          ) : (
-            <Redirect to={'/login'} />
-          )
-        )}/>
-        <Route exact path={'/login'} component={LoginContainer} />
-      </Switch>
-    </Router>
+    <Switch>
+      <Route exact path={'/login'} render={() => (
+        !isAuthorized ? (
+          <LoginContainer />
+        ) : (
+          <Redirect to={'/'} />
+        )
+      )} />
+      <Route path={'/'} render={() => (
+        isAuthorized ? (
+          <MainContainer />
+        ) : (
+          <Redirect to={'/login'} />
+        )
+      )}/>
+    </Switch>
   );
 }

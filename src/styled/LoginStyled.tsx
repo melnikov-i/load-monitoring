@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 // import { NavLink } from 'react-router-dom';
 
+import { LInputBorderProps } from '@src/interfaces';
+
 const Logo = require('@src/images/LogoBig');
+
 
 import {
   LOGIN_LAYOUT_BIG_WIDTH,
@@ -75,7 +78,12 @@ export const LoginFormInput = styled.input`
   height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT };
   margin-bottom: 20px;
   padding-left: 12px;
-  border: 1px solid rgb(229, 230, 231);
+  border: 1px solid ${ (props: LInputBorderProps) => (
+                          props.isValid
+                          ? '#f52440'
+                          : '#e5e6e7'
+                        )
+                      };
   border-radius: 2px;
 `;
 
@@ -85,7 +93,7 @@ export const LoginFormButton = styled.button`
   font-size: 14px;
   color: #fff;
   text-align: center;
-  background-color: rgb(26, 179, 148);
+  background-color: #1ab395;
   border-radius: 2px;
   cursor: pointer;
 `;

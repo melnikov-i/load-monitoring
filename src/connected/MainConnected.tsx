@@ -2,6 +2,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Dispatch, RootState } from '@src/redux';
+import { withRouter } from 'react-router-dom';
 
 import { syncActionCreators, asyncActionCreators } from '@src/redux/main';
 import { Main } from '@src/components';
@@ -64,4 +65,6 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
 }, dispatch);
 
 export const MainConnected = 
-  connect(mapStateToProps, mapDispatchToProps)(Main);
+  withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(Main)
+  );

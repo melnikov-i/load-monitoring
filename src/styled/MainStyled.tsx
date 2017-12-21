@@ -48,7 +48,7 @@ export const MainMenu = styled.div`
     position: fixed;
     top: 0;
     left: 0;
-    z-index: -1;
+    z-index: 1;
   }
   @media screen 
     and (min-width: ${ MIDDLE_SCREEN_MIN }) 
@@ -119,6 +119,8 @@ export const MainMenuLogoWrapper = styled.div`
   background-size: cover;
   padding: 30px 25px;
   box-sizing: border-box;
+  position: relative;
+  z-index: 2;
   @media screen 
     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
       background-image: none;
@@ -248,6 +250,8 @@ export const MainMenuLayout = styled.ul`
   width: 100%;
   margin-top: 10px;
   padding-bottom: ${ BIG_MAIN_LINK_HEIGHT };
+  position: relative;
+  z-index: 2;
   @media screen 
     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
       margin-top: 40px;
@@ -528,5 +532,5 @@ export const MainTop = styled.div`
 
 export const MainContent = styled.div`
   width: 100%;
-  background-color: #fff;
+  background-color: #f3f3f4;
 `;

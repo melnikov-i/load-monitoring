@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { RootState } from '@src/redux';
+import { withRouter } from 'react-router-dom';
 
 import { App } from '@src/components';
 
@@ -15,4 +16,4 @@ const mapStateToProps = createStructuredSelector<RootState, {
   });
 
 export const AppConnected =
-  connect(mapStateToProps, {})(App);
+  withRouter(connect(mapStateToProps, {})(App));

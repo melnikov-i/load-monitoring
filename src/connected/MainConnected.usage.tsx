@@ -4,4 +4,4 @@ import { MainConnected } from '@src/connected';
 
 export default () => (
   <MainConnected />
-); 
+);

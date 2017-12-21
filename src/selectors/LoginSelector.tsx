@@ -11,3 +11,13 @@ export const PasswordValueSelector = createSelector(
   ( state: RootState ) => state.login.PasswordValue,
   ( PasswordValue ) => PasswordValue,
 );
+
+export const isAuthorizedSelector = createSelector(
+  ( state: RootState ) => state.login.isAuthorized,
+  ( isAuthorized ) => isAuthorized,
+);
+
+export const LoginFailedSelector = createSelector(
+  ( state: RootState ) => state.login.LoginFailed,
+  ( LoginFailed ) => LoginFailed,
+);
