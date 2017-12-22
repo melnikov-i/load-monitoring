@@ -109,7 +109,6 @@ interface AppProps {
 
 export const App: React.SFC<AppProps> = (props) => {
   const { isAuthorized } = props;
-  console.log('[isAuthorized]:', isAuthorized);
   return (
     <Switch>
       <Route exact path={'/login'} render={() => (

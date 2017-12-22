@@ -15,7 +15,7 @@ import {
 
 import {
   LoginFormInterface,
-  LoginInputValid,
+  LoginFormStateInterface
 } from '@src/interfaces';
 
 import { Spinner } from '@src/components';
@@ -24,8 +24,8 @@ interface LoginProps {
   LoginValue: LoginFormInterface['login'],
   changeLoginValue: (payload: LoginFormInterface['login']) => any,
   PasswordValue: LoginFormInterface['password'],
-  LoginFailed: LoginInputValid,
   changePasswordValue: (payload: LoginFormInterface['password']) => any,
+  LoginFormState: LoginFormStateInterface,
   sendUserCredentialToAPI: ( payload: LoginFormInterface ) => any,
 }
 
@@ -34,9 +34,9 @@ export const Login: React.SFC<LoginProps> = (props) => {
     LoginValue,
     PasswordValue,
     changeLoginValue,
-    LoginFailed,
     changePasswordValue,
-    sendUserCredentialToAPI
+    LoginFormState,
+    sendUserCredentialToAPI,
   } = props;
 
   const updateLoginValue = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,11 +69,13 @@ export const Login: React.SFC<LoginProps> = (props) => {
           </LoginInnerPart>
           <LoginInnerPart>
             <LoginFormLayout>
-              <LoginFormHeader>
-                {'Введите учетные данные'}
+              <LoginFormHeader
+                loginFormStateIndex={LoginFormState.loginFormStateIndex}
+              >
+                {LoginFormState.header[LoginFormState.loginFormStateIndex]}
               </LoginFormHeader>
             {
-              ( false ) ? (
+              ( LoginFormState.loginFormStateIndex === 1 ) ? (
                 <LoginFormSpinner>
                   <Spinner
                     width={5}
@@ -81,24 +83,26 @@ export const Login: React.SFC<LoginProps> = (props) => {
                     bgColor={'#fff'}
                   />
                 </LoginFormSpinner>
-              ) : (null)}
+              ) : (
                 <div>
                   <LoginFormInput
-                    isValid={LoginFailed}
+                    loginFormStateIndex={LoginFormState.loginFormStateIndex}
                     onChange={updateLoginValue}
                     type={'text'}
                     placeholder={'Имя пользователя'}
                     value={LoginValue}
                   />
                   <LoginFormInput
-                    isValid={LoginFailed}
+                    loginFormStateIndex={LoginFormState.loginFormStateIndex}
                     onChange={updatePasswordValue}
                     type={'password'}
                     placeholder={'Пароль'}
                     value={PasswordValue}
                   />                        
                 </div>
+              )}
               <LoginFormButton
+                loginFormStateIndex={LoginFormState.loginFormStateIndex}
                 onClick={buttonHandler}
               >{'Вход'}</LoginFormButton>
             </LoginFormLayout>

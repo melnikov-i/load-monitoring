@@ -3,11 +3,25 @@ export interface LoginFormInterface {
   password: string
 };
 
-export type LoginInputValid = boolean;
+// export type LoginInputValid = boolean;
 
-interface LoginInputBorder {
-  isValid: LoginInputValid
+// export interface LoginInputBorder {
+//   isValid: boolean
+// }
+
+export interface LoginFormStateIndexType {
+  loginFormStateIndex: number,
 }
 
-export type LInputBorderProps =
-  LoginInputBorder & React.HTMLProps<HTMLInputElement>;
+export interface LoginFormStateInterface {
+  loginFormStateIndex: LoginFormStateIndexType['loginFormStateIndex'];
+  header: string[],
+}
+
+// export type LInputBorderProps =
+//   LoginInputBorder & React.HTMLProps<HTMLInputElement>;
+
+export type LSendingInProgressProps =
+  LoginFormStateInterface['loginFormStateIndex'] 
+  & React.HTMLProps<HTMLButtonElement> 
+  & React.MouseEvent<HTMLButtonElement>;

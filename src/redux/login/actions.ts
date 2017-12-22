@@ -1,15 +1,17 @@
 import axios from 'axios';
 
 import {
-  LoginFormInterface
+  LoginFormInterface,
+  LoginFormStateInterface
 } from '@src/interfaces';
 
 import { Dispatch } from '@src/redux';
 
 export const CHANGE_LOGIN_VALUE = 'CHANGE_LOGIN_VALUE';
 export const CHANGE_PASSWORD_VALUE = 'CHANGE_PASSWORD_VALUE';
+export const SENDING_USER_CREDENTIAL_IN_PROGRESS =
+  'SENDING_USER_CREDENTIAL_IN_PROGRESS';
 export const USER_IS_AUTHORIZED = 'USER_IS_AUTHORIZED';
-export const LOGIN_FAILED = 'LOGIN_FAILED';
 
 export type Actions = {
   CHANGE_LOGIN_VALUE: {
@@ -20,12 +22,13 @@ export type Actions = {
     type: typeof CHANGE_PASSWORD_VALUE,
     payload: LoginFormInterface['login'],
   },
+  SENDING_USER_CREDENTIAL_IN_PROGRESS: {
+    type: typeof SENDING_USER_CREDENTIAL_IN_PROGRESS,
+    payload: LoginFormStateInterface['loginFormStateIndex'],
+  },
   USER_IS_AUTHORIZED: {
     type: typeof USER_IS_AUTHORIZED,
   },
-  LOGIN_FAILED: {
-    type: typeof LOGIN_FAILED,
-  }
 };
 
 export const syncActionCreators = {
@@ -37,13 +40,14 @@ export const syncActionCreators = {
   Actions[typeof CHANGE_PASSWORD_VALUE] => ({
     type: CHANGE_PASSWORD_VALUE, payload
   }),
+  sendingUserCredentialInProgress: 
+  ( payload: LoginFormStateInterface['loginFormStateIndex'] ):
+  Actions[typeof SENDING_USER_CREDENTIAL_IN_PROGRESS] => ({
+    type: SENDING_USER_CREDENTIAL_IN_PROGRESS, payload
+  }),
   userIsAuthorized: ():
   Actions[typeof USER_IS_AUTHORIZED] => ({
     type: USER_IS_AUTHORIZED,
-  }),
-  loginFailed: ():
-  Actions[typeof LOGIN_FAILED] => ({
-    type: LOGIN_FAILED,
   }),
 };
 
@@ -58,12 +62,15 @@ export const asyncActionCreators = {
   sendUserCredentialToAPI: 
   ( payload: LoginFormInterface ) => {
     return ( dispatch: Dispatch ) => {
+      dispatch(syncActionCreators.sendingUserCredentialInProgress(1));
       sendUserCredential.post('/auth.php', payload).then(
         ( response ) => {
           if ( response.data === 'true' ) {
             dispatch(syncActionCreators.userIsAuthorized());
           } else {
-            dispatch(syncActionCreators.loginFailed());
+            dispatch(
+              syncActionCreators.sendingUserCredentialInProgress(2)
+            );
           }
         }
       )

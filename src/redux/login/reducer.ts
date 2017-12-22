@@ -2,22 +2,31 @@ import { combineReducers } from 'redux';
 
 import {
   LoginFormInterface,
-  LoginInputValid,
+  LoginFormStateInterface,
 } from '@src/interfaces';
 
 import {
   CHANGE_LOGIN_VALUE,
   CHANGE_PASSWORD_VALUE,
+  SENDING_USER_CREDENTIAL_IN_PROGRESS,
   USER_IS_AUTHORIZED,
-  LOGIN_FAILED,
 } from '@src/redux/login';
 
 export type State = {
   readonly LoginValue: LoginFormInterface['login'],
   readonly PasswordValue: LoginFormInterface['password'],
   readonly isAuthorized: boolean,
-  readonly LoginFailed: LoginInputValid,
+  readonly LoginFormState: LoginFormStateInterface,
 };
+
+const loginFormStateInitialState: LoginFormStateInterface = {
+  loginFormStateIndex: 0,
+  header: [
+    'Введите учетные данные',
+    'Проверка учетных данных',
+    'Учетные данные некорректны'
+  ],
+}
 
 export const reducer = combineReducers({
   LoginValue: ( state = '', action ) => {
@@ -44,10 +53,17 @@ export const reducer = combineReducers({
         return state;
     }
   },
-  LoginFailed: ( state = false, action ) => {
+  LoginFormState: ( state = loginFormStateInitialState, action ) => {
     switch ( action.type ) {
-      case LOGIN_FAILED:
-        return true;
+      case SENDING_USER_CREDENTIAL_IN_PROGRESS:
+        if ( action.payload < state.header.length ) {
+          return {
+            ...state,
+            loginFormStateIndex: action.payload
+          }          
+        } else {
+          return state;
+        }
       default:
         return state;
     }

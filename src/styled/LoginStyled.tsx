@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 // import { NavLink } from 'react-router-dom';
 
-import { LInputBorderProps } from '@src/interfaces';
+import {
+  // LInputBorderProps,
+  LoginFormStateIndexType
+} from '@src/interfaces';
 
 const Logo = require('@src/images/LogoBig');
 
@@ -64,7 +67,12 @@ export const LoginFormLayout = styled.form`
 export const LoginFormHeader = styled.h4`
   font-size: 13px;
   font-weight: normal;
-  color: #888;
+  color: ${ ( props: LoginFormStateIndexType ) => (
+      ( props.loginFormStateIndex === 2 )
+      ? '#f52440'
+      : '#888'
+    )
+  };
   text-align: center;
   height: 50px;
   line-height: 50px;
@@ -78,12 +86,19 @@ export const LoginFormInput = styled.input`
   height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT };
   margin-bottom: 20px;
   padding-left: 12px;
-  border: 1px solid ${ (props: LInputBorderProps) => (
-                          props.isValid
-                          ? '#f52440'
-                          : '#e5e6e7'
-                        )
-                      };
+  border: 1px solid ${ ( props: LoginFormStateIndexType ) => (
+                        ( props.loginFormStateIndex === 2 )
+                        ? '#b84252'
+                        : '#e5e6e7'
+                      )
+                    };
+  background-color: ${( props: LoginFormStateIndexType ) => (
+      ( props.loginFormStateIndex === 2 )
+      ? '#fa8595'
+      : '#fff'
+    )
+  };
+  color: #676a6c;
   border-radius: 2px;
 `;
 
@@ -93,17 +108,20 @@ export const LoginFormButton = styled.button`
   font-size: 14px;
   color: #fff;
   text-align: center;
-  background-color: #1ab395;
+  background-color: ${
+    ( props: LoginFormStateIndexType ) => (
+      ( props.loginFormStateIndex === 1 )
+      ? '#eee'
+      : '#1ab395'
+    )
+  };
   border-radius: 2px;
   cursor: pointer;
 `;
 
 export const LoginFormSpinner = styled.div`
   width: 100%;
-  height: 88px;
-  position: absolute;
-  z-index: 2;
-  top: 50px;
-  left: 0;
+  height: 108px;
+  position: relative;
   background-color: #fff;
 `;

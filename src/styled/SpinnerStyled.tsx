@@ -45,12 +45,13 @@ const rotateAfter = keyframes`
 `;
 
 export const CircularSpinner = styled.div`
+  display: block;
   background-color: ${ 
     ( props: CircularSpinnerProps ) => props.bgColor 
   };
   color: ${ ( props: CircularSpinnerProps ) => props.color };
   border-radius: 50%;
-  position: relative;
+  position: absolute;
   top: 50%;
   left: 50%;
   margin-top: -${ props => String(Math.imul(props.width, 5))}px;

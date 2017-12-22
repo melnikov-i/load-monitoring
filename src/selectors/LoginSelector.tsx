@@ -17,7 +17,12 @@ export const isAuthorizedSelector = createSelector(
   ( isAuthorized ) => isAuthorized,
 );
 
-export const LoginFailedSelector = createSelector(
-  ( state: RootState ) => state.login.LoginFailed,
-  ( LoginFailed ) => LoginFailed,
+// export const LoginFailedSelector = createSelector(
+//   ( state: RootState ) => state.login.LoginFailed,
+//   ( LoginFailed ) => LoginFailed,
+// );
+
+export const LoginFormStateSelector = createSelector(
+  ( state: RootState ) => state.login.LoginFormState,
+  ( LoginFormState ) => LoginFormState,
 );
