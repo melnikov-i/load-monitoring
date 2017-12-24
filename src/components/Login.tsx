@@ -24,7 +24,8 @@ interface LoginProps {
   LoginValue: LoginFormInterface['login'],
   changeLoginValue: (payload: LoginFormInterface['login']) => any,
   PasswordValue: LoginFormInterface['password'],
-  changePasswordValue: (payload: LoginFormInterface['password']) => any,
+  changePasswordValue: 
+  (payload: LoginFormInterface['password']) => any,
   LoginFormState: LoginFormStateInterface,
   sendUserCredentialToAPI: ( payload: LoginFormInterface ) => any,
 }
@@ -39,17 +40,20 @@ export const Login: React.SFC<LoginProps> = (props) => {
     sendUserCredentialToAPI,
   } = props;
 
-  const updateLoginValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const updateLoginValue = 
+  (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     changeLoginValue(e.currentTarget.value);
   };
 
-  const updatePasswordValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const updatePasswordValue = 
+  (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     changePasswordValue(e.currentTarget.value);
   };
 
-  const buttonHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const buttonHandler = 
+  (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const UserCredential: LoginFormInterface = {
       login: LoginValue,
@@ -70,39 +74,48 @@ export const Login: React.SFC<LoginProps> = (props) => {
           <LoginInnerPart>
             <LoginFormLayout>
               <LoginFormHeader
-                loginFormStateIndex={LoginFormState.loginFormStateIndex}
+                loginFormStateIndex={
+                  LoginFormState.loginFormStateIndex
+                }
               >
-                {LoginFormState.header[LoginFormState.loginFormStateIndex]}
+                {LoginFormState.header[
+                  LoginFormState.loginFormStateIndex
+                ]}
               </LoginFormHeader>
-            {
-              ( LoginFormState.loginFormStateIndex === 1 ) ? (
-                <LoginFormSpinner>
-                  <Spinner
-                    width={5}
-                    color={'#2f4050'}
-                    bgColor={'#fff'}
-                  />
-                </LoginFormSpinner>
-              ) : (
-                <div>
-                  <LoginFormInput
-                    loginFormStateIndex={LoginFormState.loginFormStateIndex}
-                    onChange={updateLoginValue}
-                    type={'text'}
-                    placeholder={'Имя пользователя'}
-                    value={LoginValue}
-                  />
-                  <LoginFormInput
-                    loginFormStateIndex={LoginFormState.loginFormStateIndex}
-                    onChange={updatePasswordValue}
-                    type={'password'}
-                    placeholder={'Пароль'}
-                    value={PasswordValue}
-                  />                        
-                </div>
-              )}
+            {( LoginFormState.loginFormStateIndex === 1 ) ? (
+              <LoginFormSpinner>
+                <Spinner
+                  width={5}
+                  color={'#2f4050'}
+                  bgColor={'#fff'}
+                />
+              </LoginFormSpinner>
+            ) : (
+              <div>
+                <LoginFormInput
+                  loginFormStateIndex={
+                    LoginFormState.loginFormStateIndex
+                  }
+                  onChange={updateLoginValue}
+                  type={'text'}
+                  placeholder={'Имя пользователя'}
+                  value={LoginValue}
+                />
+                <LoginFormInput
+                  loginFormStateIndex={
+                    LoginFormState.loginFormStateIndex
+                  }
+                  onChange={updatePasswordValue}
+                  type={'password'}
+                  placeholder={'Пароль'}
+                  value={PasswordValue}
+                />
+              </div>
+            )}
               <LoginFormButton
-                loginFormStateIndex={LoginFormState.loginFormStateIndex}
+                loginFormStateIndex={
+                  LoginFormState.loginFormStateIndex
+                }
                 onClick={buttonHandler}
               >{'Вход'}</LoginFormButton>
             </LoginFormLayout>

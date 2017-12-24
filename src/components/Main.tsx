@@ -8,8 +8,11 @@ import {
   MainMenuLinksInterface,
   IsOpenedInterface,
   UserMenuInterface,
-  IsOpenedUserMenuInterface
+  IsOpenedUserMenuInterface,
+  DeviceItemsInterface,
 } from '@src/interfaces';
+
+import { Spinner } from '@src/components';
 
 import {
   MainLayout,
@@ -36,10 +39,10 @@ import {
 } from '@src/styled';
 
 import {
-  // DevicesLoadable,
   Devices,
   PageOverview,
 } from '@src/containers';
+import DeviceConnected from '@src/connected/DeviceConnected.usage';
 
 interface MainProps {
   MainMenuWasRequestedFromAPI: boolean,
@@ -64,20 +67,10 @@ export const Main: React.SFC<MainProps> = (props) => {
   const {
     MainMenuWasRequestedFromAPI,
     MainMenuModel,
-    UserMenuModel,
+    makeMainMenuRequestToAPI,
     DevicesMenuWasRequestedFromAPI,
     DevicesMenuModel,
-    isDevicesMenuOpened,
-    isMainMenuOpened,
-    isUserMenuOpened,
-    makeMainMenuRequestToAPI,
     makeDevicesMenuRequestToAPI,
-    doMainMenuOnSmallScreenSwitch,
-    doDevicesMenuOnBigScreenSwitch,
-    doDevicesMenuOnMiddleScreenSwitch,
-    doDevicesMenuOnSmallScreenSwitch,
-    doBothMenuOnSmallScreenOff,
-    doUserMenuOnBigScreenSwitch,
   } = props;
 
   const getMainMenu = (): MainMenuLinksInterface[] => {
@@ -96,102 +89,134 @@ export const Main: React.SFC<MainProps> = (props) => {
   };
   const devicesMenu = getDevicesMenu();
 
-  /* Обработчики событий */
+  if ( devicesMenu.length !== 0 ) {
+    const {
+      UserMenuModel,
+      isDevicesMenuOpened,
+      isMainMenuOpened,
+      isUserMenuOpened,
+      doMainMenuOnSmallScreenSwitch,
+      doDevicesMenuOnBigScreenSwitch,
+      doDevicesMenuOnMiddleScreenSwitch,
+      doDevicesMenuOnSmallScreenSwitch,
+      doBothMenuOnSmallScreenOff,
+      doUserMenuOnBigScreenSwitch,
+    } = props;
+  
+    /* Обработчики событий */
 
-  const doOpenMainMenuHandler = () => {
-    doMainMenuOnSmallScreenSwitch();
-  }
-
-  const mainMenuFakeLinkHandler = (e: React.MouseEvent<HTMLDivElement>) => {
-    console.log('e.currentTarget.clientWidth', e.currentTarget.clientWidth);
-    console.log('window.innerWidth', window.innerWidth);
-    if ( e.currentTarget.clientWidth === 60 ) {
-      if ( window.innerWidth < 768 ) {
-        doDevicesMenuOnSmallScreenSwitch();
-      } else {
-        doDevicesMenuOnMiddleScreenSwitch();
-      }
-    } else {
-      doDevicesMenuOnBigScreenSwitch();
+    const doOpenMainMenuHandler = () => {
+      doMainMenuOnSmallScreenSwitch();
     }
-  };
 
-  const devicesMenuLinkHandler = (e: React.MouseEvent<HTMLLinkElement>) => {
-     if ( e.currentTarget.clientWidth !== 215 ) {
-      if ( window.innerWidth < 768 ) {
-        doBothMenuOnSmallScreenOff();
+    const mainMenuFakeLinkHandler =
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if ( e.currentTarget.clientWidth === 60 ) {
+        if ( window.innerWidth < 768 ) {
+          doDevicesMenuOnSmallScreenSwitch();
+        } else {
+          doDevicesMenuOnMiddleScreenSwitch();
+        }
       } else {
-        doDevicesMenuOnMiddleScreenSwitch();
+        doDevicesMenuOnBigScreenSwitch();
       }
+    };
+
+    const devicesMenuLinkHandler = 
+    (e: React.MouseEvent<HTMLLinkElement>) => {
+       if ( e.currentTarget.clientWidth !== 215 ) {
+        if ( window.innerWidth < 768 ) {
+          doBothMenuOnSmallScreenOff();
+        } else {
+          doDevicesMenuOnMiddleScreenSwitch();
+        }
+      }
+    };
+
+    const userMenuLinkHandler = () => {
+      doUserMenuOnBigScreenSwitch();
     }
-  };
 
-  const userMenuLinkHandler = () => {
-    doUserMenuOnBigScreenSwitch();
-  }
-
-  return (    
-    <MainLayout>
-      <MainMenu
-        onSmallScreen={isMainMenuOpened.onSmallScreen}
-      >
-        <SmallMenuButton 
-          onClick={doOpenMainMenuHandler}
+    return (
+      <MainLayout>
+        <MainMenu
           onSmallScreen={isMainMenuOpened.onSmallScreen}
-          id={'smallMenuButton'} />
-        <MainMenuLogoWrapper>
-          <MainMenuLogo>
-            <UserMenuFakeLink 
-              onBigScreen={isUserMenuOpened.onBigScreen}
-              onClick={userMenuLinkHandler}
-            >
-              { UserMenuModel.user[0].login }
-            </UserMenuFakeLink>
-            <UserMenuLayout
-              onBigScreen={isUserMenuOpened.onBigScreen}
-            >
-              {
-                UserMenuModel.links.map((e, i) => {
+        >
+          <SmallMenuButton 
+            onClick={doOpenMainMenuHandler}
+            onSmallScreen={isMainMenuOpened.onSmallScreen}
+            id={'smallMenuButton'} />
+          <MainMenuLogoWrapper>
+            <MainMenuLogo>
+              <UserMenuFakeLink 
+                onBigScreen={isUserMenuOpened.onBigScreen}
+                onClick={userMenuLinkHandler}
+              >
+                { UserMenuModel.user[0].login }
+              </UserMenuFakeLink>
+              <UserMenuLayout
+                onBigScreen={isUserMenuOpened.onBigScreen}
+              >
+                {
+                  UserMenuModel.links.map((e, i) => {
+                    return (
+                      <UserMenuItem key={i}>
+                        <UserMenuLink
+                          to={'/' + e.to}
+                          title={e.value}
+                          onClick={userMenuLinkHandler}
+                        >
+                          <UserMenuLinkSpan>
+                            { e.value }
+                          </UserMenuLinkSpan>
+                        </UserMenuLink>
+                      </UserMenuItem>
+                    );
+                  })
+                }
+              </UserMenuLayout>
+            </MainMenuLogo>
+          </MainMenuLogoWrapper>
+          <MainMenuLayout>
+            {
+              mainMenu.map((e, i) => {
+                if ( e.to !== 'devices' ) {
                   return (
-                    <UserMenuItem key={i}>
-                      <UserMenuLink
+                    <MainMenuItem key={i}>
+                      <MainMenuLink
                         to={'/' + e.to}
+                        activeClassName={'activeMainMenuItem'}
                         title={e.value}
-                        onClick={userMenuLinkHandler}
                       >
-                        <UserMenuLinkSpan>
+                        <MainMenuLinkSpan icon={ '\\' + e.icon }>
                           { e.value }
-                        </UserMenuLinkSpan>
-                      </UserMenuLink>
-                    </UserMenuItem>
+                        </MainMenuLinkSpan>
+                      </MainMenuLink>
+                    </MainMenuItem>
                   );
-                })
-              }
-            </UserMenuLayout>
-          </MainMenuLogo>
-        </MainMenuLogoWrapper>
-        <MainMenuLayout>
-          {
-            mainMenu.map((e, i) => {
-              if ( e.to !== 'devices' ) {
-                return (
-                  <MainMenuItem key={i}>
-                    <MainMenuLink
-                      to={'/' + e.to}
-                      activeClassName={'activeMainMenuItem'}
-                      title={e.value}
-                    >
-                      <MainMenuLinkSpan icon={ '\\' + e.icon }>
-                        { e.value }
-                      </MainMenuLinkSpan>
-                    </MainMenuLink>
-                  </MainMenuItem>
-                );
-              } else {
-                return (
-                  <MainMenuItem key={i}>
-                    <div onClick={mainMenuFakeLinkHandler}>
-                      <MainMenuFakeLink
+                } else {
+                  return (
+                    <MainMenuItem key={i}>
+                      <div onClick={mainMenuFakeLinkHandler}>
+                        <MainMenuFakeLink
+                          onBigScreen={
+                            isDevicesMenuOpened.onBigScreen
+                          }
+                          onMiddleScreen={
+                            isDevicesMenuOpened.onMiddleScreen
+                          }
+                          onSmallScreen={
+                            isDevicesMenuOpened.onSmallScreen
+                          }
+                        >
+                          <MainMenuLinkSpan
+                            icon={ '\\' + e.icon }
+                          >
+                            { e.value }
+                          </MainMenuLinkSpan>
+                        </MainMenuFakeLink>
+                      </div>
+                      <DevicesMenuLayout
                         onBigScreen={
                           isDevicesMenuOpened.onBigScreen
                         }
@@ -202,82 +227,91 @@ export const Main: React.SFC<MainProps> = (props) => {
                           isDevicesMenuOpened.onSmallScreen
                         }
                       >
-                        <MainMenuLinkSpan
-                          icon={ '\\' + e.icon }
-                        >
-                          { e.value }
-                        </MainMenuLinkSpan>                          
-                      </MainMenuFakeLink>
-                    </div>
-                    <DevicesMenuLayout
-                      onBigScreen={
-                        isDevicesMenuOpened.onBigScreen
-                      }
-                      onMiddleScreen={
-                        isDevicesMenuOpened.onMiddleScreen
-                      }
-                      onSmallScreen={
-                        isDevicesMenuOpened.onSmallScreen
-                      }
-                    >
-                      <MainMenuItem>
-                        <DevicesMenuLink
-                          to={'/devices'}
-                          activeClassName={'activeDevicesMenuItem'}
-                          title={'Все устройства'}
-                          onClick={devicesMenuLinkHandler}
-                        >
-                          <DevicesMenuLinkSpan
-                            icon={'\\f069'}
+                        <MainMenuItem>
+                          <DevicesMenuLink
+                            to={'/devices'}
+                            activeClassName={'activeDevicesMenuItem'}
+                            title={'Все устройства'}
+                            onClick={devicesMenuLinkHandler}
                           >
-                            { 'Все устройства' }
-                          </DevicesMenuLinkSpan>
-                        </DevicesMenuLink>
-                      </MainMenuItem>
-                      {
-                        devicesMenu.map((e, i) => {
-                          return (
-                            <MainMenuItem key={i}>
-                              <DevicesMenuLink
-                                to={'/' + e.to}
-                                activeClassName={'activeDevicesMenuItem'}
-                                title={e.value}
-                                onClick={devicesMenuLinkHandler}
-                              >
-                                <DevicesMenuLinkSpan
-                                  icon={'\\' + e.icon}
+                            <DevicesMenuLinkSpan
+                              icon={'\\f069'}
+                            >
+                              { 'Все устройства' }
+                            </DevicesMenuLinkSpan>
+                          </DevicesMenuLink>
+                        </MainMenuItem>
+                        {
+                          devicesMenu.map((e, i) => {
+                            return (
+                              <MainMenuItem key={i}>
+                                <DevicesMenuLink
+                                  to={'/' + e.to}
+                                  activeClassName={
+                                    'activeDevicesMenuItem'
+                                  }
+                                  title={e.value}
+                                  onClick={devicesMenuLinkHandler}
                                 >
-                                  {e.value}
-                                </DevicesMenuLinkSpan>
-                              </DevicesMenuLink>
-                            </MainMenuItem>
-                          );
-                        })
-                      }
-                    </DevicesMenuLayout>
-                  </MainMenuItem>
-                )
-              }
-            })
-          }
-        </MainMenuLayout>
-      </MainMenu>
-      <MainPage onSmallScreen={isMainMenuOpened.onSmallScreen}>
-        <MainTop></MainTop>
-        <MainContent>
-          <Switch>
-            <Route
-              exact path="/overview"
-              component={PageOverview} />
-            <Route
-              exact path={'/devices'}
-              component={Devices} />
-            <Route 
-              exact path={'/'}
-              component={PageOverview} />
-          </Switch>
-        </MainContent>
-      </MainPage>
-    </MainLayout>
-  );
+                                  <DevicesMenuLinkSpan
+                                    icon={'\\' + e.icon}
+                                  >
+                                    {e.value}
+                                  </DevicesMenuLinkSpan>
+                                </DevicesMenuLink>
+                              </MainMenuItem>
+                            );
+                          })
+                        }
+                      </DevicesMenuLayout>
+                    </MainMenuItem>
+                  )
+                }
+              })
+            }
+          </MainMenuLayout>
+        </MainMenu>
+        <MainPage onSmallScreen={isMainMenuOpened.onSmallScreen}>
+          <MainTop></MainTop>
+          <MainContent>
+            <Switch>
+              <Route
+                exact path="/overview"
+                component={PageOverview} />
+              <Route
+                exact path={'/devices'}
+                component={Devices} />
+        {
+          devicesMenu.map((e, i) => {
+            const items: DeviceItemsInterface = {
+              id: e.to,
+            }
+            return (
+              <Route 
+                key={i}
+                exact path={'/' + e.to}
+                render={() => (
+                  <DeviceConnected items={items} />
+                )}
+              />
+            );
+          })
+        }
+              <Route 
+                exact path={'/'}
+                component={PageOverview} />
+            </Switch>
+          </MainContent>
+        </MainPage>
+      </MainLayout>
+    );    
+  } else {
+    return (
+      <Spinner
+        width={5}
+        color={'#2f4050'}
+        bgColor={'#f3f3f4'}
+      />
+    );
+  }
 };

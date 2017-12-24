@@ -26,14 +26,14 @@ import {
 } from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector<RootState, {
-    MainMenuWasRequestedFromAPI: boolean;
-    MainMenuModel: MainMenuLinksInterface[];
-    UserMenuModel: UserMenuInterface;
-    DevicesMenuWasRequestedFromAPI: boolean;
-    DevicesMenuModel: MainMenuLinksInterface[];
-    isDevicesMenuOpened: IsOpenedInterface;
-    isMainMenuOpened: IsOpenedInterface;
-    isUserMenuOpened: IsOpenedUserMenuInterface;
+    MainMenuWasRequestedFromAPI: boolean,
+    MainMenuModel: MainMenuLinksInterface[],
+    UserMenuModel: UserMenuInterface,
+    DevicesMenuWasRequestedFromAPI: boolean,
+    DevicesMenuModel: MainMenuLinksInterface[],
+    isDevicesMenuOpened: IsOpenedInterface,
+    isMainMenuOpened: IsOpenedInterface,
+    isUserMenuOpened: IsOpenedUserMenuInterface,
   }>({
     MainMenuWasRequestedFromAPI: MainMenuWasRequestedFromAPISelector,
     MainMenuModel: MainMenuModelSelector,
