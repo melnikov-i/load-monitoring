@@ -532,5 +532,5 @@ export const MainTop = styled.div`
 
 export const MainContent = styled.div`
   width: 100%;
-  background-color: #f3f3f4;
+  background-color: #fff;
 `;

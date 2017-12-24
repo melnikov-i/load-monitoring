@@ -17,4 +17,4 @@ export const Device: React.SFC<DeviceProps> = ( props ) => {
   return (
     <DeviceHeader>Device: { items.id }</DeviceHeader>
   );
-}
+};

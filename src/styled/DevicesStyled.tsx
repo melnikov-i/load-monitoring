@@ -1,12 +1,6 @@
 import styled from 'styled-components';
 
-import {
-  Table,
-  TableHead,
-  TableHeadRow,
-  TableHeadColl,
-  TableHeadCollBigWidth,
-} from './TableStyled';
+export const TableHeadCollBigWidth = '7.69230769299998%';
 
 import {
   MIDDLE_SCREEN_MAX,
@@ -28,13 +22,31 @@ export const DevicesHeader = styled.h1`
   font-weight: 600;
 `;
 
-export const DevicesTable = styled(Table)``;
+export const DevicesTable = styled.table`
+  width: 100%;
+  margin: 30px auto;
+  border-spacing: 0;
+`;
 
-export const DevicesTableHead = styled(TableHead)``;
+export const DevicesTableHead = styled.thead`
+`;
 
-export const DevicesTableHeadRow = styled(TableHeadRow)``;
+export const DevicesTableRow = styled.tr`
+  display: inline-block;
+  width: 100%;
+  border-bottom: 1px solid #e7eaec;
+`;
 
-export const DevicesTableHeadColl = styled(TableHeadColl)`
+export const DevicesTableHeadColl = styled.th`
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 14px;
+  font-weight: normal;
+  width: ${ TableHeadCollBigWidth };
+  min-height: 25px;
+  line-height: 25px;
+  text-align: left;
   margin-right: ${ DevicesTableHeadCollMargin };
 `;
 
@@ -55,6 +67,15 @@ export const DevicesTableHeadCollLoad = DevicesTableHeadColl.extend`
   width: calc(${ TableHeadCollBigWidth } * 2);
 `;
 
-export const DevicesTableHeadLastColl = styled(TableHeadColl)`
+export const DevicesTableHeadLastColl = styled.th`
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 14px;
+  font-weight: normal;
+  width: ${ TableHeadCollBigWidth };
+  min-height: 25px;
+  line-height: 25px;
+  text-align: left;
   margin-right: 0;
 `;

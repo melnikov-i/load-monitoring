@@ -39,9 +39,10 @@ import {
 } from '@src/styled';
 
 import {
-  Devices,
+  // Devices,
   PageOverview,
 } from '@src/containers';
+import DevicesConnected from '@src/connected/DevicesConnected.usage';
 import DeviceConnected from '@src/connected/DeviceConnected.usage';
 
 interface MainProps {
@@ -89,6 +90,7 @@ export const Main: React.SFC<MainProps> = (props) => {
   };
   const devicesMenu = getDevicesMenu();
 
+  /* Покажет компонент после загрузки меню устройств (грузится последним) */
   if ( devicesMenu.length !== 0 ) {
     const {
       UserMenuModel,
@@ -138,7 +140,7 @@ export const Main: React.SFC<MainProps> = (props) => {
     }
 
     return (
-      <MainLayout>
+      <MainLayout id={'main'}>
         <MainMenu
           onSmallScreen={isMainMenuOpened.onSmallScreen}
         >
@@ -280,7 +282,9 @@ export const Main: React.SFC<MainProps> = (props) => {
                 component={PageOverview} />
               <Route
                 exact path={'/devices'}
-                component={Devices} />
+                render={()=> (
+                  <DevicesConnected />
+                )} />
         {
           devicesMenu.map((e, i) => {
             const items: DeviceItemsInterface = {
@@ -306,11 +310,12 @@ export const Main: React.SFC<MainProps> = (props) => {
       </MainLayout>
     );    
   } else {
+    /* Пока подгружаются данные, пользователю показывается спиннер */
     return (
       <Spinner
         width={5}
         color={'#2f4050'}
-        bgColor={'#f3f3f4'}
+        bgColor={'#fff'}
       />
     );
   }
