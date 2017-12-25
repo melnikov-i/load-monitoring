@@ -9,10 +9,10 @@ import {
 
 import {
   MAIN_MENU_WAS_REQUESTED_FROM_API,
-  PUT_MAIN_MENU_FROM_API_TO_MODEL,
-  PUT_USER_MENU_FROM_API_TO_MODEL,
+  PUT_MAIN_MENU_FROM_API_TO_COLLECTION,
+  PUT_USER_MENU_FROM_API_TO_COLLECTION,
   DEVICES_MENU_WAS_REQUESTED_FROM_API,
-  PUT_DEVICES_MENU_FROM_API_TO_MODEL,
+  PUT_DEVICES_MENU_FROM_API_TO_COLLECTION,
   DO_MAIN_MENU_ON_SMALL_SCREEN_SWITCH,
   DO_DEVICES_MENU_ON_BIG_SCREEN_SWITCH,
   DO_DEVICES_MENU_ON_MIDDLE_SCREEN_SWITCH,
@@ -27,10 +27,10 @@ import {
 
 export type State = {
   readonly MainMenuWasRequestedFromAPI: boolean,
-  readonly MainMenuModel: MainMenuLinksInterface[],
-  readonly UserMenuModel: UserMenuInterface,
+  readonly MainMenuItemsCollection: MainMenuLinksInterface[],
+  readonly UserMenuItemsCollection: UserMenuInterface,
   readonly DevicesMenuWasRequestedFromAPI: boolean,
-  readonly DevicesMenuModel: MainMenuLinksInterface[],
+  readonly DevicesMenuItemsCollection: MainMenuLinksInterface[],
   readonly isDevicesMenuOpened: IsOpenedInterface,
   readonly isMainMenuOpened: IsOpenedInterface,
   readonly isUserMenuOpened: IsOpenedUserMenuInterface,
@@ -81,9 +81,9 @@ export const reducer = combineReducers({
         return state;
     }
   },
-  MainMenuModel: ( state = [], action ) => {
+  MainMenuItemsCollection: ( state = [], action ) => {
     switch ( action.type ) {
-      case PUT_MAIN_MENU_FROM_API_TO_MODEL:
+      case PUT_MAIN_MENU_FROM_API_TO_COLLECTION:
         return [...action.payload];
       case USER_WAS_LOGOUT:
         return [];
@@ -91,9 +91,9 @@ export const reducer = combineReducers({
         return state;
     }
   },
-  UserMenuModel: ( state = UserMenuInitialState, action ) => {
+  UserMenuItemsCollection: ( state = UserMenuInitialState, action ) => {
     switch ( action.type ) {
-      case PUT_USER_MENU_FROM_API_TO_MODEL:
+      case PUT_USER_MENU_FROM_API_TO_COLLECTION:
         return {
           ...state,
           user: [
@@ -118,9 +118,9 @@ export const reducer = combineReducers({
         return state;
     }
   },
-  DevicesMenuModel: ( state = [], action ) => {
+  DevicesMenuItemsCollection: ( state = [], action ) => {
     switch ( action.type ) {
-      case PUT_DEVICES_MENU_FROM_API_TO_MODEL:
+      case PUT_DEVICES_MENU_FROM_API_TO_COLLECTION:
         return [...action.payload];
       case USER_WAS_LOGOUT:
         return [];        

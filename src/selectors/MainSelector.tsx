@@ -8,14 +8,14 @@ export const MainMenuWasRequestedFromAPISelector =
     ( MainMenuWasRequestedFromAPI ) => MainMenuWasRequestedFromAPI,
   );
 
-export const MainMenuModelSelector = createSelector(
-    ( state: { main: any } ) => state.main.MainMenuModel,
-    ( MainMenuModel ) => MainMenuModel,
+export const MainMenuItemsCollectionSelector = createSelector(
+    ( state: { main: any } ) => state.main.MainMenuItemsCollection,
+    ( MainMenuItemsCollection ) => MainMenuItemsCollection,
   );
 
-export const UserMenuModelSelector = createSelector(
-    ( state: RootState ) => state.main.UserMenuModel,
-    ( UserMenuModel ) => UserMenuModel
+export const UserMenuItemsCollectionSelector = createSelector(
+    ( state: RootState ) => state.main.UserMenuItemsCollection,
+    ( UserMenuItemsCollection ) => UserMenuItemsCollection
   );
 
 export const DevicesMenuWasRequestedFromAPISelector = 
@@ -24,9 +24,9 @@ export const DevicesMenuWasRequestedFromAPISelector =
     ( DevicesMenuWasRequestedFromAPI ) => DevicesMenuWasRequestedFromAPI,
   );
 
-export const DevicesMenuModelSelector = createSelector(
-    ( state: RootState ) => state.main.DevicesMenuModel,
-    ( DevicesMenuModel ) => DevicesMenuModel,
+export const DevicesMenuItemsCollectionSelector = createSelector(
+    ( state: RootState ) => state.main.DevicesMenuItemsCollection,
+    ( DevicesMenuItemsCollection ) => DevicesMenuItemsCollection,
   );
 
 export const isDevicesMenuOpenedSelector = createSelector(

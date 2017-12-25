@@ -50,10 +50,10 @@ import DeviceConnected from '@src/connected/DeviceConnected.usage';
 
 interface MainProps {
   MainMenuWasRequestedFromAPI: boolean,
-  MainMenuModel: MainMenuLinksInterface[],
-  UserMenuModel: UserMenuInterface,
+  MainMenuItemsCollection: MainMenuLinksInterface[],
+  UserMenuItemsCollection: UserMenuInterface,
   DevicesMenuWasRequestedFromAPI: boolean,
-  DevicesMenuModel: MainMenuLinksInterface[],
+  DevicesMenuItemsCollection: MainMenuLinksInterface[],
   isDevicesMenuOpened: IsOpenedInterface,
   isMainMenuOpened: IsOpenedInterface,
   isUserMenuOpened: IsOpenedUserMenuInterface,
@@ -71,10 +71,10 @@ interface MainProps {
 export const Main: React.SFC<MainProps> = (props) => {
   const {
     MainMenuWasRequestedFromAPI,
-    MainMenuModel,
+    MainMenuItemsCollection,
     makeMainMenuRequestToAPI,
     DevicesMenuWasRequestedFromAPI,
-    DevicesMenuModel,
+    DevicesMenuItemsCollection,
     makeDevicesMenuRequestToAPI,
   } = props;
 
@@ -82,7 +82,7 @@ export const Main: React.SFC<MainProps> = (props) => {
     if ( !MainMenuWasRequestedFromAPI ) {
       makeMainMenuRequestToAPI();
     }
-    return MainMenuModel;
+    return MainMenuItemsCollection;
   };
   const mainMenu = getMainMenu();
 
@@ -90,14 +90,14 @@ export const Main: React.SFC<MainProps> = (props) => {
     if ( !DevicesMenuWasRequestedFromAPI ) {
       makeDevicesMenuRequestToAPI();
     }
-    return DevicesMenuModel;
+    return DevicesMenuItemsCollection;
   };
   const devicesMenu = getDevicesMenu();
 
   /* Покажет компонент после загрузки меню устройств (грузится последним) */
   if ( devicesMenu.length !== 0 ) {
     const {
-      UserMenuModel,
+      UserMenuItemsCollection,
       isDevicesMenuOpened,
       isMainMenuOpened,
       isUserMenuOpened,
@@ -167,13 +167,13 @@ export const Main: React.SFC<MainProps> = (props) => {
                 onBigScreen={isUserMenuOpened.onBigScreen}
                 onClick={userMenuLinkHandler}
               >
-                { UserMenuModel.user[0].login }
+                { UserMenuItemsCollection.user[0].login }
               </UserMenuFakeLink>
               <UserMenuLayout
                 onBigScreen={isUserMenuOpened.onBigScreen}
               >
                 {
-                  UserMenuModel.links.map((e, i) => {
+                  UserMenuItemsCollection.links.map((e, i) => {
                     return (
                       <UserMenuItem key={i}>
                         <UserMenuLink

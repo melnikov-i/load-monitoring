@@ -19,10 +19,10 @@ export const LOGIN_LAYOUT_BIG_WIDTH: string = '780px';
 export const LOGIN_LAYOUT_BIG_HEIGHT: string = '300px';
 export const LOGIN_FORM_INPUT_BIG_HEIGHT: string = '34px';
 
-export const TABLE_COLL_WIDTH: string = '7.69230769299998%';
-export const TABLE_COLL_MARGIN: string = '1.53846153799998%';
+export const TABLE_COLL_WIDTH: string = '8.33333333333333%';
 
 
+  // export const TABLE_COLL_MARGIN: string = '1.53846153799998%';
   // export const MENU_LAYOUT_SMALL_WIDTH: string = '0';
   // export const MAIN_MENU_BIG_WIDTH: string = '185px';
   // export const MAIN_MENU_MIDDLE_WIDTH: string = '50px';

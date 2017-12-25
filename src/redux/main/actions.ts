@@ -9,14 +9,14 @@ import { Dispatch } from '@src/redux';
 
 export const MAIN_MENU_WAS_REQUESTED_FROM_API =
   'MAIN_MENU_WAS_REQUESTED_FROM_API';
-export const PUT_MAIN_MENU_FROM_API_TO_MODEL =
-  'PUT_MAIN_MENU_FROM_API_TO_MODEL';
-export const PUT_USER_MENU_FROM_API_TO_MODEL =
-  'PUT_USER_MENU_FROM_API_TO_MODEL';
+export const PUT_MAIN_MENU_FROM_API_TO_COLLECTION =
+  'PUT_MAIN_MENU_FROM_API_TO_COLLECTION';
+export const PUT_USER_MENU_FROM_API_TO_COLLECTION =
+  'PUT_USER_MENU_FROM_API_TO_COLLECTION';
 export const DEVICES_MENU_WAS_REQUESTED_FROM_API =
   'DEVICES_MENU_WAS_REQUESTED_FROM_API';
-export const PUT_DEVICES_MENU_FROM_API_TO_MODEL =
-  'PUT_DEVICES_MENU_FROM_API_TO_MODEL';
+export const PUT_DEVICES_MENU_FROM_API_TO_COLLECTION =
+  'PUT_DEVICES_MENU_FROM_API_TO_COLLECTION';
 
 export const DO_MAIN_MENU_ON_SMALL_SCREEN_SWITCH = 
   'DO_MAIN_MENU_ON_SMALL_SCREEN_SWITCH';
@@ -37,19 +37,19 @@ export type Actions = {
   MAIN_MENU_WAS_REQUESTED_FROM_API: {
     type: typeof MAIN_MENU_WAS_REQUESTED_FROM_API,
   },
-  PUT_MAIN_MENU_FROM_API_TO_MODEL: {
-    type: typeof PUT_MAIN_MENU_FROM_API_TO_MODEL,
+  PUT_MAIN_MENU_FROM_API_TO_COLLECTION: {
+    type: typeof PUT_MAIN_MENU_FROM_API_TO_COLLECTION,
     payload: MainMenuLinksInterface[],
   },
-  PUT_USER_MENU_FROM_API_TO_MODEL: {
-    type: typeof PUT_USER_MENU_FROM_API_TO_MODEL,
+  PUT_USER_MENU_FROM_API_TO_COLLECTION: {
+    type: typeof PUT_USER_MENU_FROM_API_TO_COLLECTION,
     payload: UserInterface,
   },
   DEVICES_MENU_WAS_REQUESTED_FROM_API: {
     type: typeof DEVICES_MENU_WAS_REQUESTED_FROM_API,
   },
-  PUT_DEVICES_MENU_FROM_API_TO_MODEL: {
-    type: typeof PUT_DEVICES_MENU_FROM_API_TO_MODEL,
+  PUT_DEVICES_MENU_FROM_API_TO_COLLECTION: {
+    type: typeof PUT_DEVICES_MENU_FROM_API_TO_COLLECTION,
     payload: MainMenuLinksInterface[],
   },
 
@@ -80,24 +80,24 @@ export const syncActionCreators = {
   Actions[typeof MAIN_MENU_WAS_REQUESTED_FROM_API] => ({
     type: MAIN_MENU_WAS_REQUESTED_FROM_API,
   }),
-  putMainMenuFromAPIToModel:
+  putMainMenuFromAPIToCollection:
   ( payload: MainMenuLinksInterface[] ):
-  Actions[typeof PUT_MAIN_MENU_FROM_API_TO_MODEL] => ({
-    type: PUT_MAIN_MENU_FROM_API_TO_MODEL, payload
+  Actions[typeof PUT_MAIN_MENU_FROM_API_TO_COLLECTION] => ({
+    type: PUT_MAIN_MENU_FROM_API_TO_COLLECTION, payload
   }),
-  putUserMenuFromAPIToModel:
+  putUserMenuFromAPIToCollection:
   ( payload: UserInterface ):
-  Actions[typeof PUT_USER_MENU_FROM_API_TO_MODEL] => ({
-    type: PUT_USER_MENU_FROM_API_TO_MODEL, payload,
+  Actions[typeof PUT_USER_MENU_FROM_API_TO_COLLECTION] => ({
+    type: PUT_USER_MENU_FROM_API_TO_COLLECTION, payload,
   }),
   devicesMenuWasRequestedFromAPI: ():
   Actions[typeof DEVICES_MENU_WAS_REQUESTED_FROM_API] => ({
     type: DEVICES_MENU_WAS_REQUESTED_FROM_API,
   }),
-  putDevicesMenuFromAPIToModel:
+  putDevicesMenuFromAPIToCollection:
   ( payload: MainMenuLinksInterface[] ):
-  Actions[typeof PUT_DEVICES_MENU_FROM_API_TO_MODEL] => ({
-    type: PUT_DEVICES_MENU_FROM_API_TO_MODEL, payload,
+  Actions[typeof PUT_DEVICES_MENU_FROM_API_TO_COLLECTION] => ({
+    type: PUT_DEVICES_MENU_FROM_API_TO_COLLECTION, payload,
   }),
 
   doMainMenuOnSmallScreenSwitch:():
@@ -146,16 +146,16 @@ export const asyncActionCreators = {
         ( response ) => {
           const menu: MainMenuLinksInterface[] = response.data.menu;          
           dispatch(
-            syncActionCreators.putMainMenuFromAPIToModel(menu)
+            syncActionCreators.putMainMenuFromAPIToCollection(menu)
           );
-          const login: UserInterface = response.data.user[0].login;
-          return login;
+          const user: UserInterface = response.data.user[0].login;
+          return user;
         }
       )
       .then(
-        ( login ) => {
+        ( user ) => {
           dispatch(
-            syncActionCreators.putUserMenuFromAPIToModel(login)
+            syncActionCreators.putUserMenuFromAPIToCollection(user)
           );
         }
       )
@@ -177,7 +177,7 @@ export const asyncActionCreators = {
             response.data.devices_list;
           setTimeout(() => {
             dispatch(
-              syncActionCreators.putDevicesMenuFromAPIToModel(devices)
+              syncActionCreators.putDevicesMenuFromAPIToCollection(devices)
             );
           }, 1000);
         }
