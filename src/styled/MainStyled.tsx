@@ -528,6 +528,34 @@ export const MainTop = styled.div`
   background-color: #f3f3f3;
   border-bottom: 1px solid #e7eaec;
   box-sizing: border-box;
+  position: relative;
+`;
+
+export const MainTopExitWrapper = styled.div`
+  width: ${ TOP_HEIGHT };
+  height: ${ TOP_HEIGHT };
+  line-height: ${ TOP_HEIGHT };
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 20px;
+`;
+
+export const MainTopExitLink = styled(NavLink)`
+  color: #999c9e;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  &:hover {
+    color: #23527c;
+  }
+  &::before {
+    content: "\f08b";
+    font-family: 'FontAwesome';
+    font-weight: normal;
+    font-size: ${ FA_SMALL_FONT_SIZE };
+    margin-right: 8px;
+  }
 `;
 
 export const MainContent = styled.div`

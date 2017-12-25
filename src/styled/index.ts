@@ -5,4 +5,4 @@ export * from './SpinnerStyled';
 export * from './DeviceStyled';
 
 export * from './DevicesStyled';
-export * from './TableStyled';
+// export * from './TableStyled';

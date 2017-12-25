@@ -10,6 +10,7 @@ import {
   UserMenuInterface,
   IsOpenedUserMenuInterface,
   DeviceItemsInterface,
+  LogOunInterface,
 } from '@src/interfaces';
 
 import { Spinner } from '@src/components';
@@ -36,6 +37,8 @@ import {
   UserMenuItem,
   UserMenuLink,
   UserMenuLinkSpan,
+  MainTopExitWrapper,
+  MainTopExitLink,
 } from '@src/styled';
 
 import {
@@ -62,6 +65,7 @@ interface MainProps {
   doDevicesMenuOnSmallScreenSwitch: () => any,
   doBothMenuOnSmallScreenOff: () => any,
   doUserMenuOnBigScreenSwitch: () => any,
+  sendLogOutToAPI: (payload: LogOunInterface) => any,
 }
 
 export const Main: React.SFC<MainProps> = (props) => {
@@ -103,6 +107,7 @@ export const Main: React.SFC<MainProps> = (props) => {
       doDevicesMenuOnSmallScreenSwitch,
       doBothMenuOnSmallScreenOff,
       doUserMenuOnBigScreenSwitch,
+      sendLogOutToAPI,
     } = props;
   
     /* Обработчики событий */
@@ -137,10 +142,18 @@ export const Main: React.SFC<MainProps> = (props) => {
 
     const userMenuLinkHandler = () => {
       doUserMenuOnBigScreenSwitch();
+    };
+
+    const logOutHandler = () => {
+      console.log('[EXIT]');
+      const payload: LogOunInterface = {
+        step: 'exit',
+      };
+      sendLogOutToAPI(payload);
     }
 
     return (
-      <MainLayout id={'main'}>
+      <MainLayout>
         <MainMenu
           onSmallScreen={isMainMenuOpened.onSmallScreen}
         >
@@ -166,7 +179,11 @@ export const Main: React.SFC<MainProps> = (props) => {
                         <UserMenuLink
                           to={'/' + e.to}
                           title={e.value}
-                          onClick={userMenuLinkHandler}
+                          onClick={
+                            (e.to === 'exit') 
+                            ? logOutHandler
+                            : userMenuLinkHandler
+                          }
                         >
                           <UserMenuLinkSpan>
                             { e.value }
@@ -274,7 +291,16 @@ export const Main: React.SFC<MainProps> = (props) => {
           </MainMenuLayout>
         </MainMenu>
         <MainPage onSmallScreen={isMainMenuOpened.onSmallScreen}>
-          <MainTop></MainTop>
+          <MainTop>
+            <MainTopExitWrapper>
+              <MainTopExitLink
+                to={'/'}
+                onClick={logOutHandler}
+              >
+                {'Выход'}
+              </MainTopExitLink>
+            </MainTopExitWrapper>
+          </MainTop>
           <MainContent>
             <Switch>
               <Route

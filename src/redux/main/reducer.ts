@@ -21,6 +21,10 @@ import {
   DO_USER_MENU_ON_BIG_SCREEN_SWITCH
 } from '@src/redux/main';
 
+import {
+  USER_WAS_LOGOUT
+} from '@src/redux/login';
+
 export type State = {
   readonly MainMenuWasRequestedFromAPI: boolean,
   readonly MainMenuModel: MainMenuLinksInterface[],
@@ -71,6 +75,8 @@ export const reducer = combineReducers({
     switch ( action.type ) {
       case MAIN_MENU_WAS_REQUESTED_FROM_API:
         return true;
+      case USER_WAS_LOGOUT:
+        return false;
       default:
         return state;
     }
@@ -79,6 +85,8 @@ export const reducer = combineReducers({
     switch ( action.type ) {
       case PUT_MAIN_MENU_FROM_API_TO_MODEL:
         return [...action.payload];
+      case USER_WAS_LOGOUT:
+        return [];
       default:
         return state;
     }
@@ -94,6 +102,8 @@ export const reducer = combineReducers({
             }
           ]
         };
+      case USER_WAS_LOGOUT:
+        return UserMenuInitialState;
       default:
         return state;
     }
@@ -102,6 +112,8 @@ export const reducer = combineReducers({
     switch ( action.type ) {
       case DEVICES_MENU_WAS_REQUESTED_FROM_API:
         return true;
+      case USER_WAS_LOGOUT:
+        return false;
       default:
         return state;
     }
@@ -110,6 +122,8 @@ export const reducer = combineReducers({
     switch ( action.type ) {
       case PUT_DEVICES_MENU_FROM_API_TO_MODEL:
         return [...action.payload];
+      case USER_WAS_LOGOUT:
+        return [];        
       default:
         return state;
     }
@@ -138,6 +152,8 @@ export const reducer = combineReducers({
           ...state,
           onSmallScreen: false,
         };
+      case USER_WAS_LOGOUT:
+        return isMainMenuOpenedInitialState;
       default:
         return state;
     }
@@ -169,6 +185,8 @@ export const reducer = combineReducers({
           onMiddleScreen: false,
           onSmallScreen: ( state.onSmallScreen ) ? false : true,
         };
+      case USER_WAS_LOGOUT:
+        return isDevicesMenuOpenedInitialState;
       default:
         return state;
     }
@@ -180,6 +198,8 @@ export const reducer = combineReducers({
         return {
           onBigScreen: ( state.onBigScreen ) ? false : true,
         };
+      case USER_WAS_LOGOUT:
+        return isUserMenuOpenedInitialState;
       default:
         return state;
     }

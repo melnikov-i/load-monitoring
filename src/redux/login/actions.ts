@@ -2,7 +2,8 @@ import axios from 'axios';
 
 import {
   LoginFormInterface,
-  LoginFormStateInterface
+  LoginFormStateInterface,
+  LogOunInterface
 } from '@src/interfaces';
 
 import { Dispatch } from '@src/redux';
@@ -12,6 +13,7 @@ export const CHANGE_PASSWORD_VALUE = 'CHANGE_PASSWORD_VALUE';
 export const SENDING_USER_CREDENTIAL_IN_PROGRESS =
   'SENDING_USER_CREDENTIAL_IN_PROGRESS';
 export const USER_IS_AUTHORIZED = 'USER_IS_AUTHORIZED';
+export const USER_WAS_LOGOUT = 'USER_WAS_LOGOUT';
 
 export type Actions = {
   CHANGE_LOGIN_VALUE: {
@@ -29,6 +31,9 @@ export type Actions = {
   USER_IS_AUTHORIZED: {
     type: typeof USER_IS_AUTHORIZED,
   },
+  USER_WAS_LOGOUT: {
+    type: typeof USER_WAS_LOGOUT,
+  }
 };
 
 export const syncActionCreators = {
@@ -49,9 +54,13 @@ export const syncActionCreators = {
   Actions[typeof USER_IS_AUTHORIZED] => ({
     type: USER_IS_AUTHORIZED,
   }),
+  userWasLogOut: ():
+  Actions[typeof USER_WAS_LOGOUT] => ({
+    type: USER_WAS_LOGOUT,
+  }),
 };
 
-const sendUserCredential = axios.create({
+const sendRequestToAPI = axios.create({
     baseURL: 'http://dev.monyze.ru', 
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
@@ -63,14 +72,18 @@ export const asyncActionCreators = {
   ( payload: LoginFormInterface ) => {
     return ( dispatch: Dispatch ) => {
       dispatch(syncActionCreators.sendingUserCredentialInProgress(1));
-      sendUserCredential.post('/auth.php', payload).then(
+      sendRequestToAPI.post('/auth.php', payload).then(
         ( response ) => {
           if ( response.data === 'true' ) {
-            dispatch(syncActionCreators.userIsAuthorized());
+            setTimeout(() => {
+              dispatch(syncActionCreators.userIsAuthorized());
+            }, 1000);
           } else {
-            dispatch(
-              syncActionCreators.sendingUserCredentialInProgress(2)
-            );
+            setTimeout(() => {
+              dispatch(
+                syncActionCreators.sendingUserCredentialInProgress(2)
+              );
+            }, 1000);
           }
         }
       )
@@ -80,5 +93,19 @@ export const asyncActionCreators = {
         }
       )
     }
-  }
+  },
+  sendLogOutToAPI: ( payload: LogOunInterface ) => {
+    return ( dispatch: Dispatch ) => {
+      sendRequestToAPI.post('/auth.php', payload).then(
+        ( response ) => {
+          dispatch(syncActionCreators.userWasLogOut());
+        }
+      )
+      .catch(
+        ( error ) => {
+          console.log('[ERROR]:', error);
+        }
+      )
+    }
+  },
 }

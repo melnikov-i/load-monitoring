@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 
-export const TableHeadCollBigWidth = '7.69230769299998%';
-
 import {
   MIDDLE_SCREEN_MAX,
+  TABLE_COLL_WIDTH,
+  TABLE_COLL_MARGIN
 } from '@src/styled';
-
-const DevicesTableHeadCollMargin = '1.53846153799998%';
 
 export const DevicesLayout = styled.div`
   box-sizing: border-box;
@@ -43,28 +41,28 @@ export const DevicesTableHeadColl = styled.th`
   vertical-align: top;
   font-size: 14px;
   font-weight: normal;
-  width: ${ TableHeadCollBigWidth };
+  width: ${ TABLE_COLL_WIDTH };
   min-height: 25px;
   line-height: 25px;
   text-align: left;
-  margin-right: ${ DevicesTableHeadCollMargin };
+  margin-right: ${ TABLE_COLL_MARGIN };
 `;
 
 export const DevicesTableHeadCollDev = DevicesTableHeadColl.extend`
   padding-left: 23px;
-  width: calc(${ TableHeadCollBigWidth } * 2);
+  width: calc(${ TABLE_COLL_WIDTH } * 2);
 `;
 
 export const DevicesTableHeadCollIP = DevicesTableHeadColl.extend`
-  width: calc(${ TableHeadCollBigWidth } * 2);
+  width: calc(${ TABLE_COLL_WIDTH } * 2);
 `;
 
 export const DevicesTableHeadCollInfo = DevicesTableHeadColl.extend`
-  width: calc(${ TableHeadCollBigWidth } * 4);
+  width: calc(${ TABLE_COLL_WIDTH } * 4);
 `;
 
 export const DevicesTableHeadCollLoad = DevicesTableHeadColl.extend`
-  width: calc(${ TableHeadCollBigWidth } * 2);
+  width: calc(${ TABLE_COLL_WIDTH } * 2);
 `;
 
 export const DevicesTableHeadLastColl = styled.th`
@@ -73,7 +71,7 @@ export const DevicesTableHeadLastColl = styled.th`
   vertical-align: top;
   font-size: 14px;
   font-weight: normal;
-  width: ${ TableHeadCollBigWidth };
+  width: ${ TABLE_COLL_WIDTH };
   min-height: 25px;
   line-height: 25px;
   text-align: left;

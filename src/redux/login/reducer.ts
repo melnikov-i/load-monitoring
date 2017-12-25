@@ -10,6 +10,7 @@ import {
   CHANGE_PASSWORD_VALUE,
   SENDING_USER_CREDENTIAL_IN_PROGRESS,
   USER_IS_AUTHORIZED,
+  USER_WAS_LOGOUT,
 } from '@src/redux/login';
 
 export type State = {
@@ -33,6 +34,10 @@ export const reducer = combineReducers({
     switch ( action.type ) {
       case CHANGE_LOGIN_VALUE:
         return action.payload;
+      case USER_IS_AUTHORIZED:
+        return '';
+      case USER_WAS_LOGOUT:
+        return '';
       default:
         return state;
     }
@@ -41,14 +46,20 @@ export const reducer = combineReducers({
     switch ( action.type ) {
       case CHANGE_PASSWORD_VALUE:
         return action.payload;
+      case USER_IS_AUTHORIZED:
+        return '';
+      case USER_WAS_LOGOUT:
+        return '';
       default:
         return state;
     }
   },
-  isAuthorized: ( state = false, action ) => {
+  isAuthorized: ( state = true, action ) => { // сменить на false
     switch ( action.type ) {
       case USER_IS_AUTHORIZED:
         return true;
+      case USER_WAS_LOGOUT:
+        return false;
       default:
         return state;
     }
@@ -64,6 +75,10 @@ export const reducer = combineReducers({
         } else {
           return state;
         }
+      case USER_IS_AUTHORIZED:
+        return loginFormStateInitialState;
+      case USER_WAS_LOGOUT:
+        return loginFormStateInitialState;
       default:
         return state;
     }

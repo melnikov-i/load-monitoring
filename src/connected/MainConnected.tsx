@@ -5,6 +5,7 @@ import { Dispatch, RootState } from '@src/redux';
 import { withRouter } from 'react-router-dom';
 
 import { syncActionCreators, asyncActionCreators } from '@src/redux/main';
+import { asyncActionCreators as loginActionCreators } from '@src/redux/login';
 import { Main } from '@src/components';
 
 import {
@@ -61,7 +62,8 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
   doBothMenuOnSmallScreenOff: 
     syncActionCreators.doBothMenuOnSmallScreenOff,
   doUserMenuOnBigScreenSwitch: 
-    syncActionCreators.doUserMenuOnBigScreenSwitch
+    syncActionCreators.doUserMenuOnBigScreenSwitch,
+  sendLogOutToAPI: loginActionCreators.sendLogOutToAPI,
 }, dispatch);
 
 export const MainConnected = 

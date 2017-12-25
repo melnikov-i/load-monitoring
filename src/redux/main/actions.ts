@@ -144,7 +144,7 @@ export const asyncActionCreators = {
       );
       getMainMenuFromAPI().then(
         ( response ) => {
-          const menu: MainMenuLinksInterface[] = response.data.menu;
+          const menu: MainMenuLinksInterface[] = response.data.menu;          
           dispatch(
             syncActionCreators.putMainMenuFromAPIToModel(menu)
           );
@@ -175,9 +175,11 @@ export const asyncActionCreators = {
         ( response ) => {
           const devices: MainMenuLinksInterface[] = 
             response.data.devices_list;
-          dispatch(
-            syncActionCreators.putDevicesMenuFromAPIToModel(devices)
-          );          
+          setTimeout(() => {
+            dispatch(
+              syncActionCreators.putDevicesMenuFromAPIToModel(devices)
+            );
+          }, 1000);
         }
       )
       .catch(

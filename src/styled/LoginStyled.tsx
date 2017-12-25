@@ -20,6 +20,17 @@ export const LoginLayout = styled.div`
   height: ${ LOGIN_LAYOUT_BIG_HEIGHT };
   padding-top: 100px;
   margin: 0 auto;
+  &::before {
+    content: "";
+    display: block;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background: #f3f3f4;
+  }
 `;
 
 export const LoginWrapper = styled.div`

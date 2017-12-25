@@ -63,7 +63,7 @@ export const Login: React.SFC<LoginProps> = (props) => {
   }
 
   return (
-    <div id={'login'}>
+    <div>
       <LoginLayout>
         <LoginWrapper>
           <LoginInnerPart>

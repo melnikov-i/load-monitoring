@@ -23,6 +23,4 @@ export const Spinner: React.SFC<SpinnerProps> = (props) => {
         bgColor={bgColor}
       />
   );
-}
-    // <SpinnerLayout bgColor={bgColor} width={0} color={''}>
-    // </SpinnerLayout>
+};

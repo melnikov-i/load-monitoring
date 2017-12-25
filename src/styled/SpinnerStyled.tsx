@@ -3,32 +3,32 @@ import styled, { keyframes } from 'styled-components';
 import { CircularSpinnerProps } from '@src/interfaces';
 
 import {
-  MIDDLE_SCREEN_MIN,
-  MIDDLE_SCREEN_MAX,
-  SMALL_SCREEN_MAX
+  // MIDDLE_SCREEN_MIN,
+  // MIDDLE_SCREEN_MAX,
+  // SMALL_SCREEN_MAX
 } from '@src/styled';
 
-export const SpinnerLayout = styled.div`
-  width: 50px;
-  height: 50px;
-  background-color: ${ 
-    ( props: CircularSpinnerProps ) => props.bgColor 
-  };
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -25px;
-  margin-left: 85px;
-  @media screen 
-    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      margin-left: 5px;
-    }
-  @media screen
-    and (max-width: ${ SMALL_SCREEN_MAX }) {
-      margin-left: -25px;
-    }
-`;
+// export const SpinnerLayout = styled.div`
+//   width: 50px;
+//   height: 50px;
+//   background-color: ${ 
+//     ( props: CircularSpinnerProps ) => props.bgColor 
+//   };
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   margin-top: -25px;
+//   margin-left: 85px;
+//   @media screen 
+//     and (min-width: ${ MIDDLE_SCREEN_MIN }) 
+//     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+//       margin-left: 5px;
+//     }
+//   @media screen
+//     and (max-width: ${ SMALL_SCREEN_MAX }) {
+//       margin-left: -25px;
+//     }
+// `;
 
 const rotateBefore = keyframes`
   20% { transform: rotateZ(0deg); }
