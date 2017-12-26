@@ -6,7 +6,8 @@ import {
   DevicesTable,
   DevicesTableHead,
   DevicesTableBody,
-  DevicesTableRow,
+  DevicesTableHeadRow,
+  DevicesTableBodyRow,
   DevicesTableHeadCollDev,
   DevicesTableHeadCollIP,
   DevicesTableHeadCollLoad,
@@ -55,7 +56,7 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
         <DevicesHeader>{'Все устройства'}</DevicesHeader>
         <DevicesTable>
           <DevicesTableHead>
-            <DevicesTableRow>
+            <DevicesTableHeadRow>
               <DevicesTableHeadCollDev>
                 {'Устройство'}
               </DevicesTableHeadCollDev>
@@ -72,18 +73,20 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
                 {'Статус'}
               </DevicesTableHeadCollStatus>
               <DevicesTableHeadLastColl></DevicesTableHeadLastColl>
-            </DevicesTableRow>
+            </DevicesTableHeadRow>
           </DevicesTableHead>
           <DevicesTableBody>
       {
         devicesItems.map((e, i) => {
           return (
-            <DevicesTableRow 
+            <DevicesTableBodyRow 
               key={i}
             >
               <DevicesTableBodyColl>
                 <DevicesTableBodyLink to={e.to}>
-                  <DevicesTableBodyCompNameSpan icon={e.icon}>
+                  <DevicesTableBodyCompNameSpan
+                  icon={e.icon}
+                  title={e.comp_name}>
                     {e.comp_name}                  
                   </DevicesTableBodyCompNameSpan>
                 </DevicesTableBodyLink>
@@ -94,8 +97,7 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
                 </DevicesTableBodyLink>
               </DevicesTableBodyColl>
               <DevicesTableBodyColl>
-                <DevicesTableBodyInfoLink to={e.to}>
-                  
+                <DevicesTableBodyInfoLink to={e.to}>                  
                   <DevicesTableBodyInfo>
                     {e.system}
                   </DevicesTableBodyInfo>
@@ -110,8 +112,7 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
                       {'RAM: '}
                     </DevicesTableBodyInfoSpan>
                     {Math.floor((Number(e.memory) / 1024) / 1024) + ' Мб'}
-                  </DevicesTableBodyInfo>
-                  
+                  </DevicesTableBodyInfo>                  
                 </DevicesTableBodyInfoLink>
               </DevicesTableBodyColl>
               <DevicesTableBodyColl>
@@ -123,7 +124,7 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
               <DevicesTableBodyColl>
                 
               </DevicesTableBodyColl>
-            </DevicesTableRow>
+            </DevicesTableBodyRow>
           );
         })
       }

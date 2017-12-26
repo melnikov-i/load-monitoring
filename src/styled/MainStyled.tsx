@@ -154,6 +154,49 @@ export const MainMenuLogo = styled.div`
     }
 `;
 
+export const UserMenuButton = styled.button`
+  width: 100%;
+  position: relative;
+  top: 65px;
+  background-color: transparent;
+  height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+  line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+  font-size: 13px;
+  font-weight: 600;
+  color: #dfe4fe;
+  text-align: left;
+  &::selection {
+    background-color: transparent;
+  }
+  &:focus {
+    outline: 0 solid transparent;
+  }
+  &::after {
+    width: ${ BIG_USER_FAKE_LINK_HEIGHT };
+    height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+    line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+    text-align: center;
+    content: "${
+      ( props: UMLinkIsOpenedProps ) => (
+        props.onBigScreen 
+        ? "\f078" 
+        : "\f053"
+      )
+    }";
+    font-family: 'FontAwesome';
+    font-weight: normal;
+    font-size: calc(${ FA_SMALL_FONT_SIZE } - 4px);
+    color: #dfe4fe;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  @media screen 
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      display: none;
+    }
+`;
+
 export const UserMenuFakeLink = styled.a`
   display: block;
   width: 100%;
@@ -168,26 +211,29 @@ export const UserMenuFakeLink = styled.a`
   &::selection {
     background: transparent;
   }
+  &:focus {
+    outline: 1px solid #red;
+  }
   &::after {
-      width: ${ BIG_USER_FAKE_LINK_HEIGHT };
-      height: ${ BIG_USER_FAKE_LINK_HEIGHT };
-      line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
-      text-align: center;
-      content: "${
-        ( props: UMLinkIsOpenedProps ) => (
-          props.onBigScreen 
-          ? "\f078" 
-          : "\f053"
-        )
-      }";
-      font-family: 'FontAwesome';
-      font-weight: normal;
-      font-size: calc(${ FA_SMALL_FONT_SIZE } - 4px);
-      color: #dfe4fe;
-      position: absolute;
-      top: 0;
-      right: 0;
-    }
+    width: ${ BIG_USER_FAKE_LINK_HEIGHT };
+    height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+    line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+    text-align: center;
+    content: "${
+      ( props: UMLinkIsOpenedProps ) => (
+        props.onBigScreen 
+        ? "\f078" 
+        : "\f053"
+      )
+    }";
+    font-family: 'FontAwesome';
+    font-weight: normal;
+    font-size: calc(${ FA_SMALL_FONT_SIZE } - 4px);
+    color: #dfe4fe;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
   @media screen 
     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
       display: none;

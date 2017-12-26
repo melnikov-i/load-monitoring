@@ -63,6 +63,8 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
     syncActionCreators.doBothMenuOnSmallScreenOff,
   doUserMenuOnBigScreenSwitch: 
     syncActionCreators.doUserMenuOnBigScreenSwitch,
+  doUserMenuOnBigScreenOff: 
+    syncActionCreators.doUserMenuOnBigScreenOff,
   sendLogOutToAPI: loginActionCreators.sendLogOutToAPI,
 }, dispatch);
 

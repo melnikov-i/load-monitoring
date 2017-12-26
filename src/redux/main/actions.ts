@@ -8,7 +8,7 @@ import {
 import { Dispatch } from '@src/redux';
 
 import {
-  syncActionCreators as loginActionCreators
+  // syncActionCreators as loginActionCreators
 } from '@src/redux/login';
 
 export const MAIN_MENU_WAS_REQUESTED_FROM_API =
@@ -35,6 +35,8 @@ export const DO_BOTH_MENU_ON_SMALL_SCREEN_OFF =
   'DO_BOTH_MENU_ON_SMALL_SCREEN_OFF';
 export const DO_USER_MENU_ON_BIG_SCREEN_SWITCH =
   'DO_USER_MENU_ON_BIG_SCREEN_SWITCH';
+export const DO_USER_MENU_ON_BIG_SCREEN_OFF =
+  'DO_USER_MENU_ON_BIG_SCREEN_OFF';
 
 
 export type Actions = {
@@ -75,6 +77,9 @@ export type Actions = {
   },
   DO_USER_MENU_ON_BIG_SCREEN_SWITCH: {
     type: typeof DO_USER_MENU_ON_BIG_SCREEN_SWITCH,
+  },
+  DO_USER_MENU_ON_BIG_SCREEN_OFF: {
+    type: typeof DO_USER_MENU_ON_BIG_SCREEN_OFF,
   }
 };
 
@@ -127,6 +132,10 @@ export const syncActionCreators = {
   doUserMenuOnBigScreenSwitch:():
   Actions[typeof DO_USER_MENU_ON_BIG_SCREEN_SWITCH] => ({
     type: DO_USER_MENU_ON_BIG_SCREEN_SWITCH,
+  }),
+  doUserMenuOnBigScreenOff:():
+  Actions[typeof DO_USER_MENU_ON_BIG_SCREEN_OFF] => ({
+    type: DO_USER_MENU_ON_BIG_SCREEN_OFF,
   })
 };
 
@@ -186,9 +195,20 @@ export const asyncActionCreators = {
               );
             }, 1000);            
           } else {
+            const devices: MainMenuLinksInterface[] = [
+              {
+                to: 'tmp',
+                icon: 'f05e',
+                value: 'TMP',
+
+              }
+            ];
             dispatch(
-              loginActionCreators.userWasLogOut()
-            );
+                syncActionCreators.putDevicesMenuFromAPIToCollection(devices)
+              );
+            // dispatch(
+            //   loginActionCreators.userWasLogOut()
+            // );
             console.log('[DEVICE_MENU_NULL]');
           }
         }

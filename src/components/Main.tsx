@@ -32,7 +32,7 @@ import {
   MainTop,
   SmallMenuButton,
   MainContent,
-  UserMenuFakeLink,
+  UserMenuButton,
   UserMenuLayout,
   UserMenuItem,
   UserMenuLink,
@@ -65,6 +65,7 @@ interface MainProps {
   doDevicesMenuOnSmallScreenSwitch: () => any,
   doBothMenuOnSmallScreenOff: () => any,
   doUserMenuOnBigScreenSwitch: () => any,
+  doUserMenuOnBigScreenOff: () => any,
   sendLogOutToAPI: (payload: LogOunInterface) => any,
 }
 
@@ -107,6 +108,7 @@ export const Main: React.SFC<MainProps> = (props) => {
       doDevicesMenuOnSmallScreenSwitch,
       doBothMenuOnSmallScreenOff,
       doUserMenuOnBigScreenSwitch,
+      doUserMenuOnBigScreenOff,
       sendLogOutToAPI,
     } = props;
   
@@ -140,8 +142,14 @@ export const Main: React.SFC<MainProps> = (props) => {
       }
     };
 
-    const userMenuLinkHandler = () => {
+    const userMenuButtonClickHandler = () => {
       doUserMenuOnBigScreenSwitch();
+    };
+
+    const userMenuButtonBlurHandler = () => {
+      setTimeout(() => {
+        doUserMenuOnBigScreenOff();
+      }, 300);
     };
 
     const logOutHandler = () => {
@@ -163,12 +171,13 @@ export const Main: React.SFC<MainProps> = (props) => {
             id={'smallMenuButton'} />
           <MainMenuLogoWrapper>
             <MainMenuLogo>
-              <UserMenuFakeLink 
+              <UserMenuButton 
                 onBigScreen={isUserMenuOpened.onBigScreen}
-                onClick={userMenuLinkHandler}
+                onBlur={userMenuButtonBlurHandler}
+                onClick={userMenuButtonClickHandler}
               >
                 { UserMenuItemsCollection.user[0].login }
-              </UserMenuFakeLink>
+              </UserMenuButton>
               <UserMenuLayout
                 onBigScreen={isUserMenuOpened.onBigScreen}
               >
@@ -182,7 +191,7 @@ export const Main: React.SFC<MainProps> = (props) => {
                           onClick={
                             (e.to === 'exit') 
                             ? logOutHandler
-                            : userMenuLinkHandler
+                            : userMenuButtonClickHandler
                           }
                         >
                           <UserMenuLinkSpan>

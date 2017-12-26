@@ -18,7 +18,8 @@ import {
   DO_DEVICES_MENU_ON_MIDDLE_SCREEN_SWITCH,
   DO_DEVICES_MENU_ON_SMALL_SCREEN_SWITCH,
   DO_BOTH_MENU_ON_SMALL_SCREEN_OFF,
-  DO_USER_MENU_ON_BIG_SCREEN_SWITCH
+  DO_USER_MENU_ON_BIG_SCREEN_SWITCH,
+  DO_USER_MENU_ON_BIG_SCREEN_OFF,
 } from '@src/redux/main';
 
 import {
@@ -198,6 +199,8 @@ export const reducer = combineReducers({
         return {
           onBigScreen: ( state.onBigScreen ) ? false : true,
         };
+      case DO_USER_MENU_ON_BIG_SCREEN_OFF:
+        return isUserMenuOpenedInitialState;
       case USER_WAS_LOGOUT:
         return isUserMenuOpenedInitialState;
       default:
