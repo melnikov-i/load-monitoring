@@ -54,7 +54,7 @@ export const reducer = combineReducers({
         return state;
     }
   },
-  isAuthorized: ( state = true, action ) => { // сменить на false
+  isAuthorized: ( state = true, action ) => {
     switch ( action.type ) {
       case USER_IS_AUTHORIZED:
         return true;

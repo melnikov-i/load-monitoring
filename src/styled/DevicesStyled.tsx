@@ -1,16 +1,22 @@
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 import {
   MIDDLE_SCREEN_MAX,
   TABLE_COLL_WIDTH,
+  FA_SMALL_FONT_SIZE
 } from '@src/styled';
+
+import {
+  DTSpanIconProps
+} from '@src/interfaces';
 
 export const DevicesLayout = styled.div`
   box-sizing: border-box;
   width: 100%;
   padding: 20px 30px 70px;
   @media screen and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-    padding: 20px 5px;
+    padding: 20px 10px;
   }
 `;
 
@@ -33,10 +39,10 @@ export const DevicesTableBody = styled.tbody`
 
 export const DevicesTableRow = styled.tr`
   width: 100%;
-  border-bottom: 1px solid #e7eaec;
+  --position: relative;
 `;
 
-export const DevicesTableHeadColl = styled.th`
+const DevicesTableHeadColl = styled.th`
   box-sizing: border-box;
   font-size: 14px;
   font-weight: normal;
@@ -44,48 +50,100 @@ export const DevicesTableHeadColl = styled.th`
   min-height: 25px;
   line-height: 25px;
   text-align: left;
-
-background-color: rgba(255, 0, 0, .4);
 `;
 
 export const DevicesTableHeadCollDev = DevicesTableHeadColl.extend`
   padding-left: 23px;
   width: calc(${ TABLE_COLL_WIDTH } * 2);
-
-background-color: rgba(255, 0, 0, .4);
 `;
 
 export const DevicesTableHeadCollIP = DevicesTableHeadColl.extend`
-  width: calc(${ TABLE_COLL_WIDTH } * 2);
-
-background-color: rgba(0, 255, 0, .4);
+  width: calc(${ TABLE_COLL_WIDTH } * 1.5);
 `;
 
 export const DevicesTableHeadCollInfo = DevicesTableHeadColl.extend`
   width: calc(${ TABLE_COLL_WIDTH } * 4);
-
-background-color: rgba(255, 255, 0, .4);
 `;
 
 export const DevicesTableHeadCollLoad = DevicesTableHeadColl.extend`
-  width: calc(${ TABLE_COLL_WIDTH } * 2);
+  width: calc(${ TABLE_COLL_WIDTH } * 1.5);
+`;
 
-background-color: rgba(255, 0, 255, .4);
+export const DevicesTableHeadCollStatus = DevicesTableHeadColl.extend`
+  width: calc(${ TABLE_COLL_WIDTH } * 1.5);
 `;
 
 export const DevicesTableHeadLastColl = styled.th`
   box-sizing: border-box;
   font-size: 14px;
   font-weight: normal;
-  width: ${ TABLE_COLL_WIDTH };
+  width: calc(${ TABLE_COLL_WIDTH } * 1.5);
   min-height: 25px;
   line-height: 25px;
   text-align: left;
-
-background-color: rgba(0, 255, 255, .4);
 `;
 
 export const DevicesTableBodyColl = styled.td`
   font-size: 14px;
   font-weight: normal;
+  color: #676a6c;
+  line-height: 1.42857;
+  vertical-align: top;
+  position: relative;
+  border-top: 1px solid #e7eaec;
+`;
+
+export const DevicesTableBodyInfo = styled.p`
+  font-size: 13px;
+  font-weight: normal;
+  color: #676a6c;
+`;
+
+
+export const DevicesTableBodyInfoSpan = styled.span`
+  font-size: 13px;
+  font-weight: 600;
+`;
+
+export const DevicesTableBodyLink = styled(NavLink)`
+  box-sizing: border-box;
+  display: inline-block;
+  text-decoration: none;
+  color: #676a6c;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+`;
+
+export const DevicesTableBodyInfoLink = styled(NavLink)`
+  box-sizing: border-box;
+  display: inline-block;
+  text-decoration: none;
+  color: #676a6c;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 0;
+  width: 100%;
+
+`;
+
+export const DevicesTableBodyCompNameSpan = styled.span`
+  font-size: 13px;
+  font-weight: 600;
+  &::before {
+    content: "\\${ (props: DTSpanIconProps) => (
+      ( props.icon !== null )
+      ? props.icon
+      : 'f05e'
+      )}";
+    font-family: 'FontAwesome';
+    font-weight: normal;
+    font-size: ${ FA_SMALL_FONT_SIZE };
+    margin-right: 9px;
+  }
 `;

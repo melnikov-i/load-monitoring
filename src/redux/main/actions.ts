@@ -7,6 +7,10 @@ import {
 
 import { Dispatch } from '@src/redux';
 
+import {
+  syncActionCreators as loginActionCreators
+} from '@src/redux/login';
+
 export const MAIN_MENU_WAS_REQUESTED_FROM_API =
   'MAIN_MENU_WAS_REQUESTED_FROM_API';
 export const PUT_MAIN_MENU_FROM_API_TO_COLLECTION =
@@ -173,13 +177,20 @@ export const asyncActionCreators = {
       );
       getDevicesMenuFromAPI().then(
         ( response ) => {
-          const devices: MainMenuLinksInterface[] = 
-            response.data.devices_list;
-          setTimeout(() => {
+          if ( response.data.devices_list !== null ) {
+            const devices: MainMenuLinksInterface[] = 
+              response.data.devices_list;
+            setTimeout(() => {
+              dispatch(
+                syncActionCreators.putDevicesMenuFromAPIToCollection(devices)
+              );
+            }, 1000);            
+          } else {
             dispatch(
-              syncActionCreators.putDevicesMenuFromAPIToCollection(devices)
+              loginActionCreators.userWasLogOut()
             );
-          }, 1000);
+            console.log('[DEVICE_MENU_NULL]');
+          }
         }
       )
       .catch(

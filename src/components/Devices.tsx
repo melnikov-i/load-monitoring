@@ -7,13 +7,18 @@ import {
   DevicesTableHead,
   DevicesTableBody,
   DevicesTableRow,
-  DevicesTableHeadColl,
   DevicesTableHeadCollDev,
   DevicesTableHeadCollIP,
   DevicesTableHeadCollLoad,
   DevicesTableHeadLastColl,
   DevicesTableHeadCollInfo,
-  DevicesTableBodyColl
+  DevicesTableBodyColl,
+  DevicesTableBodyInfo,
+  DevicesTableBodyInfoSpan,
+  DevicesTableBodyCompNameSpan,
+  DevicesTableBodyLink,
+  DevicesTableBodyInfoLink,
+  DevicesTableHeadCollStatus,
 } from '@src/styled';
 
 import {
@@ -63,9 +68,9 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
               <DevicesTableHeadCollLoad>
                 {'Нагрузка'}
               </DevicesTableHeadCollLoad>
-              <DevicesTableHeadColl>
+              <DevicesTableHeadCollStatus>
                 {'Статус'}
-              </DevicesTableHeadColl>
+              </DevicesTableHeadCollStatus>
               <DevicesTableHeadLastColl></DevicesTableHeadLastColl>
             </DevicesTableRow>
           </DevicesTableHead>
@@ -77,13 +82,37 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
               key={i}
             >
               <DevicesTableBodyColl>
-                {e.comp_name}
+                <DevicesTableBodyLink to={e.to}>
+                  <DevicesTableBodyCompNameSpan icon={e.icon}>
+                    {e.comp_name}                  
+                  </DevicesTableBodyCompNameSpan>
+                </DevicesTableBodyLink>
               </DevicesTableBodyColl>
               <DevicesTableBodyColl>
-                {e.ip}
+                <DevicesTableBodyLink to={e.to}>
+                  {e.ip}
+                </DevicesTableBodyLink>
               </DevicesTableBodyColl>
               <DevicesTableBodyColl>
-                <p>{e.system}</p>
+                <DevicesTableBodyInfoLink to={e.to}>
+                  
+                  <DevicesTableBodyInfo>
+                    {e.system}
+                  </DevicesTableBodyInfo>
+                  <DevicesTableBodyInfo>
+                    <DevicesTableBodyInfoSpan>
+                      {'CPU: '}
+                    </DevicesTableBodyInfoSpan>
+                    {e.cpu_name}
+                  </DevicesTableBodyInfo>
+                  <DevicesTableBodyInfo>
+                    <DevicesTableBodyInfoSpan>
+                      {'RAM: '}
+                    </DevicesTableBodyInfoSpan>
+                    {Math.floor((Number(e.memory) / 1024) / 1024) + ' Мб'}
+                  </DevicesTableBodyInfo>
+                  
+                </DevicesTableBodyInfoLink>
               </DevicesTableBodyColl>
               <DevicesTableBodyColl>
                 

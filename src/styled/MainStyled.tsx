@@ -95,6 +95,7 @@ export const SmallMenuButton = styled.button`
           : '15px'
         )
       };
+      z-index: 1;
       width: 40px;
       height: 40px;
       line-height: 40px;
