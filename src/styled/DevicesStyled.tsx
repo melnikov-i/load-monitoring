@@ -129,6 +129,10 @@ export const DevicesTableBodyLink = styled(NavLink)`
   overflow: hidden;
 `;
 
+export const DevicesTableBodyLinkLast = DevicesTableBodyLink.extend`
+  padding: 8px 0 0 0;
+`;
+
 export const DevicesTableBodyInfoLink = styled(NavLink)`
   box-sizing: border-box;
   display: inline-block;
@@ -153,5 +157,27 @@ export const DevicesTableBodyCompNameSpan = styled.span`
     font-weight: normal;
     font-size: ${ FA_SMALL_FONT_SIZE };
     margin-right: 9px;
+  }
+`;
+
+export const DevicesTableActionButton = styled.button`
+  width: 100%;
+  height: 20px;
+  line-height: 20px;
+  box-sizing: border-box;
+  border: 1px solid #e7eaec;
+  border-radius: 3px;
+  color: #333;
+  cursor: pointer;
+  background-color: #fff;
+  font-size: 12px;
+  &:focus {
+    outline: 0 solid transparent;
+    background-color: #d4d4d4;
+    border: 1px solid #8c8c8c;
+  }
+  &:hover {
+    background-color: #e6e6e6;
+    border: 1px solid #d2d2d2;
   }
 `;

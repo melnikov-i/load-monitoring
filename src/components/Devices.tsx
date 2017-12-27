@@ -18,8 +18,10 @@ import {
   DevicesTableBodyInfoSpan,
   DevicesTableBodyCompNameSpan,
   DevicesTableBodyLink,
+  DevicesTableBodyLinkLast,
   DevicesTableBodyInfoLink,
   DevicesTableHeadCollStatus,
+  DevicesTableActionButton
 } from '@src/styled';
 
 import {
@@ -122,7 +124,11 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
                 
               </DevicesTableBodyColl>
               <DevicesTableBodyColl>
-                
+                <DevicesTableBodyLinkLast to={e.to}>
+                  <DevicesTableActionButton>
+                    {'Действие'}
+                  </DevicesTableActionButton>
+                </DevicesTableBodyLinkLast>
               </DevicesTableBodyColl>
             </DevicesTableBodyRow>
           );
