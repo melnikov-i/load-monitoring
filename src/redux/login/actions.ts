@@ -1,4 +1,4 @@
-import axios from 'axios';
+import sendRequestToAPI from '@src/ajax';
 
 import {
   LoginFormInterface,
@@ -60,12 +60,7 @@ export const syncActionCreators = {
   }),
 };
 
-const sendRequestToAPI = axios.create({
-    baseURL: 'http://dev.monyze.ru', 
-    headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
-    }
-  });
+
 
 export const asyncActionCreators = {
   sendUserCredentialToAPI: 

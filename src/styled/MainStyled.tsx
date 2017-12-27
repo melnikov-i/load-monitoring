@@ -455,7 +455,12 @@ export const MainMenuLinkSpan = styled.span`
     background: transparent;
   }
   &::before {
-    content: "${ (props: MMSpanIconProps) => props.icon }";
+    content: "\\${ (props: MMSpanIconProps) => (
+        ( props.icon !== null )
+        ? props.icon
+        : 'f05e'
+      )
+    }";
     font-family: 'FontAwesome';
     font-weight: normal;
     font-size: ${ FA_SMALL_FONT_SIZE };
@@ -544,6 +549,8 @@ export const DevicesMenuLinkSpan = MainMenuLinkSpan.extend`
       &::before {
         margin-left: 20px;
         margin-right: 10px;
+        display: inline-block;
+        vertical-align: top;
       }
     }
 `;

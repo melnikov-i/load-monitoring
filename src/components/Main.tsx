@@ -216,7 +216,7 @@ export const Main: React.SFC<MainProps> = (props) => {
                         activeClassName={'activeMainMenuItem'}
                         title={e.value}
                       >
-                        <MainMenuLinkSpan icon={ '\\' + e.icon }>
+                        <MainMenuLinkSpan icon={ e.icon }>
                           { e.value }
                         </MainMenuLinkSpan>
                       </MainMenuLink>
@@ -238,7 +238,7 @@ export const Main: React.SFC<MainProps> = (props) => {
                           }
                         >
                           <MainMenuLinkSpan
-                            icon={ '\\' + e.icon }
+                            icon={ e.icon }
                           >
                             { e.value }
                           </MainMenuLinkSpan>
@@ -263,7 +263,7 @@ export const Main: React.SFC<MainProps> = (props) => {
                             onClick={devicesMenuLinkHandler}
                           >
                             <DevicesMenuLinkSpan
-                              icon={'\\f069'}
+                              icon={ 'f069' }
                             >
                               { 'Все устройства' }
                             </DevicesMenuLinkSpan>
@@ -282,7 +282,7 @@ export const Main: React.SFC<MainProps> = (props) => {
                                   onClick={devicesMenuLinkHandler}
                                 >
                                   <DevicesMenuLinkSpan
-                                    icon={'\\' + e.icon}
+                                    icon={ e.icon }
                                   >
                                     {e.value}
                                   </DevicesMenuLinkSpan>

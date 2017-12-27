@@ -1,4 +1,4 @@
-import axios from 'axios';
+import sendRequestToAPI from '@src/ajax';
 
 import {
   MainMenuLinksInterface,
@@ -8,7 +8,7 @@ import {
 import { Dispatch } from '@src/redux';
 
 import {
-  // syncActionCreators as loginActionCreators
+  syncActionCreators as loginActionCreators
 } from '@src/redux/login';
 
 export const MAIN_MENU_WAS_REQUESTED_FROM_API =
@@ -141,28 +141,28 @@ export const syncActionCreators = {
 
 // Async Action Creators
 
-const getMainMenuFromAPI = () => (
-  axios.get('http://dev.monyze.ru/menu_data.php')
-);
-
-const getDevicesMenuFromAPI = () => (
-  axios.get('http://dev.monyze.ru/menu_devices.php')
-);
-
 export const asyncActionCreators = {
   makeMainMenuRequestToAPI: () => {
     return ( dispatch: Dispatch ) => {
       dispatch(
         syncActionCreators.mainMenuWasRequestedFromAPI()
       );
-      getMainMenuFromAPI().then(
+      sendRequestToAPI.get('/menu_data.php').then(
         ( response ) => {
-          const menu: MainMenuLinksInterface[] = response.data.menu;          
-          dispatch(
-            syncActionCreators.putMainMenuFromAPIToCollection(menu)
-          );
-          const user: UserInterface = response.data.user[0].login;
-          return user;
+          if ( response.data.menu !== null ) {
+            const menu: MainMenuLinksInterface[] = response.data.menu;
+            dispatch(
+              syncActionCreators.putMainMenuFromAPIToCollection(menu)
+            );
+            const user: UserInterface = response.data.user[0].login;
+            return user;
+          } else {
+            dispatch(
+              loginActionCreators.userWasLogOut()
+            );
+            const user: UserInterface = {login: ''};
+            return user;
+          }
         }
       )
       .then(
@@ -184,7 +184,7 @@ export const asyncActionCreators = {
       dispatch(
         syncActionCreators.devicesMenuWasRequestedFromAPI()
       );
-      getDevicesMenuFromAPI().then(
+      sendRequestToAPI.get('/menu_devices.php').then(
         ( response ) => {
           if ( response.data.devices_list !== null ) {
             const devices: MainMenuLinksInterface[] = 
@@ -193,23 +193,11 @@ export const asyncActionCreators = {
               dispatch(
                 syncActionCreators.putDevicesMenuFromAPIToCollection(devices)
               );
-            }, 1000);            
+            }, 1000);
           } else {
-            const devices: MainMenuLinksInterface[] = [
-              {
-                to: 'tmp',
-                icon: 'f05e',
-                value: 'TMP',
-
-              }
-            ];
             dispatch(
-                syncActionCreators.putDevicesMenuFromAPIToCollection(devices)
-              );
-            // dispatch(
-            //   loginActionCreators.userWasLogOut()
-            // );
-            console.log('[DEVICE_MENU_NULL]');
+              loginActionCreators.userWasLogOut()
+            );
           }
         }
       )
