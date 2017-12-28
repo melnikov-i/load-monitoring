@@ -13,3 +13,9 @@ export const DevicesItemsWasRequestedFromAPISelector =
     ( state: RootState ) => state.devices.DevicesItemsWasRequestedFromAPI,
     ( DevicesItemsWasRequestedFromAPI ) => DevicesItemsWasRequestedFromAPI,
   );
+
+export const isDevicesActionButtonClickedSelector =
+  createSelector(
+    ( state: RootState ) => state.devices.isDevicesActionButtonClicked,
+    ( isDevicesActionButtonClicked ) => isDevicesActionButtonClicked,
+  );

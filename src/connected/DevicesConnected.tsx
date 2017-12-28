@@ -5,32 +5,37 @@ import { Dispatch, RootState } from '@src/redux';
 import { withRouter } from 'react-router-dom';
 
 import {
-  // syncActionCreators,
+  syncActionCreators,
   asyncActionCreators
 } from '@src/redux/devices';
 
 import { Devices } from '@src/components';
 
 import {
-  DevicesTableInterface
+  DevicesTableInterface,
+  DActionButtonClickedInterface
 } from '@src/interfaces';
 
 import {
   DevicesTableItemsCollectionSelector,
-  DevicesItemsWasRequestedFromAPISelector
+  DevicesItemsWasRequestedFromAPISelector,
+  isDevicesActionButtonClickedSelector,
 } from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector<RootState, {
     DevicesTableItemsCollection: DevicesTableInterface[],
     DevicesItemsWasRequestedFromAPI: boolean,
+    isDevicesActionButtonClicked: DActionButtonClickedInterface,
   }>({
     DevicesTableItemsCollection: DevicesTableItemsCollectionSelector,
     DevicesItemsWasRequestedFromAPI: DevicesItemsWasRequestedFromAPISelector,
+    isDevicesActionButtonClicked: isDevicesActionButtonClickedSelector,
   });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
   makeDevicesItemsRequestFromAPI: 
-    asyncActionCreators.makeDevicesItemsRequestFromAPI
+    asyncActionCreators.makeDevicesItemsRequestFromAPI,
+  devicesActionButtonSwitch: syncActionCreators.devicesActionButtonSwitch,
 }, dispatch);
 
 export const DevicesConnected = 

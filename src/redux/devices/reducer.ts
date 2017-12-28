@@ -2,11 +2,13 @@ import { combineReducers } from 'redux';
 
 import {
   DevicesTableInterface,
+  DActionButtonClickedInterface
 } from '@src/interfaces';
 
 import {
   PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION,
-  DEVICES_ITEMS_WAS_REQUESTED_FROM_API
+  DEVICES_ITEMS_WAS_REQUESTED_FROM_API,
+  DEVICES_ACTION_BUTTON_SWITCH,
 } from '@src/redux/devices';
 
 import {
@@ -16,7 +18,12 @@ import {
 export type State = {
   readonly DevicesTableItemsCollection: DevicesTableInterface[],
   readonly DevicesItemsWasRequestedFromAPI: boolean,
+  readonly isDevicesActionButtonClicked: DActionButtonClickedInterface,
 };
+
+const DevicesActionButtonIdInitialState: DActionButtonClickedInterface = {
+  buttonId: -1,
+}
 
 export const reducer = combineReducers({
   DevicesTableItemsCollection: ( state = [], action ) => {
@@ -35,6 +42,17 @@ export const reducer = combineReducers({
         return true;
       case USER_WAS_LOGOUT:
         return false;
+      default:
+        return state;
+    }
+  },
+  isDevicesActionButtonClicked: 
+  ( state = DevicesActionButtonIdInitialState, action ) => {
+    switch ( action.type ) {
+      case DEVICES_ACTION_BUTTON_SWITCH:
+        return {
+          buttonId: action.payload,
+        }
       default:
         return state;
     }

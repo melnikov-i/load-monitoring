@@ -1,3 +1,4 @@
+// import sendRequestToAPI from '@src/ajax';
 import axios from 'axios';
 
 import {
@@ -10,6 +11,8 @@ export const PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION =
   'PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION';
 export const DEVICES_ITEMS_WAS_REQUESTED_FROM_API =
   'DEVICES_ITEMS_WAS_REQUESTED_FROM_API';
+export const DEVICES_ACTION_BUTTON_SWITCH = 
+  'DEVICES_ACTION_BUTTON_SWITCH';
 
 export type Actions = {
   PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION: {
@@ -18,6 +21,9 @@ export type Actions = {
   },
   DEVICES_ITEMS_WAS_REQUESTED_FROM_API: {
     type: typeof DEVICES_ITEMS_WAS_REQUESTED_FROM_API,
+  },
+  DEVICES_ACTION_BUTTON_SWITCH: {
+    type: typeof DEVICES_ACTION_BUTTON_SWITCH,
   }
 }
 
@@ -31,6 +37,10 @@ export const syncActionCreators = {
   devicesItemsWasRequestedFromAPI: ():
   Actions[typeof DEVICES_ITEMS_WAS_REQUESTED_FROM_API] => ({
     type: DEVICES_ITEMS_WAS_REQUESTED_FROM_API,
+  }),
+  devicesActionButtonSwitch: ():
+  Actions[typeof DEVICES_ACTION_BUTTON_SWITCH] => ({
+    type: DEVICES_ACTION_BUTTON_SWITCH,
   }),
 };
 
@@ -47,6 +57,7 @@ export const asyncActionCreators = {
         syncActionCreators.devicesItemsWasRequestedFromAPI()
       );
       getDevicesFromAPI().then(
+      // sendRequestToAPI.get('/list_data.php').then(
         ( response ) => {
           const items: DevicesTableInterface[] = response.data.table;
           setTimeout(() => {

@@ -165,6 +165,7 @@ export const UserMenuButton = styled.button`
   font-weight: 600;
   color: #dfe4fe;
   text-align: left;
+  cursor: pointer;
   &::selection {
     background-color: transparent;
   }

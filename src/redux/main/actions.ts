@@ -1,4 +1,4 @@
-// import sendRequestToAPI from '@src/ajax';
+import sendRequestToAPI from '@src/ajax';
 
 import {
   MainMenuLinksInterface,
@@ -8,7 +8,7 @@ import {
 import { Dispatch } from '@src/redux';
 
 import {
-  // syncActionCreators as loginActionCreators
+  syncActionCreators as loginActionCreators
 } from '@src/redux/login';
 
 export const MAIN_MENU_WAS_REQUESTED_FROM_API =
@@ -147,47 +147,47 @@ export const asyncActionCreators = {
       dispatch(
         syncActionCreators.mainMenuWasRequestedFromAPI()
       );
-      const menu: MainMenuLinksInterface[] = [    
-        {    
-          to: 'tmp',
-          icon: 'f05e',
-          value: 'TMP',
-        }
-      ];
-      console.log('[MAIN]');
-      dispatch(
-        syncActionCreators.putMainMenuFromAPIToCollection(menu)
-      );
-      // sendRequestToAPI.get('/menu_data.php').then(
-      //   ( response ) => {
-      //     if ( response.data.menu !== null ) {
-      //       const menu: MainMenuLinksInterface[] = response.data.menu;
-      //       dispatch(
-      //         syncActionCreators.putMainMenuFromAPIToCollection(menu)
-      //       );
-      //       const user: UserInterface = response.data.user[0].login;
-      //       return user;
-      //     } else {
-      //       dispatch(
-      //         loginActionCreators.userWasLogOut()
-      //       );
-      //       const user: UserInterface = {login: ''};
-      //       return user;
-      //     }
+      // const menu: MainMenuLinksInterface[] = [    
+      //   {    
+      //     to: 'tmp',
+      //     icon: 'f05e',
+      //     value: 'TMP',
       //   }
-      // )
-      // .then(
-      //   ( user ) => {
-      //     dispatch(
-      //       syncActionCreators.putUserMenuFromAPIToCollection(user)
-      //     );
-      //   }
-      // )
-      // .catch(
-      //   ( error ) => {
-      //     console.log('[ERROR]:', error);
-      //   }
+      // ];
+      // console.log('[MAIN]');
+      // dispatch(
+      //   syncActionCreators.putMainMenuFromAPIToCollection(menu)
       // );
+      sendRequestToAPI.get('/menu_data.php').then(
+        ( response ) => {
+          if ( response.data.menu !== null ) {
+            const menu: MainMenuLinksInterface[] = response.data.menu;
+            dispatch(
+              syncActionCreators.putMainMenuFromAPIToCollection(menu)
+            );
+            const user: UserInterface = response.data.user[0].login;
+            return user;
+          } else {
+            dispatch(
+              loginActionCreators.userWasLogOut()
+            );
+            const user: UserInterface = {login: ''};
+            return user;
+          }
+        }
+      )
+      .then(
+        ( user ) => {
+          dispatch(
+            syncActionCreators.putUserMenuFromAPIToCollection(user)
+          );
+        }
+      )
+      .catch(
+        ( error ) => {
+          console.log('[ERROR]:', error);
+        }
+      );
     }
   },
   makeDevicesMenuRequestToAPI: () => {
@@ -195,41 +195,41 @@ export const asyncActionCreators = {
       dispatch(
         syncActionCreators.devicesMenuWasRequestedFromAPI()
       );
-      const devices: MainMenuLinksInterface[] = [    
-        {    
-          to: 'tmp',
-          icon: 'f05e',
-          value: 'TMP',
+      // const devices: MainMenuLinksInterface[] = [    
+      //   {    
+      //     to: 'tmp',
+      //     icon: 'f05e',
+      //     value: 'TMP',
+      //   }
+      // ];
+      // setTimeout(() => {
+      // console.log('[DEVICES]');
+      //   dispatch(
+      //     syncActionCreators.putDevicesMenuFromAPIToCollection(devices)
+      //   );
+      // }, 1000);
+      sendRequestToAPI.get('/menu_devices.php').then(
+        ( response ) => {
+          if ( response.data.devices_list !== null ) {
+            const devices: MainMenuLinksInterface[] = 
+              response.data.devices_list;
+            setTimeout(() => {
+              dispatch(
+                syncActionCreators.putDevicesMenuFromAPIToCollection(devices)
+              );
+            }, 1000);
+          } else {
+            dispatch(
+              loginActionCreators.userWasLogOut()
+            );
+          }
         }
-      ];
-      setTimeout(() => {
-      console.log('[DEVICES]');
-        dispatch(
-          syncActionCreators.putDevicesMenuFromAPIToCollection(devices)
-        );
-      }, 1000);
-      // sendRequestToAPI.get('/menu_devices.php').then(
-      //   ( response ) => {
-      //     if ( response.data.devices_list !== null ) {
-      //       const devices: MainMenuLinksInterface[] = 
-      //         response.data.devices_list;
-      //       setTimeout(() => {
-      //         dispatch(
-      //           syncActionCreators.putDevicesMenuFromAPIToCollection(devices)
-      //         );
-      //       }, 1000);
-      //     } else {
-      //       dispatch(
-      //         loginActionCreators.userWasLogOut()
-      //       );
-      //     }
-      //   }
-      // )
-      // .catch(
-      //   ( error ) => {
-      //     console.log('[ERROR]:', error);
-      //   }
-      // );
+      )
+      .catch(
+        ( error ) => {
+          console.log('[ERROR]:', error);
+        }
+      );
     }
   }
 };

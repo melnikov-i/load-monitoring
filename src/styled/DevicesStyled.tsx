@@ -8,7 +8,8 @@ import {
 } from '@src/styled';
 
 import {
-  DTSpanIconProps
+  DTSpanIconProps,
+  DActionButtonClickedInterface
 } from '@src/interfaces';
 
 export const DevicesLayout = styled.div`
@@ -161,23 +162,42 @@ export const DevicesTableBodyCompNameSpan = styled.span`
 `;
 
 export const DevicesTableActionButton = styled.button`
-  width: 100%;
+  width: 70px;
   height: 20px;
   line-height: 20px;
   box-sizing: border-box;
-  border: 1px solid #e7eaec;
+  position: absolute;
+  left: 50%;
+  margin-left: -35px;
+  border: 1px solid ${( props: DActionButtonClickedInterface ) => (
+      ( props.isClicked )
+      ? '#8c8c8c'
+      : '#e7eaec'
+    )
+  };
   border-radius: 3px;
   color: #333;
   cursor: pointer;
-  background-color: #fff;
+  background-color: ${( props: DActionButtonClickedInterface ) => (
+      ( props.isClicked )
+      ? '#d4d4d4'
+      : '#fff'
+    )
+  };
   font-size: 12px;
   &:focus {
     outline: 0 solid transparent;
-    background-color: #d4d4d4;
-    border: 1px solid #8c8c8c;
   }
   &:hover {
     background-color: #e6e6e6;
     border: 1px solid #d2d2d2;
   }
+  @media screen
+  and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+    width: 64px;
+    margin-left: -32px;
+  }
 `;
+  //   background-color: #d4d4d4;
+  //   border: 1px solid #8c8c8c;
+  // }

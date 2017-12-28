@@ -12,5 +12,11 @@ export interface DevicesTableInterface {
   to: string,
 }
 
+type DevicesButtonClickedIdType = number;
+
+export interface DActionButtonClickedInterface {
+  buttonId: DevicesButtonClickedIdType,
+}
+
 export type DTSpanIconProps =
   DeviceTableIconInterface & React.HTMLProps<HTMLSpanElement>;
