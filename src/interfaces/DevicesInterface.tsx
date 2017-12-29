@@ -12,10 +12,13 @@ export interface DevicesTableInterface {
   to: string,
 }
 
-type DevicesButtonClickedIdType = number;
+export type DevicesButtonClickedIdType = string;
+
+
+
 
 export interface DActionButtonClickedInterface {
-  buttonId: DevicesButtonClickedIdType,
+  isClicked: boolean,
 }
 
 export type DTSpanIconProps =

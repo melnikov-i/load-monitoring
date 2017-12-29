@@ -2,13 +2,14 @@ import { combineReducers } from 'redux';
 
 import {
   DevicesTableInterface,
-  DActionButtonClickedInterface
+  DevicesButtonClickedIdType,
 } from '@src/interfaces';
 
 import {
   PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION,
   DEVICES_ITEMS_WAS_REQUESTED_FROM_API,
-  DEVICES_ACTION_BUTTON_SWITCH,
+  CHANGE_DEVICES_ACTION_BUTTON_CLICKED_ID,
+  DEVICES_ACTION_BUTTON_RESET,
 } from '@src/redux/devices';
 
 import {
@@ -18,12 +19,8 @@ import {
 export type State = {
   readonly DevicesTableItemsCollection: DevicesTableInterface[],
   readonly DevicesItemsWasRequestedFromAPI: boolean,
-  readonly isDevicesActionButtonClicked: DActionButtonClickedInterface,
+  readonly DevicesActionButtonClickedId: DevicesButtonClickedIdType,
 };
-
-const DevicesActionButtonIdInitialState: DActionButtonClickedInterface = {
-  buttonId: -1,
-}
 
 export const reducer = combineReducers({
   DevicesTableItemsCollection: ( state = [], action ) => {
@@ -46,15 +43,14 @@ export const reducer = combineReducers({
         return state;
     }
   },
-  isDevicesActionButtonClicked: 
-  ( state = DevicesActionButtonIdInitialState, action ) => {
+  DevicesActionButtonClickedId: ( state = '', action ) => {
     switch ( action.type ) {
-      case DEVICES_ACTION_BUTTON_SWITCH:
-        return {
-          buttonId: action.payload,
-        }
+      case CHANGE_DEVICES_ACTION_BUTTON_CLICKED_ID:
+        return action.payload;
+      case DEVICES_ACTION_BUTTON_RESET:
+        return '';
       default:
         return state;
     }
-  }
+  },
 });

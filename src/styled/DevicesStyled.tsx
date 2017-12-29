@@ -4,7 +4,8 @@ import { NavLink } from 'react-router-dom';
 import {
   MIDDLE_SCREEN_MAX,
   TABLE_COLL_WIDTH,
-  FA_SMALL_FONT_SIZE
+  FA_SMALL_FONT_SIZE,
+  BIG_USER_FAKE_LINK_HEIGHT,
 } from '@src/styled';
 
 import {
@@ -198,6 +199,46 @@ export const DevicesTableActionButton = styled.button`
     margin-left: -32px;
   }
 `;
-  //   background-color: #d4d4d4;
-  //   border: 1px solid #8c8c8c;
-  // }
+
+export const DevicesTableActionMenuLayout = styled.ul`
+  display: ${(props: DActionButtonClickedInterface) => (
+      ( props.isClicked )
+      ? 'block'
+      : 'none'
+    )
+  };
+  box-shadow: 0 0 3px rgba(86, 96, 117, .7);
+  border-radius: 3px;
+  position: absolute;
+  right: 5px;
+  top: 40px;
+
+`;
+
+export const DevicesTableActionMenuItem = styled.li`
+  list-style-position: inside;
+  list-style-type: none;
+`;
+
+export const DevicesTableActonLink = styled(NavLink)`
+  display: block;
+  text-decoration: none;
+`;
+
+export const DevicesTableActionLinkSpan = styled.span`
+  display: block;
+  height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+  line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+  font-size: 13px;
+  font-weight: normal;
+  color: #333;
+  white-space: no-wrap;
+  padding: 3px 5px;
+  &::selection {
+    background-color: transparent;
+  }
+  &:hover {
+    background-color: #f5f5f5;
+    color: #262626;
+  }
+`;

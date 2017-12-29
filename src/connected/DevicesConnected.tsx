@@ -13,29 +13,31 @@ import { Devices } from '@src/components';
 
 import {
   DevicesTableInterface,
-  DActionButtonClickedInterface
+  DevicesButtonClickedIdType
 } from '@src/interfaces';
 
 import {
   DevicesTableItemsCollectionSelector,
   DevicesItemsWasRequestedFromAPISelector,
-  isDevicesActionButtonClickedSelector,
+  DevicesActionButtonClickedIdSelector,
 } from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector<RootState, {
     DevicesTableItemsCollection: DevicesTableInterface[],
     DevicesItemsWasRequestedFromAPI: boolean,
-    isDevicesActionButtonClicked: DActionButtonClickedInterface,
+    DevicesActionButtonClickedId: DevicesButtonClickedIdType,
   }>({
     DevicesTableItemsCollection: DevicesTableItemsCollectionSelector,
     DevicesItemsWasRequestedFromAPI: DevicesItemsWasRequestedFromAPISelector,
-    isDevicesActionButtonClicked: isDevicesActionButtonClickedSelector,
+    DevicesActionButtonClickedId: DevicesActionButtonClickedIdSelector,
   });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
   makeDevicesItemsRequestFromAPI: 
     asyncActionCreators.makeDevicesItemsRequestFromAPI,
-  devicesActionButtonSwitch: syncActionCreators.devicesActionButtonSwitch,
+  changeDevicesActionButtonClickedId: 
+    syncActionCreators.changeDevicesActionButtonClickedId,
+  devicesActionButtonReset: syncActionCreators.devicesActionButtonReset,
 }, dispatch);
 
 export const DevicesConnected = 

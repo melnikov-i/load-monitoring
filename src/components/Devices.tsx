@@ -26,7 +26,7 @@ import {
 
 import {
   DevicesTableInterface,
-  DActionButtonClickedInterface,
+  DevicesButtonClickedIdType,
 } from '@src/interfaces';
 
 import { Spinner } from '@src/components';
@@ -34,9 +34,11 @@ import { Spinner } from '@src/components';
 interface DevicesProps {
   DevicesTableItemsCollection: DevicesTableInterface[],
   DevicesItemsWasRequestedFromAPI: boolean,
-  DevicesActionButtonClickedId: DActionButtonClickedInterface,
+  DevicesActionButtonClickedId: DevicesButtonClickedIdType,
   makeDevicesItemsRequestFromAPI: () => any,
-  devicesActionButtonSwitch: () => any,
+  changeDevicesActionButtonClickedId: 
+  (payload: DevicesButtonClickedIdType) => any
+  devicesActionButtonReset: () => any,
 }
 
 export const Devices: React.SFC<DevicesProps> = (props) => {
@@ -45,7 +47,8 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
     DevicesItemsWasRequestedFromAPI,
     DevicesActionButtonClickedId,
     makeDevicesItemsRequestFromAPI,
-    devicesActionButtonSwitch,
+    changeDevicesActionButtonClickedId,
+    devicesActionButtonReset,
   } = props;
 
   const getDevicesItems = (): DevicesTableInterface[] => {
@@ -59,15 +62,24 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
   const ActionButtonHandler = 
   (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    devicesActionButtonSwitch();
     e.stopPropagation();
-    console.log('aaa');
+    console.log(
+      '[button-id]',
+      e.currentTarget.getAttribute('data-button-id')
+    );
+    const current: string =
+      String(e.currentTarget.getAttribute('data-button-id'));
+    const fromStore: string = DevicesActionButtonClickedId;
+    if ( fromStore === '' ) {
+      changeDevicesActionButtonClickedId(current);
+    } else {
+      if ( current === fromStore ) {
+        devicesActionButtonReset();
+      } else {
+        changeDevicesActionButtonClickedId(current);
+      }
+    }
   };
-
-  // console.log(
-     // 'isDevicesActionButtonClickedId',
-     // isDevicesActionButtonClickedId.isClicked
-  // );
 
   if ( devicesItems.length !== 0 ) {
     console.log('[DEVICES_ITEMS]:', devicesItems);
@@ -147,8 +159,9 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
                 <DevicesTableBodyLinkLast to={e.to}>
                   <DevicesTableActionButton
                   onClick={ActionButtonHandler}
+                  data-button-id={i}
                   isClicked={
-                    (3 === i) 
+                    (DevicesActionButtonClickedId === String(i)) 
                       ? true
                       : false
                   }>
