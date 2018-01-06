@@ -190,8 +190,18 @@ export const DevicesTableActionButton = styled.button`
     outline: 0 solid transparent;
   }
   &:hover {
-    background-color: #e6e6e6;
-    border: 1px solid #d2d2d2;
+    background-color: ${( props: DActionButtonClickedInterface ) => (
+      ( props.isClicked )
+      ? '#d4d4d4'
+      : '#e6e6e6'
+    )
+  };
+    border: 1px solid ${( props: DActionButtonClickedInterface ) => (
+      ( props.isClicked )
+      ? '#8c8c8c'
+      : '#d2d2d2'
+    )
+  };
   }
   @media screen
   and (max-width: ${ MIDDLE_SCREEN_MAX }) {
@@ -212,7 +222,11 @@ export const DevicesTableActionMenuLayout = styled.ul`
   position: absolute;
   right: 5px;
   top: 40px;
+  z-index: 1;
 
+width: 100px;
+height: 100px;
+background-color: rgba(255, 0, 0, .4);
 `;
 
 export const DevicesTableActionMenuItem = styled.li`

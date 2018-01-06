@@ -85,7 +85,7 @@ export const Login: React.SFC<LoginProps> = (props) => {
             {( LoginFormState.loginFormStateIndex === 1 ) ? (
               <LoginFormSpinner>
                 <Spinner
-                  width={5}
+                  width={3}
                   color={'#2f4050'}
                   bgColor={'#fff'}
                 />

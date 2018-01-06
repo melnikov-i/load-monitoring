@@ -348,7 +348,7 @@ export const Main: React.SFC<MainProps> = (props) => {
     /* Пока подгружаются данные, пользователю показывается спиннер */
     return (
       <Spinner
-        width={5}
+        width={3}
         color={'#2f4050'}
         bgColor={'#fff'}
       />

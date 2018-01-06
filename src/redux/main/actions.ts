@@ -140,24 +140,12 @@ export const syncActionCreators = {
 };
 
 // Async Action Creators
-
 export const asyncActionCreators = {
   makeMainMenuRequestToAPI: () => {
     return ( dispatch: Dispatch ) => {
       dispatch(
         syncActionCreators.mainMenuWasRequestedFromAPI()
       );
-      // const menu: MainMenuLinksInterface[] = [    
-      //   {    
-      //     to: 'tmp',
-      //     icon: 'f05e',
-      //     value: 'TMP',
-      //   }
-      // ];
-      // console.log('[MAIN]');
-      // dispatch(
-      //   syncActionCreators.putMainMenuFromAPIToCollection(menu)
-      // );
       sendRequestToAPI.get('/menu_data.php').then(
         ( response ) => {
           if ( response.data.menu !== null ) {
@@ -195,19 +183,6 @@ export const asyncActionCreators = {
       dispatch(
         syncActionCreators.devicesMenuWasRequestedFromAPI()
       );
-      // const devices: MainMenuLinksInterface[] = [    
-      //   {    
-      //     to: 'tmp',
-      //     icon: 'f05e',
-      //     value: 'TMP',
-      //   }
-      // ];
-      // setTimeout(() => {
-      // console.log('[DEVICES]');
-      //   dispatch(
-      //     syncActionCreators.putDevicesMenuFromAPIToCollection(devices)
-      //   );
-      // }, 1000);
       sendRequestToAPI.get('/menu_devices.php').then(
         ( response ) => {
           if ( response.data.devices_list !== null ) {

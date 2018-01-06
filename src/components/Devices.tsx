@@ -21,7 +21,8 @@ import {
   DevicesTableBodyLinkLast,
   DevicesTableBodyInfoLink,
   DevicesTableHeadCollStatus,
-  DevicesTableActionButton
+  DevicesTableActionButton,
+  DevicesTableActionMenuLayout,
 } from '@src/styled';
 
 import {
@@ -60,7 +61,7 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
   const devicesItems = getDevicesItems();
 
   const ActionButtonHandler = 
-  (e: React.MouseEvent<HTMLButtonElement>) => {
+  (e: React.MouseEvent<HTMLButtonElement & HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
     console.log(
@@ -84,7 +85,8 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
   if ( devicesItems.length !== 0 ) {
     console.log('[DEVICES_ITEMS]:', devicesItems);
     return (
-      <DevicesLayout>
+      <DevicesLayout
+      onClick={ActionButtonHandler}>
         <DevicesHeader>{'Все устройства'}</DevicesHeader>
         <DevicesTable>
           <DevicesTableHead>
@@ -168,6 +170,14 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
                     {'Действие'}
                   </DevicesTableActionButton>
                 </DevicesTableBodyLinkLast>
+                <DevicesTableActionMenuLayout
+                isClicked={
+                  (DevicesActionButtonClickedId === String(i)) 
+                    ? true
+                    : false                    
+                }>
+                  
+                </DevicesTableActionMenuLayout>
               </DevicesTableBodyColl>
             </DevicesTableBodyRow>
           );
@@ -180,7 +190,7 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
   } else {
     return (
       <Spinner
-        width={5}
+        width={3}
         color={'#2f4050'}
         bgColor={'#fff'}
       />

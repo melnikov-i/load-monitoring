@@ -1,5 +1,4 @@
 import sendRequestToAPI from '@src/ajax';
-// import axios from 'axios';
 
 import {
   DevicesTableInterface,
@@ -61,21 +60,15 @@ export const syncActionCreators = {
 };
 
 // Async Action Creators
-
-// const getDevicesFromAPI = () => (
-//   axios.get('http://dev.monyze.ru/list_data.php')
-// );
-
 export const asyncActionCreators = {
   makeDevicesItemsRequestFromAPI: () => {
     return ( dispatch: Dispatch ) => {
       dispatch(
         syncActionCreators.devicesItemsWasRequestedFromAPI()
       );
-      // getDevicesFromAPI().then(
       sendRequestToAPI.get('/list_data.php').then(
         ( response ) => {
-          if ( response.data === 'true' ) {
+          if ( response.data.table !== null ) {
             const items: DevicesTableInterface[] = response.data.table;
             setTimeout(() => {
               dispatch(
