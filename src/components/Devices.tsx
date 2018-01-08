@@ -18,11 +18,14 @@ import {
   DevicesTableBodyInfoSpan,
   DevicesTableBodyCompNameSpan,
   DevicesTableBodyLink,
-  DevicesTableBodyLinkLast,
+  // DevicesTableBodyLinkLast,
   DevicesTableBodyInfoLink,
   DevicesTableHeadCollStatus,
   DevicesTableActionButton,
   DevicesTableActionMenuLayout,
+  DevicesTableActionMenuItem,
+  DevicesTableActonLink,
+  DevicesTableActionLinkSpan,
 } from '@src/styled';
 
 import {
@@ -60,8 +63,8 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
   };
   const devicesItems = getDevicesItems();
 
-  const ActionButtonHandler = 
-  (e: React.MouseEvent<HTMLButtonElement & HTMLDivElement>) => {
+  const actionButtonHandler = 
+  (e: React.MouseEvent<HTMLButtonElement & HTMLLinkElement>) => {
     e.preventDefault();
     e.stopPropagation();
     console.log(
@@ -82,11 +85,44 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
     }
   };
 
+  const actionButtonBlurHandler = 
+  (e: React.FocusEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('onBlur');
+    setTimeout(() => {
+      changeDevicesActionButtonClickedId('');
+    }, 0);
+  };
+
+  /*
+    при переключении между кнопками срабатывает ложный onBlur
+  */
+
+  type actionMenuType = {
+    value: string,
+    to: string
+  }
+
+  const actionMenu: actionMenuType[] = [
+    {
+      value: 'Обзор',
+      to: '',
+    },
+    {
+      value: 'Настроить уведомления',
+      to: 'aaa'
+    },
+    {
+      value: 'Удалить',
+      to: 'bbb',
+    }
+  ];
+
   if ( devicesItems.length !== 0 ) {
     console.log('[DEVICES_ITEMS]:', devicesItems);
     return (
-      <DevicesLayout
-      onClick={ActionButtonHandler}>
+      <DevicesLayout>
         <DevicesHeader>{'Все устройства'}</DevicesHeader>
         <DevicesTable>
           <DevicesTableHead>
@@ -158,26 +194,38 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
                 </DevicesTableBodyLink>
               </DevicesTableBodyColl>
               <DevicesTableBodyColl>
-                <DevicesTableBodyLinkLast to={e.to}>
-                  <DevicesTableActionButton
-                  onClick={ActionButtonHandler}
-                  data-button-id={i}
-                  isClicked={
-                    (DevicesActionButtonClickedId === String(i)) 
-                      ? true
-                      : false
-                  }>
-                    {'Действие'}
-                  </DevicesTableActionButton>
-                </DevicesTableBodyLinkLast>
-                <DevicesTableActionMenuLayout
+                <DevicesTableActionButton
+                onClick={actionButtonHandler}
+                onBlur={actionButtonBlurHandler}
+                data-button-id={i}
                 isClicked={
                   (DevicesActionButtonClickedId === String(i)) 
                     ? true
-                    : false                    
+                    : false
                 }>
-                  
-                </DevicesTableActionMenuLayout>
+                  {'Действие'}
+                  <DevicesTableActionMenuLayout
+                  isClicked={
+                    (DevicesActionButtonClickedId === String(i)) 
+                      ? true
+                      : false                    
+                  }>
+              {
+                actionMenu.map((item, i) => {
+                  return (
+                    <DevicesTableActionMenuItem key={i}>
+                      <DevicesTableActonLink
+                      to={(item.value === 'Обзор') ? e.to : item.to}>
+                        <DevicesTableActionLinkSpan>
+                          {item.value}
+                        </DevicesTableActionLinkSpan>
+                      </DevicesTableActonLink>
+                    </DevicesTableActionMenuItem>
+                  );
+                })
+              }
+                  </DevicesTableActionMenuLayout>
+                </DevicesTableActionButton>
               </DevicesTableBodyColl>
             </DevicesTableBodyRow>
           );
@@ -198,3 +246,5 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
   }
 
 };
+                // <DevicesTableBodyLinkLast to={e.to}>
+                // </DevicesTableBodyLinkLast>

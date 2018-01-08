@@ -218,15 +218,13 @@ export const DevicesTableActionMenuLayout = styled.ul`
     )
   };
   box-shadow: 0 0 3px rgba(86, 96, 117, .7);
+  background-color: #fff;
+  padding: 3px 0;
   border-radius: 3px;
   position: absolute;
   right: 5px;
   top: 40px;
   z-index: 1;
-
-width: 100px;
-height: 100px;
-background-color: rgba(255, 0, 0, .4);
 `;
 
 export const DevicesTableActionMenuItem = styled.li`
@@ -246,7 +244,8 @@ export const DevicesTableActionLinkSpan = styled.span`
   font-size: 13px;
   font-weight: normal;
   color: #333;
-  white-space: no-wrap;
+  white-space: nowrap;
+  text-align: left;
   padding: 3px 5px;
   &::selection {
     background-color: transparent;

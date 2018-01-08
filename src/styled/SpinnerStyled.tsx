@@ -28,15 +28,15 @@ export const CircularSpinner = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
+  box-shadow: inset 0 0 0 ${ props => String(props.width)}px;
   margin-top: -${ props => String(Math.imul(props.width, 8))}px;
   margin-left: -${ props => String(Math.imul(props.width, 8))}px;
   width: ${ props => String(Math.imul(props.width, 16))}px;
   height: ${ props => String(Math.imul(props.width, 16))}px;
-  box-shadow: inset 0 0 0 ${ props => String(props.width)}px;
   &::before {
     content: '';
-    width: ${ props => String(Math.imul(props.width, 9.6))}px;
-    height: ${ props => String(Math.imul(props.width, 19.5))}px;
+    width: ${ props => String(Math.imul(props.width, 9))}px;
+    height: ${ props => String(Math.imul(props.width, 18))}px;
     position: absolute;
     top: ${ props => String(Math.imul(props.width, -1))}px;
     left: ${ props => String(Math.imul(props.width, -1))}px;
@@ -48,8 +48,8 @@ export const CircularSpinner = styled.div`
   }
   &::after {
     content: '';
-    width: ${ props => String(Math.imul(props.width, 9.6))}px;
-    height: ${ props => String(Math.imul(props.width, 19.5))}px;
+    width: ${ props => String(Math.imul(props.width, 9))}px;
+    height: ${ props => String(Math.imul(props.width, 18))}px;
     position: absolute;
     top: ${ props => String(Math.imul(props.width, -1))}px;
     left: ${ props => String(Math.imul(props.width, 8))}px;
@@ -71,11 +71,11 @@ export const CircularSpinner = styled.div`
 //   position: absolute;
 //   top: 50%;
 //   left: 50%;
+//   box-shadow: inset 0 0 0 ${ props => String(props.width)}px;
 //   margin-top: -${ props => String(Math.imul(props.width, 5))}px;
 //   margin-left: -${ props => String(Math.imul(props.width, 5))}px;
 //   width: ${ props => String(Math.imul(props.width, 10))}px;
 //   height: ${ props => String(Math.imul(props.width, 10))}px;
-//   box-shadow: inset 0 0 0 ${ props => String(props.width)}px;
 //   &::before {
 //     content: '';
 //     width: ${ props => String(Math.imul(props.width, 6))}px;
