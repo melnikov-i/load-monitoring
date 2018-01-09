@@ -92,9 +92,10 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
     e.preventDefault();
     e.stopPropagation();
     console.log('------------------');
-    console.log('CURRENT', e.currentTarget.classList);
-    console.log('TARGET', e.target);
-    console.log('RELATED', e.relatedTarget);
+    // console.log('NATIVE', e.nativeEvent);
+    // console.log('CURRENT', e.currentTarget.classList);
+    // console.log('TARGET', e.target);
+    // console.log('RELATED', e.relatedTarget);
     if ( e.relatedTarget === null ) {
       changeDevicesActionButtonClickedId('');      
     } else {
@@ -102,6 +103,12 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
     }
     console.log('------------------');
   };
+
+  // const actionMenuCloseHandler =
+  // (e: React.MouseEvent<HTMLElement>, key: string) => {
+  //   e.preventDefault();
+  //   console.log('KEY', key);
+  // };
 
   /*
     при переключении между кнопками срабатывает ложный onBlur
@@ -209,15 +216,15 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
                 isClicked={DevicesActionButtonClickedId === String(i)}>
                   {'Действие'}
                   <DevicesTableActionMenuLayout
-                  isClicked={DevicesActionButtonClickedId === String(i)}>
+                  isClicked={DevicesActionButtonClickedId === String(i)}
+                  >
               {
                 actionMenu.map((item, i) => {
                   return (
                     <DevicesTableActionMenuItem key={i}>
                       <DevicesTableActonLink
-                      to={(item.value === 'Обзор') ? e.to : item.to}
-                      className={'actionListItem'}>
-                          {item.value}
+                      to={(item.value === 'Обзор') ? e.to : item.to}>
+                        {item.value}
                       </DevicesTableActonLink>
                     </DevicesTableActionMenuItem>
                   );
@@ -245,6 +252,8 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
   }
 
 };
+
+// onClick={() => null}
                 // <DevicesTableBodyLinkLast to={e.to}>
                 // </DevicesTableBodyLinkLast>
                         // <DevicesTableActionLinkSpan>

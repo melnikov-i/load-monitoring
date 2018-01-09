@@ -158,10 +158,15 @@ export const Main: React.SFC<MainProps> = (props) => {
         step: 'exit',
       };
       sendLogOutToAPI(payload);
+    };
+
+    const testHandler = (e: React.MouseEvent<HTMLElement>) => {
+      e.preventDefault();
+      console.log('MainOnClick');
     }
 
     return (
-      <MainLayout>
+      <MainLayout onClick={testHandler}>
         <MainMenu
           onSmallScreen={isMainMenuOpened.onSmallScreen}
         >
