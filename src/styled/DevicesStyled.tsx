@@ -235,10 +235,7 @@ export const DevicesTableActionMenuItem = styled.li`
 export const DevicesTableActonLink = styled(NavLink)`
   display: block;
   text-decoration: none;
-`;
 
-export const DevicesTableActionLinkSpan = styled.span`
-  display: block;
   height: ${ BIG_USER_FAKE_LINK_HEIGHT };
   line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
   font-size: 13px;
@@ -255,3 +252,22 @@ export const DevicesTableActionLinkSpan = styled.span`
     color: #262626;
   }
 `;
+
+// export const DevicesTableActionLinkSpan = styled.span`
+//   display: block;
+//   height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+//   line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+//   font-size: 13px;
+//   font-weight: normal;
+//   color: #333;
+//   white-space: nowrap;
+//   text-align: left;
+//   padding: 3px 5px;
+//   &::selection {
+//     background-color: transparent;
+//   }
+//   &:hover {
+//     background-color: #f5f5f5;
+//     color: #262626;
+//   }
+// `;
