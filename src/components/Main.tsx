@@ -11,6 +11,7 @@ import {
   IsOpenedUserMenuInterface,
   DeviceItemsInterface,
   LogOunInterface,
+  DevicesButtonClickedIdType
 } from '@src/interfaces';
 
 import { Spinner } from '@src/components';
@@ -42,7 +43,6 @@ import {
 } from '@src/styled';
 
 import {
-  // Devices,
   PageOverview,
 } from '@src/containers';
 import DevicesConnected from '@src/connected/DevicesConnected.usage';
@@ -57,6 +57,7 @@ interface MainProps {
   isDevicesMenuOpened: IsOpenedInterface,
   isMainMenuOpened: IsOpenedInterface,
   isUserMenuOpened: IsOpenedUserMenuInterface,
+  DevicesActionButtonClickedId: DevicesButtonClickedIdType,
   makeMainMenuRequestToAPI: () => any,
   makeDevicesMenuRequestToAPI: () => any,
   doMainMenuOnSmallScreenSwitch: () => any,
@@ -67,6 +68,8 @@ interface MainProps {
   doUserMenuOnBigScreenSwitch: () => any,
   doUserMenuOnBigScreenOff: () => any,
   sendLogOutToAPI: (payload: LogOunInterface) => any,
+  changeDevicesActionButtonClickedId: 
+  (payload: DevicesButtonClickedIdType) => any
 }
 
 export const Main: React.SFC<MainProps> = (props) => {
@@ -107,9 +110,13 @@ export const Main: React.SFC<MainProps> = (props) => {
       doDevicesMenuOnMiddleScreenSwitch,
       doDevicesMenuOnSmallScreenSwitch,
       doBothMenuOnSmallScreenOff,
-      doUserMenuOnBigScreenSwitch,
-      doUserMenuOnBigScreenOff,
       sendLogOutToAPI,
+      DevicesActionButtonClickedId,
+      changeDevicesActionButtonClickedId,
+      // DevicesActionButtonClickedId,
+      // changeDevicesActionButtonClickedId
+      // doUserMenuOnBigScreenSwitch,
+      // doUserMenuOnBigScreenOff,
     } = props;
   
     /* Обработчики событий */
@@ -142,15 +149,15 @@ export const Main: React.SFC<MainProps> = (props) => {
       }
     };
 
-    const userMenuButtonClickHandler = () => {
-      doUserMenuOnBigScreenSwitch();
-    };
+    // const userMenuButtonClickHandler = () => {
+    //   doUserMenuOnBigScreenSwitch();
+    // };
 
-    const userMenuButtonBlurHandler = () => {
-      setTimeout(() => {
-        doUserMenuOnBigScreenOff();
-      }, 300);
-    };
+    // const userMenuButtonBlurHandler = () => {
+    //   setTimeout(() => {
+    //     doUserMenuOnBigScreenOff();
+    //   }, 300);
+    // };
 
     const logOutHandler = () => {
       console.log('[EXIT]');
@@ -160,13 +167,32 @@ export const Main: React.SFC<MainProps> = (props) => {
       sendLogOutToAPI(payload);
     };
 
-    const testHandler = (e: React.MouseEvent<HTMLElement>) => {
+    const droppedMenuHandlerRemove = () => {
+      document.removeEventListener('click', droppedMenuHandlerRemove);    
+      changeDevicesActionButtonClickedId('');
+    };
+
+    const droppedMenuHandler = 
+    (e: React.MouseEvent<HTMLElement>) => {
       e.preventDefault();
-      console.log('MainOnClick');
-    }
+      e.stopPropagation();
+      const current: string =
+        String(e.currentTarget.getAttribute('data-button-id'));
+      if ( DevicesActionButtonClickedId === '' ) {
+        document.addEventListener('click', droppedMenuHandlerRemove);
+        changeDevicesActionButtonClickedId(current);
+      } else {
+        if ( current === DevicesActionButtonClickedId ) {
+          changeDevicesActionButtonClickedId('');
+        } else {
+          e.nativeEvent.stopImmediatePropagation();
+          changeDevicesActionButtonClickedId(current);
+        }
+      }
+    };
 
     return (
-      <MainLayout onClick={testHandler}>
+      <MainLayout>
         <MainMenu
           onSmallScreen={isMainMenuOpened.onSmallScreen}
         >
@@ -177,37 +203,32 @@ export const Main: React.SFC<MainProps> = (props) => {
           <MainMenuLogoWrapper>
             <MainMenuLogo>
               <UserMenuButton 
-                onBigScreen={isUserMenuOpened.onBigScreen}
-                onBlur={userMenuButtonBlurHandler}
-                onClick={userMenuButtonClickHandler}
-              >
+              onClick={droppedMenuHandler}
+              onBigScreen={isUserMenuOpened.onBigScreen}
+              data-button-id={'00'}>
                 { UserMenuItemsCollection.user[0].login }
+                <UserMenuLayout
+                onBigScreen={isUserMenuOpened.onBigScreen}>
+            {
+              UserMenuItemsCollection.links.map((e, i) => {
+                return (
+                  <UserMenuItem key={i}>
+                    <UserMenuLink
+                    to={'/' + e.to}
+                    title={e.value}
+                    onClick={ (e.to === 'exit') ? logOutHandler : null }>
+                      <UserMenuLinkSpan>
+                        { e.value }
+                      </UserMenuLinkSpan>
+                    </UserMenuLink>
+                  </UserMenuItem>
+                );
+              })
+            }
+                </UserMenuLayout>
+              
               </UserMenuButton>
-              <UserMenuLayout
-                onBigScreen={isUserMenuOpened.onBigScreen}
-              >
-                {
-                  UserMenuItemsCollection.links.map((e, i) => {
-                    return (
-                      <UserMenuItem key={i}>
-                        <UserMenuLink
-                          to={'/' + e.to}
-                          title={e.value}
-                          onClick={
-                            (e.to === 'exit') 
-                            ? logOutHandler
-                            : userMenuButtonClickHandler
-                          }
-                        >
-                          <UserMenuLinkSpan>
-                            { e.value }
-                          </UserMenuLinkSpan>
-                        </UserMenuLink>
-                      </UserMenuItem>
-                    );
-                  })
-                }
-              </UserMenuLayout>
+              
             </MainMenuLogo>
           </MainMenuLogoWrapper>
           <MainMenuLayout>

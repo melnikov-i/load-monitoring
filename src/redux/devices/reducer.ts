@@ -9,7 +9,6 @@ import {
   PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION,
   DEVICES_ITEMS_WAS_REQUESTED_FROM_API,
   CHANGE_DEVICES_ACTION_BUTTON_CLICKED_ID,
-  DEVICES_ACTION_BUTTON_RESET,
 } from '@src/redux/devices';
 
 import {
@@ -47,8 +46,6 @@ export const reducer = combineReducers({
     switch ( action.type ) {
       case CHANGE_DEVICES_ACTION_BUTTON_CLICKED_ID:
         return action.payload;
-      case DEVICES_ACTION_BUTTON_RESET:
-        return '';
       default:
         return state;
     }

@@ -129,6 +129,14 @@ export const reducer = combineReducers({
         return state;
     }
   },
+  // DroppedMenuItemId: (state = '', action) => {
+  //   switch ( action.type ) {
+  //     case CHANGE_DROPPED_MENU_ITEM_ID:
+  //       return action.payload;
+  //     default:
+  //       return state;
+  //   }
+  // },
   isMainMenuOpened: 
   ( state = isMainMenuOpenedInitialState, action ) => {
     switch ( action.type ) {

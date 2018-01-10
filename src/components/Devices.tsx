@@ -18,14 +18,13 @@ import {
   DevicesTableBodyInfoSpan,
   DevicesTableBodyCompNameSpan,
   DevicesTableBodyLink,
-  // DevicesTableBodyLinkLast,
+  DevicesTableBodyWrapperLast,
   DevicesTableBodyInfoLink,
   DevicesTableHeadCollStatus,
   DevicesTableActionButton,
   DevicesTableActionMenuLayout,
   DevicesTableActionMenuItem,
   DevicesTableActonLink,
-  // DevicesTableActionLinkSpan,
 } from '@src/styled';
 
 import {
@@ -42,7 +41,6 @@ interface DevicesProps {
   makeDevicesItemsRequestFromAPI: () => any,
   changeDevicesActionButtonClickedId: 
   (payload: DevicesButtonClickedIdType) => any
-  devicesActionButtonReset: () => any,
 }
 
 export const Devices: React.SFC<DevicesProps> = (props) => {
@@ -52,9 +50,9 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
     DevicesActionButtonClickedId,
     makeDevicesItemsRequestFromAPI,
     changeDevicesActionButtonClickedId,
-    devicesActionButtonReset,
   } = props;
 
+  // Запрос данных таблицы
   const getDevicesItems = (): DevicesTableInterface[] => {
     if ( !DevicesItemsWasRequestedFromAPI ) {
       makeDevicesItemsRequestFromAPI();
@@ -63,56 +61,30 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
   };
   const devicesItems = getDevicesItems();
 
-  const actionButtonHandler = 
+  // Обработчики событий
+  const droppedMenuHandlerRemove = () => {
+    document.removeEventListener('click', droppedMenuHandlerRemove);    
+    changeDevicesActionButtonClickedId('');
+  };
+
+  const devicesDroppedMenuHandler = 
   (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    
-    // console.log(
-    //   '[button-id]',
-    //   e.currentTarget.getAttribute('data-button-id')
-    // );
-
     const current: string =
       String(e.currentTarget.getAttribute('data-button-id'));
-    const fromStore: string = DevicesActionButtonClickedId;
-    if ( fromStore === '' ) {
+    if ( DevicesActionButtonClickedId === '' ) {
+      document.addEventListener('click', droppedMenuHandlerRemove);
       changeDevicesActionButtonClickedId(current);
     } else {
-      if ( current === fromStore ) {
-        devicesActionButtonReset();
+      if ( current === DevicesActionButtonClickedId ) {
+        changeDevicesActionButtonClickedId('');
       } else {
+        e.nativeEvent.stopImmediatePropagation();
         changeDevicesActionButtonClickedId(current);
       }
     }
   };
-
-  const actionButtonBlurHandler = 
-  (e: React.FocusEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log('------------------');
-    // console.log('NATIVE', e.nativeEvent);
-    // console.log('CURRENT', e.currentTarget.classList);
-    // console.log('TARGET', e.target);
-    // console.log('RELATED', e.relatedTarget);
-    if ( e.relatedTarget === null ) {
-      changeDevicesActionButtonClickedId('');      
-    } else {
-      
-    }
-    console.log('------------------');
-  };
-
-  // const actionMenuCloseHandler =
-  // (e: React.MouseEvent<HTMLElement>, key: string) => {
-  //   e.preventDefault();
-  //   console.log('KEY', key);
-  // };
-
-  /*
-    при переключении между кнопками срабатывает ложный onBlur
-  */
 
   type actionMenuType = {
     value: string,
@@ -135,7 +107,6 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
   ];
 
   if ( devicesItems.length !== 0 ) {
-    // console.log('[DEVICES_ITEMS]:', devicesItems);
     return (
       <DevicesLayout>
         <DevicesHeader>{'Все устройства'}</DevicesHeader>
@@ -209,29 +180,30 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
                 </DevicesTableBodyLink>
               </DevicesTableBodyColl>
               <DevicesTableBodyColl>
-                <DevicesTableActionButton
-                onClick={actionButtonHandler}
-                onBlur={actionButtonBlurHandler}
-                data-button-id={i}
-                isClicked={DevicesActionButtonClickedId === String(i)}>
-                  {'Действие'}
-                  <DevicesTableActionMenuLayout
-                  isClicked={DevicesActionButtonClickedId === String(i)}
-                  >
-              {
-                actionMenu.map((item, i) => {
-                  return (
-                    <DevicesTableActionMenuItem key={i}>
-                      <DevicesTableActonLink
-                      to={(item.value === 'Обзор') ? e.to : item.to}>
-                        {item.value}
-                      </DevicesTableActonLink>
-                    </DevicesTableActionMenuItem>
-                  );
-                })
-              }
-                  </DevicesTableActionMenuLayout>
-                </DevicesTableActionButton>
+                <DevicesTableBodyWrapperLast>
+                  <DevicesTableActionButton
+                  onClick={devicesDroppedMenuHandler}
+                  data-button-id={'1' + i}
+                  isClicked={DevicesActionButtonClickedId === String('1' + i)}>
+                    {'Действие'}
+                    <DevicesTableActionMenuLayout
+                    isClicked={DevicesActionButtonClickedId === String('1' + i)}
+                    >
+                {
+                  actionMenu.map((item, i) => {
+                    return (
+                      <DevicesTableActionMenuItem key={i}>
+                        <DevicesTableActonLink
+                        to={(item.value === 'Обзор') ? e.to : item.to}>
+                          {item.value}
+                        </DevicesTableActonLink>
+                      </DevicesTableActionMenuItem>
+                    );
+                  })
+                }
+                    </DevicesTableActionMenuLayout>
+                  </DevicesTableActionButton>                  
+                </DevicesTableBodyWrapperLast>
               </DevicesTableBodyColl>
             </DevicesTableBodyRow>
           );
@@ -252,9 +224,3 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
   }
 
 };
-
-// onClick={() => null}
-                // <DevicesTableBodyLinkLast to={e.to}>
-                // </DevicesTableBodyLinkLast>
-                        // <DevicesTableActionLinkSpan>
-                        // </DevicesTableActionLinkSpan>

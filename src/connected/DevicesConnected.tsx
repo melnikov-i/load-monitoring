@@ -37,7 +37,6 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
     asyncActionCreators.makeDevicesItemsRequestFromAPI,
   changeDevicesActionButtonClickedId: 
     syncActionCreators.changeDevicesActionButtonClickedId,
-  devicesActionButtonReset: syncActionCreators.devicesActionButtonReset,
 }, dispatch);
 
 export const DevicesConnected = 

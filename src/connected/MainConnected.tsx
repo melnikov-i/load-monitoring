@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 
 import { syncActionCreators, asyncActionCreators } from '@src/redux/main';
 import { asyncActionCreators as loginActionCreators } from '@src/redux/login';
+import { syncActionCreators as devicesActionCreators } from '@src/redux/devices'
 import { Main } from '@src/components';
 
 import {
@@ -13,6 +14,7 @@ import {
   IsOpenedInterface,
   UserMenuInterface,
   IsOpenedUserMenuInterface,
+  DevicesButtonClickedIdType
 } from '@src/interfaces';
 
 import {
@@ -24,6 +26,7 @@ import {
   isDevicesMenuOpenedSelector,
   isMainMenuOpenedSelector,
   isUserMenuOpenedSeelctor,
+  DevicesActionButtonClickedIdSelector
 } from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector<RootState, {
@@ -35,6 +38,7 @@ const mapStateToProps = createStructuredSelector<RootState, {
     isDevicesMenuOpened: IsOpenedInterface,
     isMainMenuOpened: IsOpenedInterface,
     isUserMenuOpened: IsOpenedUserMenuInterface,
+    DevicesActionButtonClickedId: DevicesButtonClickedIdType,
   }>({
     MainMenuWasRequestedFromAPI: MainMenuWasRequestedFromAPISelector,
     MainMenuItemsCollection: MainMenuItemsCollectionSelector,
@@ -44,6 +48,7 @@ const mapStateToProps = createStructuredSelector<RootState, {
     isDevicesMenuOpened: isDevicesMenuOpenedSelector,
     isMainMenuOpened: isMainMenuOpenedSelector,
     isUserMenuOpened: isUserMenuOpenedSeelctor,
+    DevicesActionButtonClickedId: DevicesActionButtonClickedIdSelector,
   });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
@@ -66,6 +71,8 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
   doUserMenuOnBigScreenOff: 
     syncActionCreators.doUserMenuOnBigScreenOff,
   sendLogOutToAPI: loginActionCreators.sendLogOutToAPI,
+  changeDevicesActionButtonClickedId: 
+    devicesActionCreators.changeDevicesActionButtonClickedId,
 }, dispatch);
 
 export const MainConnected = 

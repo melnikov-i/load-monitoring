@@ -17,8 +17,6 @@ export const DEVICES_ITEMS_WAS_REQUESTED_FROM_API =
   'DEVICES_ITEMS_WAS_REQUESTED_FROM_API';
 export const CHANGE_DEVICES_ACTION_BUTTON_CLICKED_ID =
   'CHANGE_DEVICES_ACTION_BUTTON_CLICKED_ID';
-export const DEVICES_ACTION_BUTTON_RESET = 
-  'DEVICES_ACTION_BUTTON_RESET';
 
 export type Actions = {
   PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION: {
@@ -32,9 +30,6 @@ export type Actions = {
     type: typeof CHANGE_DEVICES_ACTION_BUTTON_CLICKED_ID,
     payload: DevicesButtonClickedIdType,
   },
-  DEVICES_ACTION_BUTTON_RESET: {
-    type: typeof DEVICES_ACTION_BUTTON_RESET,
-  }
 }
 
 // Sync Action Creators
@@ -52,10 +47,6 @@ export const syncActionCreators = {
   ( payload: DevicesButtonClickedIdType ):
   Actions[typeof CHANGE_DEVICES_ACTION_BUTTON_CLICKED_ID] => ({
     type: CHANGE_DEVICES_ACTION_BUTTON_CLICKED_ID, payload,
-  }),
-  devicesActionButtonReset: ():
-  Actions[typeof DEVICES_ACTION_BUTTON_RESET] => ({
-    type: DEVICES_ACTION_BUTTON_RESET,
   }),
 };
 

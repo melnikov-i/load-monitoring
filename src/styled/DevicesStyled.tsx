@@ -131,8 +131,15 @@ export const DevicesTableBodyLink = styled(NavLink)`
   overflow: hidden;
 `;
 
-export const DevicesTableBodyLinkLast = DevicesTableBodyLink.extend`
+export const DevicesTableBodyWrapperLast = styled.div`
+  box-sizing: border-box;
+  display: inline-block;
   padding: 8px 0 0 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 `;
 
 export const DevicesTableBodyInfoLink = styled(NavLink)`
@@ -170,25 +177,26 @@ export const DevicesTableActionButton = styled.button`
   position: absolute;
   left: 50%;
   margin-left: -35px;
+  border-radius: 3px;
+  color: #333;
+  cursor: pointer;
+  font-size: 12px;
+
   border: 1px solid ${( props: DActionButtonClickedInterface ) => (
       ( props.isClicked )
       ? '#8c8c8c'
       : '#e7eaec'
     )
   };
-  border-radius: 3px;
-  color: #333;
-  cursor: pointer;
   background-color: ${( props: DActionButtonClickedInterface ) => (
       ( props.isClicked )
       ? '#d4d4d4'
       : '#fff'
     )
   };
-  font-size: 12px;
   &:focus {
     outline: 0 solid transparent;
-  }
+  };
   &:hover {
     background-color: ${( props: DActionButtonClickedInterface ) => (
       ( props.isClicked )
@@ -223,7 +231,7 @@ export const DevicesTableActionMenuLayout = styled.ul`
   border-radius: 3px;
   position: absolute;
   right: 5px;
-  top: 40px;
+  top: 30px;
   z-index: 1;
 `;
 
@@ -235,7 +243,6 @@ export const DevicesTableActionMenuItem = styled.li`
 export const DevicesTableActonLink = styled(NavLink)`
   display: block;
   text-decoration: none;
-
   height: ${ BIG_USER_FAKE_LINK_HEIGHT };
   line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
   font-size: 13px;
@@ -246,28 +253,9 @@ export const DevicesTableActonLink = styled(NavLink)`
   padding: 3px 5px;
   &::selection {
     background-color: transparent;
-  }
+  };
   &:hover {
     background-color: #f5f5f5;
     color: #262626;
-  }
+  };
 `;
-
-// export const DevicesTableActionLinkSpan = styled.span`
-//   display: block;
-//   height: ${ BIG_USER_FAKE_LINK_HEIGHT };
-//   line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
-//   font-size: 13px;
-//   font-weight: normal;
-//   color: #333;
-//   white-space: nowrap;
-//   text-align: left;
-//   padding: 3px 5px;
-//   &::selection {
-//     background-color: transparent;
-//   }
-//   &:hover {
-//     background-color: #f5f5f5;
-//     color: #262626;
-//   }
-// `;
