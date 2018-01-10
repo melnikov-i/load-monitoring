@@ -11,10 +11,12 @@ import {
   IsOpenedUserMenuInterface,
   DeviceItemsInterface,
   LogOunInterface,
-  DevicesButtonClickedIdType
+  DevicesButtonClickedIdType,
 } from '@src/interfaces';
 
 import { Spinner } from '@src/components';
+
+import { droppedMenuHandlerAdd } from '@src/handlers';
 
 import {
   MainLayout,
@@ -113,14 +115,9 @@ export const Main: React.SFC<MainProps> = (props) => {
       sendLogOutToAPI,
       DevicesActionButtonClickedId,
       changeDevicesActionButtonClickedId,
-      // DevicesActionButtonClickedId,
-      // changeDevicesActionButtonClickedId
-      // doUserMenuOnBigScreenSwitch,
-      // doUserMenuOnBigScreenOff,
     } = props;
   
     /* Обработчики событий */
-
     const doOpenMainMenuHandler = () => {
       doMainMenuOnSmallScreenSwitch();
     }
@@ -149,16 +146,6 @@ export const Main: React.SFC<MainProps> = (props) => {
       }
     };
 
-    // const userMenuButtonClickHandler = () => {
-    //   doUserMenuOnBigScreenSwitch();
-    // };
-
-    // const userMenuButtonBlurHandler = () => {
-    //   setTimeout(() => {
-    //     doUserMenuOnBigScreenOff();
-    //   }, 300);
-    // };
-
     const logOutHandler = () => {
       console.log('[EXIT]');
       const payload: LogOunInterface = {
@@ -167,13 +154,14 @@ export const Main: React.SFC<MainProps> = (props) => {
       sendLogOutToAPI(payload);
     };
 
+
     const droppedMenuHandlerRemove = () => {
       document.removeEventListener('click', droppedMenuHandlerRemove);    
       changeDevicesActionButtonClickedId('');
     };
 
     const droppedMenuHandler = 
-    (e: React.MouseEvent<HTMLElement>) => {
+    (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       e.stopPropagation();
       const current: string =
@@ -203,7 +191,7 @@ export const Main: React.SFC<MainProps> = (props) => {
           <MainMenuLogoWrapper>
             <MainMenuLogo>
               <UserMenuButton 
-              onClick={droppedMenuHandler}
+              onClick={(e) => droppedMenuHandler(e)}
               onBigScreen={isUserMenuOpened.onBigScreen}
               data-button-id={'00'}>
                 { UserMenuItemsCollection.user[0].login }

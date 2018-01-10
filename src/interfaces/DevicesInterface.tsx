@@ -14,8 +14,18 @@ export interface DevicesTableInterface {
 
 export type DevicesButtonClickedIdType = string;
 
+export type DroppedMenuHandlerRemoveType = (
+  e: Event,
+  changeDevicesActionButtonClickedId: 
+  (payload: DevicesButtonClickedIdType) => any
+) => any;
 
-
+export type DroppedMenuHandlerAddType = (
+  e: React.MouseEvent<HTMLElement>,
+  DevicesActionButtonClickedId: DevicesButtonClickedIdType,
+  changeDevicesActionButtonClickedId: 
+  (payload: DevicesButtonClickedIdType) => any
+) => any;
 
 export interface DActionButtonClickedInterface {
   isClicked: boolean,
