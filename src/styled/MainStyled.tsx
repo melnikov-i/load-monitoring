@@ -7,8 +7,7 @@ import {
   MMDivIsOpenedProps,
   MMLinkIsOpenedProps,
   MMButtonIsOpenedProps,
-  UMUListIsOpenedProps,
-  UMLinkIsOpenedProps,
+  DActionButtonClickedInterface,
 } from '@src/interfaces';
 
 const HeaderProfile = require('@src/images/HeaderProfile');
@@ -161,25 +160,33 @@ export const UserMenuButton = styled.button`
   background-color: transparent;
   height: ${ BIG_USER_FAKE_LINK_HEIGHT };
   line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+  text-align: left;
+  
+  &:focus {
+    outline: 0 solid transparent;
+  }
+  
+  @media screen 
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      display: none;
+    }
+`;
+
+export const UserMenuButtonSpan = styled.span`
   font-size: 13px;
   font-weight: 600;
   color: #dfe4fe;
-  text-align: left;
   cursor: pointer;
   &::selection {
     background-color: transparent;
   }
-  &:focus {
-    outline: 0 solid transparent;
-  }
   &::after {
     width: ${ BIG_USER_FAKE_LINK_HEIGHT };
     height: ${ BIG_USER_FAKE_LINK_HEIGHT };
     line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
     text-align: center;
-    content: "${
-      ( props: UMLinkIsOpenedProps ) => (
-        props.onBigScreen 
+    content: "${( props: DActionButtonClickedInterface ) => (
+        props.isClicked 
         ? "\f078" 
         : "\f053"
       )
@@ -188,63 +195,13 @@ export const UserMenuButton = styled.button`
     font-weight: normal;
     font-size: calc(${ FA_SMALL_FONT_SIZE } - 4px);
     color: #dfe4fe;
-    position: absolute;
-    top: 0;
-    right: 0;
+    margin-left: 10px;
   }
-  @media screen 
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      display: none;
-    }
-`;
-
-export const UserMenuFakeLink = styled.a`
-  display: block;
-  width: 100%;
-  position: relative;
-  top: 65px;
-  height: ${ BIG_USER_FAKE_LINK_HEIGHT };
-  line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
-  font-size: 13px;
-  font-weight: 600;
-  color: #dfe4fe;
-  cursor: pointer;
-  &::selection {
-    background: transparent;
-  }
-  &:focus {
-    outline: 1px solid #red;
-  }
-  &::after {
-    width: ${ BIG_USER_FAKE_LINK_HEIGHT };
-    height: ${ BIG_USER_FAKE_LINK_HEIGHT };
-    line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
-    text-align: center;
-    content: "${
-      ( props: UMLinkIsOpenedProps ) => (
-        props.onBigScreen 
-        ? "\f078" 
-        : "\f053"
-      )
-    }";
-    font-family: 'FontAwesome';
-    font-weight: normal;
-    font-size: calc(${ FA_SMALL_FONT_SIZE } - 4px);
-    color: #dfe4fe;
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-  @media screen 
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      display: none;
-    }
 `;
 
 export const UserMenuLayout = styled.ul`
-  display: ${
-    ( props: UMUListIsOpenedProps ) => (
-      props.onBigScreen
+  display: ${( props: DActionButtonClickedInterface ) => (
+      props.isClicked
       ? 'block'
       : 'none'
     )
@@ -254,7 +211,7 @@ export const UserMenuLayout = styled.ul`
   border-radius: 3px;
   padding: 3px 0;
   position: relative;
-  top: 70px;
+  top: 10px;
   left: 0;
   @media screen 
     and (max-width: ${ MIDDLE_SCREEN_MAX }) {

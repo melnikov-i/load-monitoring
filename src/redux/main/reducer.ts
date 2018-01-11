@@ -4,7 +4,7 @@ import {
   MainMenuLinksInterface,
   IsOpenedInterface,
   UserMenuInterface,
-  IsOpenedUserMenuInterface,
+  DroppedMenuButtonClickedType
 } from '@src/interfaces';
 
 import {
@@ -18,8 +18,7 @@ import {
   DO_DEVICES_MENU_ON_MIDDLE_SCREEN_SWITCH,
   DO_DEVICES_MENU_ON_SMALL_SCREEN_SWITCH,
   DO_BOTH_MENU_ON_SMALL_SCREEN_OFF,
-  DO_USER_MENU_ON_BIG_SCREEN_SWITCH,
-  DO_USER_MENU_ON_BIG_SCREEN_OFF,
+  CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID,
 } from '@src/redux/main';
 
 import {
@@ -34,7 +33,7 @@ export type State = {
   readonly DevicesMenuItemsCollection: MainMenuLinksInterface[],
   readonly isDevicesMenuOpened: IsOpenedInterface,
   readonly isMainMenuOpened: IsOpenedInterface,
-  readonly isUserMenuOpened: IsOpenedUserMenuInterface,
+  readonly DroppedMenuButtonClickedId: DroppedMenuButtonClickedType,
 };
 
 const isMainMenuOpenedInitialState: IsOpenedInterface = {
@@ -47,10 +46,6 @@ const isDevicesMenuOpenedInitialState: IsOpenedInterface = {
   onSmallScreen: false,
   onBigScreen: false,
   onMiddleScreen: false,
-};
-
-const isUserMenuOpenedInitialState: IsOpenedUserMenuInterface = {
-  onBigScreen: false,
 };
 
 const UserMenuInitialState: UserMenuInterface = {
@@ -129,14 +124,14 @@ export const reducer = combineReducers({
         return state;
     }
   },
-  // DroppedMenuItemId: (state = '', action) => {
-  //   switch ( action.type ) {
-  //     case CHANGE_DROPPED_MENU_ITEM_ID:
-  //       return action.payload;
-  //     default:
-  //       return state;
-  //   }
-  // },
+  DroppedMenuButtonClickedId: ( state = '', action ) => {
+    switch ( action.type ) {
+      case CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID:
+        return action.payload;
+      default:
+        return state;
+    }
+  },
   isMainMenuOpened: 
   ( state = isMainMenuOpenedInitialState, action ) => {
     switch ( action.type ) {
@@ -200,19 +195,4 @@ export const reducer = combineReducers({
         return state;
     }
   },
-  isUserMenuOpened:
-  ( state = isUserMenuOpenedInitialState, action ) => {
-    switch ( action.type ) {
-      case DO_USER_MENU_ON_BIG_SCREEN_SWITCH:
-        return {
-          onBigScreen: ( state.onBigScreen ) ? false : true,
-        };
-      case DO_USER_MENU_ON_BIG_SCREEN_OFF:
-        return isUserMenuOpenedInitialState;
-      case USER_WAS_LOGOUT:
-        return isUserMenuOpenedInitialState;
-      default:
-        return state;
-    }
-  }
 });

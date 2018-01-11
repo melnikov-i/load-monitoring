@@ -29,7 +29,7 @@ import {
 
 import {
   DevicesTableInterface,
-  DevicesButtonClickedIdType,
+  DroppedMenuButtonClickedType,
 } from '@src/interfaces';
 
 import { Spinner } from '@src/components';
@@ -37,19 +37,19 @@ import { Spinner } from '@src/components';
 interface DevicesProps {
   DevicesTableItemsCollection: DevicesTableInterface[],
   DevicesItemsWasRequestedFromAPI: boolean,
-  DevicesActionButtonClickedId: DevicesButtonClickedIdType,
+  DroppedMenuButtonClickedId: DroppedMenuButtonClickedType,  
+  changeDroppedMenuClickedId: 
+  (payload: DroppedMenuButtonClickedType) => any,
   makeDevicesItemsRequestFromAPI: () => any,
-  changeDevicesActionButtonClickedId: 
-  (payload: DevicesButtonClickedIdType) => any
 }
 
 export const Devices: React.SFC<DevicesProps> = (props) => {
   const {
     DevicesTableItemsCollection,
     DevicesItemsWasRequestedFromAPI,
-    DevicesActionButtonClickedId,
     makeDevicesItemsRequestFromAPI,
-    changeDevicesActionButtonClickedId,
+    DroppedMenuButtonClickedId,      
+    changeDroppedMenuClickedId,
   } = props;
 
   // Запрос данных таблицы
@@ -63,8 +63,8 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
 
   // Обработчики событий
   const droppedMenuHandlerRemove = () => {
-    document.removeEventListener('click', droppedMenuHandlerRemove);    
-    changeDevicesActionButtonClickedId('');
+    document.removeEventListener('click', droppedMenuHandlerRemove);
+    changeDroppedMenuClickedId('');
   };
 
   const devicesDroppedMenuHandler = 
@@ -72,16 +72,16 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
     e.preventDefault();
     e.stopPropagation();
     const current: string =
-      String(e.currentTarget.getAttribute('data-button-id'));
-    if ( DevicesActionButtonClickedId === '' ) {
+      String(e.currentTarget.getAttribute('data-button-id'));    
+    if ( DroppedMenuButtonClickedId === '' ) {
       document.addEventListener('click', droppedMenuHandlerRemove);
-      changeDevicesActionButtonClickedId(current);
+      changeDroppedMenuClickedId(current);
     } else {
-      if ( current === DevicesActionButtonClickedId ) {
-        changeDevicesActionButtonClickedId('');
+      if ( current === DroppedMenuButtonClickedId ) {
+        changeDroppedMenuClickedId('');
       } else {
         e.nativeEvent.stopImmediatePropagation();
-        changeDevicesActionButtonClickedId(current);
+        changeDroppedMenuClickedId(current);
       }
     }
   };
@@ -184,10 +184,10 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
                   <DevicesTableActionButton
                   onClick={devicesDroppedMenuHandler}
                   data-button-id={'1' + i}
-                  isClicked={DevicesActionButtonClickedId === String('1' + i)}>
+                  isClicked={DroppedMenuButtonClickedId === String('1' + i)}>
                     {'Действие'}
                     <DevicesTableActionMenuLayout
-                    isClicked={DevicesActionButtonClickedId === String('1' + i)}
+                    isClicked={DroppedMenuButtonClickedId === String('1' + i)}
                     >
                 {
                   actionMenu.map((item, i) => {

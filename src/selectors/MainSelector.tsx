@@ -39,7 +39,7 @@ export const isMainMenuOpenedSelector = createSelector(
     ( isMainMenuOpened ) => isMainMenuOpened,
   );
 
-export const isUserMenuOpenedSeelctor = createSelector(
-    ( state: RootState ) => state.main.isUserMenuOpened,
-    ( isUserMenuOpened ) => isUserMenuOpened,
+export const DroppedMenuButtonClickedIdSelector = createSelector(
+    ( state: RootState ) => state.main.DroppedMenuButtonClickedId,
+    ( DroppedMenuButtonClickedId ) => DroppedMenuButtonClickedId,
   );

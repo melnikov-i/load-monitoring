@@ -44,6 +44,7 @@ export const DevicesTableHeadRow = styled.tr`
 `;
 
 export const DevicesTableBodyRow = DevicesTableHeadRow.extend`
+  height: 1px;
   &:hover {
     background-color: #f5f5f5;
   }
@@ -94,12 +95,13 @@ export const DevicesTableHeadLastColl = styled.th`
 `;
 
 export const DevicesTableBodyColl = styled.td`
-  font-size: 14px;
-  font-weight: normal;
-  color: #676a6c;
-  line-height: 1.42857;
+  --font-size: 14px;
+  --font-weight: normal;
+  --color: #676a6c;
+  --line-height: 1.42857;
   vertical-align: top;
-  position: relative;
+  --position: relative;
+  height: inherit;
   border-top: 1px solid #e7eaec;
 `;
 
@@ -116,28 +118,28 @@ export const DevicesTableBodyInfoSpan = styled.span`
 `;
 
 export const DevicesTableBodyLink = styled(NavLink)`
-  box-sizing: border-box;
-  display: inline-block;
+  --box-sizing: border-box;
+  display: block;
   text-decoration: none;
   color: #676a6c;
   font-size: 13px;
   font-weight: 600;
-  padding: 8px 4px 0 0;
-  position: absolute;
-  top: 0;
-  left: 0;
+  --padding: 8px 4px 0 0;
+  --position: absolute;
+  --top: 0;
+  --left: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  --overflow: hidden;
 `;
 
 export const DevicesTableBodyWrapperLast = styled.div`
   box-sizing: border-box;
   display: inline-block;
   padding: 8px 0 0 0;
-  position: absolute;
-  top: 0;
-  left: 0;
+  --position: absolute;
+  --top: 0;
+  --left: 0;
   width: 100%;
   height: 100%;
 `;
@@ -154,6 +156,8 @@ export const DevicesTableBodyInfoLink = styled(NavLink)`
 `;
 
 export const DevicesTableBodyCompNameSpan = styled.span`
+  display: block;
+  padding: 8px 4px 0 0;
   font-size: 13px;
   font-weight: 600;
   &::before {
@@ -174,8 +178,8 @@ export const DevicesTableActionButton = styled.button`
   height: 20px;
   line-height: 20px;
   box-sizing: border-box;
-  position: absolute;
-  left: 50%;
+  --position: absolute;
+  --left: 50%;
   margin-left: -35px;
   border-radius: 3px;
   color: #333;
@@ -229,10 +233,10 @@ export const DevicesTableActionMenuLayout = styled.ul`
   background-color: #fff;
   padding: 3px 0;
   border-radius: 3px;
-  position: absolute;
-  right: 5px;
-  top: 30px;
-  z-index: 1;
+  --position: absolute;
+  --right: 5px;
+  --top: 30px;
+  --z-index: 1;
 `;
 
 export const DevicesTableActionMenuItem = styled.li`

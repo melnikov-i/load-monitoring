@@ -6,15 +6,14 @@ import { withRouter } from 'react-router-dom';
 
 import { syncActionCreators, asyncActionCreators } from '@src/redux/main';
 import { asyncActionCreators as loginActionCreators } from '@src/redux/login';
-import { syncActionCreators as devicesActionCreators } from '@src/redux/devices'
+
 import { Main } from '@src/components';
 
 import {
   MainMenuLinksInterface,
   IsOpenedInterface,
   UserMenuInterface,
-  IsOpenedUserMenuInterface,
-  DevicesButtonClickedIdType
+  DroppedMenuButtonClickedType,
 } from '@src/interfaces';
 
 import {
@@ -25,8 +24,7 @@ import {
   DevicesMenuItemsCollectionSelector,
   isDevicesMenuOpenedSelector,
   isMainMenuOpenedSelector,
-  isUserMenuOpenedSeelctor,
-  DevicesActionButtonClickedIdSelector
+  DroppedMenuButtonClickedIdSelector,
 } from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector<RootState, {
@@ -37,8 +35,7 @@ const mapStateToProps = createStructuredSelector<RootState, {
     DevicesMenuItemsCollection: MainMenuLinksInterface[],
     isDevicesMenuOpened: IsOpenedInterface,
     isMainMenuOpened: IsOpenedInterface,
-    isUserMenuOpened: IsOpenedUserMenuInterface,
-    DevicesActionButtonClickedId: DevicesButtonClickedIdType,
+    DroppedMenuButtonClickedId: DroppedMenuButtonClickedType,
   }>({
     MainMenuWasRequestedFromAPI: MainMenuWasRequestedFromAPISelector,
     MainMenuItemsCollection: MainMenuItemsCollectionSelector,
@@ -47,8 +44,7 @@ const mapStateToProps = createStructuredSelector<RootState, {
     DevicesMenuItemsCollection: DevicesMenuItemsCollectionSelector,
     isDevicesMenuOpened: isDevicesMenuOpenedSelector,
     isMainMenuOpened: isMainMenuOpenedSelector,
-    isUserMenuOpened: isUserMenuOpenedSeelctor,
-    DevicesActionButtonClickedId: DevicesActionButtonClickedIdSelector,
+    DroppedMenuButtonClickedId: DroppedMenuButtonClickedIdSelector,
   });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
@@ -66,13 +62,9 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
     syncActionCreators.doDevicesMenuOnSmallScreenSwitch,
   doBothMenuOnSmallScreenOff: 
     syncActionCreators.doBothMenuOnSmallScreenOff,
-  doUserMenuOnBigScreenSwitch: 
-    syncActionCreators.doUserMenuOnBigScreenSwitch,
-  doUserMenuOnBigScreenOff: 
-    syncActionCreators.doUserMenuOnBigScreenOff,
   sendLogOutToAPI: loginActionCreators.sendLogOutToAPI,
-  changeDevicesActionButtonClickedId: 
-    devicesActionCreators.changeDevicesActionButtonClickedId,
+  changeDroppedMenuClickedId:
+    syncActionCreators.changeDroppedMenuClickedId,
 }, dispatch);
 
 export const MainConnected = 

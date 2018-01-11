@@ -8,15 +8,12 @@ import {
   MainMenuLinksInterface,
   IsOpenedInterface,
   UserMenuInterface,
-  IsOpenedUserMenuInterface,
   DeviceItemsInterface,
   LogOunInterface,
-  DevicesButtonClickedIdType,
+  DroppedMenuButtonClickedType,
 } from '@src/interfaces';
 
 import { Spinner } from '@src/components';
-
-import { droppedMenuHandlerAdd } from '@src/handlers';
 
 import {
   MainLayout,
@@ -36,6 +33,7 @@ import {
   SmallMenuButton,
   MainContent,
   UserMenuButton,
+  UserMenuButtonSpan,
   UserMenuLayout,
   UserMenuItem,
   UserMenuLink,
@@ -47,6 +45,7 @@ import {
 import {
   PageOverview,
 } from '@src/containers';
+
 import DevicesConnected from '@src/connected/DevicesConnected.usage';
 import DeviceConnected from '@src/connected/DeviceConnected.usage';
 
@@ -58,8 +57,6 @@ interface MainProps {
   DevicesMenuItemsCollection: MainMenuLinksInterface[],
   isDevicesMenuOpened: IsOpenedInterface,
   isMainMenuOpened: IsOpenedInterface,
-  isUserMenuOpened: IsOpenedUserMenuInterface,
-  DevicesActionButtonClickedId: DevicesButtonClickedIdType,
   makeMainMenuRequestToAPI: () => any,
   makeDevicesMenuRequestToAPI: () => any,
   doMainMenuOnSmallScreenSwitch: () => any,
@@ -67,11 +64,10 @@ interface MainProps {
   doDevicesMenuOnMiddleScreenSwitch: () => any,
   doDevicesMenuOnSmallScreenSwitch: () => any,
   doBothMenuOnSmallScreenOff: () => any,
-  doUserMenuOnBigScreenSwitch: () => any,
-  doUserMenuOnBigScreenOff: () => any,
   sendLogOutToAPI: (payload: LogOunInterface) => any,
-  changeDevicesActionButtonClickedId: 
-  (payload: DevicesButtonClickedIdType) => any
+  DroppedMenuButtonClickedId: DroppedMenuButtonClickedType,  
+  changeDroppedMenuClickedId: 
+  (payload: DroppedMenuButtonClickedType) => any
 }
 
 export const Main: React.SFC<MainProps> = (props) => {
@@ -106,15 +102,14 @@ export const Main: React.SFC<MainProps> = (props) => {
       UserMenuItemsCollection,
       isDevicesMenuOpened,
       isMainMenuOpened,
-      isUserMenuOpened,
       doMainMenuOnSmallScreenSwitch,
       doDevicesMenuOnBigScreenSwitch,
       doDevicesMenuOnMiddleScreenSwitch,
       doDevicesMenuOnSmallScreenSwitch,
       doBothMenuOnSmallScreenOff,
       sendLogOutToAPI,
-      DevicesActionButtonClickedId,
-      changeDevicesActionButtonClickedId,
+      DroppedMenuButtonClickedId,      
+      changeDroppedMenuClickedId,
     } = props;
   
     /* Обработчики событий */
@@ -157,7 +152,7 @@ export const Main: React.SFC<MainProps> = (props) => {
 
     const droppedMenuHandlerRemove = () => {
       document.removeEventListener('click', droppedMenuHandlerRemove);    
-      changeDevicesActionButtonClickedId('');
+      changeDroppedMenuClickedId('');
     };
 
     const droppedMenuHandler = 
@@ -166,15 +161,15 @@ export const Main: React.SFC<MainProps> = (props) => {
       e.stopPropagation();
       const current: string =
         String(e.currentTarget.getAttribute('data-button-id'));
-      if ( DevicesActionButtonClickedId === '' ) {
+      if ( DroppedMenuButtonClickedId === '' ) {
         document.addEventListener('click', droppedMenuHandlerRemove);
-        changeDevicesActionButtonClickedId(current);
+        changeDroppedMenuClickedId(current);
       } else {
-        if ( current === DevicesActionButtonClickedId ) {
-          changeDevicesActionButtonClickedId('');
+        if ( current === DroppedMenuButtonClickedId ) {
+          changeDroppedMenuClickedId('');
         } else {
           e.nativeEvent.stopImmediatePropagation();
-          changeDevicesActionButtonClickedId(current);
+          changeDroppedMenuClickedId(current);
         }
       }
     };
@@ -192,11 +187,13 @@ export const Main: React.SFC<MainProps> = (props) => {
             <MainMenuLogo>
               <UserMenuButton 
               onClick={(e) => droppedMenuHandler(e)}
-              onBigScreen={isUserMenuOpened.onBigScreen}
               data-button-id={'00'}>
-                { UserMenuItemsCollection.user[0].login }
+                <UserMenuButtonSpan
+                isClicked={DroppedMenuButtonClickedId === '00'}>
+                  { UserMenuItemsCollection.user[0].login }                  
+                </UserMenuButtonSpan>
                 <UserMenuLayout
-                onBigScreen={isUserMenuOpened.onBigScreen}>
+                isClicked={DroppedMenuButtonClickedId === '00'}>
             {
               UserMenuItemsCollection.links.map((e, i) => {
                 return (
@@ -213,10 +210,8 @@ export const Main: React.SFC<MainProps> = (props) => {
                 );
               })
             }
-                </UserMenuLayout>
-              
-              </UserMenuButton>
-              
+                </UserMenuLayout>              
+              </UserMenuButton>              
             </MainMenuLogo>
           </MainMenuLogoWrapper>
           <MainMenuLayout>

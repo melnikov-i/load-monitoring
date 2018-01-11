@@ -5,38 +5,40 @@ import { Dispatch, RootState } from '@src/redux';
 import { withRouter } from 'react-router-dom';
 
 import {
-  syncActionCreators,
   asyncActionCreators
 } from '@src/redux/devices';
+import { 
+  syncActionCreators as mainActionCreators 
+} from '@src/redux/main'
 
 import { Devices } from '@src/components';
 
 import {
   DevicesTableInterface,
-  DevicesButtonClickedIdType
+  DroppedMenuButtonClickedType
 } from '@src/interfaces';
 
 import {
   DevicesTableItemsCollectionSelector,
   DevicesItemsWasRequestedFromAPISelector,
-  DevicesActionButtonClickedIdSelector,
+  DroppedMenuButtonClickedIdSelector,
 } from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector<RootState, {
     DevicesTableItemsCollection: DevicesTableInterface[],
     DevicesItemsWasRequestedFromAPI: boolean,
-    DevicesActionButtonClickedId: DevicesButtonClickedIdType,
+    DroppedMenuButtonClickedId: DroppedMenuButtonClickedType,
   }>({
     DevicesTableItemsCollection: DevicesTableItemsCollectionSelector,
     DevicesItemsWasRequestedFromAPI: DevicesItemsWasRequestedFromAPISelector,
-    DevicesActionButtonClickedId: DevicesActionButtonClickedIdSelector,
+    DroppedMenuButtonClickedId: DroppedMenuButtonClickedIdSelector,
   });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
   makeDevicesItemsRequestFromAPI: 
     asyncActionCreators.makeDevicesItemsRequestFromAPI,
-  changeDevicesActionButtonClickedId: 
-    syncActionCreators.changeDevicesActionButtonClickedId,
+  changeDroppedMenuClickedId: 
+    mainActionCreators.changeDroppedMenuClickedId,
 }, dispatch);
 
 export const DevicesConnected = 

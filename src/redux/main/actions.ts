@@ -3,6 +3,7 @@ import sendRequestToAPI from '@src/ajax';
 import {
   MainMenuLinksInterface,
   UserInterface,
+  DroppedMenuButtonClickedType
 } from '@src/interfaces';
 
 import { Dispatch } from '@src/redux';
@@ -10,6 +11,7 @@ import { Dispatch } from '@src/redux';
 import {
   syncActionCreators as loginActionCreators
 } from '@src/redux/login';
+
 
 export const MAIN_MENU_WAS_REQUESTED_FROM_API =
   'MAIN_MENU_WAS_REQUESTED_FROM_API';
@@ -21,10 +23,8 @@ export const DEVICES_MENU_WAS_REQUESTED_FROM_API =
   'DEVICES_MENU_WAS_REQUESTED_FROM_API';
 export const PUT_DEVICES_MENU_FROM_API_TO_COLLECTION =
   'PUT_DEVICES_MENU_FROM_API_TO_COLLECTION';
-
 export const DO_MAIN_MENU_ON_SMALL_SCREEN_SWITCH = 
   'DO_MAIN_MENU_ON_SMALL_SCREEN_SWITCH';
-
 export const DO_DEVICES_MENU_ON_BIG_SCREEN_SWITCH = 
   'DO_DEVICES_MENU_ON_BIG_SCREEN_SWITCH';
 export const DO_DEVICES_MENU_ON_MIDDLE_SCREEN_SWITCH =
@@ -33,10 +33,8 @@ export const DO_DEVICES_MENU_ON_SMALL_SCREEN_SWITCH =
   'DO_DEVICES_MENU_ON_SMALL_SCREEN_SWITCH';
 export const DO_BOTH_MENU_ON_SMALL_SCREEN_OFF =
   'DO_BOTH_MENU_ON_SMALL_SCREEN_OFF';
-export const DO_USER_MENU_ON_BIG_SCREEN_SWITCH =
-  'DO_USER_MENU_ON_BIG_SCREEN_SWITCH';
-export const DO_USER_MENU_ON_BIG_SCREEN_OFF =
-  'DO_USER_MENU_ON_BIG_SCREEN_OFF';
+export const CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID =
+  'CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID';
 
 
 export type Actions = {
@@ -58,11 +56,9 @@ export type Actions = {
     type: typeof PUT_DEVICES_MENU_FROM_API_TO_COLLECTION,
     payload: MainMenuLinksInterface[],
   },
-
   DO_MAIN_MENU_ON_SMALL_SCREEN_SWITCH: {
     type: typeof DO_MAIN_MENU_ON_SMALL_SCREEN_SWITCH,
   },
-
   DO_DEVICES_MENU_ON_BIG_SCREEN_SWITCH: {
     type: typeof DO_DEVICES_MENU_ON_BIG_SCREEN_SWITCH,
   },
@@ -75,11 +71,9 @@ export type Actions = {
   DO_BOTH_MENU_ON_SMALL_SCREEN_OFF: {
     type: typeof DO_BOTH_MENU_ON_SMALL_SCREEN_OFF,
   },
-  DO_USER_MENU_ON_BIG_SCREEN_SWITCH: {
-    type: typeof DO_USER_MENU_ON_BIG_SCREEN_SWITCH,
-  },
-  DO_USER_MENU_ON_BIG_SCREEN_OFF: {
-    type: typeof DO_USER_MENU_ON_BIG_SCREEN_OFF,
+  CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID: {
+    type: typeof CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID,
+    payload: DroppedMenuButtonClickedType,
   }
 };
 
@@ -108,7 +102,6 @@ export const syncActionCreators = {
   Actions[typeof PUT_DEVICES_MENU_FROM_API_TO_COLLECTION] => ({
     type: PUT_DEVICES_MENU_FROM_API_TO_COLLECTION, payload,
   }),
-
   doMainMenuOnSmallScreenSwitch:():
   Actions[typeof DO_MAIN_MENU_ON_SMALL_SCREEN_SWITCH] => ({
     type: DO_MAIN_MENU_ON_SMALL_SCREEN_SWITCH
@@ -129,14 +122,11 @@ export const syncActionCreators = {
   Actions[typeof DO_BOTH_MENU_ON_SMALL_SCREEN_OFF] => ({
     type: DO_BOTH_MENU_ON_SMALL_SCREEN_OFF,
   }),
-  doUserMenuOnBigScreenSwitch:():
-  Actions[typeof DO_USER_MENU_ON_BIG_SCREEN_SWITCH] => ({
-    type: DO_USER_MENU_ON_BIG_SCREEN_SWITCH,
+  changeDroppedMenuClickedId:
+  ( payload: DroppedMenuButtonClickedType ):
+  Actions[typeof CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID] => ({
+    type: CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID, payload,
   }),
-  doUserMenuOnBigScreenOff:():
-  Actions[typeof DO_USER_MENU_ON_BIG_SCREEN_OFF] => ({
-    type: DO_USER_MENU_ON_BIG_SCREEN_OFF,
-  })
 };
 
 // Async Action Creators
