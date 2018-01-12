@@ -10,18 +10,19 @@ import {
   DevicesTableBodyRow,
   DevicesTableHeadCollDev,
   DevicesTableHeadCollIP,
-  DevicesTableHeadCollLoad,
-  DevicesTableHeadLastColl,
   DevicesTableHeadCollInfo,
+  DevicesTableHeadCollLoad,
+  DevicesTableHeadCollStatus,
+  DevicesTableHeadLastColl,
   DevicesTableBodyColl,
+  DevicesTableBodyLink,
+  DevicesTableBodyCompNameSpan,
+  DevicesTableBodyIPSpan,
+  DevicesTableBodyInfoLink,
   DevicesTableBodyInfo,
   DevicesTableBodyInfoSpan,
-  DevicesTableBodyCompNameSpan,
-  DevicesTableBodyLink,
   DevicesTableBodyWrapperLast,
-  DevicesTableBodyInfoLink,
-  DevicesTableHeadCollStatus,
-  DevicesTableActionButton,
+  DevicesTableActionAnchor,
   DevicesTableActionMenuLayout,
   DevicesTableActionMenuItem,
   DevicesTableActonLink,
@@ -48,7 +49,7 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
     DevicesTableItemsCollection,
     DevicesItemsWasRequestedFromAPI,
     makeDevicesItemsRequestFromAPI,
-    DroppedMenuButtonClickedId,      
+    DroppedMenuButtonClickedId,
     changeDroppedMenuClickedId,
   } = props;
 
@@ -61,18 +62,30 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
   };
   const devicesItems = getDevicesItems();
 
+  // Проверка User-Agent браузера пользователя
+  const getFirefoxInUse = () => {
+    if ( window.navigator.userAgent.indexOf('Firefox') === -1 ) {
+      return false;
+    } else {
+      return true;
+    }    
+  };
+  const isFirefoxInUse: boolean = getFirefoxInUse();
+
   // Обработчики событий
   const droppedMenuHandlerRemove = () => {
     document.removeEventListener('click', droppedMenuHandlerRemove);
+
+    console.log('User-Agent:', window.navigator.userAgent);
     changeDroppedMenuClickedId('');
   };
 
   const devicesDroppedMenuHandler = 
-  (e: React.MouseEvent<HTMLButtonElement>) => {
+  (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     e.stopPropagation();
     const current: string =
-      String(e.currentTarget.getAttribute('data-button-id'));    
+      String(e.currentTarget.getAttribute('data-button-id'));
     if ( DroppedMenuButtonClickedId === '' ) {
       document.addEventListener('click', droppedMenuHandlerRemove);
       changeDroppedMenuClickedId(current);
@@ -138,22 +151,24 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
             <DevicesTableBodyRow 
               key={i}
             >
-              <DevicesTableBodyColl>
+              <DevicesTableBodyColl isFirefoxInUse={isFirefoxInUse}>
                 <DevicesTableBodyLink to={e.to}>
                   <DevicesTableBodyCompNameSpan
                   icon={e.icon}
                   title={e.comp_name}>
-                    {e.comp_name}                  
+                    {e.comp_name}
                   </DevicesTableBodyCompNameSpan>
                 </DevicesTableBodyLink>
               </DevicesTableBodyColl>
-              <DevicesTableBodyColl>
+              <DevicesTableBodyColl isFirefoxInUse={isFirefoxInUse}>
                 <DevicesTableBodyLink to={e.to}>
-                  {e.ip}
+                  <DevicesTableBodyIPSpan>
+                    {e.ip}
+                  </DevicesTableBodyIPSpan>
                 </DevicesTableBodyLink>
               </DevicesTableBodyColl>
-              <DevicesTableBodyColl>
-                <DevicesTableBodyInfoLink to={e.to}>                  
+              <DevicesTableBodyColl isFirefoxInUse={isFirefoxInUse}>
+                <DevicesTableBodyInfoLink to={e.to}>
                   <DevicesTableBodyInfo>
                     {e.system}
                   </DevicesTableBodyInfo>
@@ -168,41 +183,44 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
                       {'RAM: '}
                     </DevicesTableBodyInfoSpan>
                     {Math.floor((Number(e.memory) / 1024) / 1024) + ' Мб'}
-                  </DevicesTableBodyInfo>                  
+                  </DevicesTableBodyInfo>
                 </DevicesTableBodyInfoLink>
               </DevicesTableBodyColl>
-              <DevicesTableBodyColl>
+              <DevicesTableBodyColl isFirefoxInUse={isFirefoxInUse}>
                 <DevicesTableBodyLink to={e.to}>
+
                 </DevicesTableBodyLink>
               </DevicesTableBodyColl>
-              <DevicesTableBodyColl>
+              <DevicesTableBodyColl isFirefoxInUse={isFirefoxInUse}>
                 <DevicesTableBodyLink to={e.to}>
+                
                 </DevicesTableBodyLink>
               </DevicesTableBodyColl>
-              <DevicesTableBodyColl>
+              <DevicesTableBodyColl isFirefoxInUse={isFirefoxInUse}>
                 <DevicesTableBodyWrapperLast>
-                  <DevicesTableActionButton
+                  <DevicesTableActionAnchor
                   onClick={devicesDroppedMenuHandler}
                   data-button-id={'1' + i}
                   isClicked={DroppedMenuButtonClickedId === String('1' + i)}>
                     {'Действие'}
-                    <DevicesTableActionMenuLayout
-                    isClicked={DroppedMenuButtonClickedId === String('1' + i)}
-                    >
-                {
-                  actionMenu.map((item, i) => {
-                    return (
-                      <DevicesTableActionMenuItem key={i}>
-                        <DevicesTableActonLink
-                        to={(item.value === 'Обзор') ? e.to : item.to}>
-                          {item.value}
-                        </DevicesTableActonLink>
-                      </DevicesTableActionMenuItem>
-                    );
-                  })
-                }
-                    </DevicesTableActionMenuLayout>
-                  </DevicesTableActionButton>                  
+                  </DevicesTableActionAnchor>
+                  
+                  <DevicesTableActionMenuLayout
+                  isClicked={DroppedMenuButtonClickedId === String('1' + i)}
+                  >
+              {
+                actionMenu.map((item, i) => {
+                  return (
+                    <DevicesTableActionMenuItem key={i}>
+                      <DevicesTableActonLink
+                      to={(item.value === 'Обзор') ? e.to : item.to}>
+                        {item.value}
+                      </DevicesTableActonLink>
+                    </DevicesTableActionMenuItem>
+                  );
+                })
+              }
+                  </DevicesTableActionMenuLayout>
                 </DevicesTableBodyWrapperLast>
               </DevicesTableBodyColl>
             </DevicesTableBodyRow>

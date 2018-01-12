@@ -33,11 +33,9 @@ export const DevicesTable = styled.table`
   border-spacing: 0;
 `;
 
-export const DevicesTableHead = styled.thead`
-`;
+export const DevicesTableHead = styled.thead``;
 
-export const DevicesTableBody = styled.tbody`
-`;
+export const DevicesTableBody = styled.tbody``;
 
 export const DevicesTableHeadRow = styled.tr`
   width: 100%;
@@ -61,98 +59,54 @@ const DevicesTableHeadColl = styled.th`
 `;
 
 export const DevicesTableHeadCollDev = DevicesTableHeadColl.extend`
+  width: 15%;
   padding-left: 23px;
-  width: calc(${ TABLE_COLL_WIDTH } * 2);
 `;
 
 export const DevicesTableHeadCollIP = DevicesTableHeadColl.extend`
-  width: calc(${ TABLE_COLL_WIDTH } * 1.8);
+  width: 12%;
 `;
 
 export const DevicesTableHeadCollInfo = DevicesTableHeadColl.extend`
-  width: calc(${ TABLE_COLL_WIDTH } * 5);
+  width: 46%;
 `;
 
 export const DevicesTableHeadCollLoad = DevicesTableHeadColl.extend`
-  width: calc(${ TABLE_COLL_WIDTH } * 1);
+  width: 9%;
 `;
 
 export const DevicesTableHeadCollStatus = DevicesTableHeadColl.extend`
-  width: calc(${ TABLE_COLL_WIDTH } * 1);
+  width: 9%;
   padding-left: 4px;
-
-background-color: rgba(255, 0, 0, .4);
 `;
 
 export const DevicesTableHeadLastColl = styled.th`
+  width: 9%;
   box-sizing: border-box;
   font-size: 14px;
   font-weight: normal;
-  width: calc(${ TABLE_COLL_WIDTH } * 1.2);
   min-height: 25px;
   line-height: 25px;
   text-align: left;
 `;
 
 export const DevicesTableBodyColl = styled.td`
-  --font-size: 14px;
-  --font-weight: normal;
-  --color: #676a6c;
-  --line-height: 1.42857;
   vertical-align: top;
-  --position: relative;
-  height: inherit;
+  height: ${(props: {isFirefoxInUse: boolean}) => (
+      (props.isFirefoxInUse)
+      ? '100%'
+      : 'inherit'
+    )
+  };
   border-top: 1px solid #e7eaec;
 `;
 
-export const DevicesTableBodyInfo = styled.p`
-  font-size: 13px;
-  font-weight: normal;
-  color: #676a6c;
-`;
-
-
-export const DevicesTableBodyInfoSpan = styled.span`
-  font-size: 13px;
-  font-weight: 600;
-`;
-
 export const DevicesTableBodyLink = styled(NavLink)`
-  --box-sizing: border-box;
-  display: block;
+  display: inline-table;
   text-decoration: none;
   color: #676a6c;
-  font-size: 13px;
-  font-weight: 600;
-  --padding: 8px 4px 0 0;
-  --position: absolute;
-  --top: 0;
-  --left: 0;
   width: 100%;
   height: 100%;
-  --overflow: hidden;
-`;
-
-export const DevicesTableBodyWrapperLast = styled.div`
-  box-sizing: border-box;
-  display: inline-block;
-  padding: 8px 0 0 0;
-  --position: absolute;
-  --top: 0;
-  --left: 0;
-  width: 100%;
-  height: 100%;
-`;
-
-export const DevicesTableBodyInfoLink = styled(NavLink)`
-  box-sizing: border-box;
-  display: inline-block;
-  text-decoration: none;
-  color: #676a6c;
-  font-size: 13px;
-  font-weight: 600;
-  padding: 8px 0;
-  width: 100%;
 `;
 
 export const DevicesTableBodyCompNameSpan = styled.span`
@@ -173,14 +127,56 @@ export const DevicesTableBodyCompNameSpan = styled.span`
   }
 `;
 
-export const DevicesTableActionButton = styled.button`
-  width: 70px;
+export const DevicesTableBodyIPSpan = styled.span`
+  display: block;
+  padding: 8px 4px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+`;
+
+
+export const DevicesTableBodyInfoLink = styled(NavLink)`
+  box-sizing: border-box;
+  display: inline-block;
+  text-decoration: none;
+  color: #676a6c;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 0;
+  width: 100%;
+`;
+
+export const DevicesTableBodyInfo = styled.p`
+  font-size: 13px;
+  font-weight: normal;
+  color: #676a6c;
+`;
+
+
+export const DevicesTableBodyInfoSpan = styled.span`
+  font-size: 13px;
+  font-weight: 600;
+`;
+
+
+export const DevicesTableBodyWrapperLast = styled.div`
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 8px 0 0 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+`;
+
+
+
+export const DevicesTableActionAnchor = styled.a`
+  width: 100%;
   height: 20px;
+  display: block;
+  text-align: center;
   line-height: 20px;
   box-sizing: border-box;
-  --position: absolute;
-  --left: 50%;
-  margin-left: -35px;
   border-radius: 3px;
   color: #333;
   cursor: pointer;
@@ -215,11 +211,6 @@ export const DevicesTableActionButton = styled.button`
     )
   };
   }
-  @media screen
-  and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-    width: 64px;
-    margin-left: -32px;
-  }
 `;
 
 export const DevicesTableActionMenuLayout = styled.ul`
@@ -233,10 +224,10 @@ export const DevicesTableActionMenuLayout = styled.ul`
   background-color: #fff;
   padding: 3px 0;
   border-radius: 3px;
-  --position: absolute;
-  --right: 5px;
-  --top: 30px;
-  --z-index: 1;
+  position: absolute;
+  right: 5px;
+  top: 40px;
+  z-index: 2;
 `;
 
 export const DevicesTableActionMenuItem = styled.li`

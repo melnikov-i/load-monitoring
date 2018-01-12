@@ -136,7 +136,7 @@ export const asyncActionCreators = {
       dispatch(
         syncActionCreators.mainMenuWasRequestedFromAPI()
       );
-      sendRequestToAPI.get('/menu_data.php').then(
+      sendRequestToAPI.post('/menu_data.php').then(
         ( response ) => {
           if ( response.data.menu !== null ) {
             const menu: MainMenuLinksInterface[] = response.data.menu;
@@ -173,7 +173,7 @@ export const asyncActionCreators = {
       dispatch(
         syncActionCreators.devicesMenuWasRequestedFromAPI()
       );
-      sendRequestToAPI.get('/menu_devices.php').then(
+      sendRequestToAPI.post('/menu_devices.php').then(
         ( response ) => {
           if ( response.data.devices_list !== null ) {
             const devices: MainMenuLinksInterface[] = 
