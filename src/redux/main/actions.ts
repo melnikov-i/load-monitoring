@@ -3,7 +3,7 @@ import sendRequestToAPI from '@src/ajax';
 import {
   MainMenuLinksInterface,
   UserInterface,
-  DroppedMenuButtonClickedType
+  DroppedMenuButtonClickedType,
 } from '@src/interfaces';
 
 import { Dispatch } from '@src/redux';
@@ -35,6 +35,8 @@ export const DO_BOTH_MENU_ON_SMALL_SCREEN_OFF =
   'DO_BOTH_MENU_ON_SMALL_SCREEN_OFF';
 export const CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID =
   'CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID';
+export const CHANGE_USER_AGENT =
+  'CHANGE_USER_AGENT';
 
 
 export type Actions = {
@@ -74,6 +76,9 @@ export type Actions = {
   CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID: {
     type: typeof CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID,
     payload: DroppedMenuButtonClickedType,
+  },
+  CHANGE_USER_AGENT: {
+    type: typeof CHANGE_USER_AGENT,
   }
 };
 
@@ -127,6 +132,9 @@ export const syncActionCreators = {
   Actions[typeof CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID] => ({
     type: CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID, payload,
   }),
+  changeUserAgent: (): Actions[typeof CHANGE_USER_AGENT] => ({
+    type: CHANGE_USER_AGENT,
+  }),
 };
 
 // Async Action Creators
@@ -159,6 +167,19 @@ export const asyncActionCreators = {
           dispatch(
             syncActionCreators.putUserMenuFromAPIToCollection(user)
           );
+        }
+      )
+      .then(
+        () => {
+          if ( window.navigator.userAgent.indexOf('Firefox') !== -1 ) {
+            console.log(
+              'asyncActionCreator',
+              window.navigator.userAgent.indexOf('Firefox')
+              );
+            dispatch(
+              syncActionCreators.changeUserAgent()
+            )
+          }
         }
       )
       .catch(

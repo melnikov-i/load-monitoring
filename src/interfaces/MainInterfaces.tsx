@@ -36,10 +36,6 @@ export interface IsOpenedOnSmallScreenInterface {
   onSmallScreen: onSmallScreenType,
 }
 
-// export interface IsOpenedUserMenuInterface {
-//   onBigScreen: onBigScreenType,
-// }
-
 export type DroppedMenuButtonClickedType = string;
 
 export type MMSpanIconProps =
@@ -59,9 +55,3 @@ export type MMSpanIsOpenedProps =
 
 export type MMButtonIsOpenedProps =
   IsOpenedOnSmallScreenInterface & React.HTMLProps<HTMLButtonElement>;
-
-// export type UMUListIsOpenedProps =
-//   IsOpenedUserMenuInterface & React.HTMLProps<HTMLUListElement>;
-
-// export type UMLinkIsOpenedProps =
-//   IsOpenedUserMenuInterface & React.HTMLProps<HTMLLinkElement>;

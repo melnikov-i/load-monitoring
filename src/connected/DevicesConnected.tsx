@@ -22,21 +22,26 @@ import {
   DevicesTableItemsCollectionSelector,
   DevicesItemsWasRequestedFromAPISelector,
   DroppedMenuButtonClickedIdSelector,
+  isFirefoxInUseSelector,
 } from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector<RootState, {
     DevicesTableItemsCollection: DevicesTableInterface[],
     DevicesItemsWasRequestedFromAPI: boolean,
     DroppedMenuButtonClickedId: DroppedMenuButtonClickedType,
+    isFirefoxInUse: boolean,
   }>({
     DevicesTableItemsCollection: DevicesTableItemsCollectionSelector,
     DevicesItemsWasRequestedFromAPI: DevicesItemsWasRequestedFromAPISelector,
     DroppedMenuButtonClickedId: DroppedMenuButtonClickedIdSelector,
+    isFirefoxInUse: isFirefoxInUseSelector
   });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
   makeDevicesItemsRequestFromAPI: 
     asyncActionCreators.makeDevicesItemsRequestFromAPI,
+  // makeLoadingAndStatusRequestFromAPI:
+  //   asyncActionCreators.makeLoadingAndStatusRequestFromAPI,
   changeDroppedMenuClickedId: 
     mainActionCreators.changeDroppedMenuClickedId,
 }, dispatch);

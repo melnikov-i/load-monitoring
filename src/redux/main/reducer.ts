@@ -19,6 +19,7 @@ import {
   DO_DEVICES_MENU_ON_SMALL_SCREEN_SWITCH,
   DO_BOTH_MENU_ON_SMALL_SCREEN_OFF,
   CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID,
+  CHANGE_USER_AGENT
 } from '@src/redux/main';
 
 import {
@@ -34,6 +35,7 @@ export type State = {
   readonly isDevicesMenuOpened: IsOpenedInterface,
   readonly isMainMenuOpened: IsOpenedInterface,
   readonly DroppedMenuButtonClickedId: DroppedMenuButtonClickedType,
+  readonly isFirefoxInUse: boolean,
 };
 
 const isMainMenuOpenedInitialState: IsOpenedInterface = {
@@ -191,6 +193,14 @@ export const reducer = combineReducers({
         };
       case USER_WAS_LOGOUT:
         return isDevicesMenuOpenedInitialState;
+      default:
+        return state;
+    }
+  },
+  isFirefoxInUse: ( state = false, action ) => {
+    switch ( action.type ) {
+      case CHANGE_USER_AGENT:
+        return true;
       default:
         return state;
     }

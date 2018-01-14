@@ -7,7 +7,7 @@ import {
   MMDivIsOpenedProps,
   MMLinkIsOpenedProps,
   MMButtonIsOpenedProps,
-  DActionButtonClickedInterface,
+  DActionAnchorClickedInterface,
 } from '@src/interfaces';
 
 const HeaderProfile = require('@src/images/HeaderProfile');
@@ -153,7 +153,7 @@ export const MainMenuLogo = styled.div`
     }
 `;
 
-export const UserMenuButton = styled.button`
+export const UserMenuAnchor = styled.a`
   width: 100%;
   position: relative;
   top: 65px;
@@ -172,7 +172,7 @@ export const UserMenuButton = styled.button`
     }
 `;
 
-export const UserMenuButtonSpan = styled.span`
+export const UserMenuAnchorSpan = styled.span`
   font-size: 13px;
   font-weight: 600;
   color: #dfe4fe;
@@ -185,7 +185,7 @@ export const UserMenuButtonSpan = styled.span`
     height: ${ BIG_USER_FAKE_LINK_HEIGHT };
     line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
     text-align: center;
-    content: "${( props: DActionButtonClickedInterface ) => (
+    content: "${( props: DActionAnchorClickedInterface ) => (
         props.isClicked 
         ? "\f078" 
         : "\f053"
@@ -200,7 +200,7 @@ export const UserMenuButtonSpan = styled.span`
 `;
 
 export const UserMenuLayout = styled.ul`
-  display: ${( props: DActionButtonClickedInterface ) => (
+  display: ${( props: DActionAnchorClickedInterface ) => (
       props.isClicked
       ? 'block'
       : 'none'
@@ -211,7 +211,7 @@ export const UserMenuLayout = styled.ul`
   border-radius: 3px;
   padding: 3px 0;
   position: relative;
-  top: 10px;
+  top: 65px;
   left: 0;
   @media screen 
     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
@@ -236,7 +236,7 @@ export const UserMenuLinkSpan = styled.span`
   font-size: 13px;
   font-weight: normal;
   color: #333;
-  white-space: no-wrap;
+  white-space: nowrap;
   padding: 3px 5px;
   &::selection {
     background-color: transparent;

@@ -1,3 +1,4 @@
+/* Удалить */
 import * as React from 'react';
 
 import MainConnected from '@src/connected/MainConnected.usage';

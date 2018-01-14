@@ -5,4 +5,5 @@ export * from './SpinnerStyled';
 export * from './DeviceStyled';
 
 export * from './DevicesStyled';
+export * from './DevicesLoadStyled';
 // export * from './TableStyled';

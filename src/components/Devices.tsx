@@ -31,26 +31,29 @@ import {
 import {
   DevicesTableInterface,
   DroppedMenuButtonClickedType,
+  // DLoadAndStateInterfaces
 } from '@src/interfaces';
 
 import { Spinner } from '@src/components';
+import DevicesLoadConnected from 
+'@src/connected/DevicesLoadConnected.usage';
 
 interface DevicesProps {
   DevicesTableItemsCollection: DevicesTableInterface[],
   DevicesItemsWasRequestedFromAPI: boolean,
-  DroppedMenuButtonClickedId: DroppedMenuButtonClickedType,  
+  DroppedMenuButtonClickedId: DroppedMenuButtonClickedType,
+  isFirefoxInUse: boolean,
   changeDroppedMenuClickedId: 
   (payload: DroppedMenuButtonClickedType) => any,
   makeDevicesItemsRequestFromAPI: () => any,
+  makeLoadingAndStatusRequestFromAPI: () => any,
 }
 
 export const Devices: React.SFC<DevicesProps> = (props) => {
   const {
-    DevicesTableItemsCollection,
     DevicesItemsWasRequestedFromAPI,
     makeDevicesItemsRequestFromAPI,
-    DroppedMenuButtonClickedId,
-    changeDroppedMenuClickedId,
+    DevicesTableItemsCollection,
   } = props;
 
   // Запрос данных таблицы
@@ -58,70 +61,72 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
     if ( !DevicesItemsWasRequestedFromAPI ) {
       makeDevicesItemsRequestFromAPI();
     }
+    console.log('getDevicesItems');
     return DevicesTableItemsCollection;
   };
   const devicesItems = getDevicesItems();
 
-  // Проверка User-Agent браузера пользователя
-  const getFirefoxInUse = () => {
-    if ( window.navigator.userAgent.indexOf('Firefox') === -1 ) {
-      return false;
-    } else {
-      return true;
-    }    
-  };
-  const isFirefoxInUse: boolean = getFirefoxInUse();
-
-  // Обработчики событий
-  const droppedMenuHandlerRemove = () => {
-    document.removeEventListener('click', droppedMenuHandlerRemove);
-
-    console.log('User-Agent:', window.navigator.userAgent);
-    changeDroppedMenuClickedId('');
-  };
-
-  const devicesDroppedMenuHandler = 
-  (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const current: string =
-      String(e.currentTarget.getAttribute('data-button-id'));
-    if ( DroppedMenuButtonClickedId === '' ) {
-      document.addEventListener('click', droppedMenuHandlerRemove);
-      changeDroppedMenuClickedId(current);
-    } else {
-      if ( current === DroppedMenuButtonClickedId ) {
-        changeDroppedMenuClickedId('');
-      } else {
-        e.nativeEvent.stopImmediatePropagation();
-        changeDroppedMenuClickedId(current);
-      }
-    }
-  };
-
-  type actionMenuType = {
-    value: string,
-    to: string
-  }
-
-  const actionMenu: actionMenuType[] = [
-    {
-      value: 'Обзор',
-      to: '',
-    },
-    {
-      value: 'Настроить уведомления',
-      to: 'aaa'
-    },
-    {
-      value: 'Удалить',
-      to: 'bbb',
-    }
-  ];
-
   if ( devicesItems.length !== 0 ) {
+    const {
+      DroppedMenuButtonClickedId,
+      isFirefoxInUse,
+      changeDroppedMenuClickedId,
+      // makeLoadingAndStatusRequestFromAPI
+    } = props;
+
+    console.log(
+      ( isFirefoxInUse ) 
+        ? 'This is Firefox' 
+        : 'This is NOT Firefox'
+    );
+
+    // Обработчики событий
+    const droppedMenuHandlerRemove = () => {
+      document.removeEventListener('click', droppedMenuHandlerRemove);
+      changeDroppedMenuClickedId('');
+    };
+
+    const devicesDroppedMenuHandler = 
+    (e: React.MouseEvent<HTMLAnchorElement>) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const current: string =
+        String(e.currentTarget.getAttribute('data-button-id'));
+      if ( DroppedMenuButtonClickedId === '' ) {
+        document.addEventListener('click', droppedMenuHandlerRemove);
+        changeDroppedMenuClickedId(current);
+      } else {
+        if ( current === DroppedMenuButtonClickedId ) {
+          changeDroppedMenuClickedId('');
+        } else {
+          e.nativeEvent.stopImmediatePropagation();
+          changeDroppedMenuClickedId(current);
+        }
+      }
+    };
+
+    type actionMenuType = {
+      value: string,
+      to: string
+    }
+
+    const actionMenu: actionMenuType[] = [
+      {
+        value: 'Обзор',
+        to: '',
+      },
+      {
+        value: 'Настроить уведомления',
+        to: 'aaa'
+      },
+      {
+        value: 'Удалить',
+        to: 'bbb',
+      }
+    ];
+
     return (
-      <DevicesLayout>
+      <DevicesLayout onTransitionEnd={()=>{console.log('loading complete')}}>
         <DevicesHeader>{'Все устройства'}</DevicesHeader>
         <DevicesTable>
           <DevicesTableHead>
@@ -188,12 +193,12 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
               </DevicesTableBodyColl>
               <DevicesTableBodyColl isFirefoxInUse={isFirefoxInUse}>
                 <DevicesTableBodyLink to={e.to}>
-
+                  <DevicesLoadConnected id={e.to} />
                 </DevicesTableBodyLink>
               </DevicesTableBodyColl>
               <DevicesTableBodyColl isFirefoxInUse={isFirefoxInUse}>
                 <DevicesTableBodyLink to={e.to}>
-                
+                  
                 </DevicesTableBodyLink>
               </DevicesTableBodyColl>
               <DevicesTableBodyColl isFirefoxInUse={isFirefoxInUse}>

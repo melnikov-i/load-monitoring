@@ -3,3 +3,4 @@ export * from './MainConnected';
 export * from './LoginConnected';
 export * from './DeviceConnected';
 export * from './DevicesConnected';
+export * from './DevicesLoadConnected';

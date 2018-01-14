@@ -43,3 +43,8 @@ export const DroppedMenuButtonClickedIdSelector = createSelector(
     ( state: RootState ) => state.main.DroppedMenuButtonClickedId,
     ( DroppedMenuButtonClickedId ) => DroppedMenuButtonClickedId,
   );
+
+export const isFirefoxInUseSelector = createSelector(
+    ( state: RootState ) => state.main.isFirefoxInUse,
+    ( isFirefoxInUse ) => isFirefoxInUse,
+  );

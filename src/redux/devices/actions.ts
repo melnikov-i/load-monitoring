@@ -2,6 +2,7 @@ import sendRequestToAPI from '@src/ajax';
 
 import {
   DevicesTableInterface,
+  // DLoadAndStateInterfaces
 } from '@src/interfaces';
 
 import { Dispatch } from '@src/redux';
@@ -45,7 +46,7 @@ export const asyncActionCreators = {
       dispatch(
         syncActionCreators.devicesItemsWasRequestedFromAPI()
       );
-      sendRequestToAPI.get('/list_data.php').then(
+      sendRequestToAPI.post('/list_data.php').then(
         ( response ) => {
           if ( response.data.table !== null ) {
             const items: DevicesTableInterface[] = response.data.table;
@@ -68,4 +69,13 @@ export const asyncActionCreators = {
       );
     }
   },
+  // makeLoadingAndStatusRequestFromAPI: 
+  // ( payload: DLoadAndStateInterfaces[] ) => {
+  //   return ( dispatch: Dispatch ) => {
+  //     payload.map((e, i) => {
+  //       console.log('Load And Status', e);
+
+  //     })
+  //   }
+  // }
 };

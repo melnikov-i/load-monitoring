@@ -12,10 +12,8 @@ const FontAwesomeWOFF = require('@src/fonts/fontawesome-webfont.woff');
 const FontAwesomeTTF = require('@src/fonts/fontawesome-webfont.ttf');
 const FontAwesomeSVG = require('@src/fonts/fontawesome-webfont.svg');
 
-import { 
-  MainContainer,
-  LoginContainer,
-} from '@src/containers';
+import MainConnected from '@src/connected/MainConnected.usage';
+import LoginConnected from '@src/connected/LoginConnected.usage';
 
 import {
   FOOTER_HEIGHT,
@@ -117,14 +115,14 @@ export const App: React.SFC<AppProps> = (props) => {
     <Switch>
       <Route exact path={'/login'} render={() => (
         !isAuthorized ? (
-          <LoginContainer />
+          <LoginConnected />
         ) : (
           <Redirect to={'/'} />
         )
       )} />
       <Route path={'/'} render={() => (
         isAuthorized ? (
-          <MainContainer />
+          <MainConnected />
         ) : (
           <Redirect to={'/login'} />
         )

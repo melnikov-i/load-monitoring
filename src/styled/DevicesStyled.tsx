@@ -10,7 +10,7 @@ import {
 
 import {
   DTSpanIconProps,
-  DActionButtonClickedInterface
+  DActionAnchorClickedInterface
 } from '@src/interfaces';
 
 export const DevicesLayout = styled.div`
@@ -172,6 +172,8 @@ export const DevicesTableBodyWrapperLast = styled.div`
 
 export const DevicesTableActionAnchor = styled.a`
   width: 100%;
+  max-width: 80px;
+  margin: 0 auto;
   height: 20px;
   display: block;
   text-align: center;
@@ -182,13 +184,13 @@ export const DevicesTableActionAnchor = styled.a`
   cursor: pointer;
   font-size: 12px;
 
-  border: 1px solid ${( props: DActionButtonClickedInterface ) => (
+  border: 1px solid ${( props: DActionAnchorClickedInterface ) => (
       ( props.isClicked )
       ? '#8c8c8c'
       : '#e7eaec'
     )
   };
-  background-color: ${( props: DActionButtonClickedInterface ) => (
+  background-color: ${( props: DActionAnchorClickedInterface ) => (
       ( props.isClicked )
       ? '#d4d4d4'
       : '#fff'
@@ -198,13 +200,13 @@ export const DevicesTableActionAnchor = styled.a`
     outline: 0 solid transparent;
   };
   &:hover {
-    background-color: ${( props: DActionButtonClickedInterface ) => (
+    background-color: ${( props: DActionAnchorClickedInterface ) => (
       ( props.isClicked )
       ? '#d4d4d4'
       : '#e6e6e6'
     )
   };
-    border: 1px solid ${( props: DActionButtonClickedInterface ) => (
+    border: 1px solid ${( props: DActionAnchorClickedInterface ) => (
       ( props.isClicked )
       ? '#8c8c8c'
       : '#d2d2d2'
@@ -214,7 +216,7 @@ export const DevicesTableActionAnchor = styled.a`
 `;
 
 export const DevicesTableActionMenuLayout = styled.ul`
-  display: ${(props: DActionButtonClickedInterface) => (
+  display: ${(props: DActionAnchorClickedInterface) => (
       ( props.isClicked )
       ? 'block'
       : 'none'

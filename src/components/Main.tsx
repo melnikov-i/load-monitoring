@@ -32,8 +32,8 @@ import {
   MainTop,
   SmallMenuButton,
   MainContent,
-  UserMenuButton,
-  UserMenuButtonSpan,
+  UserMenuAnchor,
+  UserMenuAnchorSpan,
   UserMenuLayout,
   UserMenuItem,
   UserMenuLink,
@@ -156,7 +156,7 @@ export const Main: React.SFC<MainProps> = (props) => {
     };
 
     const droppedMenuHandler = 
-    (e: React.MouseEvent<HTMLButtonElement>) => {
+    (e: React.MouseEvent<HTMLAnchorElement>) => {
       e.preventDefault();
       e.stopPropagation();
       const current: string =
@@ -185,33 +185,33 @@ export const Main: React.SFC<MainProps> = (props) => {
             id={'smallMenuButton'} />
           <MainMenuLogoWrapper>
             <MainMenuLogo>
-              <UserMenuButton 
+              <UserMenuAnchor 
               onClick={(e) => droppedMenuHandler(e)}
               data-button-id={'00'}>
-                <UserMenuButtonSpan
+                <UserMenuAnchorSpan
                 isClicked={DroppedMenuButtonClickedId === '00'}>
                   { UserMenuItemsCollection.user[0].login }                  
-                </UserMenuButtonSpan>
-                <UserMenuLayout
-                isClicked={DroppedMenuButtonClickedId === '00'}>
-            {
-              UserMenuItemsCollection.links.map((e, i) => {
-                return (
-                  <UserMenuItem key={i}>
-                    <UserMenuLink
-                    to={'/' + e.to}
-                    title={e.value}
-                    onClick={ (e.to === 'exit') ? logOutHandler : null }>
-                      <UserMenuLinkSpan>
-                        { e.value }
-                      </UserMenuLinkSpan>
-                    </UserMenuLink>
-                  </UserMenuItem>
-                );
-              })
-            }
-                </UserMenuLayout>              
-              </UserMenuButton>              
+                </UserMenuAnchorSpan>
+              </UserMenuAnchor>              
+              <UserMenuLayout
+              isClicked={DroppedMenuButtonClickedId === '00'}>
+          {
+            UserMenuItemsCollection.links.map((e, i) => {
+              return (
+                <UserMenuItem key={i}>
+                  <UserMenuLink
+                  to={'/' + e.to}
+                  title={e.value}
+                  onClick={ (e.to === 'exit') ? logOutHandler : null }>
+                    <UserMenuLinkSpan>
+                      { e.value }
+                    </UserMenuLinkSpan>
+                  </UserMenuLink>
+                </UserMenuItem>
+              );
+            })
+          }
+              </UserMenuLayout>              
             </MainMenuLogo>
           </MainMenuLogoWrapper>
           <MainMenuLayout>
