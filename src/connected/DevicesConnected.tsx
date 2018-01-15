@@ -5,7 +5,8 @@ import { Dispatch, RootState } from '@src/redux';
 import { withRouter } from 'react-router-dom';
 
 import {
-  asyncActionCreators
+  asyncActionCreators,
+  syncActionCreators
 } from '@src/redux/devices';
 import { 
   syncActionCreators as mainActionCreators 
@@ -15,7 +16,7 @@ import { Devices } from '@src/components';
 
 import {
   DevicesTableInterface,
-  DroppedMenuButtonClickedType
+  DroppedMenuButtonClickedType,
 } from '@src/interfaces';
 
 import {
@@ -34,16 +35,16 @@ const mapStateToProps = createStructuredSelector<RootState, {
     DevicesTableItemsCollection: DevicesTableItemsCollectionSelector,
     DevicesItemsWasRequestedFromAPI: DevicesItemsWasRequestedFromAPISelector,
     DroppedMenuButtonClickedId: DroppedMenuButtonClickedIdSelector,
-    isFirefoxInUse: isFirefoxInUseSelector
+    isFirefoxInUse: isFirefoxInUseSelector,
   });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
   makeDevicesItemsRequestFromAPI: 
     asyncActionCreators.makeDevicesItemsRequestFromAPI,
-  // makeLoadingAndStatusRequestFromAPI:
-  //   asyncActionCreators.makeLoadingAndStatusRequestFromAPI,
   changeDroppedMenuClickedId: 
     mainActionCreators.changeDroppedMenuClickedId,
+  addDevicesInDevicesLoadCollection:
+    syncActionCreators.addDevicesInDevicesLoadCollection,
 }, dispatch);
 
 export const DevicesConnected = 

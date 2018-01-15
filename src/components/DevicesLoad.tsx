@@ -1,24 +1,81 @@
 import * as React from 'react';
 
 import {
-  DevicesLoadLayout
+  DevicesLoadLayout,
+  DevicesLoadInfo,
+  DevicesLoadInfoSpan,
 } from '@src/styled';
 
 import {
-  DevicesTableInterface
+  DevicesTableInterface,
+  DevicesLoadInterface
 } from '@src/interfaces';
 
 interface DevicesLoadProps {
   id: DevicesTableInterface['to'],
-
+  DevicesLoadCollection: DevicesLoadInterface[],
+  TestValue: number,
+  makeTest: () => any,
 }
 
 export const DevicesLoad: React.SFC<DevicesLoadProps> = (props) => {
-  const { id } = props;
-  console.log('id', id);
+  const {
+    DevicesLoadCollection,
+    // id,
+  } = props;
+
+  // const DevicesLoadItem = () => {
+  //   for ( let i = 0; i < DevicesLoadCollection.length; i++ ) {
+  //     if ( DevicesLoadCollection[i].id === id )
+  //       return DevicesLoadCollection[i];
+  //   }
+  //   return 
+  // }
+
+  
+  //   DevicesLoadCollection.forEach((e) => {
+  //     if ( e.id === id )
+  //       return e;
+  //     return {
+  //       id: id,
+  //       params: {
+  //         state: 'unknown',
+  //         lastconn: 0,
+  //         loading: {
+  //           cpu: '-',
+  //           ram: '-'
+  //         }
+  //       }
+  //     };
+  //   });
+
+  // console.log(
+  //   'getDevicesLoadItem',
+  //   getDevicesLoadItem
+  // );
+
+  // const devicesLoadItem = () => {
+  //   makeDevicesLoadRequestToAPI(getDevicesLoadItem);
+  //   return 
+  // };
+  
+  console.log(
+    'DevicesLoadCollection:',
+    DevicesLoadCollection
+  );
+
   return (
     <DevicesLoadLayout>
-      { id }
+      <DevicesLoadInfo>
+        <DevicesLoadInfoSpan>
+          { 'CPU:' }
+        </DevicesLoadInfoSpan>        
+      </DevicesLoadInfo>
+      <DevicesLoadInfo>
+        <DevicesLoadInfoSpan>
+          { 'RAM:' }
+        </DevicesLoadInfoSpan>        
+      </DevicesLoadInfo>
     </DevicesLoadLayout>
   );
 };

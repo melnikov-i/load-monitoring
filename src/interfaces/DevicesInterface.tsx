@@ -2,7 +2,7 @@ interface DeviceTableIconInterface {
   icon: string,
 }
 
-export interface CurrentLoadInterface {
+export interface LoadParamsInterface {
   state: string,
   lastconn: number,
   loading: {
@@ -25,9 +25,9 @@ export interface DActionAnchorClickedInterface {
   isClicked: boolean,
 }
 
-export interface DLoadAndStateInterfaces {
+export interface DevicesLoadInterface {
   id: string,
-  params: CurrentLoadInterface
+  params: LoadParamsInterface
 }
 
 export type DTSpanIconProps =

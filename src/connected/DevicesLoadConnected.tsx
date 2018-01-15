@@ -1,34 +1,39 @@
-// import { bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { /*Dispatch, */RootState } from '@src/redux';
-import { withRouter } from 'react-router-dom';
+import { Dispatch, RootState } from '@src/redux';
 
-// import {
-//   asyncActionCreators
-// } from '@src/redux/devices';
+import {
+  asyncActionCreators
+} from '@src/redux/devices';
 
 import { DevicesLoad } from '@src/components';
 
 import {
-
+  DevicesLoadInterface,
 } from '@src/interfaces';
 
 import {
+  DevicesLoadCollectionSelector,
   
+  TestValueSelector,
 } from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector<RootState, {
+    DevicesLoadCollection: DevicesLoadInterface[],
 
+    TestValue: number,
   }>({
-
+    TestValue: TestValueSelector,
+    
+    DevicesLoadCollection: DevicesLoadCollectionSelector,
   });
 
-// const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
+const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
+  
 
-// }, dispatch);
+  makeTest: asyncActionCreators.makeTest,
+}, dispatch);
 
 export const DevicesLoadConnected = 
-  withRouter(
-    connect(mapStateToProps, /*mapDispatchToProps*/{})(DevicesLoad)
-  );
+  connect(mapStateToProps, mapDispatchToProps)(DevicesLoad);

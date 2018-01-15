@@ -31,7 +31,7 @@ import {
 import {
   DevicesTableInterface,
   DroppedMenuButtonClickedType,
-  // DLoadAndStateInterfaces
+  DevicesLoadInterface,
 } from '@src/interfaces';
 
 import { Spinner } from '@src/components';
@@ -46,7 +46,8 @@ interface DevicesProps {
   changeDroppedMenuClickedId: 
   (payload: DroppedMenuButtonClickedType) => any,
   makeDevicesItemsRequestFromAPI: () => any,
-  makeLoadingAndStatusRequestFromAPI: () => any,
+  addDevicesInDevicesLoadCollection: 
+  ( payload: DevicesLoadInterface[] ) => any
 }
 
 export const Devices: React.SFC<DevicesProps> = (props) => {
@@ -54,6 +55,7 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
     DevicesItemsWasRequestedFromAPI,
     makeDevicesItemsRequestFromAPI,
     DevicesTableItemsCollection,
+    addDevicesInDevicesLoadCollection
   } = props;
 
   // Запрос данных таблицы
@@ -61,7 +63,23 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
     if ( !DevicesItemsWasRequestedFromAPI ) {
       makeDevicesItemsRequestFromAPI();
     }
-    console.log('getDevicesItems');
+    if ( DevicesTableItemsCollection.length !== 0 ) {
+      const payload: DevicesLoadInterface[] = 
+      DevicesTableItemsCollection.map((e) => {
+        return {
+          id: e.to,
+          params: {
+            state: '',
+            lastconn: 0,
+            loading: {
+              cpu: '',
+              ram: '',
+            }
+          }
+        }
+      });
+      addDevicesInDevicesLoadCollection(payload);
+    }
     return DevicesTableItemsCollection;
   };
   const devicesItems = getDevicesItems();
@@ -71,7 +89,6 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
       DroppedMenuButtonClickedId,
       isFirefoxInUse,
       changeDroppedMenuClickedId,
-      // makeLoadingAndStatusRequestFromAPI
     } = props;
 
     console.log(

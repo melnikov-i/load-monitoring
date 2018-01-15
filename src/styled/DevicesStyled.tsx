@@ -124,6 +124,7 @@ export const DevicesTableBodyCompNameSpan = styled.span`
     font-weight: normal;
     font-size: ${ FA_SMALL_FONT_SIZE };
     margin-right: 9px;
+    margin-left: 10px;
   }
 `;
 

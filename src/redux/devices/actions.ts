@@ -2,7 +2,7 @@ import sendRequestToAPI from '@src/ajax';
 
 import {
   DevicesTableInterface,
-  // DLoadAndStateInterfaces
+  DevicesLoadInterface,
 } from '@src/interfaces';
 
 import { Dispatch } from '@src/redux';
@@ -15,6 +15,10 @@ export const PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION =
   'PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION';
 export const DEVICES_ITEMS_WAS_REQUESTED_FROM_API =
   'DEVICES_ITEMS_WAS_REQUESTED_FROM_API';
+export const ADD_DEVICES_IN_DEVICES_LOAD_COLLECTION =
+  'ADD_DEVICES_IN_DEVICES_LOAD_COLLECTION';
+
+export const CHANGE_TEST_VALUE = 'CHANGE_TEST_VALUE';
 
 export type Actions = {
   PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION: {
@@ -24,6 +28,14 @@ export type Actions = {
   DEVICES_ITEMS_WAS_REQUESTED_FROM_API: {
     type: typeof DEVICES_ITEMS_WAS_REQUESTED_FROM_API,
   },
+  ADD_DEVICES_IN_DEVICES_LOAD_COLLECTION: {
+    type: typeof ADD_DEVICES_IN_DEVICES_LOAD_COLLECTION,
+    payload: DevicesLoadInterface[],
+  },
+
+  CHANGE_TEST_VALUE: {
+    type: typeof CHANGE_TEST_VALUE,
+  }
 }
 
 // Sync Action Creators
@@ -37,6 +49,16 @@ export const syncActionCreators = {
   Actions[typeof DEVICES_ITEMS_WAS_REQUESTED_FROM_API] => ({
     type: DEVICES_ITEMS_WAS_REQUESTED_FROM_API,
   }),
+  addDevicesInDevicesLoadCollection: 
+  ( payload: DevicesLoadInterface[] ):
+  Actions[typeof ADD_DEVICES_IN_DEVICES_LOAD_COLLECTION] => ({
+    type: ADD_DEVICES_IN_DEVICES_LOAD_COLLECTION, payload
+  }),
+
+  changeTestValue: ():
+  Actions[typeof CHANGE_TEST_VALUE] => ({
+    type: CHANGE_TEST_VALUE,
+  })
 };
 
 // Async Action Creators
@@ -69,6 +91,15 @@ export const asyncActionCreators = {
       );
     }
   },
+
+
+  makeTest: () => {
+    return ( dispatch: Dispatch ) => {
+      dispatch(
+        syncActionCreators.changeTestValue()
+      );
+    }
+  }
   // makeLoadingAndStatusRequestFromAPI: 
   // ( payload: DLoadAndStateInterfaces[] ) => {
   //   return ( dispatch: Dispatch ) => {
