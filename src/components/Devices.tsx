@@ -31,7 +31,7 @@ import {
 import {
   DevicesTableInterface,
   DroppedMenuButtonClickedType,
-  DevicesLoadInterface,
+  LoadParamsInterface,
 } from '@src/interfaces';
 
 import { Spinner } from '@src/components';
@@ -47,7 +47,7 @@ interface DevicesProps {
   (payload: DroppedMenuButtonClickedType) => any,
   makeDevicesItemsRequestFromAPI: () => any,
   addDevicesInDevicesLoadCollection: 
-  ( payload: DevicesLoadInterface[] ) => any
+  ( payload: LoadParamsInterface ) => any
 }
 
 export const Devices: React.SFC<DevicesProps> = (props) => {
@@ -59,23 +59,23 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
   } = props;
 
   // Запрос данных таблицы
-  const getDevicesItems = (): DevicesTableInterface[] => {
+  const getDevicesItems = () => {
     if ( !DevicesItemsWasRequestedFromAPI ) {
       makeDevicesItemsRequestFromAPI();
     }
     if ( DevicesTableItemsCollection.length !== 0 ) {
-      const payload: DevicesLoadInterface[] = 
-      DevicesTableItemsCollection.map((e) => {
-        return {
-          id: e.to,
-          params: {
+      let payload: LoadParamsInterface = {};
+      DevicesTableItemsCollection.forEach((e) => {
+        payload = {
+          ...payload,
+          [e.to]: {
             state: '',
             lastconn: 0,
             loading: {
               cpu: '',
               ram: '',
             }
-          }
+          },
         }
       });
       addDevicesInDevicesLoadCollection(payload);
@@ -90,12 +90,6 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
       isFirefoxInUse,
       changeDroppedMenuClickedId,
     } = props;
-
-    console.log(
-      ( isFirefoxInUse ) 
-        ? 'This is Firefox' 
-        : 'This is NOT Firefox'
-    );
 
     // Обработчики событий
     const droppedMenuHandlerRemove = () => {

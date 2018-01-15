@@ -8,60 +8,34 @@ import {
 
 import {
   DevicesTableInterface,
-  DevicesLoadInterface
+  LoadParamsInterface
 } from '@src/interfaces';
 
 interface DevicesLoadProps {
   id: DevicesTableInterface['to'],
-  DevicesLoadCollection: DevicesLoadInterface[],
-  TestValue: number,
-  makeTest: () => any,
+  DevicesLoadCollection: LoadParamsInterface,
+  getCurrentDeviceLoadParamsFromAPI:
+  ( payload: DevicesTableInterface['to'] ) => any,
 }
 
 export const DevicesLoad: React.SFC<DevicesLoadProps> = (props) => {
   const {
+    id,
     DevicesLoadCollection,
-    // id,
+    getCurrentDeviceLoadParamsFromAPI,
   } = props;
 
-  // const DevicesLoadItem = () => {
-  //   for ( let i = 0; i < DevicesLoadCollection.length; i++ ) {
-  //     if ( DevicesLoadCollection[i].id === id )
-  //       return DevicesLoadCollection[i];
-  //   }
-  //   return 
-  // }
-
-  
-  //   DevicesLoadCollection.forEach((e) => {
-  //     if ( e.id === id )
-  //       return e;
-  //     return {
-  //       id: id,
-  //       params: {
-  //         state: 'unknown',
-  //         lastconn: 0,
-  //         loading: {
-  //           cpu: '-',
-  //           ram: '-'
-  //         }
-  //       }
-  //     };
-  //   });
-
-  // console.log(
-  //   'getDevicesLoadItem',
-  //   getDevicesLoadItem
-  // );
-
-  // const devicesLoadItem = () => {
-  //   makeDevicesLoadRequestToAPI(getDevicesLoadItem);
-  //   return 
-  // };
+  const getDeviceLoadParams = () => {
+    if ( DevicesLoadCollection[id] !== undefined ) {
+      getCurrentDeviceLoadParamsFromAPI(id);
+      return DevicesLoadCollection[id];
+    }
+  };
+  const deviceLoadParams = getDeviceLoadParams();
   
   console.log(
     'DevicesLoadCollection:',
-    DevicesLoadCollection
+    DevicesLoadCollection['id']
   );
 
   return (
@@ -69,12 +43,14 @@ export const DevicesLoad: React.SFC<DevicesLoadProps> = (props) => {
       <DevicesLoadInfo>
         <DevicesLoadInfoSpan>
           { 'CPU:' }
-        </DevicesLoadInfoSpan>        
+        </DevicesLoadInfoSpan>
+        { deviceLoadParams.loading.cpu }
       </DevicesLoadInfo>
       <DevicesLoadInfo>
         <DevicesLoadInfoSpan>
           { 'RAM:' }
-        </DevicesLoadInfoSpan>        
+        </DevicesLoadInfoSpan>
+        { deviceLoadParams.loading.ram }
       </DevicesLoadInfo>
     </DevicesLoadLayout>
   );

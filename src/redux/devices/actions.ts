@@ -2,7 +2,7 @@ import sendRequestToAPI from '@src/ajax';
 
 import {
   DevicesTableInterface,
-  DevicesLoadInterface,
+  LoadParamsInterface,
 } from '@src/interfaces';
 
 import { Dispatch } from '@src/redux';
@@ -17,8 +17,8 @@ export const DEVICES_ITEMS_WAS_REQUESTED_FROM_API =
   'DEVICES_ITEMS_WAS_REQUESTED_FROM_API';
 export const ADD_DEVICES_IN_DEVICES_LOAD_COLLECTION =
   'ADD_DEVICES_IN_DEVICES_LOAD_COLLECTION';
-
-export const CHANGE_TEST_VALUE = 'CHANGE_TEST_VALUE';
+export const ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION =
+  'ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION';
 
 export type Actions = {
   PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION: {
@@ -30,11 +30,11 @@ export type Actions = {
   },
   ADD_DEVICES_IN_DEVICES_LOAD_COLLECTION: {
     type: typeof ADD_DEVICES_IN_DEVICES_LOAD_COLLECTION,
-    payload: DevicesLoadInterface[],
+    payload: LoadParamsInterface,
   },
-
-  CHANGE_TEST_VALUE: {
-    type: typeof CHANGE_TEST_VALUE,
+  ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION: {
+    type: typeof ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION,
+    payload: LoadParamsInterface,
   }
 }
 
@@ -50,15 +50,15 @@ export const syncActionCreators = {
     type: DEVICES_ITEMS_WAS_REQUESTED_FROM_API,
   }),
   addDevicesInDevicesLoadCollection: 
-  ( payload: DevicesLoadInterface[] ):
+  ( payload: LoadParamsInterface ):
   Actions[typeof ADD_DEVICES_IN_DEVICES_LOAD_COLLECTION] => ({
     type: ADD_DEVICES_IN_DEVICES_LOAD_COLLECTION, payload
   }),
-
-  changeTestValue: ():
-  Actions[typeof CHANGE_TEST_VALUE] => ({
-    type: CHANGE_TEST_VALUE,
-  })
+  addCurrentDeviceInDevicesCollection:
+  ( payload: LoadParamsInterface ):
+  Actions[typeof ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION] => ({
+    type: ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION, payload
+  }),
 };
 
 // Async Action Creators
@@ -91,22 +91,27 @@ export const asyncActionCreators = {
       );
     }
   },
-
-
-  makeTest: () => {
+  getCurrentDeviceLoadParamsFromAPI: 
+  ( payload: DevicesTableInterface['to'] ) => {
     return ( dispatch: Dispatch ) => {
-      dispatch(
-        syncActionCreators.changeTestValue()
+      sendRequestToAPI.post(
+        '/get_current_load_test.php',
+        {machine_id: payload}
+      ).then(
+        ( response ) => {
+          console.log('actions:', response.data);
+          // setTimeout(() => {
+          //   dispatch(
+          //     syncActionCreators.addCurrentDeviceInDevicesCollection(payload)
+          //   )
+          // }, 5000);
+        }
+      )
+      .catch(
+        ( error ) => {
+          console.log('[ERROR]:', error);
+        }
       );
     }
   }
-  // makeLoadingAndStatusRequestFromAPI: 
-  // ( payload: DLoadAndStateInterfaces[] ) => {
-  //   return ( dispatch: Dispatch ) => {
-  //     payload.map((e, i) => {
-  //       console.log('Load And Status', e);
-
-  //     })
-  //   }
-  // }
 };

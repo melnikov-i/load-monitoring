@@ -19,11 +19,3 @@ export const DevicesLoadCollectionSelector =
     ( state: RootState ) => state.devices.DevicesLoadCollection,
     ( DevicesLoadCollection ) => DevicesLoadCollection,
   );
-
-  
-
-export const TestValueSelector =
-  createSelector(
-    ( state: RootState ) => state.devices.TestValue,
-    ( TestValue ) => TestValue,
-  );

@@ -2,15 +2,13 @@ import { combineReducers } from 'redux';
 
 import {
   DevicesTableInterface,
-  DevicesLoadInterface,
+  LoadParamsInterface,
 } from '@src/interfaces';
 
 import {
   PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION,
   DEVICES_ITEMS_WAS_REQUESTED_FROM_API,
   ADD_DEVICES_IN_DEVICES_LOAD_COLLECTION,
-
-  CHANGE_TEST_VALUE
 } from '@src/redux/devices';
 
 import {
@@ -20,9 +18,7 @@ import {
 export type State = {
   readonly DevicesTableItemsCollection: DevicesTableInterface[],
   readonly DevicesItemsWasRequestedFromAPI: boolean,
-  readonly DevicesLoadCollection: DevicesLoadInterface[],
-
-  readonly TestValue: number,
+  readonly DevicesLoadCollection: LoadParamsInterface,
 };
 
 export const reducer = combineReducers({
@@ -46,22 +42,12 @@ export const reducer = combineReducers({
         return state;
     }
   },
-  DevicesLoadCollection: ( state = [], action ) => {
+  DevicesLoadCollection: ( state = {}, action ) => {
     switch ( action.type ) {
       case ADD_DEVICES_IN_DEVICES_LOAD_COLLECTION:
-        return [...action.payload];
+        return action.payload;
       default:
         return state;
     }
   },
-
-  TestValue: ( state = 0, action ) => {
-    switch ( action.type ) {
-      case CHANGE_TEST_VALUE:
-        const newState = state++;
-        return newState;
-      default:
-        return state;
-    }
-  }
 });

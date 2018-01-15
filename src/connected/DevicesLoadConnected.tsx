@@ -10,29 +10,22 @@ import {
 import { DevicesLoad } from '@src/components';
 
 import {
-  DevicesLoadInterface,
+  LoadParamsInterface,
 } from '@src/interfaces';
 
 import {
   DevicesLoadCollectionSelector,
-  
-  TestValueSelector,
 } from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector<RootState, {
-    DevicesLoadCollection: DevicesLoadInterface[],
-
-    TestValue: number,
+    DevicesLoadCollection: LoadParamsInterface,
   }>({
-    TestValue: TestValueSelector,
-    
     DevicesLoadCollection: DevicesLoadCollectionSelector,
   });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
-  
-
-  makeTest: asyncActionCreators.makeTest,
+  getCurrentDeviceLoadParamsFromAPI: 
+    asyncActionCreators.getCurrentDeviceLoadParamsFromAPI,
 }, dispatch);
 
 export const DevicesLoadConnected = 

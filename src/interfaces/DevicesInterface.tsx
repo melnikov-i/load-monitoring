@@ -3,11 +3,11 @@ interface DeviceTableIconInterface {
 }
 
 export interface LoadParamsInterface {
-  state: string,
-  lastconn: number,
-  loading: {
-    cpu: string,
-    ram: string,
+  state?: string,
+  lastconn?: number,
+  loading?: {
+    cpu?: string,
+    ram?: string,
   }
 }
 
