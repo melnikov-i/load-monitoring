@@ -33,10 +33,12 @@ export const DevicesLoad: React.SFC<DevicesLoadProps> = (props) => {
   };
   const deviceLoadParams = getDeviceLoadParams();
   
+  console.log('============');
   console.log(
     'DevicesLoadCollection:',
-    DevicesLoadCollection['id']
+    DevicesLoadCollection[id]
   );
+  console.log('============');
 
   return (
     <DevicesLoadLayout>
@@ -44,13 +46,13 @@ export const DevicesLoad: React.SFC<DevicesLoadProps> = (props) => {
         <DevicesLoadInfoSpan>
           { 'CPU:' }
         </DevicesLoadInfoSpan>
-        { deviceLoadParams.loading.cpu }
+        { deviceLoadParams.loading.cpu + '%' }
       </DevicesLoadInfo>
       <DevicesLoadInfo>
         <DevicesLoadInfoSpan>
           { 'RAM:' }
         </DevicesLoadInfoSpan>
-        { deviceLoadParams.loading.ram }
+        { deviceLoadParams.loading.ram + '%'}
       </DevicesLoadInfo>
     </DevicesLoadLayout>
   );

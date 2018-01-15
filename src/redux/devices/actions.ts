@@ -3,6 +3,7 @@ import sendRequestToAPI from '@src/ajax';
 import {
   DevicesTableInterface,
   LoadParamsInterface,
+  DevicesLoadInterface
 } from '@src/interfaces';
 
 import { Dispatch } from '@src/redux';
@@ -34,7 +35,7 @@ export type Actions = {
   },
   ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION: {
     type: typeof ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION,
-    payload: LoadParamsInterface,
+    payload: DevicesLoadInterface,
   }
 }
 
@@ -55,7 +56,7 @@ export const syncActionCreators = {
     type: ADD_DEVICES_IN_DEVICES_LOAD_COLLECTION, payload
   }),
   addCurrentDeviceInDevicesCollection:
-  ( payload: LoadParamsInterface ):
+  ( payload: DevicesLoadInterface ):
   Actions[typeof ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION] => ({
     type: ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION, payload
   }),
@@ -94,17 +95,35 @@ export const asyncActionCreators = {
   getCurrentDeviceLoadParamsFromAPI: 
   ( payload: DevicesTableInterface['to'] ) => {
     return ( dispatch: Dispatch ) => {
-      sendRequestToAPI.post(
-        '/get_current_load_test.php',
-        {machine_id: payload}
+      sendRequestToAPI.get(
+        '/get_current_load_test.php?machine_id=' + payload
       ).then(
         ( response ) => {
-          console.log('actions:', response.data);
-          // setTimeout(() => {
-          //   dispatch(
-          //     syncActionCreators.addCurrentDeviceInDevicesCollection(payload)
-          //   )
-          // }, 5000);
+          const params: LoadParamsInterface = {
+            state: response.data.state,
+            lastconn: 
+              response.data.lastconn 
+                ? response.data.lastconn 
+                : 0,
+            loading: 
+              response.data.loading 
+                ? response.data.loading
+                : {
+                  cpu: '-',
+                  ram: '-'
+                }
+
+          }
+          const loadParams: DevicesLoadInterface = {
+            id: payload,
+            params: params,
+          }
+          setTimeout(() => {
+            dispatch(
+              syncActionCreators
+                .addCurrentDeviceInDevicesCollection(loadParams)
+            )
+          }, 5000);
         }
       )
       .catch(

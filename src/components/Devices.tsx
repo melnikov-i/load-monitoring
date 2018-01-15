@@ -69,11 +69,11 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
         payload = {
           ...payload,
           [e.to]: {
-            state: '',
+            state: 'unknown',
             lastconn: 0,
             loading: {
-              cpu: '',
-              ram: '',
+              cpu: '-',
+              ram: '-',
             }
           },
         }
