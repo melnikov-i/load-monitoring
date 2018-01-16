@@ -17,7 +17,7 @@ import { Devices } from '@src/components';
 import {
   DevicesTableInterface,
   DroppedMenuButtonClickedType,
-  LoadParamsInterface
+  // LoadParamsInterface
 } from '@src/interfaces';
 
 import {
@@ -26,7 +26,7 @@ import {
   DroppedMenuButtonClickedIdSelector,
   isFirefoxInUseSelector,
   // DevicesLoadItemsWasRequestedFromAPISelector,
-  DevicesLoadCollectionSelector,
+  // DevicesLoadCollectionSelector,
 } from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector<RootState, {
@@ -35,7 +35,7 @@ const mapStateToProps = createStructuredSelector<RootState, {
     DroppedMenuButtonClickedId: DroppedMenuButtonClickedType,
     isFirefoxInUse: boolean,
     // DevicesLoadItemsWasRequestedFromAPI: boolean,
-    DevicesLoadCollection: LoadParamsInterface,
+    // DevicesLoadCollection: LoadParamsInterface,
   }>({
     DevicesTableItemsCollection: DevicesTableItemsCollectionSelector,
     DevicesItemsWasRequestedFromAPI: DevicesItemsWasRequestedFromAPISelector,
@@ -43,7 +43,7 @@ const mapStateToProps = createStructuredSelector<RootState, {
     isFirefoxInUse: isFirefoxInUseSelector,
     // DevicesLoadItemsWasRequestedFromAPI: 
     //   DevicesLoadItemsWasRequestedFromAPISelector,
-    DevicesLoadCollection: DevicesLoadCollectionSelector,
+    // DevicesLoadCollection: DevicesLoadCollectionSelector,
   });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
@@ -51,8 +51,8 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
     asyncActionCreators.makeDevicesItemsRequestFromAPI,
   changeDroppedMenuClickedId: 
     mainActionCreators.changeDroppedMenuClickedId,
-  makeDevicesLoadItemsRequestFromAPI:
-    asyncActionCreators.makeDevicesLoadItemsRequestFromAPI,
+  // makeDevicesLoadItemsRequestFromAPI:
+  //   asyncActionCreators.makeDevicesLoadItemsRequestFromAPI,
   // addDevicesInDevicesLoadCollection:
   //   syncActionCreators.addDevicesInDevicesLoadCollection,
 }, dispatch);

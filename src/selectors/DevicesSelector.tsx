@@ -2,11 +2,7 @@ import { createSelector } from 'reselect';
 
 import { RootState } from '@src/redux';
 
-import { DevicesTableInterface } from '@src/interfaces';
-
-export interface DevicesLoadCurrentItemInterface {
-  id: DevicesTableInterface['to']
-}
+import { DevicesLoadCurrentItemInterface } from '@src/interfaces';
 
 export const DevicesTableItemsCollectionSelector =
   createSelector(
@@ -19,14 +15,6 @@ export const DevicesItemsWasRequestedFromAPISelector =
     ( state: RootState ) => state.devices.DevicesItemsWasRequestedFromAPI,
     ( DevicesItemsWasRequestedFromAPI ) => DevicesItemsWasRequestedFromAPI,
   );
-
-// export const DevicesLoadItemsWasRequestedFromAPISelector =
-//   createSelector(
-//     ( state: RootState ) => 
-//       state.devices.DevicesLoadItemsWasRequestedFromAPI,
-//     ( DevicesLoadItemsWasRequestedFromAPI ) => 
-//       DevicesLoadItemsWasRequestedFromAPI,
-//   );
 
 export const DevicesLoadCurrentItemSelector =
   createSelector(

@@ -15,4 +15,5 @@ export const DevicesLoadInfo = styled.p`
 export const DevicesLoadInfoSpan = styled.span`
   font-size: 13px;
   font-weight: 600;
+  margin-right: 5px;
 `;

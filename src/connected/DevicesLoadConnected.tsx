@@ -4,34 +4,31 @@ import { createStructuredSelector } from 'reselect';
 import { Dispatch, RootState } from '@src/redux';
 
 import {
-  // asyncActionCreators
+  asyncActionCreators
 } from '@src/redux/devices';
 
 import { DevicesLoad } from '@src/components';
 
 import {
   LoadParamsInterface,
+  DevicesLoadCurrentItemInterface
 } from '@src/interfaces';
 
 import {
   DevicesLoadCurrentItemSelector,
-  DevicesLoadCurrentItemInterface
-  // DevicesLoadCollectionSelector,
 } from '@src/selectors';
 
 
-const mapStateToProps = createStructuredSelector<RootState, {
+const mapStateToProps = createStructuredSelector<RootState, 
+DevicesLoadCurrentItemInterface, {
     DevicesLoadCurrentItem: LoadParamsInterface,
-    // DevicesLoadCollection: LoadParamsInterface,
   }>({
     DevicesLoadCurrentItem: DevicesLoadCurrentItemSelector,
-
-    // DevicesLoadCollection: DevicesLoadCollectionSelector,
   });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
-  // getCurrentDeviceLoadParamsFromAPI: 
-    // asyncActionCreators.getCurrentDeviceLoadParamsFromAPI,
+  makeDevicesLoadItemRequestFromAPI: 
+    asyncActionCreators.makeDevicesLoadItemRequestFromAPI,
 }, dispatch);
 
 export const DevicesLoadConnected = 

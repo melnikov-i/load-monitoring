@@ -8,7 +8,7 @@ import {
 import {
   PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION,
   DEVICES_ITEMS_WAS_REQUESTED_FROM_API,
-  ADD_DEVICES_IN_DEVICES_LOAD_COLLECTION,
+  ADD_DEVICE_IN_DEVICES_LOAD_COLLECTION,
   // ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION,
 } from '@src/redux/devices';
 
@@ -52,7 +52,7 @@ export const reducer = combineReducers({
   // },
   DevicesLoadCollection: ( state = {}, action ) => {
     switch ( action.type ) {
-      case ADD_DEVICES_IN_DEVICES_LOAD_COLLECTION:
+      case ADD_DEVICE_IN_DEVICES_LOAD_COLLECTION:
         return {
           ...state, 
           [action.payload.id]: action.payload.params

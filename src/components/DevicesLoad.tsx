@@ -8,52 +8,47 @@ import {
 
 import {
   DevicesTableInterface,
-  // LoadParamsInterface
+  LoadParamsInterface
 } from '@src/interfaces';
 
 interface DevicesLoadProps {
   id: DevicesTableInterface['to'],
-  // DevicesLoadCollection: LoadParamsInterface,
-  // getCurrentDeviceLoadParamsFromAPI:
-  // ( payload: DevicesTableInterface['to'] ) => any,
+  DevicesLoadCurrentItem: LoadParamsInterface,
+  makeDevicesLoadItemRequestFromAPI:
+  ( payload: DevicesTableInterface['to'] ) => any,
 }
 
 export const DevicesLoad: React.SFC<DevicesLoadProps> = (props) => {
   const {
-    // id,
-    // DevicesLoadCollection,
-    // getCurrentDeviceLoadParamsFromAPI,
+    id,
+    DevicesLoadCurrentItem,
+    makeDevicesLoadItemRequestFromAPI,
   } = props;
 
-  // const getDeviceLoadParams = () => {
-    // if ( DevicesLoadCollection[id] !== undefined ) {
-      // getCurrentDeviceLoadParamsFromAPI(id);
-      // return DevicesLoadCollection[id];
-    // }
-  // };
-  // const deviceLoadParams = getDeviceLoadParams();
-  
-  // console.log('============');
-  // console.log(
-  //   'DevicesLoadCollection:',
-  //   DevicesLoadCollection[id]
-  // );
-  // console.log('============');
+  makeDevicesLoadItemRequestFromAPI(id);
 
-        // { deviceLoadParams.loading.cpu + '%' }
-        // { deviceLoadParams.loading.ram + '%'}
-        
+  // console.log('Current_ID:', id);
+  // console.log('Current_ITEM:', DevicesLoadCurrentItem);
+
   return (
     <DevicesLoadLayout>
       <DevicesLoadInfo>
         <DevicesLoadInfoSpan>
           { 'CPU:' }
         </DevicesLoadInfoSpan>
+        {(DevicesLoadCurrentItem.loading.cpu === '')
+          ? '0%'
+          : DevicesLoadCurrentItem.loading.cpu + '%'
+        }
       </DevicesLoadInfo>
       <DevicesLoadInfo>
         <DevicesLoadInfoSpan>
           { 'RAM:' }
         </DevicesLoadInfoSpan>
+        {(DevicesLoadCurrentItem.loading.ram === '')
+          ? '0%'
+          : DevicesLoadCurrentItem.loading.ram + '%'
+        }
       </DevicesLoadInfo>
     </DevicesLoadLayout>
   );

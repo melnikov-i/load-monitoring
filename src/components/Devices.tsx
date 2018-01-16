@@ -31,7 +31,7 @@ import {
 import {
   DevicesTableInterface,
   DroppedMenuButtonClickedType,
-  LoadParamsInterface,
+  // LoadParamsInterface,
 } from '@src/interfaces';
 
 import { Spinner } from '@src/components';
@@ -45,13 +45,13 @@ interface DevicesProps {
   isFirefoxInUse: boolean,
   
   // DevicesLoadItemsWasRequestedFromAPI: boolean,
-  DevicesLoadCollection: LoadParamsInterface,
+  // DevicesLoadCollection: LoadParamsInterface,
 
   changeDroppedMenuClickedId: 
   (payload: DroppedMenuButtonClickedType) => any,
   makeDevicesItemsRequestFromAPI: () => any,
-  makeDevicesLoadItemsRequestFromAPI: 
-  ( payload: DevicesTableInterface[] ) => any,
+  // makeDevicesLoadItemsRequestFromAPI: 
+  // ( payload: DevicesTableInterface[] ) => any,
   // addDevicesInDevicesLoadCollection: 
   // ( payload: LoadParamsInterface ) => any
 }
@@ -80,11 +80,11 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
       DroppedMenuButtonClickedId,
       isFirefoxInUse,
       changeDroppedMenuClickedId,
-      DevicesLoadCollection,
+      // DevicesLoadCollection,
       // addDevicesInDevicesLoadCollection
     } = props;
 
-    console.log('DevicesLoadCollection', DevicesLoadCollection);
+    // console.log('DevicesLoadCollection', DevicesLoadCollection);
 
     // Запрос данных
     // const getDevicesLoadItems = () => {
