@@ -8,51 +8,52 @@ import {
 
 import {
   DevicesTableInterface,
-  LoadParamsInterface
+  // LoadParamsInterface
 } from '@src/interfaces';
 
 interface DevicesLoadProps {
   id: DevicesTableInterface['to'],
-  DevicesLoadCollection: LoadParamsInterface,
-  getCurrentDeviceLoadParamsFromAPI:
-  ( payload: DevicesTableInterface['to'] ) => any,
+  // DevicesLoadCollection: LoadParamsInterface,
+  // getCurrentDeviceLoadParamsFromAPI:
+  // ( payload: DevicesTableInterface['to'] ) => any,
 }
 
 export const DevicesLoad: React.SFC<DevicesLoadProps> = (props) => {
   const {
-    id,
-    DevicesLoadCollection,
-    getCurrentDeviceLoadParamsFromAPI,
+    // id,
+    // DevicesLoadCollection,
+    // getCurrentDeviceLoadParamsFromAPI,
   } = props;
 
-  const getDeviceLoadParams = () => {
-    if ( DevicesLoadCollection[id] !== undefined ) {
-      getCurrentDeviceLoadParamsFromAPI(id);
-      return DevicesLoadCollection[id];
-    }
-  };
-  const deviceLoadParams = getDeviceLoadParams();
+  // const getDeviceLoadParams = () => {
+    // if ( DevicesLoadCollection[id] !== undefined ) {
+      // getCurrentDeviceLoadParamsFromAPI(id);
+      // return DevicesLoadCollection[id];
+    // }
+  // };
+  // const deviceLoadParams = getDeviceLoadParams();
   
-  console.log('============');
-  console.log(
-    'DevicesLoadCollection:',
-    DevicesLoadCollection[id]
-  );
-  console.log('============');
+  // console.log('============');
+  // console.log(
+  //   'DevicesLoadCollection:',
+  //   DevicesLoadCollection[id]
+  // );
+  // console.log('============');
 
+        // { deviceLoadParams.loading.cpu + '%' }
+        // { deviceLoadParams.loading.ram + '%'}
+        
   return (
     <DevicesLoadLayout>
       <DevicesLoadInfo>
         <DevicesLoadInfoSpan>
           { 'CPU:' }
         </DevicesLoadInfoSpan>
-        { deviceLoadParams.loading.cpu + '%' }
       </DevicesLoadInfo>
       <DevicesLoadInfo>
         <DevicesLoadInfoSpan>
           { 'RAM:' }
         </DevicesLoadInfoSpan>
-        { deviceLoadParams.loading.ram + '%'}
       </DevicesLoadInfo>
     </DevicesLoadLayout>
   );

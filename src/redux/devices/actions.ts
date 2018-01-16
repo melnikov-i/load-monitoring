@@ -2,7 +2,7 @@ import sendRequestToAPI from '@src/ajax';
 
 import {
   DevicesTableInterface,
-  LoadParamsInterface,
+  // LoadParamsInterface,
   DevicesLoadInterface
 } from '@src/interfaces';
 
@@ -18,8 +18,8 @@ export const DEVICES_ITEMS_WAS_REQUESTED_FROM_API =
   'DEVICES_ITEMS_WAS_REQUESTED_FROM_API';
 export const ADD_DEVICES_IN_DEVICES_LOAD_COLLECTION =
   'ADD_DEVICES_IN_DEVICES_LOAD_COLLECTION';
-export const ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION =
-  'ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION';
+// export const ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION =
+//   'ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION';
 
 export type Actions = {
   PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION: {
@@ -31,12 +31,12 @@ export type Actions = {
   },
   ADD_DEVICES_IN_DEVICES_LOAD_COLLECTION: {
     type: typeof ADD_DEVICES_IN_DEVICES_LOAD_COLLECTION,
-    payload: LoadParamsInterface,
-  },
-  ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION: {
-    type: typeof ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION,
     payload: DevicesLoadInterface,
-  }
+  },
+  // ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION: {
+  //   type: typeof ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION,
+  //   payload: DevicesLoadInterface,
+  // },
 }
 
 // Sync Action Creators
@@ -51,15 +51,15 @@ export const syncActionCreators = {
     type: DEVICES_ITEMS_WAS_REQUESTED_FROM_API,
   }),
   addDevicesInDevicesLoadCollection: 
-  ( payload: LoadParamsInterface ):
+  ( payload: DevicesLoadInterface ):
   Actions[typeof ADD_DEVICES_IN_DEVICES_LOAD_COLLECTION] => ({
     type: ADD_DEVICES_IN_DEVICES_LOAD_COLLECTION, payload
   }),
-  addCurrentDeviceInDevicesCollection:
-  ( payload: DevicesLoadInterface ):
-  Actions[typeof ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION] => ({
-    type: ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION, payload
-  }),
+  // addCurrentDeviceInDevicesCollection:
+  // ( payload: DevicesLoadInterface ):
+  // Actions[typeof ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION] => ({
+  //   type: ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION, payload
+  // }),
 };
 
 // Async Action Creators
@@ -71,18 +71,60 @@ export const asyncActionCreators = {
       );
       sendRequestToAPI.post('/list_data.php').then(
         ( response ) => {
+          let items: DevicesTableInterface[] = [];
           if ( response.data.table !== null ) {
-            const items: DevicesTableInterface[] = response.data.table;
+            items = response.data.table;
             setTimeout(() => {
               dispatch(
-                syncActionCreators.putDevicesItemsFromAPIToTableCollection(items)
+                syncActionCreators
+                  .putDevicesItemsFromAPIToTableCollection(items)
               )
-            }, 1000);            
+            }, 1000);
           } else {
             dispatch(
               loginActionCreators.userWasLogOut()
             );
           }
+          return items;
+        }
+      )
+      .then(
+        ( items ) => {
+          items.forEach((e) => {
+            sendRequestToAPI.get(
+              '/get_current_load_test.php?machine_id=' + e.to 
+            ).then(
+              ( response ) => {
+                if ( response.data.state !== null ) {
+                  const loadParams: DevicesLoadInterface = {
+                    id: e.to,
+                    params: {
+                      state: response.data.state,
+                      lastconn: response.data.lastconn,
+                      loading: {
+                        cpu: response.data.loading.cpu,
+                        ram: response.data.loading.ram,
+                      }
+                    }
+                  }
+                  // console.log('LoadParams:', loadParams);
+                  dispatch(
+                    syncActionCreators
+                      .addDevicesInDevicesLoadCollection(loadParams)
+                  );
+                } else {
+                  dispatch(
+                    loginActionCreators.userWasLogOut()
+                  );
+                }
+              }
+            )
+            .catch(
+              ( error ) => {
+                console.log('[ERROR]:', error);
+              }
+            );
+          });
         }
       )
       .catch(
@@ -92,45 +134,14 @@ export const asyncActionCreators = {
       );
     }
   },
-  getCurrentDeviceLoadParamsFromAPI: 
-  ( payload: DevicesTableInterface['to'] ) => {
+  makeDevicesLoadItemsRequestFromAPI:
+  ( payload: DevicesTableInterface[] ) => {
     return ( dispatch: Dispatch ) => {
-      sendRequestToAPI.get(
-        '/get_current_load_test.php?machine_id=' + payload
-      ).then(
-        ( response ) => {
-          const params: LoadParamsInterface = {
-            state: response.data.state,
-            lastconn: 
-              response.data.lastconn 
-                ? response.data.lastconn 
-                : 0,
-            loading: 
-              response.data.loading 
-                ? response.data.loading
-                : {
-                  cpu: '-',
-                  ram: '-'
-                }
+      setTimeout(() => {
 
-          }
-          const loadParams: DevicesLoadInterface = {
-            id: payload,
-            params: params,
-          }
-          setTimeout(() => {
-            dispatch(
-              syncActionCreators
-                .addCurrentDeviceInDevicesCollection(loadParams)
-            )
-          }, 5000);
-        }
-      )
-      .catch(
-        ( error ) => {
-          console.log('[ERROR]:', error);
-        }
-      );
+        
+
+      }, 5000);
     }
-  }
+  },
 };

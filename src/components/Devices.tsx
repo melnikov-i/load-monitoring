@@ -43,19 +43,25 @@ interface DevicesProps {
   DevicesItemsWasRequestedFromAPI: boolean,
   DroppedMenuButtonClickedId: DroppedMenuButtonClickedType,
   isFirefoxInUse: boolean,
+  
+  // DevicesLoadItemsWasRequestedFromAPI: boolean,
+  DevicesLoadCollection: LoadParamsInterface,
+
   changeDroppedMenuClickedId: 
   (payload: DroppedMenuButtonClickedType) => any,
   makeDevicesItemsRequestFromAPI: () => any,
-  addDevicesInDevicesLoadCollection: 
-  ( payload: LoadParamsInterface ) => any
+  makeDevicesLoadItemsRequestFromAPI: 
+  ( payload: DevicesTableInterface[] ) => any,
+  // addDevicesInDevicesLoadCollection: 
+  // ( payload: LoadParamsInterface ) => any
 }
 
 export const Devices: React.SFC<DevicesProps> = (props) => {
   const {
     DevicesItemsWasRequestedFromAPI,
     makeDevicesItemsRequestFromAPI,
+    // makeDevicesLoadItemsRequestFromAPI,
     DevicesTableItemsCollection,
-    addDevicesInDevicesLoadCollection
   } = props;
 
   // Запрос данных таблицы
@@ -63,33 +69,51 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
     if ( !DevicesItemsWasRequestedFromAPI ) {
       makeDevicesItemsRequestFromAPI();
     }
-    if ( DevicesTableItemsCollection.length !== 0 ) {
-      let payload: LoadParamsInterface = {};
-      DevicesTableItemsCollection.forEach((e) => {
-        payload = {
-          ...payload,
-          [e.to]: {
-            state: 'unknown',
-            lastconn: 0,
-            loading: {
-              cpu: '-',
-              ram: '-',
-            }
-          },
-        }
-      });
-      addDevicesInDevicesLoadCollection(payload);
-    }
+    // makeDevicesLoadItemsRequestFromAPI(DevicesTableItemsCollection);
     return DevicesTableItemsCollection;
   };
   const devicesItems = getDevicesItems();
 
   if ( devicesItems.length !== 0 ) {
     const {
+      // DevicesLoadItemsWasRequestedFromAPI,
       DroppedMenuButtonClickedId,
       isFirefoxInUse,
       changeDroppedMenuClickedId,
+      DevicesLoadCollection,
+      // addDevicesInDevicesLoadCollection
     } = props;
+
+    console.log('DevicesLoadCollection', DevicesLoadCollection);
+
+    // Запрос данных
+    // const getDevicesLoadItems = () => {
+    //   if ( !DevicesLoadItemsWasRequestedFromAPI ) {
+
+    //   }
+      // if ( !(devicesItems['0'].to in DevicesLoadCollection) ) {
+    //     let collection: LoadParamsInterface = {};
+    // DevicesTableItemsCollection.forEach((e) => {
+    //       collection = {
+    //         ...collection,
+    //         [e.to]: {
+    //           state: 'unknown',
+    //           lastconn: 0,
+    //           loading: {
+    //             cpu: ' - ',
+    //             ram: ' - ',
+    //           }
+    //         },
+    //       }
+    //     });
+    //     console.log('DevicesLoadCollection', DevicesLoadCollection);
+    //     addDevicesInDevicesLoadCollection(collection);
+    //   }
+    //     return DevicesLoadCollection;
+    // };
+    // const devicesLoadItems = getDevicesLoadItems();
+
+    // console.log('DevicesLoadItems:', devicesLoadItems);
 
     // Обработчики событий
     const droppedMenuHandlerRemove = () => {

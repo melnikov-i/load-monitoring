@@ -4,7 +4,7 @@ import { createStructuredSelector } from 'reselect';
 import { Dispatch, RootState } from '@src/redux';
 
 import {
-  asyncActionCreators
+  // asyncActionCreators
 } from '@src/redux/devices';
 
 import { DevicesLoad } from '@src/components';
@@ -14,18 +14,24 @@ import {
 } from '@src/interfaces';
 
 import {
-  DevicesLoadCollectionSelector,
+  DevicesLoadCurrentItemSelector,
+  DevicesLoadCurrentItemInterface
+  // DevicesLoadCollectionSelector,
 } from '@src/selectors';
 
+
 const mapStateToProps = createStructuredSelector<RootState, {
-    DevicesLoadCollection: LoadParamsInterface,
+    DevicesLoadCurrentItem: LoadParamsInterface,
+    // DevicesLoadCollection: LoadParamsInterface,
   }>({
-    DevicesLoadCollection: DevicesLoadCollectionSelector,
+    DevicesLoadCurrentItem: DevicesLoadCurrentItemSelector,
+
+    // DevicesLoadCollection: DevicesLoadCollectionSelector,
   });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
-  getCurrentDeviceLoadParamsFromAPI: 
-    asyncActionCreators.getCurrentDeviceLoadParamsFromAPI,
+  // getCurrentDeviceLoadParamsFromAPI: 
+    // asyncActionCreators.getCurrentDeviceLoadParamsFromAPI,
 }, dispatch);
 
 export const DevicesLoadConnected = 
