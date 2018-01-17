@@ -6,3 +6,4 @@ export * from './Device';
 export * from './Devices';
 export * from './DevicesLoad';
 export * from './DevicesStatus';
+export * from './Overview';

@@ -49,6 +49,8 @@ export const reducer = combineReducers({
           ...state, 
           [action.payload.id]: action.payload.params
         };
+      case USER_WAS_LOGOUT:
+        return {};
       default:
         return state;
     }

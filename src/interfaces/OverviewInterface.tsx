@@ -1,4 +1,4 @@
-export interface OverviewPageInterface {
+export interface OverviewInterface {
   counts: OverviewCountInterface,
   events_table: OverviewEventsTableInterface[],
 }

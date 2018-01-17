@@ -42,12 +42,9 @@ import {
   MainTopExitLink,
 } from '@src/styled';
 
-import {
-  PageOverview,
-} from '@src/containers';
-
 import DevicesConnected from '@src/connected/DevicesConnected.usage';
 import DeviceConnected from '@src/connected/DeviceConnected.usage';
+import OverviewConnected from '@src/connected/OverviewConnected.usage';
 
 interface MainProps {
   MainMenuWasRequestedFromAPI: boolean,
@@ -323,7 +320,7 @@ export const Main: React.SFC<MainProps> = (props) => {
             <Switch>
               <Route
                 exact path="/overview"
-                component={PageOverview} />
+                component={OverviewConnected} />
               <Route
                 exact path={'/devices'}
                 render={()=> (
@@ -347,7 +344,7 @@ export const Main: React.SFC<MainProps> = (props) => {
         }
               <Route 
                 exact path={'/'}
-                component={PageOverview} />
+                component={OverviewConnected} />
             </Switch>
           </MainContent>
         </MainPage>

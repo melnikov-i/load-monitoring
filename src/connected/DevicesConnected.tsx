@@ -9,7 +9,7 @@ import {
 } from '@src/redux/devices';
 import { 
   syncActionCreators as mainActionCreators 
-} from '@src/redux/main'
+} from '@src/redux/main';
 
 import { Devices } from '@src/components';
 
