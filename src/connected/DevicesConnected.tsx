@@ -6,7 +6,6 @@ import { withRouter } from 'react-router-dom';
 
 import {
   asyncActionCreators,
-  // syncActionCreators
 } from '@src/redux/devices';
 import { 
   syncActionCreators as mainActionCreators 
@@ -17,7 +16,6 @@ import { Devices } from '@src/components';
 import {
   DevicesTableInterface,
   DroppedMenuButtonClickedType,
-  // LoadParamsInterface
 } from '@src/interfaces';
 
 import {
@@ -25,8 +23,6 @@ import {
   DevicesItemsWasRequestedFromAPISelector,
   DroppedMenuButtonClickedIdSelector,
   isFirefoxInUseSelector,
-  // DevicesLoadItemsWasRequestedFromAPISelector,
-  // DevicesLoadCollectionSelector,
 } from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector<RootState, {
@@ -34,16 +30,11 @@ const mapStateToProps = createStructuredSelector<RootState, {
     DevicesItemsWasRequestedFromAPI: boolean,
     DroppedMenuButtonClickedId: DroppedMenuButtonClickedType,
     isFirefoxInUse: boolean,
-    // DevicesLoadItemsWasRequestedFromAPI: boolean,
-    // DevicesLoadCollection: LoadParamsInterface,
   }>({
     DevicesTableItemsCollection: DevicesTableItemsCollectionSelector,
     DevicesItemsWasRequestedFromAPI: DevicesItemsWasRequestedFromAPISelector,
     DroppedMenuButtonClickedId: DroppedMenuButtonClickedIdSelector,
     isFirefoxInUse: isFirefoxInUseSelector,
-    // DevicesLoadItemsWasRequestedFromAPI: 
-    //   DevicesLoadItemsWasRequestedFromAPISelector,
-    // DevicesLoadCollection: DevicesLoadCollectionSelector,
   });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
@@ -51,10 +42,6 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
     asyncActionCreators.makeDevicesItemsRequestFromAPI,
   changeDroppedMenuClickedId: 
     mainActionCreators.changeDroppedMenuClickedId,
-  // makeDevicesLoadItemsRequestFromAPI:
-  //   asyncActionCreators.makeDevicesLoadItemsRequestFromAPI,
-  // addDevicesInDevicesLoadCollection:
-  //   syncActionCreators.addDevicesInDevicesLoadCollection,
 }, dispatch);
 
 export const DevicesConnected = 

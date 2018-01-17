@@ -78,6 +78,7 @@ export const DevicesTableHeadCollLoad = DevicesTableHeadColl.extend`
 export const DevicesTableHeadCollStatus = DevicesTableHeadColl.extend`
   width: 9%;
   padding-left: 4px;
+  text-align: center;
 `;
 
 export const DevicesTableHeadLastColl = styled.th`

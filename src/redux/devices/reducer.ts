@@ -9,7 +9,6 @@ import {
   PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION,
   DEVICES_ITEMS_WAS_REQUESTED_FROM_API,
   ADD_DEVICE_IN_DEVICES_LOAD_COLLECTION,
-  // ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION,
 } from '@src/redux/devices';
 
 import {
@@ -20,7 +19,6 @@ export type State = {
   readonly DevicesTableItemsCollection: DevicesTableInterface[],
   readonly DevicesItemsWasRequestedFromAPI: boolean,
   readonly DevicesLoadCollection: LoadParamsInterface,
-  // readonly DevicesLoadItemsWasRequestedFromAPI: boolean,
 };
 
 export const reducer = combineReducers({
@@ -44,12 +42,6 @@ export const reducer = combineReducers({
         return state;
     }
   },
-  // DevicesLoadItemsWasRequestedFromAPI: ( state = false, action ) => {
-  //   switch ( action.type ) {
-  //     default:
-  //       return state;
-  //   }
-  // },
   DevicesLoadCollection: ( state = {}, action ) => {
     switch ( action.type ) {
       case ADD_DEVICE_IN_DEVICES_LOAD_COLLECTION:
@@ -57,8 +49,6 @@ export const reducer = combineReducers({
           ...state, 
           [action.payload.id]: action.payload.params
         };
-      // case ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION:
-        // return state[action.payload];
       default:
         return state;
     }

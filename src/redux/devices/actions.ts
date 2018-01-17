@@ -2,7 +2,6 @@ import sendRequestToAPI from '@src/ajax';
 
 import {
   DevicesTableInterface,
-  // LoadParamsInterface,
   DevicesLoadInterface
 } from '@src/interfaces';
 
@@ -18,8 +17,6 @@ export const DEVICES_ITEMS_WAS_REQUESTED_FROM_API =
   'DEVICES_ITEMS_WAS_REQUESTED_FROM_API';
 export const ADD_DEVICE_IN_DEVICES_LOAD_COLLECTION =
   'ADD_DEVICE_IN_DEVICES_LOAD_COLLECTION';
-// export const ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION =
-//   'ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION';
 
 export type Actions = {
   PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION: {
@@ -33,10 +30,6 @@ export type Actions = {
     type: typeof ADD_DEVICE_IN_DEVICES_LOAD_COLLECTION,
     payload: DevicesLoadInterface,
   },
-  // ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION: {
-  //   type: typeof ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION,
-  //   payload: DevicesLoadInterface,
-  // },
 }
 
 // Sync Action Creators
@@ -55,11 +48,6 @@ export const syncActionCreators = {
   Actions[typeof ADD_DEVICE_IN_DEVICES_LOAD_COLLECTION] => ({
     type: ADD_DEVICE_IN_DEVICES_LOAD_COLLECTION, payload
   }),
-  // addCurrentDeviceInDevicesCollection:
-  // ( payload: DevicesLoadInterface ):
-  // Actions[typeof ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION] => ({
-  //   type: ADD_CURRENT_DEVICE_IN_DEVICES_COLLECTION, payload
-  // }),
 };
 
 // Async Action Creators

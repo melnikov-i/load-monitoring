@@ -27,29 +27,28 @@ export const DevicesLoad: React.SFC<DevicesLoadProps> = (props) => {
 
   makeDevicesLoadItemRequestFromAPI(id);
 
-  // console.log('Current_ID:', id);
-  // console.log('Current_ITEM:', DevicesLoadCurrentItem);
-
   return (
     <DevicesLoadLayout>
-      <DevicesLoadInfo>
+  {(DevicesLoadCurrentItem.loading.cpu === '')
+    ? <DevicesLoadInfo>
+        {'Нет связи'}
+      </DevicesLoadInfo>
+    : <DevicesLoadInfo>
         <DevicesLoadInfoSpan>
           { 'CPU:' }
         </DevicesLoadInfoSpan>
-        {(DevicesLoadCurrentItem.loading.cpu === '')
-          ? '0%'
-          : DevicesLoadCurrentItem.loading.cpu + '%'
-        }
+        { DevicesLoadCurrentItem.loading.cpu + '%' }
       </DevicesLoadInfo>
-      <DevicesLoadInfo>
+  }
+  {(DevicesLoadCurrentItem.loading.cpu !== '')
+    ? <DevicesLoadInfo>
         <DevicesLoadInfoSpan>
           { 'RAM:' }
         </DevicesLoadInfoSpan>
-        {(DevicesLoadCurrentItem.loading.ram === '')
-          ? '0%'
-          : DevicesLoadCurrentItem.loading.ram + '%'
-        }
+        { DevicesLoadCurrentItem.loading.ram + '%' }
       </DevicesLoadInfo>
+    : null
+  }
     </DevicesLoadLayout>
   );
 };

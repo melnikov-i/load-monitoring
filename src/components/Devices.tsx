@@ -31,36 +31,28 @@ import {
 import {
   DevicesTableInterface,
   DroppedMenuButtonClickedType,
-  // LoadParamsInterface,
 } from '@src/interfaces';
 
 import { Spinner } from '@src/components';
 import DevicesLoadConnected from 
 '@src/connected/DevicesLoadConnected.usage';
+import DevicesStatusConnected from 
+'@src/connected/DevicesStatusConnected.usage';
 
 interface DevicesProps {
   DevicesTableItemsCollection: DevicesTableInterface[],
   DevicesItemsWasRequestedFromAPI: boolean,
   DroppedMenuButtonClickedId: DroppedMenuButtonClickedType,
   isFirefoxInUse: boolean,
-  
-  // DevicesLoadItemsWasRequestedFromAPI: boolean,
-  // DevicesLoadCollection: LoadParamsInterface,
-
   changeDroppedMenuClickedId: 
   (payload: DroppedMenuButtonClickedType) => any,
   makeDevicesItemsRequestFromAPI: () => any,
-  // makeDevicesLoadItemsRequestFromAPI: 
-  // ( payload: DevicesTableInterface[] ) => any,
-  // addDevicesInDevicesLoadCollection: 
-  // ( payload: LoadParamsInterface ) => any
 }
 
 export const Devices: React.SFC<DevicesProps> = (props) => {
   const {
     DevicesItemsWasRequestedFromAPI,
     makeDevicesItemsRequestFromAPI,
-    // makeDevicesLoadItemsRequestFromAPI,
     DevicesTableItemsCollection,
   } = props;
 
@@ -69,51 +61,16 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
     if ( !DevicesItemsWasRequestedFromAPI ) {
       makeDevicesItemsRequestFromAPI();
     }
-    // makeDevicesLoadItemsRequestFromAPI(DevicesTableItemsCollection);
     return DevicesTableItemsCollection;
   };
   const devicesItems = getDevicesItems();
 
   if ( devicesItems.length !== 0 ) {
     const {
-      // DevicesLoadItemsWasRequestedFromAPI,
       DroppedMenuButtonClickedId,
       isFirefoxInUse,
       changeDroppedMenuClickedId,
-      // DevicesLoadCollection,
-      // addDevicesInDevicesLoadCollection
     } = props;
-
-    // console.log('DevicesLoadCollection', DevicesLoadCollection);
-
-    // Запрос данных
-    // const getDevicesLoadItems = () => {
-    //   if ( !DevicesLoadItemsWasRequestedFromAPI ) {
-
-    //   }
-      // if ( !(devicesItems['0'].to in DevicesLoadCollection) ) {
-    //     let collection: LoadParamsInterface = {};
-    // DevicesTableItemsCollection.forEach((e) => {
-    //       collection = {
-    //         ...collection,
-    //         [e.to]: {
-    //           state: 'unknown',
-    //           lastconn: 0,
-    //           loading: {
-    //             cpu: ' - ',
-    //             ram: ' - ',
-    //           }
-    //         },
-    //       }
-    //     });
-    //     console.log('DevicesLoadCollection', DevicesLoadCollection);
-    //     addDevicesInDevicesLoadCollection(collection);
-    //   }
-    //     return DevicesLoadCollection;
-    // };
-    // const devicesLoadItems = getDevicesLoadItems();
-
-    // console.log('DevicesLoadItems:', devicesLoadItems);
 
     // Обработчики событий
     const droppedMenuHandlerRemove = () => {
@@ -233,7 +190,7 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
               </DevicesTableBodyColl>
               <DevicesTableBodyColl isFirefoxInUse={isFirefoxInUse}>
                 <DevicesTableBodyLink to={e.to}>
-                  
+                  <DevicesStatusConnected id={e.to} />
                 </DevicesTableBodyLink>
               </DevicesTableBodyColl>
               <DevicesTableBodyColl isFirefoxInUse={isFirefoxInUse}>

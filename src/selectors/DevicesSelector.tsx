@@ -22,9 +22,3 @@ export const DevicesLoadCurrentItemSelector =
       state.devices.DevicesLoadCollection[ownProps.id],
     ( DevicesLoadCollection ) => DevicesLoadCollection,
   );
-
-export const DevicesLoadCollectionSelector =
-  createSelector(
-    ( state: RootState ) => state.devices.DevicesLoadCollection,
-    ( DevicesLoadCollection ) => DevicesLoadCollection,
-  );
