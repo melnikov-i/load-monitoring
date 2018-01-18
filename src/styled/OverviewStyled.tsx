@@ -2,8 +2,13 @@ import styled from 'styled-components';
 
 import {
   MIDDLE_SCREEN_MAX,
-  FA_OVERVIEW_ICON_SIZE
+  FA_OVERVIEW_ICON_SIZE,
+  BIG_USER_FAKE_LINK_HEIGHT
 } from '@src/styled';
+
+import {
+  DActionAnchorClickedInterface
+} from '@src/interfaces';
 
 export const OverviewLayout = styled.div`
   box-sizing: border-box;
@@ -23,7 +28,6 @@ export const OverviewIconsLayout = styled.div`
   width: 100%;
   padding: 20px 0;
 `;
-// background-color: rgba(255, 0, 255, .2);
 
 export const OverviewIconWrapper = styled.div`
   display: inline-block;
@@ -50,7 +54,6 @@ export const OverviewIcon = styled.div`
     color: #fff;
   }
 `;
-// background-color: rgba(0, 0, 0, .4);
 
 export const OverviewIconNumber = styled.p`
   font-size: 16px;
@@ -65,4 +68,167 @@ export const OverviewIconText = styled.p`
   font-weight: normal;
   color: #fff;
   text-align: center;
+`;
+
+export const OverviewTable = styled.table`
+  width: 100%;
+  margin: 30px auto;
+  border-spacing: 0;
+`;
+
+export const OverviewTableHead = styled.thead``;
+
+export const OverviewTableHeadRow = styled.tr`
+  width: 100%;
+`;
+
+export const OverviewTableHeadColl = styled.th`
+  box-sizing: border-box;
+  font-size: 14px;
+  font-weight: normal;
+  min-height: 25px;
+  line-height: 25px;
+  text-align: left;
+`;
+
+export const OverviewTableHeadCollNumber = OverviewTableHeadColl.extend`
+  width: 4%;
+  text-align: center;
+
+background-color: rgba(127, 0, 127, .4);
+`;
+
+export const OverviewTableHeadCollDate = OverviewTableHeadColl.extend`
+  width: 16%;
+
+background-color: rgba(127, 255, 127, .4);
+`;
+
+export const OverviewTableHeadCollCompName = OverviewTableHeadColl.extend`
+  width: 20%;
+
+background-color: rgba(0, 255, 127, .4);
+`;
+
+export const OverviewTableHeadCollEvent = OverviewTableHeadColl.extend`
+  width: 50%;
+
+background-color: rgba(127, 255, 0, .4);
+`;
+
+export const OverviewTableHeadCollAction = OverviewTableHeadColl.extend`
+  width: 10%;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-weight: normal;
+
+background-color: rgba(127, 127, 0, .4);
+`;
+
+export const OverviewTableBody = styled.tbody``;
+
+export const OverviewTableBodyRow = OverviewTableHeadRow.extend`
+  &:hover {
+    background-color: #f5f5f5;
+  }
+`;
+
+export const OverviewTableBodyColl = styled.td`
+  vertical-align: top;
+  border-top: 1px solid #e7eaec;
+  color: #676a6c;
+  padding: 8px 0;
+  font-size: 13px;
+  font-weight: normal;
+`;
+
+export const OverviewTableBodyCollNumber = OverviewTableBodyColl.extend`
+  text-align: center;
+`;
+
+export const OverviewTableActionAnchor = styled.a`
+  width: 100%;
+  max-width: 80px;
+  margin: 0 auto;
+  height: 20px;
+  display: block;
+  text-align: center;
+  line-height: 20px;
+  box-sizing: border-box;
+  border-radius: 3px;
+  color: #333;
+  cursor: pointer;
+  font-size: 12px;
+
+  border: 1px solid ${( props: DActionAnchorClickedInterface ) => (
+      ( props.isClicked )
+      ? '#8c8c8c'
+      : '#e7eaec'
+    )
+  };
+  background-color: ${( props: DActionAnchorClickedInterface ) => (
+      ( props.isClicked )
+      ? '#d4d4d4'
+      : '#fff'
+    )
+  };
+  &:focus {
+    outline: 0 solid transparent;
+  };
+  &:hover {
+    background-color: ${( props: DActionAnchorClickedInterface ) => (
+      ( props.isClicked )
+      ? '#d4d4d4'
+      : '#e6e6e6'
+    )
+  };
+    border: 1px solid ${( props: DActionAnchorClickedInterface ) => (
+      ( props.isClicked )
+      ? '#8c8c8c'
+      : '#d2d2d2'
+    )
+  };
+  }
+`;
+
+export const OverviewTableActionMenuLayout = styled.ul`
+  display: ${(props: DActionAnchorClickedInterface) => (
+      ( props.isClicked )
+      ? 'block'
+      : 'none'
+    )
+  };
+  box-shadow: 0 0 3px rgba(86, 96, 117, .7);
+  background-color: #fff;
+  padding: 3px 0;
+  border-radius: 3px;
+  position: absolute;
+  right: 5px;
+  top: 40px;
+  z-index: 2;
+`;
+
+export const OverviewTableActionMenuItem = styled.li`
+  list-style-position: inside;
+  list-style-type: none;
+`;
+
+export const OverviewTableActionMenuAnchor = styled.a`
+  display: block;
+  text-decoration: none;
+  height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+  line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+  font-size: 13px;
+  font-weight: normal;
+  color: #333;
+  white-space: nowrap;
+  text-align: left;
+  padding: 3px 5px;
+  &::selection {
+    background-color: transparent;
+  };
+  &:hover {
+    background-color: #f5f5f5;
+    color: #262626;
+  };
 `;

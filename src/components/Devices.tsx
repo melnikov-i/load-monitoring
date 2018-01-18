@@ -25,7 +25,7 @@ import {
   DevicesTableActionAnchor,
   DevicesTableActionMenuLayout,
   DevicesTableActionMenuItem,
-  DevicesTableActonLink,
+  DevicesTableActionLink,
 } from '@src/styled';
 
 import {
@@ -68,8 +68,8 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
   if ( devicesItems.length !== 0 ) {
     const {
       DroppedMenuButtonClickedId,
-      isFirefoxInUse,
       changeDroppedMenuClickedId,
+      isFirefoxInUse,
     } = props;
 
     // Обработчики событий
@@ -118,7 +118,7 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
     ];
 
     return (
-      <DevicesLayout onTransitionEnd={()=>{console.log('loading complete')}}>
+      <DevicesLayout>
         <DevicesHeader>{'Все устройства'}</DevicesHeader>
         <DevicesTable>
           <DevicesTableHead>
@@ -209,10 +209,10 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
                 actionMenu.map((item, i) => {
                   return (
                     <DevicesTableActionMenuItem key={i}>
-                      <DevicesTableActonLink
+                      <DevicesTableActionLink
                       to={(item.value === 'Обзор') ? e.to : item.to}>
                         {item.value}
-                      </DevicesTableActonLink>
+                      </DevicesTableActionLink>
                     </DevicesTableActionMenuItem>
                   );
                 })

@@ -84,9 +84,6 @@ export const DevicesTableHeadLastColl = styled.th`
   box-sizing: border-box;
   font-size: 14px;
   font-weight: normal;
-  min-height: 25px;
-  line-height: 25px;
-  text-align: left;
 `;
 
 export const DevicesTableBodyColl = styled.td`
@@ -237,7 +234,7 @@ export const DevicesTableActionMenuItem = styled.li`
   list-style-type: none;
 `;
 
-export const DevicesTableActonLink = styled(NavLink)`
+export const DevicesTableActionLink = styled(NavLink)`
   display: block;
   text-decoration: none;
   height: ${ BIG_USER_FAKE_LINK_HEIGHT };
