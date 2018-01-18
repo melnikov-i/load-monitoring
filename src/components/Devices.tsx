@@ -40,13 +40,13 @@ import DevicesStatusConnected from
 '@src/connected/DevicesStatusConnected.usage';
 
 interface DevicesProps {
-  DevicesTableItemsCollection: DevicesTableInterface[],
   DevicesItemsWasRequestedFromAPI: boolean,
+  makeDevicesItemsRequestFromAPI: () => any,
+  DevicesTableItemsCollection: DevicesTableInterface[],
   DroppedMenuButtonClickedId: DroppedMenuButtonClickedType,
-  isFirefoxInUse: boolean,
   changeDroppedMenuClickedId: 
   (payload: DroppedMenuButtonClickedType) => any,
-  makeDevicesItemsRequestFromAPI: () => any,
+  isFirefoxInUse: boolean,
 }
 
 export const Devices: React.SFC<DevicesProps> = (props) => {

@@ -14,14 +14,16 @@ export const BIG_USER_FAKE_LINK_HEIGHT: string = '22px';
 
 export const FA_BIG_FONT_SIZE: string = '28px';
 export const FA_SMALL_FONT_SIZE: string = '14px';
+export const FA_OVERVIEW_ICON_SIZE: string = '72px';
 
 export const LOGIN_LAYOUT_BIG_WIDTH: string = '780px';
 export const LOGIN_LAYOUT_BIG_HEIGHT: string = '300px';
 export const LOGIN_FORM_INPUT_BIG_HEIGHT: string = '34px';
 
-export const TABLE_COLL_WIDTH: string = '8.33333333333333%';
 
 
+
+  // export const TABLE_COLL_WIDTH: string = '8.33333333333333%';
   // export const TABLE_COLL_MARGIN: string = '1.53846153799998%';
   // export const MENU_LAYOUT_SMALL_WIDTH: string = '0';
   // export const MAIN_MENU_BIG_WIDTH: string = '185px';

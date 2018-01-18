@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 
 import {
   MIDDLE_SCREEN_MAX,
-  TABLE_COLL_WIDTH,
   FA_SMALL_FONT_SIZE,
   BIG_USER_FAKE_LINK_HEIGHT,
 } from '@src/styled';
@@ -52,7 +51,6 @@ const DevicesTableHeadColl = styled.th`
   box-sizing: border-box;
   font-size: 14px;
   font-weight: normal;
-  width: ${ TABLE_COLL_WIDTH };
   min-height: 25px;
   line-height: 25px;
   text-align: left;
