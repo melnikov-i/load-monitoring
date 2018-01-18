@@ -2,6 +2,7 @@ import sendRequestToAPI from '@src/ajax';
 
 import {
   OverviewInterface,
+  OverviewEventsTableInterface,
 } from '@src/interfaces';
 
 import { Dispatch } from '@src/redux';
@@ -53,7 +54,33 @@ export const asyncActionCreators = {
             syncActionCreators
               .putOverviewItemsFromAPIToCollection(items)
           )
-          console.log('OVERWIEW', response.data);
+        }
+      )
+      .catch(
+        ( error ) => {
+          console.log('[ERROR]:', error);
+        }
+      )
+    }
+  },
+  remakeOverviewItemsRequestFromAPI: () => {
+    return ( dispatch: Dispatch ) => {
+      setTimeout(() => {
+        dispatch(
+          asyncActionCreators.makeOverviewItemsRequestFromAPI()
+        );
+      }, 60000);
+    }
+  },
+  makeOverviewDeleteItemsRequestFromAPI:
+  ( payload: OverviewEventsTableInterface['id'] ) => {
+    return ( dispatch: Dispatch ) => {
+      sendRequestToAPI.post('/overview.php', {event: payload}).then(
+        ( response ) => {
+          console.log(response.data);
+          dispatch(
+            asyncActionCreators.makeOverviewItemsRequestFromAPI()
+          );
         }
       )
       .catch(

@@ -94,26 +94,18 @@ export const OverviewTableHeadColl = styled.th`
 export const OverviewTableHeadCollNumber = OverviewTableHeadColl.extend`
   width: 4%;
   text-align: center;
-
-background-color: rgba(127, 0, 127, .4);
 `;
 
 export const OverviewTableHeadCollDate = OverviewTableHeadColl.extend`
   width: 16%;
-
-background-color: rgba(127, 255, 127, .4);
 `;
 
 export const OverviewTableHeadCollCompName = OverviewTableHeadColl.extend`
   width: 20%;
-
-background-color: rgba(0, 255, 127, .4);
 `;
 
 export const OverviewTableHeadCollEvent = OverviewTableHeadColl.extend`
   width: 50%;
-
-background-color: rgba(127, 255, 0, .4);
 `;
 
 export const OverviewTableHeadCollAction = OverviewTableHeadColl.extend`
@@ -121,8 +113,6 @@ export const OverviewTableHeadCollAction = OverviewTableHeadColl.extend`
   box-sizing: border-box;
   font-size: 14px;
   font-weight: normal;
-
-background-color: rgba(127, 127, 0, .4);
 `;
 
 export const OverviewTableBody = styled.tbody``;
@@ -144,6 +134,10 @@ export const OverviewTableBodyColl = styled.td`
 
 export const OverviewTableBodyCollNumber = OverviewTableBodyColl.extend`
   text-align: center;
+`;
+
+export const OverviewTableBodyCollActions = OverviewTableBodyColl.extend`
+  position: relative;
 `;
 
 export const OverviewTableActionAnchor = styled.a`
@@ -224,6 +218,7 @@ export const OverviewTableActionMenuAnchor = styled.a`
   white-space: nowrap;
   text-align: left;
   padding: 3px 5px;
+  cursor: pointer;
   &::selection {
     background-color: transparent;
   };

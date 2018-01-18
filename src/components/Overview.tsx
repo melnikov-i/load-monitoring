@@ -20,6 +20,7 @@ import {
   OverviewTableBodyRow,
   OverviewTableBodyColl,
   OverviewTableBodyCollNumber,
+  OverviewTableBodyCollActions,
   OverviewTableActionAnchor,
   OverviewTableActionMenuLayout,
   OverviewTableActionMenuItem,
@@ -28,7 +29,8 @@ import {
 
 import {
   OverviewInterface,
-  DroppedMenuButtonClickedType
+  DroppedMenuButtonClickedType,
+  OverviewEventsTableInterface
 } from '@src/interfaces';
 
 import { Spinner } from '@src/components';
@@ -36,6 +38,9 @@ import { Spinner } from '@src/components';
 interface OverviewProps {
   OverviewItemsWasRequestedFromAPI: boolean,
   makeOverviewItemsRequestFromAPI: () => any,
+  remakeOverviewItemsRequestFromAPI: () => any,
+  makeOverviewDeleteItemsRequestFromAPI: 
+  ( payload: OverviewEventsTableInterface['id'] ) => any,
   OverviewItemsCollection: OverviewInterface,
   DroppedMenuButtonClickedId: DroppedMenuButtonClickedType,
   changeDroppedMenuClickedId: 
@@ -59,10 +64,15 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
   };
   const overviewItems: OverviewInterface = getOverviewItems();
 
-  console.log('OverviewPage');
-  
   if ( overviewItems.counts.normal !== '' ) {
-    console.log('ITEMS:', overviewItems);
+    const {
+      remakeOverviewItemsRequestFromAPI,
+      makeOverviewDeleteItemsRequestFromAPI,
+    } = props;
+
+    console.log(new Date().getMinutes());
+
+    remakeOverviewItemsRequestFromAPI();
 
     const textSuffix = (count: 
     | OverviewInterface['counts']['normal']
@@ -107,8 +117,13 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
       }
     };
 
-    const deleteEventFromTableHandler = () => {
-      console.log('BINGO');
+    const deleteEventFromTableHandler = 
+    (e: React.MouseEvent<HTMLAnchorElement>) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const payload: OverviewEventsTableInterface['id'] = 
+        String(e.currentTarget.getAttribute('data-event-id'));;
+      makeOverviewDeleteItemsRequestFromAPI(payload)
     }
 
     return (
@@ -169,7 +184,7 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
           return (
             <OverviewTableBodyRow key={i}>
               <OverviewTableBodyCollNumber>
-                {i}
+                {String(i + 1)}
               </OverviewTableBodyCollNumber>
               <OverviewTableBodyColl>
               {
@@ -188,7 +203,7 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
               <OverviewTableBodyColl>
                 {e.text}
               </OverviewTableBodyColl>
-              <OverviewTableBodyColl>
+              <OverviewTableBodyCollActions>
                 <OverviewTableActionAnchor
                 onClick={devicesDroppedMenuHandler}
                 data-button-id={'2' + i}
@@ -199,12 +214,13 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
                 isClicked={DroppedMenuButtonClickedId === String('2' + i)}>
                   <OverviewTableActionMenuItem key={i}>
                     <OverviewTableActionMenuAnchor
-                    onClick={deleteEventFromTableHandler}>
+                    onClick={deleteEventFromTableHandler}
+                    data-event-id={e.id}>
                       {'Убрать уведомление'}
                     </OverviewTableActionMenuAnchor>
                   </OverviewTableActionMenuItem>
                 </OverviewTableActionMenuLayout>
-              </OverviewTableBodyColl>
+              </OverviewTableBodyCollActions>
             </OverviewTableBodyRow>
           );
         })}

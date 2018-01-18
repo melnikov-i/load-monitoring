@@ -174,12 +174,11 @@ export const Main: React.SFC<MainProps> = (props) => {
     return (
       <MainLayout>
         <MainMenu
-          onSmallScreen={isMainMenuOpened.onSmallScreen}
-        >
+        onSmallScreen={isMainMenuOpened.onSmallScreen}>
           <SmallMenuButton 
-            onClick={doOpenMainMenuHandler}
-            onSmallScreen={isMainMenuOpened.onSmallScreen}
-            id={'smallMenuButton'} />
+          onClick={doOpenMainMenuHandler}
+          onSmallScreen={isMainMenuOpened.onSmallScreen}
+          id={'smallMenuButton'} />
           <MainMenuLogoWrapper>
             <MainMenuLogo>
               <UserMenuAnchor 

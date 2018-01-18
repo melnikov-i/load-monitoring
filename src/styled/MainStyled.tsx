@@ -85,7 +85,7 @@ export const SmallMenuButton = styled.button`
   @media screen
     and (max-width: ${ SMALL_SCREEN_MAX }) {
       display: block;
-      position: fixed;
+      position: absolute;
       top: 15px;
       left: ${
         ( props: MMButtonIsOpenedProps ) => (
