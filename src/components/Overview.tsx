@@ -70,8 +70,6 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
       makeOverviewDeleteItemsRequestFromAPI,
     } = props;
 
-    console.log(new Date().getMinutes());
-
     remakeOverviewItemsRequestFromAPI();
 
     const textSuffix = (count: 
@@ -158,6 +156,7 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
             </OverviewIconText>
           </OverviewIconWrapper>
         </OverviewIconsLayout>
+        {(overviewItems.events_table.length !== 0) ? (
         <OverviewTable>
           <OverviewTableHead>
             <OverviewTableHeadRow>
@@ -226,6 +225,7 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
         })}
           </OverviewTableBody>
         </OverviewTable>
+      ) : null }
       </OverviewLayout>
     );    
   } else {

@@ -26,6 +26,7 @@ export const OverviewHeader = styled.h1`
 
 export const OverviewIconsLayout = styled.div`
   width: 100%;
+  max-width: 800px;
   padding: 20px 0;
 `;
 
