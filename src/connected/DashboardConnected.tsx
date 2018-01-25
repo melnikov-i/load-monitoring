@@ -10,7 +10,7 @@ import {
 import { Dashboard } from '@src/components';
 
 import {
-  DashboardInterface
+  DashboardInterface,
 } from '@src/interfaces';
 
 import {
@@ -20,7 +20,7 @@ import {
 
 
 const mapStateToProps = createStructuredSelector<RootState, {
-    DashboardWasRequestedFromAPI: boolean,
+    DashboardWasRequestedFromAPI: DashboardInterface['dash_id']['id'],
     DashboardCollection: DashboardInterface,
   }>({
     DashboardWasRequestedFromAPI: DashboardWasRequestedFromAPISelector,

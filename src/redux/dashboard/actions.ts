@@ -1,7 +1,7 @@
-// import sendRequestToAPI from '@src/ajax';
+import sendRequestToAPI from '@src/ajax';
 
 import {
-  
+  DashboardInterface
 } from '@src/interfaces';
 
 import { Dispatch } from '@src/redux';
@@ -10,8 +10,8 @@ import {
   // syncActionCreators as loginActionCreators
 } from '@src/redux/login';
 
-export const DASHBOARD_WAS_REQUESTED_FROM_API =
-  'DASHBOARD_WAS_REQUESTED_FROM_API';
+export const THIS_DASHBOARD_WAS_REQUESTED_FROM_API =
+  'THIS_DASHBOARD_WAS_REQUESTED_FROM_API';
 
 // export const PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION =
 //   'PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION';
@@ -19,8 +19,9 @@ export const DASHBOARD_WAS_REQUESTED_FROM_API =
 //   'ADD_DEVICE_IN_DEVICES_LOAD_COLLECTION';
 
 export type Actions = {
-  DASHBOARD_WAS_REQUESTED_FROM_API: {
-    type: typeof DASHBOARD_WAS_REQUESTED_FROM_API,
+  THIS_DASHBOARD_WAS_REQUESTED_FROM_API: {
+    type: typeof THIS_DASHBOARD_WAS_REQUESTED_FROM_API,
+    payload: DashboardInterface['dash_id']['id'],
   },
   
   // PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION: {
@@ -35,9 +36,10 @@ export type Actions = {
 
 // Sync Action Creators
 export const syncActionCreators = {
-  dashboardWasRequestedFromAPI: ():
-  Actions[typeof DASHBOARD_WAS_REQUESTED_FROM_API] => ({
-    type: DASHBOARD_WAS_REQUESTED_FROM_API,
+  dashboardWasRequestedFromAPI: 
+  ( payload: DashboardInterface['dash_id']['id'] ):
+  Actions[typeof THIS_DASHBOARD_WAS_REQUESTED_FROM_API] => ({
+    type: THIS_DASHBOARD_WAS_REQUESTED_FROM_API, payload
   }),
   
   // putDevicesItemsFromAPIToTableCollection:
@@ -54,21 +56,22 @@ export const syncActionCreators = {
 
 // Async Action Creators
 export const asyncActionCreators = {
-  makeDashboardRequestFromAPI: (  ) => {
+  makeDashboardRequestFromAPI: 
+  ( payload: DashboardInterface['dash_id']['id'] ) => {
     return ( dispatch: Dispatch ) => {
       dispatch(
-        syncActionCreators.dashboardWasRequestedFromAPI()
+        syncActionCreators.dashboardWasRequestedFromAPI(payload)
       );
-      // sendRequestToAPI.post('/dash_data2.php', payload).then(
-      //   ( response ) => {
-
-      //   }
-      // )
-      // .catch(
-      //   ( error ) => {
-      //     console.log('[ERROR]:', error);
-      //   }
-      // );
+      sendRequestToAPI.post('/dash_data2.php?dashboard_id=' + payload).then(
+        ( response ) => {
+          console.log('response:', response.data);
+        }
+      )
+      .catch(
+        ( error ) => {
+          console.log('[ERROR]:', error);
+        }
+      );
     }
   },
 

@@ -5,7 +5,7 @@ import {
 } from '@src/interfaces';
 
 import {
-  DASHBOARD_WAS_REQUESTED_FROM_API
+  THIS_DASHBOARD_WAS_REQUESTED_FROM_API
 } from '@src/redux/dashboard';
 
 import {
@@ -14,7 +14,7 @@ import {
 
 export type State = {
   readonly DashboardCollection: DashboardInterface,
-  readonly DashboardWasRequestedFromAPI: boolean,
+  readonly DashboardWasRequestedFromAPI: DashboardInterface['dash_id']['id'],
 };
 
 const DashboardCollectionInitialState: DashboardInterface = {
@@ -35,12 +35,12 @@ export const reducer = combineReducers({
         return state;
     }
   },
-  DashboardWasRequestedFromAPI: ( state = false, action ) => {
+  DashboardWasRequestedFromAPI: ( state = '', action ) => {
     switch ( action.type ) {
-      case DASHBOARD_WAS_REQUESTED_FROM_API:
-        return true;
+      case THIS_DASHBOARD_WAS_REQUESTED_FROM_API:
+        return action.payload;
       case USER_WAS_LOGOUT:
-        return false;
+        return '';
       default:
         return state;
     }

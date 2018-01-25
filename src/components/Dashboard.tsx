@@ -4,34 +4,51 @@ import {
   DashboardInterface,
 } from '@src/interfaces';
 
+import {
+  DashboardLayout,
+  DashboardText
+} from '@src/styled';
+
 import { Spinner } from '@src/components';
 
 interface DashboardProps {
-  DashboardWasRequestedFromAPI: boolean,
-  makeDashboardRequestFromAPI: () => any,
+  id: DashboardInterface['dash_id']['id'],
+  DashboardWasRequestedFromAPI: DashboardInterface['dash_id']['id'],
+  makeDashboardRequestFromAPI: 
+  (payload: DashboardInterface['dash_id']['id']) => any,
   DashboardCollection: DashboardInterface,
 }
 
 export const Dashboard: React.SFC<DashboardProps> = (props) => {
   const {
+    id,
     DashboardWasRequestedFromAPI,
     makeDashboardRequestFromAPI,
     DashboardCollection,
   } = props;
 
   const getDashboard = () => {
-    if ( !DashboardWasRequestedFromAPI ) {
-      makeDashboardRequestFromAPI();
+    if ( DashboardWasRequestedFromAPI !== id ) {
+      console.log('request');
+      makeDashboardRequestFromAPI(id);
     }
     return DashboardCollection;
   }
   const Dashboard = getDashboard();
 
+  console.log('Dashboard:', Dashboard);
+  // console.log('ID', id);
+
   if ( Dashboard.dash_id.id !== '' ) {
     return (
-      <div>
-        
-      </div>
+      <DashboardLayout>
+        <DashboardText>
+          <b>{'ID'}</b>{Dashboard.dash_id.id}
+        </DashboardText>
+        <DashboardText>
+          <b>{'Название'}</b>{Dashboard.dash_id.dashboard_name}
+        </DashboardText>
+      </DashboardLayout>
     );    
   } else {
     return (

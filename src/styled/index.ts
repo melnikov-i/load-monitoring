@@ -7,3 +7,4 @@ export * from './DeviceStyled';
 export * from './DevicesStyled';
 export * from './DevicesLoadStyled';
 export * from './OverviewStyled';
+export * from './DashboardStyled';

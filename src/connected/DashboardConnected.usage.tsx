@@ -1,10 +1,8 @@
 import * as React from 'react';
 
-// import { DevicesTableInterface } from '@src/interfaces';
+import { DashboardInterface } from '@src/interfaces';
 import { DashboardConnected } from '@src/connected';
 
-export default (  ) => (
-  <DashboardConnected />
+export default ({id}: {id: DashboardInterface['dash_id']['id'] } ) => (
+  <DashboardConnected id={id} />
 );
-
-// {id}: {id: DevicesTableInterface['to']}

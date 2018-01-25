@@ -8,6 +8,7 @@ import {
   MainMenuLinksInterface,
   IsOpenedInterface,
   UserMenuInterface,
+  DashboardInterface,
   // DeviceItemsInterface,
   LogOunInterface,
   DroppedMenuButtonClickedType,
@@ -328,15 +329,13 @@ export const Main: React.SFC<MainProps> = (props) => {
                 )} />
         {
           devicesMenu.map((e, i) => {
-            // const items: DeviceItemsInterface = {
-            //   id: e.to,
-            // }
+            const item: DashboardInterface['dash_id']['id'] = e.to;
             return (
               <Route 
                 key={i}
                 exact path={'/' + e.to}
                 render={() => (
-                  <DashboardConnected />
+                  <DashboardConnected id={item} />
                 )}
               />
             );
