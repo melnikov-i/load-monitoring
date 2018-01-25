@@ -235,7 +235,7 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
         color={'#2f4050'}
         bgColor={'#fff'}
       />
-    );    
+    );   
   }
 
 };

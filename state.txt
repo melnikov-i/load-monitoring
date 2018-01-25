@@ -61,11 +61,25 @@ menu = [
 ]
 
 
-
-
-
-App.tsx
--------
-  @src/connected/MainMenuConnected.usage - Основное меню
-    @src/connected/MainMenuConnected
-      @src/components/MainMenu
+{
+  "dash_id": {
+    "id": "63ghdhdujt754"
+    "dashboard_name": "тестовый даш",
+  },
+  "dash_data": [
+    "0": {
+      "widget_name": "cpu",
+      "device_id": "22512df1c12afb12a1da269b572a3c96",
+      "widget_width": "1",
+    },
+    "1": {
+      "widget_name": "cpu",
+      "device_id": "22512df1c12afb12a1da269b572a3c96",
+      "widget_width": "1",
+    },
+    "2": {
+      "widget_name": "cpu",
+      "device_id": "22512df1c12afb12a1da269b572a3c96",
+      "widget_width": "1",
+    },
+  ]

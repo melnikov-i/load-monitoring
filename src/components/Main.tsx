@@ -8,7 +8,7 @@ import {
   MainMenuLinksInterface,
   IsOpenedInterface,
   UserMenuInterface,
-  DeviceItemsInterface,
+  // DeviceItemsInterface,
   LogOunInterface,
   DroppedMenuButtonClickedType,
 } from '@src/interfaces';
@@ -42,8 +42,9 @@ import {
   MainTopExitLink,
 } from '@src/styled';
 
+// import DeviceConnected from '@src/connected/DevicesConnected.usage';
+import DashboardConnected from '@src/connected/DashboardConnected.usage';
 import DevicesConnected from '@src/connected/DevicesConnected.usage';
-import DeviceConnected from '@src/connected/DeviceConnected.usage';
 import OverviewConnected from '@src/connected/OverviewConnected.usage';
 
 interface MainProps {
@@ -327,15 +328,15 @@ export const Main: React.SFC<MainProps> = (props) => {
                 )} />
         {
           devicesMenu.map((e, i) => {
-            const items: DeviceItemsInterface = {
-              id: e.to,
-            }
+            // const items: DeviceItemsInterface = {
+            //   id: e.to,
+            // }
             return (
               <Route 
                 key={i}
                 exact path={'/' + e.to}
                 render={() => (
-                  <DeviceConnected items={items} />
+                  <DashboardConnected />
                 )}
               />
             );
