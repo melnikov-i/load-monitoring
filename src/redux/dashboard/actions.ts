@@ -62,7 +62,7 @@ export const asyncActionCreators = {
       dispatch(
         syncActionCreators.dashboardWasRequestedFromAPI(payload)
       );
-      sendRequestToAPI.post('/dash_data2.php?dashboard_id=' + payload).then(
+      sendRequestToAPI.get('/dash_data2.php?dashboard_id=' + payload).then(
         ( response ) => {
           console.log('response:', response.data);
         }
@@ -74,6 +74,12 @@ export const asyncActionCreators = {
       );
     }
   },
+  makeTestRequestToChange:
+  ( payload: DashboardInterface ) => {
+    return ( dispatch: Dispatch ) => {
+      sendRequestToAPI.post('dash_data2.php')
+    }
+  }
 
   
   // makeDevicesItemsRequestFromAPI: () => {
