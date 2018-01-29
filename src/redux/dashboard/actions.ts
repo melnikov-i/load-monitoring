@@ -7,11 +7,17 @@ import {
 import { Dispatch } from '@src/redux';
 
 import {
+  syncActionCreators as loginActionCreators
+} from '@src/redux/login';
+
+import {
   // syncActionCreators as loginActionCreators
 } from '@src/redux/login';
 
 export const THIS_DASHBOARD_WAS_REQUESTED_FROM_API =
   'THIS_DASHBOARD_WAS_REQUESTED_FROM_API';
+export const PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION =
+  'PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION';
 
 // export const PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION =
 //   'PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION';
@@ -23,6 +29,10 @@ export type Actions = {
     type: typeof THIS_DASHBOARD_WAS_REQUESTED_FROM_API,
     payload: DashboardInterface['dash_id']['id'],
   },
+  PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION: {
+    type: typeof PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION,
+    payload: DashboardInterface,
+  }
   
   // PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION: {
   //   type: typeof PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION,
@@ -32,7 +42,7 @@ export type Actions = {
   //   type: typeof ADD_DEVICE_IN_DEVICES_LOAD_COLLECTION,
   //   payload: DevicesLoadInterface,
   // },
-}
+};
 
 // Sync Action Creators
 export const syncActionCreators = {
@@ -41,7 +51,12 @@ export const syncActionCreators = {
   Actions[typeof THIS_DASHBOARD_WAS_REQUESTED_FROM_API] => ({
     type: THIS_DASHBOARD_WAS_REQUESTED_FROM_API, payload
   }),
-  
+  putDashboardItemsFromAPIToDashboardCollection:
+  ( payload: DashboardInterface ):
+  Actions[typeof PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION] => ({
+    type: PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION, payload,
+  }),
+
   // putDevicesItemsFromAPIToTableCollection:
   // ( payload: DevicesTableInterface[] ):
   // Actions[typeof PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION] => ({
@@ -65,6 +80,19 @@ export const asyncActionCreators = {
       sendRequestToAPI.get('/dash_data2.php?dashboard_id=' + payload).then(
         ( response ) => {
           console.log('response:', response.data);
+          if ( response.data.dashboard !== null ) {
+            const items: DashboardInterface = response.data.dashboard;
+            setTimeout(() => {
+              dispatch(
+                syncActionCreators
+                  .putDashboardItemsFromAPIToDashboardCollection(items)
+              );
+            }, 1000);
+          } else {
+            dispatch(
+              loginActionCreators.userWasLogOut()
+            )
+          }
         }
       )
       .catch(
