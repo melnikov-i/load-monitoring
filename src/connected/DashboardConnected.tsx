@@ -20,7 +20,7 @@ import {
 
 
 const mapStateToProps = createStructuredSelector<RootState, {
-    DashboardWasRequestedFromAPI: DashboardInterface['dash_id']['id'],
+    DashboardWasRequestedFromAPI: DashboardInterface['dash_id']['dashboard_id'],
     DashboardCollection: DashboardInterface,
   }>({
     DashboardWasRequestedFromAPI: DashboardWasRequestedFromAPISelector,

@@ -27,7 +27,7 @@ export const PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION =
 export type Actions = {
   THIS_DASHBOARD_WAS_REQUESTED_FROM_API: {
     type: typeof THIS_DASHBOARD_WAS_REQUESTED_FROM_API,
-    payload: DashboardInterface['dash_id']['id'],
+    payload: DashboardInterface['dash_id']['dashboard_id'],
   },
   PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION: {
     type: typeof PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION,
@@ -47,7 +47,7 @@ export type Actions = {
 // Sync Action Creators
 export const syncActionCreators = {
   dashboardWasRequestedFromAPI: 
-  ( payload: DashboardInterface['dash_id']['id'] ):
+  ( payload: DashboardInterface['dash_id']['dashboard_id'] ):
   Actions[typeof THIS_DASHBOARD_WAS_REQUESTED_FROM_API] => ({
     type: THIS_DASHBOARD_WAS_REQUESTED_FROM_API, payload
   }),
@@ -72,7 +72,7 @@ export const syncActionCreators = {
 // Async Action Creators
 export const asyncActionCreators = {
   makeDashboardRequestFromAPI: 
-  ( payload: DashboardInterface['dash_id']['id'] ) => {
+  ( payload: DashboardInterface['dash_id']['dashboard_id'] ) => {
     return ( dispatch: Dispatch ) => {
       dispatch(
         syncActionCreators.dashboardWasRequestedFromAPI(payload)

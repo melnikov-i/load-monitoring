@@ -329,7 +329,7 @@ export const Main: React.SFC<MainProps> = (props) => {
                 )} />
         {
           devicesMenu.map((e, i) => {
-            const item: DashboardInterface['dash_id']['id'] = e.to;
+            const item: DashboardInterface['dash_id']['dashboard_id'] = e.to;
             return (
               <Route 
                 key={i}

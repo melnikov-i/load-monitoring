@@ -12,10 +12,10 @@ import {
 import { Spinner } from '@src/components';
 
 interface DashboardProps {
-  id: DashboardInterface['dash_id']['id'],
-  DashboardWasRequestedFromAPI: DashboardInterface['dash_id']['id'],
+  id: DashboardInterface['dash_id']['dashboard_id'],
+  DashboardWasRequestedFromAPI: DashboardInterface['dash_id']['dashboard_id'],
   makeDashboardRequestFromAPI: 
-  (payload: DashboardInterface['dash_id']['id']) => any,
+  (payload: DashboardInterface['dash_id']['dashboard_id']) => any,
   DashboardCollection: DashboardInterface,
 }
 
@@ -39,15 +39,32 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
   console.log('Dashboard:', Dashboard);
   // console.log('ID', id);
 
-  if ( Dashboard.dash_id.id !== '' ) {
+  if ( Dashboard.dash_id.dashboard_id !== '' ) {
     return (
       <DashboardLayout>
         <DashboardText>
-          <b>{'ID'}</b>{Dashboard.dash_id.id}
+          {'Dashboard ID: ' + Dashboard.dash_id.dashboard_id}
         </DashboardText>
         <DashboardText>
-          <b>{'Название'}</b>{Dashboard.dash_id.dashboard_name}
+          {'Название' + Dashboard.dash_id.dashboard_name}
         </DashboardText>
+  {
+    Dashboard.dash_data.map((e, i) => {
+      return (
+        <div key={i}>
+          <DashboardText>
+            {'Device ID:' + e.device_id }
+          </DashboardText>
+          <DashboardText>
+            {'Widget Name:' + e.widget_name }
+          </DashboardText>
+          <DashboardText>
+            {'Widget Width:' + e.widget_width }
+          </DashboardText>          
+        </div>
+      );
+    })
+  }
       </DashboardLayout>
     );    
   } else {

@@ -15,12 +15,13 @@ import {
 
 export type State = {
   readonly DashboardCollection: DashboardInterface,
-  readonly DashboardWasRequestedFromAPI: DashboardInterface['dash_id']['id'],
+  readonly DashboardWasRequestedFromAPI: 
+    DashboardInterface['dash_id']['dashboard_id'],
 };
 
 const DashboardCollectionInitialState: DashboardInterface = {
   dash_id: {
-    id: '',
+    dashboard_id: '',
     dashboard_name: '',
   },
   dash_data: []
