@@ -9,12 +9,12 @@ import {
   IsOpenedInterface,
   UserMenuInterface,
   DashboardInterface,
-  // DeviceItemsInterface,
   LogOunInterface,
   DroppedMenuButtonClickedType,
 } from '@src/interfaces';
 
 import { Spinner } from '@src/components';
+import { DroppedMenu } from '@src/libs';
 
 import {
   MainLayout,
@@ -43,7 +43,6 @@ import {
   MainTopExitLink,
 } from '@src/styled';
 
-// import DeviceConnected from '@src/connected/DevicesConnected.usage';
 import DashboardConnected from '@src/connected/DashboardConnected.usage';
 import DevicesConnected from '@src/connected/DevicesConnected.usage';
 import OverviewConnected from '@src/connected/OverviewConnected.usage';
@@ -148,31 +147,6 @@ export const Main: React.SFC<MainProps> = (props) => {
       sendLogOutToAPI(payload);
     };
 
-
-    const droppedMenuHandlerRemove = () => {
-      document.removeEventListener('click', droppedMenuHandlerRemove);    
-      changeDroppedMenuClickedId('');
-    };
-
-    const droppedMenuHandler = 
-    (e: React.MouseEvent<HTMLAnchorElement>) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const current: string =
-        String(e.currentTarget.getAttribute('data-button-id'));
-      if ( DroppedMenuButtonClickedId === '' ) {
-        document.addEventListener('click', droppedMenuHandlerRemove);
-        changeDroppedMenuClickedId(current);
-      } else {
-        if ( current === DroppedMenuButtonClickedId ) {
-          changeDroppedMenuClickedId('');
-        } else {
-          e.nativeEvent.stopImmediatePropagation();
-          changeDroppedMenuClickedId(current);
-        }
-      }
-    };
-
     return (
       <MainLayout>
         <MainMenu
@@ -184,7 +158,9 @@ export const Main: React.SFC<MainProps> = (props) => {
           <MainMenuLogoWrapper>
             <MainMenuLogo>
               <UserMenuAnchor 
-              onClick={(e) => droppedMenuHandler(e)}
+              onClick={(e) => 
+                DroppedMenu(e, DroppedMenuButtonClickedId, changeDroppedMenuClickedId)
+              }
               data-button-id={'00'}>
                 <UserMenuAnchorSpan
                 isClicked={DroppedMenuButtonClickedId === '00'}>

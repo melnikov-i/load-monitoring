@@ -34,6 +34,7 @@ import {
 } from '@src/interfaces';
 
 import { Spinner } from '@src/components';
+import { DroppedMenu } from '@src/libs';
 import DevicesLoadConnected from 
 '@src/connected/DevicesLoadConnected.usage';
 import DevicesStatusConnected from 
@@ -71,31 +72,6 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
       changeDroppedMenuClickedId,
       isFirefoxInUse,
     } = props;
-
-    // Обработчики событий
-    const droppedMenuHandlerRemove = () => {
-      document.removeEventListener('click', droppedMenuHandlerRemove);
-      changeDroppedMenuClickedId('');
-    };
-
-    const devicesDroppedMenuHandler = 
-    (e: React.MouseEvent<HTMLAnchorElement>) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const current: string =
-        String(e.currentTarget.getAttribute('data-button-id'));
-      if ( DroppedMenuButtonClickedId === '' ) {
-        document.addEventListener('click', droppedMenuHandlerRemove);
-        changeDroppedMenuClickedId(current);
-      } else {
-        if ( current === DroppedMenuButtonClickedId ) {
-          changeDroppedMenuClickedId('');
-        } else {
-          e.nativeEvent.stopImmediatePropagation();
-          changeDroppedMenuClickedId(current);
-        }
-      }
-    };
 
     type actionMenuType = {
       value: string,
@@ -196,7 +172,9 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
               <DevicesTableBodyColl isFirefoxInUse={isFirefoxInUse}>
                 <DevicesTableBodyWrapperLast>
                   <DevicesTableActionAnchor
-                  onClick={devicesDroppedMenuHandler}
+                  onClick={(e) =>
+                    DroppedMenu(e, DroppedMenuButtonClickedId, changeDroppedMenuClickedId)
+                  }
                   data-button-id={'1' + i}
                   isClicked={DroppedMenuButtonClickedId === String('1' + i)}>
                     {'Действие'}
