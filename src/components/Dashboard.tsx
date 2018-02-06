@@ -2,16 +2,19 @@ import * as React from 'react';
 import {
   DragDropContext,
   Droppable,
-  Draggable
+  DropResult,
 } from 'react-beautiful-dnd';
 
 import {
   DashboardInterface,
+  DraggableProvided,
+  Draggable,
 } from '@src/interfaces';
 
 import {
   DashboardLayout,
-  DashboardText
+  DashboardText,
+  
 } from '@src/styled';
 
 import { Spinner } from '@src/components';
@@ -22,6 +25,8 @@ interface DashboardProps {
   makeDashboardRequestFromAPI: 
   (payload: DashboardInterface['dash_id']['dashboard_id']) => any,
   DashboardCollection: DashboardInterface,
+  reorderDashboardCollection:
+  (payload: DashboardInterface['dash_data']) => any,
 }
 
 export const Dashboard: React.SFC<DashboardProps> = (props) => {
@@ -34,96 +39,110 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
 
   const getDashboard = () => {
     if ( DashboardWasRequestedFromAPI !== id ) {
-      console.log('request');
       makeDashboardRequestFromAPI(id);
     }
     return DashboardCollection;
   }
   const Dashboard = getDashboard();
 
-  const onDragEnd = (result) => {
-    console.log('result:', result);
-  };
-
-  console.log('Dashboard:', Dashboard);
-  // console.log('ID', id);
-
+  
   if ( Dashboard.dash_id.dashboard_id !== '' ) {
+    const { reorderDashboardCollection } = props;
+  
+    // Drag'n'Drop
+
+    const getListStyle = ( isDraggingOver: any ) => ({
+      background: isDraggingOver ? `lightblue` : `lightgrey`,
+      padding: `8px`,
+      width: `300px`,
+    });
+
+    const getItemStyle = ( draggableStyle: any, isDragging: any ) => {
+      return ({
+        userSelect: `none`,
+        background: isDragging ? `lightgreen` : `grey`,
+        margin: `0 0 8px 0`,
+        padding: `16px`,
+        fontSize: `14px`,
+        ...draggableStyle
+      })
+    };
+
+
+
+    const reorder = ( list: any[], startIndex: number, endIndex: number ) => {
+      const result = Array.from(list);
+      const [removed] = result.splice(startIndex, 1);
+      result.splice(endIndex, 0, removed);
+
+      return result;
+    };
+
+    const onDragEnd = (result: DropResult) => {
+      if ( !result.destination ) {
+        return;
+      }
+      console.log('result: ', result);
+      const items = reorder(
+        Dashboard.dash_data,
+        result.source.index,
+        result.destination.index,
+      );
+      reorderDashboardCollection(items);
+    };
+
     return (
       <DashboardLayout>
-        <DragDropContext
-          onDragEnd={onDragEnd}
-        >
-          <Droppable droppableId={'test'}>
-            {(provided, snapshot) => {
-              console.log('provided:', provided);
-              console.log('snapshot:', snapshot);
-              return (
-                <div>
-                  <Draggable draggableId={'test-1'}>
-                    {(provided, snapshot) => {
-                      return (
-                        <div>
-                          <DashboardText>
-                            {'hello_1'}
-                          </DashboardText>
-                          {provided.placeholder}
-                        </div>
-                      )
-                    }}
-                  </Draggable>
-                  <Draggable draggableId={'test-2'}>
-                    {(provided, snapshot) => {
-                      return (
-                        <div>
-                          <DashboardText>
-                            {'hello_2'}
-                          </DashboardText>
-                          {provided.placeholder}
-                        </div>
-                      )
-                    }}
-                  </Draggable>
-                  <Draggable draggableId={'test-3'}>
-                    {(provided, snapshot) => {
-                      return (
-                        <div>
-                          <DashboardText>
-                            {'hello_3'}
-                          </DashboardText>
-                          {provided.placeholder}
-                        </div>
-                      )
-                    }}
-                  </Draggable>
-                  {provided.placeholder}
-                </div>
-              )
-            }}
-          </Droppable>
-        </DragDropContext>
-
         <DashboardText>
           {'Dashboard ID: ' + Dashboard.dash_id.dashboard_id}
         </DashboardText>
         <DashboardText>
-          {'Название' + Dashboard.dash_id.dashboard_name}
+          {'Название: ' + Dashboard.dash_id.dashboard_name}
         </DashboardText>
-          {Dashboard.dash_data.map((e, i) => {
-            return (
-              <div key={i}>
-                <DashboardText>
-                  {'Device ID:' + e.device_id }
-                </DashboardText>
-                <DashboardText>
-                  {'Widget Name:' + e.widget_name }
-                </DashboardText>
-                <DashboardText>
-                  {'Widget Width:' + e.widget_width }
-                </DashboardText>          
+
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId={'droppable'}>
+            {(provided, snapshot) => (
+              <div
+                ref={provided.innerRef}
+                style={getListStyle(snapshot.isDraggingOver)}
+              >
+                {Dashboard.dash_data.map((e, i) => (
+                  <Draggable 
+                    key={i}
+                    draggableId={'item-' + String(i)}
+                    disableInteractiveElementBlocking={true}
+                  >
+                    {(provided: DraggableProvided, snapshot) => (
+                      <div>
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.dragHandleProps}
+                          style={getItemStyle(
+                            provided.draggableProps.style,
+                            snapshot.isDragging
+                          )}
+                        >
+                          <DashboardText>
+                            {'Device ID: ' + e.device_id }
+                          </DashboardText>
+                          <DashboardText>
+                            {'Widget Name: ' + e.widget_name }
+                          </DashboardText>
+                          <DashboardText>
+                            {'Widget Width: ' + e.widget_width }
+                          </DashboardText>
+                        </div>
+                        {provided.placeholder}
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
               </div>
-            );
-          })}
+            )}
+          </Droppable>
+        </DragDropContext>
       </DashboardLayout>
     );    
   } else {
@@ -137,3 +156,14 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
   }
 
 }
+                            // <div>
+                            //   <DashboardText>
+                            //     {'Device ID: ' + e.device_id }
+                            //   </DashboardText>
+                            //   <DashboardText>
+                            //     {'Widget Name: ' + e.widget_name }
+                            //   </DashboardText>
+                            //   <DashboardText>
+                            //     {'Widget Width: ' + e.widget_width }
+                            //   </DashboardText>                              
+                            // </div>

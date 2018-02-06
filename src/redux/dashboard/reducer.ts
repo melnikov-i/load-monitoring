@@ -6,7 +6,8 @@ import {
 
 import {
   THIS_DASHBOARD_WAS_REQUESTED_FROM_API,
-  PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION
+  PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION,
+  REORDER_DASHBOARD_COLLECTION,
 } from '@src/redux/dashboard';
 
 import {
@@ -33,6 +34,11 @@ export const reducer = combineReducers({
     switch ( action.type ) {
       case PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION:
         return action.payload;
+      case REORDER_DASHBOARD_COLLECTION:
+        return {
+          ...state,
+          ['dash_data']: action.payload,
+        };
       case USER_WAS_LOGOUT:
         return DashboardCollectionInitialState;
       default:

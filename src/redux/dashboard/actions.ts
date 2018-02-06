@@ -18,6 +18,8 @@ export const THIS_DASHBOARD_WAS_REQUESTED_FROM_API =
   'THIS_DASHBOARD_WAS_REQUESTED_FROM_API';
 export const PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION =
   'PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION';
+export const REORDER_DASHBOARD_COLLECTION =
+  'REORDER_DASHBOARD_COLLECTION';
 
 // export const PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION =
 //   'PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION';
@@ -32,6 +34,10 @@ export type Actions = {
   PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION: {
     type: typeof PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION,
     payload: DashboardInterface,
+  },
+  REORDER_DASHBOARD_COLLECTION: {
+    type: typeof REORDER_DASHBOARD_COLLECTION,
+    payload: DashboardInterface['dash_data'],
   }
   
   // PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION: {
@@ -56,6 +62,11 @@ export const syncActionCreators = {
   Actions[typeof PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION] => ({
     type: PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION, payload,
   }),
+  reorderDashboardCollection:
+  ( payload: DashboardInterface['dash_data'] ):
+  Actions[typeof REORDER_DASHBOARD_COLLECTION] => ({
+    type: REORDER_DASHBOARD_COLLECTION, payload,
+  })
 
   // putDevicesItemsFromAPIToTableCollection:
   // ( payload: DevicesTableInterface[] ):
