@@ -2,13 +2,13 @@ import * as React from 'react';
 import {
   DragDropContext,
   Droppable,
+  Draggable,
   DropResult,
 } from 'react-beautiful-dnd';
 
 import {
   DashboardInterface,
   DraggableProvided,
-  Draggable,
 } from '@src/interfaces';
 
 import {
@@ -52,18 +52,18 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
     // Drag'n'Drop
 
     const getListStyle = ( isDraggingOver: any ) => ({
-      background: isDraggingOver ? `lightblue` : `lightgrey`,
-      padding: `8px`,
-      width: `300px`,
+      background: isDraggingOver ? 'lightblue' : 'lightgrey',
+      padding: '8px',
+      width: '300px',
     });
 
     const getItemStyle = ( draggableStyle: any, isDragging: any ) => {
       return ({
-        userSelect: `none`,
-        background: isDragging ? `lightgreen` : `grey`,
-        margin: `0 0 8px 0`,
-        padding: `16px`,
-        fontSize: `14px`,
+        userSelect: 'none',
+        background: isDragging ? 'lightgreen' : 'grey',
+        margin: '0 0 8px 0',
+        padding: '16px',
+        fontSize: '14px',
         ...draggableStyle
       })
     };
@@ -82,7 +82,7 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
       if ( !result.destination ) {
         return;
       }
-      console.log('result: ', result);
+      // console.log('result: ', result);
       const items = reorder(
         Dashboard.dash_data,
         result.source.index,
@@ -100,7 +100,12 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
           {'Название: ' + Dashboard.dash_id.dashboard_name}
         </DashboardText>
 
-        <DragDropContext onDragEnd={onDragEnd}>
+        <DragDropContext onDragEnd={
+          (result) => {
+            console.log('result: ', result);
+            return onDragEnd(result)
+          }
+        }>
           <Droppable droppableId={'droppable'}>
             {(provided, snapshot) => (
               <div
@@ -117,11 +122,11 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
                       <div>
                         <div
                           ref={provided.innerRef}
-                          {...provided.dragHandleProps}
                           style={getItemStyle(
                             provided.draggableProps.style,
                             snapshot.isDragging
                           )}
+                          {...provided.dragHandleProps}
                         >
                           <DashboardText>
                             {'Device ID: ' + e.device_id }
