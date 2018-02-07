@@ -9,8 +9,8 @@ export const DashboardText = styled.p`
   font-size: 14px;
 `;
 
-export const DashboardDrag = styled.div`
-  width: 300px;
-  height: 75px;
-  border: 3px solid orange;
+export const DashboardDragGrid = styled.div`
+  display: inline-block;
+  vertical-align: top;
+  width: 20%;
 `;

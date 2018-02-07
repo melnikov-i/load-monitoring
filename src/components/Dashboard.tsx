@@ -8,13 +8,12 @@ import {
 
 import {
   DashboardInterface,
-  DraggableProvided,
 } from '@src/interfaces';
 
 import {
   DashboardLayout,
   DashboardText,
-  
+  DashboardDragGrid
 } from '@src/styled';
 
 import { Spinner } from '@src/components';
@@ -28,6 +27,7 @@ interface DashboardProps {
   reorderDashboardCollection:
   (payload: DashboardInterface['dash_data']) => any,
 }
+
 
 export const Dashboard: React.SFC<DashboardProps> = (props) => {
   const {
@@ -53,22 +53,14 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
 
     const getListStyle = ( isDraggingOver: any ) => ({
       background: isDraggingOver ? 'lightblue' : 'lightgrey',
-      padding: '8px',
-      width: '300px',
+      
     });
 
-    const getItemStyle = ( draggableStyle: any, isDragging: any ) => {
-      return ({
-        userSelect: 'none',
-        background: isDragging ? 'lightgreen' : 'grey',
-        margin: '0 0 8px 0',
-        padding: '16px',
-        fontSize: '14px',
-        ...draggableStyle
-      })
-    };
-
-
+    const getItemStyle = ( draggableStyle: any, isDragging: any ) => ({
+      userSelect: 'none',
+      background: isDragging ? 'lightgreen' : 'grey',
+      ...draggableStyle
+    });
 
     const reorder = ( list: any[], startIndex: number, endIndex: number ) => {
       const result = Array.from(list);
@@ -106,7 +98,10 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
             return onDragEnd(result)
           }
         }>
-          <Droppable droppableId={'droppable'}>
+          <Droppable 
+            droppableId={'droppable'}
+            direction={'horizontal'}
+          >
             {(provided, snapshot) => (
               <div
                 ref={provided.innerRef}
@@ -115,11 +110,12 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
                 {Dashboard.dash_data.map((e, i) => (
                   <Draggable 
                     key={i}
-                    draggableId={'item-' + String(i)}
+                    draggableId={'item-1' + String(i)}
                     disableInteractiveElementBlocking={true}
+                    index={i}
                   >
-                    {(provided: DraggableProvided, snapshot) => (
-                      <div>
+                    {(provided, snapshot) => (
+                      <DashboardDragGrid>
                         <div
                           ref={provided.innerRef}
                           style={getItemStyle(
@@ -139,7 +135,52 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
                           </DashboardText>
                         </div>
                         {provided.placeholder}
-                      </div>
+                      </DashboardDragGrid>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+          <Droppable 
+            droppableId={'droppable'}
+            direction={'horizontal'}
+          >
+            {(provided, snapshot) => (
+              <div
+                ref={provided.innerRef}
+                style={getListStyle(snapshot.isDraggingOver)}
+              >
+                {Dashboard.dash_data.map((e, i) => (
+                  <Draggable 
+                    key={i}
+                    draggableId={'item-2' + String(i)}
+                    disableInteractiveElementBlocking={true}
+                    index={i}
+                  >
+                    {(provided, snapshot) => (
+                      <DashboardDragGrid>
+                        <div
+                          ref={provided.innerRef}
+                          style={getItemStyle(
+                            provided.draggableProps.style,
+                            snapshot.isDragging
+                          )}
+                          {...provided.dragHandleProps}
+                        >
+                          <DashboardText>
+                            {'Device ID: ' + e.device_id }
+                          </DashboardText>
+                          <DashboardText>
+                            {'Widget Name: ' + e.widget_name }
+                          </DashboardText>
+                          <DashboardText>
+                            {'Widget Width: ' + e.widget_width }
+                          </DashboardText>
+                        </div>
+                        {provided.placeholder}
+                      </DashboardDragGrid>
                     )}
                   </Draggable>
                 ))}
@@ -159,16 +200,4 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
       />
     );
   }
-
 }
-                            // <div>
-                            //   <DashboardText>
-                            //     {'Device ID: ' + e.device_id }
-                            //   </DashboardText>
-                            //   <DashboardText>
-                            //     {'Widget Name: ' + e.widget_name }
-                            //   </DashboardText>
-                            //   <DashboardText>
-                            //     {'Widget Width: ' + e.widget_width }
-                            //   </DashboardText>                              
-                            // </div>
