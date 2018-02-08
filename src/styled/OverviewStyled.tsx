@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import {
-  MIDDLE_SCREEN_MAX,
+  // MIDDLE_SCREEN_MAX,
   FA_OVERVIEW_ICON_SIZE,
   BIG_USER_FAKE_LINK_HEIGHT
 } from '@src/styled';
@@ -10,19 +10,19 @@ import {
   DActionAnchorClickedInterface
 } from '@src/interfaces';
 
-export const OverviewLayout = styled.div`
-  box-sizing: border-box;
-  width: 100%;
-  padding: 20px 30px 70px;
-  @media screen and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-    padding: 20px 10px;
-  }
-`;
+// export const OverviewLayout = styled.div`
+//   box-sizing: border-box;
+//   width: 100%;
+//   padding: 20px 30px 70px;
+//   @media screen and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+//     padding: 20px 10px;
+//   }
+// `;
 
-export const OverviewHeader = styled.h1`
-  font-size: 18px;
-  font-weight: 600;
-`;
+// export const OverviewHeader = styled.h1`
+//   font-size: 18px;
+//   font-weight: 600;
+// `;
 
 export const OverviewIconsLayout = styled.div`
   width: 100%;

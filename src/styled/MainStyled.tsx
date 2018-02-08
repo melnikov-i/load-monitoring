@@ -537,7 +537,7 @@ export const MainPage = styled.div`
 export const MainTop = styled.div`
   width: 100%;
   height: ${ TOP_HEIGHT };
-  background-color: #f3f3f3;
+  background-color: #f3f3f4;
   border-bottom: 1px solid #e7eaec;
   box-sizing: border-box;
   position: relative;
@@ -570,7 +570,6 @@ export const MainTopExitLink = styled(NavLink)`
   }
 `;
 
-export const MainContent = styled.div`
-  width: 100%;
-  background-color: #fff;
-`;
+// export const MainContent = styled.div`
+//   margin: 20px 15px;
+// `;

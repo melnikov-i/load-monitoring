@@ -17,6 +17,7 @@ import { Spinner } from '@src/components';
 import { DroppedMenu } from '@src/libs';
 
 import {
+  // MainContent,
   MainLayout,
   MainMenu,
   MainMenuLogoWrapper,
@@ -32,7 +33,6 @@ import {
   MainPage,
   MainTop,
   SmallMenuButton,
-  MainContent,
   UserMenuAnchor,
   UserMenuAnchorSpan,
   UserMenuLayout,
@@ -293,7 +293,7 @@ export const Main: React.SFC<MainProps> = (props) => {
               </MainTopExitLink>
             </MainTopExitWrapper>
           </MainTop>
-          <MainContent>
+          <div>
             <Switch>
               <Route
                 exact path="/overview"
@@ -321,7 +321,7 @@ export const Main: React.SFC<MainProps> = (props) => {
                 exact path={'/'}
                 component={OverviewConnected} />
             </Switch>
-          </MainContent>
+          </div>
         </MainPage>
       </MainLayout>
     );    
@@ -331,7 +331,7 @@ export const Main: React.SFC<MainProps> = (props) => {
       <Spinner
         width={3}
         color={'#2f4050'}
-        bgColor={'#fff'}
+        bgColor={'#f3f3f4'}
       />
     );
   }

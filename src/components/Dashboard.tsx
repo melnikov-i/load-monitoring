@@ -196,7 +196,7 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
       <Spinner
         width={3}
         color={'#2f4050'}
-        bgColor={'#fff'}
+        bgColor={'#f3f3f4'}
       />
     );
   }

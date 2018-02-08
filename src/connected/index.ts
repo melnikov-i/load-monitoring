@@ -6,4 +6,5 @@ export * from './DevicesLoadConnected';
 export * from './DevicesStatusConnected';
 export * from './OverviewConnected';
 export * from './DashboardConnected';
+export * from './MainHeaderConnected';
 // export * from './DeviceConnected';

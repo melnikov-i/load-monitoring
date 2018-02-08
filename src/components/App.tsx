@@ -47,7 +47,7 @@ injectGlobal`
     min-width: 700px;
     min-height: 100%;
     height: auto;
-    
+    background-color: #f3f3f4;
   }
   
   .activeMainMenuItem {

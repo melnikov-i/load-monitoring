@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import {
-  OverviewLayout,
-  OverviewHeader,
+  // OverviewLayout,
+  // OverviewHeader,
   OverviewIconsLayout,
   OverviewIconWrapper,
   OverviewIcon,
@@ -30,10 +30,13 @@ import {
 import {
   OverviewInterface,
   DroppedMenuButtonClickedType,
-  OverviewEventsTableInterface
+  OverviewEventsTableInterface,
+  MainHeaderInterface
 } from '@src/interfaces';
 
 import { Spinner } from '@src/components';
+import MainHeaderConnected from
+  '@src/connected/MainHeaderConnected.usage';
 
 interface OverviewProps {
   OverviewItemsWasRequestedFromAPI: boolean,
@@ -124,9 +127,21 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
       makeOverviewDeleteItemsRequestFromAPI(payload)
     }
 
+    
+    const MainHeaderState: MainHeaderInterface = {
+      header: 'Обзор системы',
+      breadcrumbs: [
+        {
+          href: '',
+          title: 'Home',
+        }
+      ],
+    }
+
+
     return (
-      <OverviewLayout>
-        <OverviewHeader>{'Обзор системы'}</OverviewHeader>
+      <div>
+        <MainHeaderConnected data={MainHeaderState} />
         <OverviewIconsLayout>
           <OverviewIconWrapper bgcolor={'#1ab394'}>
             <OverviewIcon icon={'f058'} />
@@ -226,14 +241,14 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
           </OverviewTableBody>
         </OverviewTable>
       ) : null }
-      </OverviewLayout>
+      </div>
     );    
   } else {
     return (
       <Spinner
         width={3}
         color={'#2f4050'}
-        bgColor={'#fff'}
+        bgColor={'#f3f3f4'}
       />
     );    
   }

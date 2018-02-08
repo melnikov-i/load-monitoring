@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import {
-  DevicesLayout,
-  DevicesHeader,
+  // DevicesLayout,
+  // DevicesHeader,
   DevicesTable,
   DevicesTableHead,
   DevicesTableBody,
@@ -26,19 +26,24 @@ import {
   DevicesTableActionMenuLayout,
   DevicesTableActionMenuItem,
   DevicesTableActionLink,
+
+  MainComponentContent
 } from '@src/styled';
 
 import {
   DevicesTableInterface,
   DroppedMenuButtonClickedType,
+  MainHeaderInterface
 } from '@src/interfaces';
 
 import { Spinner } from '@src/components';
 import { DroppedMenu } from '@src/libs';
 import DevicesLoadConnected from 
-'@src/connected/DevicesLoadConnected.usage';
+  '@src/connected/DevicesLoadConnected.usage';
 import DevicesStatusConnected from 
-'@src/connected/DevicesStatusConnected.usage';
+  '@src/connected/DevicesStatusConnected.usage';
+import MainHeaderConnected from
+  '@src/connected/MainHeaderConnected.usage';
 
 interface DevicesProps {
   DevicesItemsWasRequestedFromAPI: boolean,
@@ -65,6 +70,7 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
     return DevicesTableItemsCollection;
   };
   const devicesItems = getDevicesItems();
+
 
   if ( devicesItems.length !== 0 ) {
     const {
@@ -93,125 +99,141 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
       }
     ];
 
+    const MainHeaderState: MainHeaderInterface = {
+      header: 'Все устройства',
+      breadcrumbs: [
+        {
+          href: '',
+          title: 'Home',
+        },
+        {
+          href: 'devices',
+          title: 'Все устройства',
+        }
+      ],
+    };
+
     return (
-      <DevicesLayout>
-        <DevicesHeader>{'Все устройства'}</DevicesHeader>
-        <DevicesTable>
-          <DevicesTableHead>
-            <DevicesTableHeadRow>
-              <DevicesTableHeadCollDev>
-                {'Устройство'}
-              </DevicesTableHeadCollDev>
-              <DevicesTableHeadCollIP>
-                {'IP-адрес'}
-              </DevicesTableHeadCollIP>
-              <DevicesTableHeadCollInfo>
-                {'Информация о системе'}
-              </DevicesTableHeadCollInfo>
-              <DevicesTableHeadCollLoad>
-                {'Нагрузка'}
-              </DevicesTableHeadCollLoad>
-              <DevicesTableHeadCollStatus>
-                {'Статус'}
-              </DevicesTableHeadCollStatus>
-              <DevicesTableHeadLastColl></DevicesTableHeadLastColl>
-            </DevicesTableHeadRow>
-          </DevicesTableHead>
-          <DevicesTableBody>
-      {
-        devicesItems.map((e, i) => {
-          return (
-            <DevicesTableBodyRow 
-              key={i}
-            >
-              <DevicesTableBodyColl isFirefoxInUse={isFirefoxInUse}>
-                <DevicesTableBodyLink to={e.to}>
-                  <DevicesTableBodyCompNameSpan
-                  icon={e.icon}
-                  title={e.comp_name}>
-                    {e.comp_name}
-                  </DevicesTableBodyCompNameSpan>
-                </DevicesTableBodyLink>
-              </DevicesTableBodyColl>
-              <DevicesTableBodyColl isFirefoxInUse={isFirefoxInUse}>
-                <DevicesTableBodyLink to={e.to}>
-                  <DevicesTableBodyIPSpan>
-                    {e.ip}
-                  </DevicesTableBodyIPSpan>
-                </DevicesTableBodyLink>
-              </DevicesTableBodyColl>
-              <DevicesTableBodyColl isFirefoxInUse={isFirefoxInUse}>
-                <DevicesTableBodyInfoLink to={e.to}>
-                  <DevicesTableBodyInfo>
-                    {e.system}
-                  </DevicesTableBodyInfo>
-                  <DevicesTableBodyInfo>
-                    <DevicesTableBodyInfoSpan>
-                      {'CPU: '}
-                    </DevicesTableBodyInfoSpan>
-                    {e.cpu_name}
-                  </DevicesTableBodyInfo>
-                  <DevicesTableBodyInfo>
-                    <DevicesTableBodyInfoSpan>
-                      {'RAM: '}
-                    </DevicesTableBodyInfoSpan>
-                    {Math.floor((Number(e.memory) / 1024) / 1024) + ' Мб'}
-                  </DevicesTableBodyInfo>
-                </DevicesTableBodyInfoLink>
-              </DevicesTableBodyColl>
-              <DevicesTableBodyColl isFirefoxInUse={isFirefoxInUse}>
-                <DevicesTableBodyLink to={e.to}>
-                  <DevicesLoadConnected id={e.to} />
-                </DevicesTableBodyLink>
-              </DevicesTableBodyColl>
-              <DevicesTableBodyColl isFirefoxInUse={isFirefoxInUse}>
-                <DevicesTableBodyLink to={e.to}>
-                  <DevicesStatusConnected id={e.to} />
-                </DevicesTableBodyLink>
-              </DevicesTableBodyColl>
-              <DevicesTableBodyColl isFirefoxInUse={isFirefoxInUse}>
-                <DevicesTableBodyWrapperLast>
-                  <DevicesTableActionAnchor
-                  onClick={(e) =>
-                    DroppedMenu(e, DroppedMenuButtonClickedId, changeDroppedMenuClickedId)
-                  }
-                  data-button-id={'1' + i}
-                  isClicked={DroppedMenuButtonClickedId === String('1' + i)}>
-                    {'Действие'}
-                  </DevicesTableActionAnchor>
-                  
-                  <DevicesTableActionMenuLayout
-                  isClicked={DroppedMenuButtonClickedId === String('1' + i)}
-                  >
-              {
-                actionMenu.map((item, i) => {
-                  return (
-                    <DevicesTableActionMenuItem key={i}>
-                      <DevicesTableActionLink
-                      to={(item.value === 'Обзор') ? e.to : item.to}>
-                        {item.value}
-                      </DevicesTableActionLink>
-                    </DevicesTableActionMenuItem>
-                  );
-                })
-              }
-                  </DevicesTableActionMenuLayout>
-                </DevicesTableBodyWrapperLast>
-              </DevicesTableBodyColl>
-            </DevicesTableBodyRow>
-          );
-        })
-      }
-          </DevicesTableBody>
-        </DevicesTable>
-      </DevicesLayout>
+      <div>
+        <MainHeaderConnected data={MainHeaderState} />
+        <MainComponentContent>
+          <DevicesTable>
+            <DevicesTableHead>
+              <DevicesTableHeadRow>
+                <DevicesTableHeadCollDev>
+                  {'Устройство'}
+                </DevicesTableHeadCollDev>
+                <DevicesTableHeadCollIP>
+                  {'IP-адрес'}
+                </DevicesTableHeadCollIP>
+                <DevicesTableHeadCollInfo>
+                  {'Информация о системе'}
+                </DevicesTableHeadCollInfo>
+                <DevicesTableHeadCollLoad>
+                  {'Нагрузка'}
+                </DevicesTableHeadCollLoad>
+                <DevicesTableHeadCollStatus>
+                  {'Статус'}
+                </DevicesTableHeadCollStatus>
+                <DevicesTableHeadLastColl></DevicesTableHeadLastColl>
+              </DevicesTableHeadRow>
+            </DevicesTableHead>
+            <DevicesTableBody>
+        {
+          devicesItems.map((e, i) => {
+            return (
+              <DevicesTableBodyRow 
+                key={i}
+              >
+                <DevicesTableBodyColl isFirefoxInUse={isFirefoxInUse}>
+                  <DevicesTableBodyLink to={e.to}>
+                    <DevicesTableBodyCompNameSpan
+                    icon={e.icon}
+                    title={e.comp_name}>
+                      {e.comp_name}
+                    </DevicesTableBodyCompNameSpan>
+                  </DevicesTableBodyLink>
+                </DevicesTableBodyColl>
+                <DevicesTableBodyColl isFirefoxInUse={isFirefoxInUse}>
+                  <DevicesTableBodyLink to={e.to}>
+                    <DevicesTableBodyIPSpan>
+                      {e.ip}
+                    </DevicesTableBodyIPSpan>
+                  </DevicesTableBodyLink>
+                </DevicesTableBodyColl>
+                <DevicesTableBodyColl isFirefoxInUse={isFirefoxInUse}>
+                  <DevicesTableBodyInfoLink to={e.to}>
+                    <DevicesTableBodyInfo>
+                      {e.system}
+                    </DevicesTableBodyInfo>
+                    <DevicesTableBodyInfo>
+                      <DevicesTableBodyInfoSpan>
+                        {'CPU: '}
+                      </DevicesTableBodyInfoSpan>
+                      {e.cpu_name}
+                    </DevicesTableBodyInfo>
+                    <DevicesTableBodyInfo>
+                      <DevicesTableBodyInfoSpan>
+                        {'RAM: '}
+                      </DevicesTableBodyInfoSpan>
+                      {Math.floor((Number(e.memory) / 1024) / 1024) + ' Мб'}
+                    </DevicesTableBodyInfo>
+                  </DevicesTableBodyInfoLink>
+                </DevicesTableBodyColl>
+                <DevicesTableBodyColl isFirefoxInUse={isFirefoxInUse}>
+                  <DevicesTableBodyLink to={e.to}>
+                    <DevicesLoadConnected id={e.to} />
+                  </DevicesTableBodyLink>
+                </DevicesTableBodyColl>
+                <DevicesTableBodyColl isFirefoxInUse={isFirefoxInUse}>
+                  <DevicesTableBodyLink to={e.to}>
+                    <DevicesStatusConnected id={e.to} />
+                  </DevicesTableBodyLink>
+                </DevicesTableBodyColl>
+                <DevicesTableBodyColl isFirefoxInUse={isFirefoxInUse}>
+                  <DevicesTableBodyWrapperLast>
+                    <DevicesTableActionAnchor
+                    onClick={(e) =>
+                      DroppedMenu(e, DroppedMenuButtonClickedId, changeDroppedMenuClickedId)
+                    }
+                    data-button-id={'1' + i}
+                    isClicked={DroppedMenuButtonClickedId === String('1' + i)}>
+                      {'Действие'}
+                    </DevicesTableActionAnchor>
+                    
+                    <DevicesTableActionMenuLayout
+                    isClicked={DroppedMenuButtonClickedId === String('1' + i)}
+                    >
+                {
+                  actionMenu.map((item, i) => {
+                    return (
+                      <DevicesTableActionMenuItem key={i}>
+                        <DevicesTableActionLink
+                        to={(item.value === 'Обзор') ? e.to : item.to}>
+                          {item.value}
+                        </DevicesTableActionLink>
+                      </DevicesTableActionMenuItem>
+                    );
+                  })
+                }
+                    </DevicesTableActionMenuLayout>
+                  </DevicesTableBodyWrapperLast>
+                </DevicesTableBodyColl>
+              </DevicesTableBodyRow>
+            );
+          })
+        }
+            </DevicesTableBody>
+          </DevicesTable>          
+        </MainComponentContent>
+      </div>
     );
   } else {
     return (
       <Spinner
         width={3}
         color={'#2f4050'}
-        bgColor={'#fff'}
+        bgColor={'#f3f3f4'}
       />
     );   
   }
