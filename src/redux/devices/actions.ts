@@ -62,11 +62,11 @@ export const asyncActionCreators = {
           let items: DevicesTableInterface[] = [];
           if ( response.data.table !== null ) {
             items = response.data.table;
+            dispatch(
+              syncActionCreators
+                .putDevicesItemsFromAPIToTableCollection(items)
+            )
             setTimeout(() => {
-              dispatch(
-                syncActionCreators
-                  .putDevicesItemsFromAPIToTableCollection(items)
-              )
             }, 1000);
           } else {
             dispatch(

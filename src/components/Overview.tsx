@@ -1,8 +1,7 @@
 import * as React from 'react';
 
 import {
-  // OverviewLayout,
-  // OverviewHeader,
+  OverwievText,
   OverviewIconsLayout,
   OverviewIconWrapper,
   OverviewIcon,
@@ -25,6 +24,9 @@ import {
   OverviewTableActionMenuLayout,
   OverviewTableActionMenuItem,
   OverviewTableActionMenuAnchor,
+  MainComponentWrapper,
+  MainComponentHeader,
+  MainComponentContent
 } from '@src/styled';
 
 import {
@@ -142,105 +144,135 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
     return (
       <div>
         <MainHeaderConnected data={MainHeaderState} />
-        <OverviewIconsLayout>
-          <OverviewIconWrapper bgcolor={'#1ab394'}>
-            <OverviewIcon icon={'f058'} />
-            <OverviewIconNumber>
-              {overviewItems.counts.normal}
-            </OverviewIconNumber>
-            <OverviewIconText>
-              {textSuffix(overviewItems.counts.normal)}
-            </OverviewIconText>
-          </OverviewIconWrapper>
-          <OverviewIconWrapper bgcolor={'#f8ac59'}>
-            <OverviewIcon icon={'f059'} />
-            <OverviewIconNumber>
-              {overviewItems.counts.warning}
-            </OverviewIconNumber>
-            <OverviewIconText>
-              {textSuffix(overviewItems.counts.warning)}
-            </OverviewIconText>
-          </OverviewIconWrapper>
-          <OverviewIconWrapper bgcolor={'#ed5565'}>
-            <OverviewIcon icon={'f071'} />
-            <OverviewIconNumber>
-              {overviewItems.counts.offline}
-            </OverviewIconNumber>
-            <OverviewIconText>
-              {textSuffix(overviewItems.counts.offline)}
-            </OverviewIconText>
-          </OverviewIconWrapper>
-        </OverviewIconsLayout>
-        {(overviewItems.events_table.length !== 0) ? (
-        <OverviewTable>
-          <OverviewTableHead>
-            <OverviewTableHeadRow>
-              <OverviewTableHeadCollNumber>
-                {'№'}
-              </OverviewTableHeadCollNumber>
-              <OverviewTableHeadCollDate>
-                {'Дата'}
-              </OverviewTableHeadCollDate>
-              <OverviewTableHeadCollCompName>
-                {'имя ПК'}
-              </OverviewTableHeadCollCompName>
-              <OverviewTableHeadCollEvent>
-                {'Событие'}
-              </OverviewTableHeadCollEvent>
-              <OverviewTableHeadCollAction>
-                
-              </OverviewTableHeadCollAction>
-            </OverviewTableHeadRow>
-          </OverviewTableHead>
-          <OverviewTableBody>
-        {overviewItems.events_table.map((e, i) => {
-          const date = new Date(Number(e.event_data) * 1000);
-          return (
-            <OverviewTableBodyRow key={i}>
-              <OverviewTableBodyCollNumber>
-                {String(i + 1)}
-              </OverviewTableBodyCollNumber>
-              <OverviewTableBodyColl>
-              {
-                date.getDate()
-                + ((date.getMonth() > 8 ) ? '.' : '.0')
-                + (date.getMonth() + 1)
-                + '.' + date.getFullYear()
-                + ' ' + ((date.getHours() > 9) ? '' : '0') + date.getHours()
-                + ((date.getMinutes() > 9) ? ':' : ':0') + date.getMinutes()
-                + ((date.getSeconds() > 9) ? ':' : ':0') + date.getSeconds()
-              }
-              </OverviewTableBodyColl>
-              <OverviewTableBodyColl>
-                {e.comp_name}
-              </OverviewTableBodyColl>
-              <OverviewTableBodyColl>
-                {e.text}
-              </OverviewTableBodyColl>
-              <OverviewTableBodyCollActions>
-                <OverviewTableActionAnchor
-                onClick={devicesDroppedMenuHandler}
-                data-button-id={'2' + i}
-                isClicked={DroppedMenuButtonClickedId === String('2' + i)}>
-                  {'Действие'}
-                </OverviewTableActionAnchor>                
-                <OverviewTableActionMenuLayout
-                isClicked={DroppedMenuButtonClickedId === String('2' + i)}>
-                  <OverviewTableActionMenuItem key={i}>
-                    <OverviewTableActionMenuAnchor
-                    onClick={deleteEventFromTableHandler}
-                    data-event-id={e.id}>
-                      {'Убрать уведомление'}
-                    </OverviewTableActionMenuAnchor>
-                  </OverviewTableActionMenuItem>
-                </OverviewTableActionMenuLayout>
-              </OverviewTableBodyCollActions>
-            </OverviewTableBodyRow>
-          );
-        })}
-          </OverviewTableBody>
-        </OverviewTable>
-      ) : null }
+        <MainComponentWrapper>
+          <MainComponentContent          
+            isLogin={false}
+            bg={false}
+          >
+            <OverviewIconsLayout>
+              <OverviewIconWrapper bgcolor={'#1ab394'}>
+                <OverviewIcon icon={'f058'} />
+                <OverviewIconNumber>
+                  {overviewItems.counts.normal}
+                </OverviewIconNumber>
+                <OverviewIconText>
+                  {textSuffix(overviewItems.counts.normal)}
+                </OverviewIconText>
+              </OverviewIconWrapper>
+              <OverviewIconWrapper bgcolor={'#f8ac59'}>
+                <OverviewIcon icon={'f059'} />
+                <OverviewIconNumber>
+                  {overviewItems.counts.warning}
+                </OverviewIconNumber>
+                <OverviewIconText>
+                  {textSuffix(overviewItems.counts.warning)}
+                </OverviewIconText>
+              </OverviewIconWrapper>
+              <OverviewIconWrapper bgcolor={'#ed5565'}>
+                <OverviewIcon icon={'f071'} />
+                <OverviewIconNumber>
+                  {overviewItems.counts.offline}
+                </OverviewIconNumber>
+                <OverviewIconText>
+                  {textSuffix(overviewItems.counts.offline)}
+                </OverviewIconText>
+              </OverviewIconWrapper>
+            </OverviewIconsLayout>
+          </MainComponentContent>          
+        </MainComponentWrapper>
+        <MainComponentWrapper>
+          <MainComponentContent          
+            isLogin={false}
+            bg={true}
+          >
+            <MainComponentHeader>{'Все события'}</MainComponentHeader>
+            {(overviewItems.events_table.length !== 0) 
+              ? (
+                <OverviewTable>
+                  <OverviewTableHead>
+                    <OverviewTableHeadRow>
+                      <OverviewTableHeadCollNumber>
+                        {'№'}
+                      </OverviewTableHeadCollNumber>
+                      <OverviewTableHeadCollDate>
+                        {'Дата'}
+                      </OverviewTableHeadCollDate>
+                      <OverviewTableHeadCollCompName>
+                        {'имя ПК'}
+                      </OverviewTableHeadCollCompName>
+                      <OverviewTableHeadCollEvent>
+                        {'Событие'}
+                      </OverviewTableHeadCollEvent>
+                      <OverviewTableHeadCollAction>
+                        
+                      </OverviewTableHeadCollAction>
+                    </OverviewTableHeadRow>
+                  </OverviewTableHead>
+                  <OverviewTableBody>
+                {overviewItems.events_table.map((e, i) => {
+                  const date = new Date(Number(e.event_data) * 1000);
+                  return (
+                    <OverviewTableBodyRow key={i}>
+                      <OverviewTableBodyCollNumber>
+                        {String(i + 1)}
+                      </OverviewTableBodyCollNumber>
+                      <OverviewTableBodyColl>
+                      {
+                        date.getDate()
+                        + ((date.getMonth() > 8 ) ? '.' : '.0')
+                        + (date.getMonth() + 1)
+                        + '.' + date.getFullYear()
+                        + ' ' + ((date.getHours() > 9) ? '' : '0') 
+                        + date.getHours()
+                        + ((date.getMinutes() > 9) ? ':' : ':0') 
+                        + date.getMinutes()
+                        + ((date.getSeconds() > 9) ? ':' : ':0') 
+                        + date.getSeconds()
+                      }
+                      </OverviewTableBodyColl>
+                      <OverviewTableBodyColl>
+                        {e.comp_name}
+                      </OverviewTableBodyColl>
+                      <OverviewTableBodyColl>
+                        {e.text}
+                      </OverviewTableBodyColl>
+                      <OverviewTableBodyCollActions>
+                        <OverviewTableActionAnchor
+                          onClick={devicesDroppedMenuHandler}
+                          data-button-id={'2' + i}
+                          isClicked={
+                            DroppedMenuButtonClickedId === String('2' + i)
+                          }
+                        >
+                          {'Действие'}
+                        </OverviewTableActionAnchor>                
+                        <OverviewTableActionMenuLayout
+                          isClicked={
+                            DroppedMenuButtonClickedId === String('2' + i)
+                          }
+                        >
+                          <OverviewTableActionMenuItem key={i}>
+                            <OverviewTableActionMenuAnchor
+                              onClick={deleteEventFromTableHandler}
+                              data-event-id={e.id}
+                            >
+                              {'Убрать уведомление'}
+                            </OverviewTableActionMenuAnchor>
+                          </OverviewTableActionMenuItem>
+                        </OverviewTableActionMenuLayout>
+                      </OverviewTableBodyCollActions>
+                    </OverviewTableBodyRow>
+                  );
+                })}
+                  </OverviewTableBody>
+                </OverviewTable>
+              ) 
+              : (
+                <OverwievText>{'Событий не найдено'}</OverwievText>
+              )
+            }          
+          </MainComponentContent>          
+        </MainComponentWrapper>
       </div>
     );    
   } else {

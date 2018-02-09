@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 import {
-  // MIDDLE_SCREEN_MAX,
   FA_SMALL_FONT_SIZE,
   BIG_USER_FAKE_LINK_HEIGHT,
 } from '@src/styled';
@@ -12,29 +11,9 @@ import {
   DActionAnchorClickedInterface
 } from '@src/interfaces';
 
-// export const DevicesLayout = styled.div`
-//   box-sizing: border-box;
-//   width: 100%;
-//   padding: 20px 30px 70px;
-//   @media screen and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-//     padding: 20px 10px;
-//   }
-// `;
-
-// export const DevicesHeader = styled.h1`
-//   font-size: 18px;
-//   font-weight: 600;
-// `;
-
-  // width: 100%;
 export const DevicesTable = styled.table`
   border-spacing: 0;
 `;
-  // margin: 30px auto;
-
-export const DevicesTableHead = styled.thead``;
-
-export const DevicesTableBody = styled.tbody``;
 
 export const DevicesTableHeadRow = styled.tr`
   width: 100%;
@@ -66,7 +45,7 @@ export const DevicesTableHeadCollIP = DevicesTableHeadColl.extend`
 `;
 
 export const DevicesTableHeadCollInfo = DevicesTableHeadColl.extend`
-  width: 46%;
+  width: 45%;
 `;
 
 export const DevicesTableHeadCollLoad = DevicesTableHeadColl.extend`
@@ -80,7 +59,7 @@ export const DevicesTableHeadCollStatus = DevicesTableHeadColl.extend`
 `;
 
 export const DevicesTableHeadLastColl = styled.th`
-  width: 9%;
+  width: 10%;
   box-sizing: border-box;
   font-size: 14px;
   font-weight: normal;
@@ -89,9 +68,7 @@ export const DevicesTableHeadLastColl = styled.th`
 export const DevicesTableBodyColl = styled.td`
   vertical-align: top;
   height: ${(props: {isFirefoxInUse: boolean}) => (
-      (props.isFirefoxInUse)
-      ? '100%'
-      : 'inherit'
+      (props.isFirefoxInUse) ? '100%' : 'inherit'
     )
   };
   border-top: 1px solid #e7eaec;
@@ -112,10 +89,9 @@ export const DevicesTableBodyCompNameSpan = styled.span`
   font-weight: 600;
   &::before {
     content: "\\${ (props: DTSpanIconProps) => (
-      ( props.icon !== null )
-      ? props.icon
-      : 'f05e'
-      )}";
+        ( props.icon !== null ) ? props.icon : 'f05e'
+      )
+    }";
     font-family: 'FontAwesome';
     font-weight: normal;
     font-size: ${ FA_SMALL_FONT_SIZE };
@@ -159,7 +135,7 @@ export const DevicesTableBodyInfoSpan = styled.span`
 export const DevicesTableBodyWrapperLast = styled.div`
   box-sizing: border-box;
   display: inline-block;
-  padding: 8px 0 0 0;
+  padding: 8px 0 0 3px;
   width: 100%;
   height: 100%;
   position: relative;
@@ -182,15 +158,11 @@ export const DevicesTableActionAnchor = styled.a`
   font-size: 12px;
 
   border: 1px solid ${( props: DActionAnchorClickedInterface ) => (
-      ( props.isClicked )
-      ? '#8c8c8c'
-      : '#e7eaec'
+      ( props.isClicked ) ? '#8c8c8c' : '#e7eaec'
     )
   };
   background-color: ${( props: DActionAnchorClickedInterface ) => (
-      ( props.isClicked )
-      ? '#d4d4d4'
-      : '#fff'
+      ( props.isClicked ) ? '#d4d4d4' : '#fff'
     )
   };
   &:focus {
@@ -198,25 +170,19 @@ export const DevicesTableActionAnchor = styled.a`
   };
   &:hover {
     background-color: ${( props: DActionAnchorClickedInterface ) => (
-      ( props.isClicked )
-      ? '#d4d4d4'
-      : '#e6e6e6'
-    )
-  };
+        ( props.isClicked ) ? '#d4d4d4' : '#e6e6e6'
+      )
+    };
     border: 1px solid ${( props: DActionAnchorClickedInterface ) => (
-      ( props.isClicked )
-      ? '#8c8c8c'
-      : '#d2d2d2'
-    )
-  };
+        ( props.isClicked ) ? '#8c8c8c' : '#d2d2d2'
+      )
+    };
   }
 `;
 
 export const DevicesTableActionMenuLayout = styled.ul`
   display: ${(props: DActionAnchorClickedInterface) => (
-      ( props.isClicked )
-      ? 'block'
-      : 'none'
+      ( props.isClicked ) ? 'block' : 'none'
     )
   };
   box-shadow: 0 0 3px rgba(86, 96, 117, .7);

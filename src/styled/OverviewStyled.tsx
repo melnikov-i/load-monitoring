@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 import {
-  // MIDDLE_SCREEN_MAX,
   FA_OVERVIEW_ICON_SIZE,
   BIG_USER_FAKE_LINK_HEIGHT
 } from '@src/styled';
@@ -9,20 +8,6 @@ import {
 import {
   DActionAnchorClickedInterface
 } from '@src/interfaces';
-
-// export const OverviewLayout = styled.div`
-//   box-sizing: border-box;
-//   width: 100%;
-//   padding: 20px 30px 70px;
-//   @media screen and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-//     padding: 20px 10px;
-//   }
-// `;
-
-// export const OverviewHeader = styled.h1`
-//   font-size: 18px;
-//   font-weight: 600;
-// `;
 
 export const OverviewIconsLayout = styled.div`
   width: 100%;
@@ -62,6 +47,9 @@ export const OverviewIconNumber = styled.p`
   text-align: center;
   color: #fff;
   margin-top: 5px;
+  &::selection {
+    background-color: transparent;
+  }
 `;
 
 export const OverviewIconText = styled.p`
@@ -69,6 +57,9 @@ export const OverviewIconText = styled.p`
   font-weight: normal;
   color: #fff;
   text-align: center;
+  &::selection {
+    background-color: transparent;
+  }
 `;
 
 export const OverviewTable = styled.table`
@@ -156,15 +147,11 @@ export const OverviewTableActionAnchor = styled.a`
   font-size: 12px;
 
   border: 1px solid ${( props: DActionAnchorClickedInterface ) => (
-      ( props.isClicked )
-      ? '#8c8c8c'
-      : '#e7eaec'
+      ( props.isClicked ) ? '#8c8c8c' : '#e7eaec'
     )
   };
   background-color: ${( props: DActionAnchorClickedInterface ) => (
-      ( props.isClicked )
-      ? '#d4d4d4'
-      : '#fff'
+      ( props.isClicked ) ? '#d4d4d4' : '#fff'
     )
   };
   &:focus {
@@ -172,25 +159,19 @@ export const OverviewTableActionAnchor = styled.a`
   };
   &:hover {
     background-color: ${( props: DActionAnchorClickedInterface ) => (
-      ( props.isClicked )
-      ? '#d4d4d4'
-      : '#e6e6e6'
-    )
-  };
+        ( props.isClicked ) ? '#d4d4d4' : '#e6e6e6'
+      )
+    };
     border: 1px solid ${( props: DActionAnchorClickedInterface ) => (
-      ( props.isClicked )
-      ? '#8c8c8c'
-      : '#d2d2d2'
-    )
-  };
+        ( props.isClicked ) ? '#8c8c8c' : '#d2d2d2'
+      )
+    };
   }
 `;
 
 export const OverviewTableActionMenuLayout = styled.ul`
   display: ${(props: DActionAnchorClickedInterface) => (
-      ( props.isClicked )
-      ? 'block'
-      : 'none'
+      ( props.isClicked ) ? 'block' : 'none'
     )
   };
   box-shadow: 0 0 3px rgba(86, 96, 117, .7);
@@ -227,4 +208,11 @@ export const OverviewTableActionMenuAnchor = styled.a`
     background-color: #f5f5f5;
     color: #262626;
   };
+`;
+
+export const OverwievText = styled.p`
+  font-size: 14px;
+  font-weight: normal;
+  color: #676a6c;
+  padding: 10px 15px 20px;
 `;

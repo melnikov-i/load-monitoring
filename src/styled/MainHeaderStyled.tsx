@@ -11,7 +11,7 @@ export const MainHeaderLayout = styled.div`
 export const MainHeaderH1 = styled.h1`
   font-size: 24px;
   font-weight: 100;
-  color: #676a6c; 
+  color: #676a6c;
 `;
 
 export const MainHeaderBreadCrumbsLayout = styled.ul`
@@ -27,10 +27,9 @@ export const MainHeaderBreadCrumbsItem = styled.li`
   &::before {
     content: "/\00a0";
     display: ${(props: {index: number}) => (
-      ( props.index === 0 )
-      ? 'none'
-      : 'inline-block'
-    )};
+        ( props.index === 0 ) ? 'none' : 'inline-block'
+      )
+    };
     color: #ccc;
     padding: 0 5px;
   }

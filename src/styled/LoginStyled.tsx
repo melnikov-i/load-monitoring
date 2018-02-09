@@ -1,8 +1,6 @@
 import styled from 'styled-components';
-// import { NavLink } from 'react-router-dom';
 
 import {
-  // LInputBorderProps,
   LoginFormStateIndexType
 } from '@src/interfaces';
 
@@ -79,9 +77,7 @@ export const LoginFormHeader = styled.h4`
   font-size: 13px;
   font-weight: normal;
   color: ${ ( props: LoginFormStateIndexType ) => (
-      ( props.loginFormStateIndex === 2 )
-      ? '#f52440'
-      : '#888'
+      ( props.loginFormStateIndex === 2 ) ? '#f52440' : '#888'
     )
   };
   text-align: center;
@@ -98,15 +94,11 @@ export const LoginFormInput = styled.input`
   margin-bottom: 20px;
   padding-left: 12px;
   border: 1px solid ${ ( props: LoginFormStateIndexType ) => (
-                        ( props.loginFormStateIndex === 2 )
-                        ? '#b84252'
-                        : '#e5e6e7'
-                      )
-                    };
+      ( props.loginFormStateIndex === 2 ) ? '#b84252' : '#e5e6e7'
+    )
+  };
   background-color: ${( props: LoginFormStateIndexType ) => (
-      ( props.loginFormStateIndex === 2 )
-      ? '#fa8595'
-      : '#fff'
+      ( props.loginFormStateIndex === 2 ) ? '#fa8595' : '#fff'
     )
   };
   color: #676a6c;
@@ -119,11 +111,8 @@ export const LoginFormButton = styled.button`
   font-size: 14px;
   color: #fff;
   text-align: center;
-  background-color: ${
-    ( props: LoginFormStateIndexType ) => (
-      ( props.loginFormStateIndex === 1 )
-      ? '#eee'
-      : '#1ab395'
+  background-color: ${( props: LoginFormStateIndexType ) => (
+      ( props.loginFormStateIndex === 1 ) ? '#eee' : '#1ab395'
     )
   };
   border-radius: 2px;

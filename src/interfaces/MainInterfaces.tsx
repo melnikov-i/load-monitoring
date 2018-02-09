@@ -55,3 +55,9 @@ export type MMSpanIsOpenedProps =
 
 export type MMButtonIsOpenedProps =
   IsOpenedOnSmallScreenInterface & React.HTMLProps<HTMLButtonElement>;
+
+
+export interface MainComponentContentInterface {
+  isLogin: boolean,
+  bg: boolean,
+}

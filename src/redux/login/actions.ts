@@ -70,15 +70,15 @@ export const asyncActionCreators = {
       sendRequestToAPI.post('/auth.php', payload).then(
         ( response ) => {
           if ( response.data === 'true' ) {
-            setTimeout(() => {
-              dispatch(syncActionCreators.userIsAuthorized());
-            }, 1000);
+            dispatch(syncActionCreators.userIsAuthorized());
+            // setTimeout(() => {
+            // }, 1000);
           } else {
-            setTimeout(() => {
-              dispatch(
-                syncActionCreators.sendingUserCredentialInProgress(2)
-              );
-            }, 1000);
+            dispatch(
+              syncActionCreators.sendingUserCredentialInProgress(2)
+            );
+            // setTimeout(() => {
+            // }, 1000);
           }
         }
       )

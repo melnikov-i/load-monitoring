@@ -41,10 +41,15 @@ export const CircularSpinner = styled.div`
     top: ${ props => String(Math.imul(props.width, -1))}px;
     left: ${ props => String(Math.imul(props.width, -1))}px;
     transform-origin: 100% 50%;
-    animation: ${ rotateBefore } 2s linear 0s infinite normal;
+    animation-name: ${ rotateBefore };
+    animation-dutation: 2s;
+    animation-timing-function: linear;
+    animation-delay: 2s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
     background-color: ${ 
-    ( props: CircularSpinnerProps ) => props.bgColor 
-  };
+      ( props: CircularSpinnerProps ) => props.bgColor 
+    };
   }
   &::after {
     content: '';
@@ -54,52 +59,14 @@ export const CircularSpinner = styled.div`
     top: ${ props => String(Math.imul(props.width, -1))}px;
     left: ${ props => String(Math.imul(props.width, 8))}px;
     transform-origin: 0% 50%;
-    animation: ${ rotateAfter } 2s linear 0s infinite normal;
+    animation-name: ${ rotateAfter };
+    animation-dutation: 2s;
+    animation-timing-function: linear;
+    animation-delay: 2s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
     background-color: ${ 
       ( props: CircularSpinnerProps ) => props.bgColor 
     };
   }
 `;
-
-// export const CircularSpinner = styled.div`
-//   display: block;
-//   background-color: ${ 
-//     ( props: CircularSpinnerProps ) => props.bgColor 
-//   };
-//   color: ${ ( props: CircularSpinnerProps ) => props.color };
-//   border-radius: 50%;
-//   position: absolute;
-//   top: 50%;
-//   left: 50%;
-//   box-shadow: inset 0 0 0 ${ props => String(props.width)}px;
-//   margin-top: -${ props => String(Math.imul(props.width, 5))}px;
-//   margin-left: -${ props => String(Math.imul(props.width, 5))}px;
-//   width: ${ props => String(Math.imul(props.width, 10))}px;
-//   height: ${ props => String(Math.imul(props.width, 10))}px;
-//   &::before {
-//     content: '';
-//     width: ${ props => String(Math.imul(props.width, 6))}px;
-//     height: ${ props => String(Math.imul(props.width, 12))}px;
-//     position: absolute;
-//     top: ${ props => String(Math.imul(props.width, -1))}px;
-//     left: ${ props => String(Math.imul(props.width, -1))}px;
-//     transform-origin: 100% 50%;
-//     animation: ${ rotateBefore } 2s linear 0s infinite normal;
-//     background-color: ${ 
-//     ( props: CircularSpinnerProps ) => props.bgColor 
-//   };
-//   }
-//   &::after {
-//     content: '';
-//     width: ${ props => String(Math.imul(props.width, 6))}px;
-//     height: ${ props => String(Math.imul(props.width, 12))}px;
-//     position: absolute;
-//     top: ${ props => String(Math.imul(props.width, -1))}px;
-//     left: ${ props => String(Math.imul(props.width, 5))}px;
-//     transform-origin: 0% 50%;
-//     animation: ${ rotateAfter } 2s linear 0s infinite normal;
-//     background-color: ${ 
-//       ( props: CircularSpinnerProps ) => props.bgColor 
-//     };
-//   }
-// `;

@@ -23,14 +23,14 @@ export const DevicesStatus: React.SFC<DevicesStatusProps> = (props) => {
 
   return (
     <DevicesLoadLayout>
-    {DevicesLoadCurrentItem.state === 'online'
-      ? <DevicesStatusInfoLabel status={'online'}>
-         {'Online'}
-        </DevicesStatusInfoLabel>
-      : <DevicesStatusInfoLabel status={'offline'}>
-         {'Offline'}
-        </DevicesStatusInfoLabel>
-    }
+      {DevicesLoadCurrentItem.state === 'online'
+        ? <DevicesStatusInfoLabel status={'online'}>
+           {'Online'}
+          </DevicesStatusInfoLabel>
+        : <DevicesStatusInfoLabel status={'offline'}>
+           {'Offline'}
+          </DevicesStatusInfoLabel>
+      }
       <DevicesStatusInfo>
         {
           date.getDate()

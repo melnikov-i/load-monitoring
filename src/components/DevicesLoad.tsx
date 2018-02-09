@@ -29,26 +29,20 @@ export const DevicesLoad: React.SFC<DevicesLoadProps> = (props) => {
 
   return (
     <DevicesLoadLayout>
-  {(DevicesLoadCurrentItem.loading.cpu === '')
-    ? <DevicesLoadInfo>
-        {'Нет связи'}
-      </DevicesLoadInfo>
-    : <DevicesLoadInfo>
-        <DevicesLoadInfoSpan>
-          { 'CPU:' }
-        </DevicesLoadInfoSpan>
-        { DevicesLoadCurrentItem.loading.cpu + '%' }
-      </DevicesLoadInfo>
-  }
-  {(DevicesLoadCurrentItem.loading.cpu !== '')
-    ? <DevicesLoadInfo>
-        <DevicesLoadInfoSpan>
-          { 'RAM:' }
-        </DevicesLoadInfoSpan>
-        { DevicesLoadCurrentItem.loading.ram + '%' }
-      </DevicesLoadInfo>
-    : null
-  }
+      {(DevicesLoadCurrentItem.loading.cpu === '')
+        ? <DevicesLoadInfo>{'Нет связи'}</DevicesLoadInfo>
+        : <DevicesLoadInfo>
+            <DevicesLoadInfoSpan>{ 'CPU:' }</DevicesLoadInfoSpan>
+            { DevicesLoadCurrentItem.loading.cpu + '%' }
+          </DevicesLoadInfo>
+      }
+      {(DevicesLoadCurrentItem.loading.cpu !== '')
+        ? <DevicesLoadInfo>
+            <DevicesLoadInfoSpan>{ 'RAM:' }</DevicesLoadInfoSpan>
+            { DevicesLoadCurrentItem.loading.ram + '%' }
+          </DevicesLoadInfo>
+        : null
+      }
     </DevicesLoadLayout>
   );
 };

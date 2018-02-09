@@ -199,11 +199,11 @@ export const asyncActionCreators = {
           if ( response.data.devices_list !== null ) {
             const devices: MainMenuLinksInterface[] = 
               response.data.devices_list;
-            setTimeout(() => {
-              dispatch(
-                syncActionCreators.putDevicesMenuFromAPIToCollection(devices)
-              );
-            }, 1000);
+            dispatch(
+              syncActionCreators.putDevicesMenuFromAPIToCollection(devices)
+            );
+            // setTimeout(() => {
+            // }, 1000);
           } else {
             dispatch(
               loginActionCreators.userWasLogOut()

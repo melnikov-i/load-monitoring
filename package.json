@@ -21,7 +21,6 @@
     "core-js": "^2.5.1",
     "file-loader": "^1.1.5",
     "react": "^16.1.1",
-    "react-beautiful-dnd": "^4.0.1",
     "react-dom": "^16.1.1",
     "react-loadable": "^5.3.1",
     "react-redux": "^5.0.6",

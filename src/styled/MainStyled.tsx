@@ -60,20 +60,16 @@ export const MainMenu = styled.div`
   @media screen
     and (max-width: ${ SMALL_SCREEN_MAX }) {
       width: ${ MENU_LAYOUT_MIDDLE_WIDTH };
-      margin-left: ${
-        ( props: MMDivIsOpenedProps ) => (
-          props.onSmallScreen
-          ? '0'
-          : `-${ MENU_LAYOUT_MIDDLE_WIDTH }`
+      margin-left: ${( props: MMDivIsOpenedProps ) => (
+          props.onSmallScreen 
+            ? '0' : `-${ MENU_LAYOUT_MIDDLE_WIDTH }`
         )
       };
       &::before {
         width: ${ MENU_LAYOUT_MIDDLE_WIDTH };
-        margin-left: ${
-          ( props: MMDivIsOpenedProps ) => (
-            props.onSmallScreen
-            ? '0'
-            : `-${ MENU_LAYOUT_MIDDLE_WIDTH }`
+        margin-left: ${( props: MMDivIsOpenedProps ) => (
+            props.onSmallScreen 
+              ? '0' : `-${ MENU_LAYOUT_MIDDLE_WIDTH }`
           )
         };
       }
@@ -87,11 +83,10 @@ export const SmallMenuButton = styled.button`
       display: block;
       position: absolute;
       top: 15px;
-      left: ${
-        ( props: MMButtonIsOpenedProps ) => (
+      left: ${( props: MMButtonIsOpenedProps ) => (
           props.onSmallScreen
-          ? `calc(${ MENU_LAYOUT_MIDDLE_WIDTH } + 15px)`
-          : '15px'
+            ? `calc(${ MENU_LAYOUT_MIDDLE_WIDTH } + 15px)`
+            : '15px'
         )
       };
       z-index: 1;
@@ -160,12 +155,10 @@ export const UserMenuAnchor = styled.a`
   background-color: transparent;
   height: ${ BIG_USER_FAKE_LINK_HEIGHT };
   line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
-  text-align: left;
-  
+  text-align: left;  
   &:focus {
     outline: 0 solid transparent;
-  }
-  
+  }  
   @media screen 
     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
       display: none;
@@ -186,9 +179,7 @@ export const UserMenuAnchorSpan = styled.span`
     line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
     text-align: center;
     content: "${( props: DActionAnchorClickedInterface ) => (
-        props.isClicked 
-        ? "\f078" 
-        : "\f053"
+        props.isClicked ? "\f078" : "\f053"
       )
     }";
     font-family: 'FontAwesome';
@@ -201,9 +192,7 @@ export const UserMenuAnchorSpan = styled.span`
 
 export const UserMenuLayout = styled.ul`
   display: ${( props: DActionAnchorClickedInterface ) => (
-      props.isClicked
-      ? 'block'
-      : 'none'
+      props.isClicked ? 'block' : 'none'
     )
   };
   width: 100%;
@@ -299,18 +288,13 @@ export const MainMenuFakeLink = styled.a`
   &::selection {
     background: transparent;
   }
-  color: ${ 
-    ( props: MMLinkIsOpenedProps ) => (
-      props.onBigScreen
-      ? '#fff'
-      : '#a7b1c2'
+  color: ${( props: MMLinkIsOpenedProps ) => (
+      props.onBigScreen ? '#fff' : '#a7b1c2'
     )
   };
   background-color: ${
     ( props: MMLinkIsOpenedProps ) =>
-      props.onBigScreen
-      ? '#293846'
-      : 'transparent'
+      props.onBigScreen ? '#293846' : 'transparent'
   };
   &::before {
     content: "";
@@ -318,11 +302,8 @@ export const MainMenuFakeLink = styled.a`
     vertical-align: top;
     width: 5px;
     height: ${ BIG_MAIN_LINK_HEIGHT };
-    background-color: ${
-      ( props: MMLinkIsOpenedProps ) =>
-        props.onBigScreen
-        ? '#19aa8d'
-        : 'transparent'
+    background-color: ${( props: MMLinkIsOpenedProps ) =>
+        props.onBigScreen ? '#19aa8d' : 'transparent'
     };
   }
   &::after {
@@ -330,11 +311,8 @@ export const MainMenuFakeLink = styled.a`
     height: 30px;
     line-height: 30px;
     text-align: center;
-    content: "${
-      ( props: MMLinkIsOpenedProps ) => (
-        props.onBigScreen 
-        ? "\f078" 
-        : "\f053"
+    content: "${( props: MMLinkIsOpenedProps ) => (
+        props.onBigScreen ? "\f078" : "\f053"
       )
     }";
     font-family: 'FontAwesome';
@@ -347,25 +325,16 @@ export const MainMenuFakeLink = styled.a`
   @media screen 
     and (min-width: ${ MIDDLE_SCREEN_MIN })
     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      color: ${ 
-        ( props: MMLinkIsOpenedProps ) => (
-          props.onMiddleScreen
-          ? '#fff'
-          : '#a7b1c2'
+      color: ${( props: MMLinkIsOpenedProps ) => (
+          props.onMiddleScreen ? '#fff' : '#a7b1c2'
         )
       };
-      background-color: ${
-        ( props: MMLinkIsOpenedProps ) =>
-          props.onMiddleScreen
-          ? '#293846'
-          : 'transparent'
+      background-color: ${( props: MMLinkIsOpenedProps ) =>
+          props.onMiddleScreen ? '#293846' : 'transparent'
       };
       &::before {
-        background-color: ${
-          ( props: MMLinkIsOpenedProps ) =>
-            props.onMiddleScreen
-            ? '#19aa8d'
-            : 'transparent'
+        background-color: ${( props: MMLinkIsOpenedProps ) =>
+            props.onMiddleScreen ? '#19aa8d' : 'transparent'
         };
       }
       &::after {
@@ -374,25 +343,16 @@ export const MainMenuFakeLink = styled.a`
     }
   @media screen 
     and (max-width: ${ SMALL_SCREEN_MAX }) {
-      color: ${ 
-        ( props: MMLinkIsOpenedProps ) => (
-          props.onSmallScreen
-          ? '#fff'
-          : '#a7b1c2'
+      color: ${( props: MMLinkIsOpenedProps ) => (
+          props.onSmallScreen ? '#fff' : '#a7b1c2'
         )
       };
-      background-color: ${
-        ( props: MMLinkIsOpenedProps ) =>
-          props.onSmallScreen
-          ? '#293846'
-          : 'transparent'
+      background-color: ${( props: MMLinkIsOpenedProps ) =>
+          props.onSmallScreen ? '#293846' : 'transparent'
       };
       &::before {
-        background-color: ${
-          ( props: MMLinkIsOpenedProps ) =>
-            props.onSmallScreen
-            ? '#19aa8d'
-            : 'transparent'
+        background-color: ${( props: MMLinkIsOpenedProps ) =>
+            props.onSmallScreen ? '#19aa8d' : 'transparent'
         };
       }
       &::after {
@@ -414,9 +374,7 @@ export const MainMenuLinkSpan = styled.span`
   }
   &::before {
     content: "\\${ (props: MMSpanIconProps) => (
-        ( props.icon !== null )
-        ? props.icon
-        : 'f05e'
+        ( props.icon !== null ) ? props.icon : 'f05e'
       )
     }";
     font-family: 'FontAwesome';
@@ -437,22 +395,16 @@ export const MainMenuLinkSpan = styled.span`
 `;
 
 export const DevicesMenuLayout = styled.ul`
-  display: ${
-    ( props: MMUListIsOpenedProps ) => 
-      props.onBigScreen
-      ? 'block'
-      : 'none'
+  display: ${( props: MMUListIsOpenedProps ) =>
+      props.onBigScreen ? 'block' : 'none'
   };
   overflow: hidden;
   margin-right: 5px;
   @media screen 
     and (min-width: ${ MIDDLE_SCREEN_MIN })
     and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      display: ${
-        ( props: MMUListIsOpenedProps ) => 
-          props.onMiddleScreen
-          ? 'block'
-          : 'none'
+      display: ${( props: MMUListIsOpenedProps ) =>
+          props.onMiddleScreen ? 'block' : 'none'
       };
       background-color: #2f4050;
       position: absolute;
@@ -463,11 +415,8 @@ export const DevicesMenuLayout = styled.ul`
     }
   @media screen
     and (max-width: ${ SMALL_SCREEN_MAX }) {
-      display: ${
-        ( props: MMUListIsOpenedProps ) => 
-          props.onSmallScreen
-          ? 'block'
-          : 'none'
+      display: ${( props: MMUListIsOpenedProps ) => 
+          props.onSmallScreen ? 'block' : 'none'
       };
       background-color: #2f4050;
       position: absolute;
@@ -524,11 +473,10 @@ export const MainPage = styled.div`
     }
   @media screen
     and (max-width: ${ SMALL_SCREEN_MAX }) {
-      width: ${
-        ( props: MMDivIsOpenedProps ) => (
+      width: ${( props: MMDivIsOpenedProps ) => (
           props.onSmallScreen
-          ? `calc(100% - ${ MENU_LAYOUT_MIDDLE_WIDTH })`
-          : '100%'
+            ? `calc(100% - ${ MENU_LAYOUT_MIDDLE_WIDTH })`
+            : '100%'
         )
       };
     }
@@ -569,7 +517,3 @@ export const MainTopExitLink = styled(NavLink)`
     margin-right: 8px;
   }
 `;
-
-// export const MainContent = styled.div`
-//   margin: 20px 15px;
-// `;

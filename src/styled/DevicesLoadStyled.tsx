@@ -20,9 +20,7 @@ export const DevicesLoadInfoSpan = styled.span`
 
 export const DevicesStatusInfoLabel = styled.div`
   background-color: ${ (props: {status:string}) => (
-    (props.status === 'online')
-    ? '#1ab394'
-    : '#ed5565'
+      (props.status === 'online') ? '#1ab394' : '#ed5565'
     )
   };
   width: 100%;
