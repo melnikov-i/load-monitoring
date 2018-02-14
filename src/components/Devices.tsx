@@ -105,7 +105,7 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
     breadcrumbs: [
       {
         href: '',
-        title: 'Home',
+        title: 'Главная',
       },
       {
         href: 'devices',
@@ -118,10 +118,7 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
     <div>
       <MainHeaderConnected data={MainHeaderState} />
       <MainComponentWrapper>
-        <MainComponentContent
-          isLogin={false}
-          bg={true}
-        >
+        <MainComponentContent bg={true}>
           <DevicesTable>
             <thead>
               <DevicesTableHeadRow>

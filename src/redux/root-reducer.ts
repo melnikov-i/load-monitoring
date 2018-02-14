@@ -5,6 +5,7 @@ import { reducer as login, State as LoginState } from '@src/redux/login';
 import { reducer as devices, State as DevicesState } from '@src/redux/devices';
 import { reducer as overview, State as OverviewState } from '@src/redux/overview';
 import { reducer as dashboard, State as DashboardState } from '@src/redux/dashboard';
+import { reducer as mainHead, State as MainHeadState } from '@src/redux/mainHead';
 
 export interface RootState {
   main: MainState,
@@ -12,6 +13,7 @@ export interface RootState {
   devices: DevicesState,
   overview: OverviewState,
   dashboard: DashboardState,
+  mainHead: MainHeadState,
 }
 
 export const rootReducer = combineReducers<RootState>({
@@ -20,4 +22,5 @@ export const rootReducer = combineReducers<RootState>({
   devices,
   overview,
   dashboard,
+  mainHead,
 });

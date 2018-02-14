@@ -6,7 +6,8 @@ import {
   MainHeaderBreadCrumbsLayout,
   MainHeaderBreadCrumbsItem,
   MainHeaderBreadCrumbsItemLink,
-  MainHeaderBreadCrumbsItemSpan
+  MainHeaderBreadCrumbsItemSpan,
+  MainHeaderAnchor,
 } from '@src/styled';
 
 import {
@@ -15,10 +16,23 @@ import {
 
 interface MainHeaderProps {
   data: MainHeaderInterface,
+  MainHeaderButtonWasClickedSelector: boolean,
+  mainHeaderButtonSwitch: () => any,
 }
 
 export const MainHeader: React.SFC<MainHeaderProps> = (props) => {
-  const { data } = props;
+  const {
+    data,
+    mainHeaderButtonSwitch,
+    MainHeaderButtonWasClickedSelector,
+  } = props;
+  
+  const handler = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    e.nativeEvent.stopImmediatePropagation();
+    mainHeaderButtonSwitch();
+  };
+
   return (
     <MainHeaderLayout>
       <MainHeaderH1>
@@ -54,6 +68,16 @@ export const MainHeader: React.SFC<MainHeaderProps> = (props) => {
           }
         })}
       </MainHeaderBreadCrumbsLayout>
+      {(data.button)
+        ? <MainHeaderAnchor
+            onClick={handler}
+          >
+            {(MainHeaderButtonWasClickedSelector === false)
+              ? 'Настроить' : 'Отмена'
+            }
+          </MainHeaderAnchor>
+        : null
+      }
     </MainHeaderLayout>
   );
 };

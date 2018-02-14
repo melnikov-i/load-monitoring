@@ -5,5 +5,6 @@ interface MainHeaderBreadCrumbsInterface {
 
 export interface MainHeaderInterface {
   header: string,
+  button?: boolean,
   breadcrumbs: MainHeaderBreadCrumbsInterface[],
 }

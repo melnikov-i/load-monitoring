@@ -1,10 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 
-import {
-  MainComponentContentInterface
-} from '@src/interfaces';
-
-export const emergence = keyframes`
+const emergence = keyframes`
   0% {
     opacity: 0;
     transform: translateX(20px);
@@ -16,23 +12,14 @@ export const emergence = keyframes`
 `;
 
 export const MainComponentContent = styled.div`
-  margin: ${(props: MainComponentContentInterface) => (
-      props.isLogin ? '0' : '20px 15px 70px'
-    )
-  };
-  box-sizing: ${(props: MainComponentContentInterface) => (
-      props.isLogin ? 'content-box' : 'border-box'
-    )
-  };
-  padding: ${(props: MainComponentContentInterface) => (
-      props.isLogin ? '0' : '0 15px'
-    )
-  };
-  background-color: ${(props: MainComponentContentInterface) => (
+  margin: 20px 15px 70px;
+  box-sizing: border-box;
+  padding: 0 15px;
+  background-color: ${(props: {bg: boolean}) => (
       props.bg ? '#fff' : 'transparent'
     )
   };
-  border-top: ${(props: MainComponentContentInterface) => (
+  border-top: ${(props: {bg: boolean}) => (
       props.bg ? '2px solid #e7eaec' : 'none'
     )
   };

@@ -13,3 +13,9 @@ export const DashboardWasRequestedFromAPISelector =
     ( state: RootState ) => state.dashboard.DashboardWasRequestedFromAPI,
     ( DashboardWasRequestedFromAPI ) => DashboardWasRequestedFromAPI,
   );
+
+export const MainHeaderButtonWasClickedSelector =
+  createSelector(
+    ( state: RootState ) => state.mainHead.MainHeaderButtonWasClicked,
+    ( MainHeaderButtonWasClicked ) => MainHeaderButtonWasClicked,
+  );

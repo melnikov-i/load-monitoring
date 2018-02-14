@@ -12,7 +12,6 @@ import {
   LoginFormButton,
   LoginFormSpinner,  
   MainComponentWrapper,
-  MainComponentContent
 } from '@src/styled';
 
 import {
@@ -66,69 +65,64 @@ export const Login: React.SFC<LoginProps> = (props) => {
 
   return (
     <MainComponentWrapper>
-      <MainComponentContent          
-        isLogin={false}
-        bg={false}
-      >
-        <LoginLayout>
-          <LoginWrapper>
-            <LoginInnerPart>
-              <LoginLogotype>
-                <LoginHeader>{'Система мониторинга'}</LoginHeader>
-              </LoginLogotype>
-            </LoginInnerPart>
-            <LoginInnerPart>
-              <LoginFormLayout>
-                <LoginFormHeader
-                  loginFormStateIndex={
-                    LoginFormState.loginFormStateIndex
-                  }
-                >
-                  {LoginFormState.header[
-                    LoginFormState.loginFormStateIndex
-                  ]}
-                </LoginFormHeader>
-                {( LoginFormState.loginFormStateIndex === 1 ) ? (
-                  <LoginFormSpinner>
-                    <Spinner
-                      width={3}
-                      color={'#2f4050'}
-                      bgColor={'#fff'}
-                    />
-                  </LoginFormSpinner>
-                ) : (
-                  <div>
-                    <LoginFormInput
-                      loginFormStateIndex={
-                        LoginFormState.loginFormStateIndex
-                      }
-                      onChange={updateLoginValue}
-                      type={'text'}
-                      placeholder={'Имя пользователя'}
-                      value={LoginValue}
-                    />
-                    <LoginFormInput
-                      loginFormStateIndex={
-                        LoginFormState.loginFormStateIndex
-                      }
-                      onChange={updatePasswordValue}
-                      type={'password'}
-                      placeholder={'Пароль'}
-                      value={PasswordValue}
-                    />
-                  </div>
-                )}
-                <LoginFormButton
-                  loginFormStateIndex={
-                    LoginFormState.loginFormStateIndex
-                  }
-                  onClick={buttonHandler}
-                >{'Вход'}</LoginFormButton>
-              </LoginFormLayout>
-            </LoginInnerPart>
-          </LoginWrapper>
-        </LoginLayout>
-      </MainComponentContent>      
+      <LoginLayout>
+        <LoginWrapper>
+          <LoginInnerPart>
+            <LoginLogotype>
+              <LoginHeader>{'Система мониторинга'}</LoginHeader>
+            </LoginLogotype>
+          </LoginInnerPart>
+          <LoginInnerPart>
+            <LoginFormLayout>
+              <LoginFormHeader
+                loginFormStateIndex={
+                  LoginFormState.loginFormStateIndex
+                }
+              >
+                {LoginFormState.header[
+                  LoginFormState.loginFormStateIndex
+                ]}
+              </LoginFormHeader>
+              {( LoginFormState.loginFormStateIndex === 1 ) ? (
+                <LoginFormSpinner>
+                  <Spinner
+                    width={3}
+                    color={'#2f4050'}
+                    bgColor={'#fff'}
+                  />
+                </LoginFormSpinner>
+              ) : (
+                <div>
+                  <LoginFormInput
+                    loginFormStateIndex={
+                      LoginFormState.loginFormStateIndex
+                    }
+                    onChange={updateLoginValue}
+                    type={'text'}
+                    placeholder={'Имя пользователя'}
+                    value={LoginValue}
+                  />
+                  <LoginFormInput
+                    loginFormStateIndex={
+                      LoginFormState.loginFormStateIndex
+                    }
+                    onChange={updatePasswordValue}
+                    type={'password'}
+                    placeholder={'Пароль'}
+                    value={PasswordValue}
+                  />
+                </div>
+              )}
+              <LoginFormButton
+                loginFormStateIndex={
+                  LoginFormState.loginFormStateIndex
+                }
+                onClick={buttonHandler}
+              >{'Вход'}</LoginFormButton>
+            </LoginFormLayout>
+          </LoginInnerPart>
+        </LoginWrapper>
+      </LoginLayout>
     </MainComponentWrapper>
   );
 };

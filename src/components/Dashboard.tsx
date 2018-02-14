@@ -6,8 +6,6 @@ import {
 } from '@src/interfaces';
 
 import {
-  // DashboardLayout,
-  DashboardText,
   MainComponentWrapper,
   MainComponentContent,
 } from '@src/styled';
@@ -19,6 +17,7 @@ import MainHeaderConnected from
 interface DashboardProps {
   id: DashboardInterface['dash_id']['dashboard_id'],
   DashboardWasRequestedFromAPI: DashboardInterface['dash_id']['dashboard_id'],
+  MainHeaderButtonWasClicked: boolean,
   makeDashboardRequestFromAPI: 
   (payload: DashboardInterface['dash_id']['dashboard_id']) => any,
   DashboardCollection: DashboardInterface,
@@ -33,6 +32,7 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
     DashboardWasRequestedFromAPI,
     makeDashboardRequestFromAPI,
     DashboardCollection,
+    MainHeaderButtonWasClicked,
   } = props;
 
   if ( DashboardCollection.dash_id.dashboard_id === '' ) {
@@ -49,13 +49,19 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
     }    
   }
 
+  console.log(
+    'MainHeaderButtonWasClicked:', 
+    MainHeaderButtonWasClicked
+  );
+
   // Данные для заголовка
   const MainHeaderState: MainHeaderInterface = {
     header: DashboardCollection.dash_id.dashboard_name,
+    button: true,
     breadcrumbs: [
       {
         href: '',
-        title: 'Home',
+        title: 'Главная',
       },
       {
         href: 'devices',
@@ -72,22 +78,20 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
     <div>
       <MainHeaderConnected data={MainHeaderState} />
       <MainComponentWrapper>
-        <MainComponentContent
-          isLogin={false}
-          bg={false}
-        >
-          {DashboardCollection.dash_data.map((e, i) => (
-            <div key={i}>
-              <DashboardText>
-                {'Device ID: ' + e.device_id }
-              </DashboardText>
-              <DashboardText>
-                {'Widget Name: ' + e.widget_name }
-              </DashboardText>
-            </div>
-          ))}            
+        <MainComponentContent bg={false}>
+
         </MainComponentContent>
       </MainComponentWrapper>
     </div>
   );    
-}
+};
+          // {DashboardCollection.dash_data.map((e, i) => (
+          //   <div key={i}>
+          //     <DashboardText>
+          //       {'Device ID: ' + e.device_id }
+          //     </DashboardText>
+          //     <DashboardText>
+          //       {'Widget Name: ' + e.widget_name }
+          //     </DashboardText>
+          //   </div>
+          // ))}

@@ -135,7 +135,7 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
       breadcrumbs: [
         {
           href: '',
-          title: 'Home',
+          title: 'Главная',
         }
       ],
     }
@@ -145,10 +145,7 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
       <div>
         <MainHeaderConnected data={MainHeaderState} />
         <MainComponentWrapper>
-          <MainComponentContent          
-            isLogin={false}
-            bg={false}
-          >
+          <MainComponentContent bg={false}>
             <OverviewIconsLayout>
               <OverviewIconWrapper bgcolor={'#1ab394'}>
                 <OverviewIcon icon={'f058'} />
@@ -181,10 +178,7 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
           </MainComponentContent>          
         </MainComponentWrapper>
         <MainComponentWrapper>
-          <MainComponentContent          
-            isLogin={false}
-            bg={true}
-          >
+          <MainComponentContent bg={true}>
             <MainComponentHeader>{'Все события'}</MainComponentHeader>
             {(overviewItems.events_table.length !== 0) 
               ? (

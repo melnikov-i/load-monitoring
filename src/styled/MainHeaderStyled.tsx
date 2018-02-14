@@ -6,6 +6,7 @@ export const MainHeaderLayout = styled.div`
   padding: 20px 30px;
   background-color: #fff;
   border-bottom: 1px solid #e7eaec;
+  position: relative;
 `;
 
 export const MainHeaderH1 = styled.h1`
@@ -45,4 +46,21 @@ export const MainHeaderBreadCrumbsItemSpan = styled.span`
   font-size: 13px;
   color: #676a6c;
   font-weight: 600;
+`;
+
+export const MainHeaderAnchor = styled.a`
+  font-size: 14px;
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  background-color: #1ab394;
+  border-radius: 3px;
+  padding: 4px 12px;
+  cursor: pointer;
+  line-height: 22px;
+  text-align: center;
+  user-select: none;
+  position: absolute;
+  top: 38px;
+  right: 20px;
 `;

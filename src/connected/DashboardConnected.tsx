@@ -17,15 +17,18 @@ import {
 import {
   DashboardWasRequestedFromAPISelector,
   DashboardCollectionSelector,
+  MainHeaderButtonWasClickedSelector,
 } from '@src/selectors';
 
 
 const mapStateToProps = createStructuredSelector<RootState, {
     DashboardWasRequestedFromAPI: DashboardInterface['dash_id']['dashboard_id'],
     DashboardCollection: DashboardInterface,
+    MainHeaderButtonWasClicked: boolean,
   }>({
     DashboardWasRequestedFromAPI: DashboardWasRequestedFromAPISelector,
     DashboardCollection: DashboardCollectionSelector,
+    MainHeaderButtonWasClicked: MainHeaderButtonWasClickedSelector,
   });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({

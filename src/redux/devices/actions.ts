@@ -80,7 +80,7 @@ export const asyncActionCreators = {
         ( items ) => {
           items.forEach((e) => {
             sendRequestToAPI.get(
-              '/get_current_load_test.php?machine_id=' + e.to 
+              '/get_current_load.php?machine_id=' + e.to 
             ).then(
               ( response ) => {
                 if ( response.data.state !== null ) {
@@ -94,7 +94,7 @@ export const asyncActionCreators = {
                         ram: response.data.loading.ram,
                       }
                     }
-                  }
+                  };
                   dispatch(
                     syncActionCreators
                       .addDeviceInDevicesLoadCollection(loadParams)
@@ -126,7 +126,7 @@ export const asyncActionCreators = {
     return ( dispatch: Dispatch ) => {
       setTimeout(() => {        
         sendRequestToAPI.get(
-          '/get_current_load_test.php?machine_id=' + payload 
+          '/get_current_load.php?machine_id=' + payload 
         ).then(
           ( response ) => {
             if ( response.data.state !== null ) {
@@ -140,7 +140,8 @@ export const asyncActionCreators = {
                     ram: response.data.loading.ram,
                   }
                 }
-              }
+              };
+              // console.log('LoadParams: ', loadParams);
               dispatch(
                 syncActionCreators
                   .addDeviceInDevicesLoadCollection(loadParams)
