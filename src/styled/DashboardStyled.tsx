@@ -89,3 +89,20 @@ export const DraggableConfigCollumnsItemSpan = styled.span`
   color: #676a6c;
   padding: 0 5px;
 `;
+
+export const StaticDashboardGridLayout = styled.div`
+  width: 100%;
+
+height: 300px;
+background-color: rgba(255, 0, 0, .4);
+`;
+
+  // width: 33.33%;
+export const StaticDashboardGrid = styled.div`
+  width: 50%;
+  display: inline-block;
+  vertical-align: top;
+
+height: 150px;
+background-color: rgba(0, 255, 0, .4);
+`;

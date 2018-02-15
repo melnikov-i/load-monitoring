@@ -6,8 +6,7 @@ import {
 } from '@src/interfaces';
 
 import {
-  MainComponentWrapper,
-  MainComponentContent,
+
   
 } from '@src/styled';
 
@@ -77,14 +76,10 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
   return (
     <div>
       <MainHeaderConnected data={MainHeaderState} />
-      <MainComponentWrapper>
-        <MainComponentContent bg={false}>
-          {(MainHeaderButtonWasClicked === false)
-            ? <DraggableDashboardConnected />
-            : <StaticDashboardConnected />
-          }
-        </MainComponentContent>
-      </MainComponentWrapper>
+      {(MainHeaderButtonWasClicked === false)
+        ? <DraggableDashboardConnected />
+        : <StaticDashboardConnected />
+      }
     </div>
   );    
 };

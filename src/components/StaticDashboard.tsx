@@ -6,7 +6,11 @@ import {
 } from '@src/interfaces';
 
 import {
-  DashboardText
+  DashboardText,
+  MainComponentWrapper,
+  MainComponentContent,
+  StaticDashboardGridLayout,
+  StaticDashboardGrid
 } from '@src/styled';
 
 // import { Spinner } from '@src/components';
@@ -76,17 +80,28 @@ export const StaticDashboard: React.SFC<StaticDashboardProps> =
   // };
 
   return (
-    <div>
-      {DashboardCollection.dash_data.map((e, i) => (
-        <div key={i}>
-          <DashboardText>
-            {'Device ID: ' + e.device_id }
-          </DashboardText>
-          <DashboardText>
-            {'Widget Name: ' + e.widget_name }
-          </DashboardText>
-        </div>
-      ))}
-    </div>
+    <MainComponentWrapper>
+      <MainComponentContent bg={false}>
+        <StaticDashboardGridLayout>
+          <StaticDashboardGrid>
+            
+          </StaticDashboardGrid>
+          <StaticDashboardGrid>
+            
+          </StaticDashboardGrid>
+
+        </StaticDashboardGridLayout>
+        {DashboardCollection.dash_data.map((e, i) => (
+          <div key={i}>
+            <DashboardText>
+              {'Device ID: ' + e.device_id }
+            </DashboardText>
+            <DashboardText>
+              {'Widget Name: ' + e.widget_name }
+            </DashboardText>
+          </div>
+        ))}
+      </MainComponentContent>
+    </MainComponentWrapper>
   );    
 };

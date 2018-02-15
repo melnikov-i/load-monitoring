@@ -15,6 +15,9 @@ import {
   DraggableConfigCollumnsItems,
   DraggableConfigCollumnsItemAnchor,
   DraggableConfigCollumnsItemSpan,
+
+  MainComponentWrapper,
+  MainComponentContent,
 } from '@src/styled';
 
 interface DraggableDashboardProps {
@@ -63,36 +66,38 @@ export const DraggableDashboard: React.SFC<DraggableDashboardProps> =
   }
 
   return (
-    <div>
-      <DraggableConfigLayout>
-        <DraggableConfigHeaderWrapper>
-          <DraggableConfigHeader>
-            {'Настройки панели'}
-          </DraggableConfigHeader>          
-        </DraggableConfigHeaderWrapper>
-        <DraggableConfigCollumnsWrapper>
-          <DraggableConfigCollumnsHeaderWrapper>
-            <DraggableConfigCollumnsHeader>
-              {'Количество колонок:'}
-            </DraggableConfigCollumnsHeader>
-          </DraggableConfigCollumnsHeaderWrapper>
-          <DraggableConfigCollumnsItems>
-            {CollumnsValuesCollection.map((e, i) => (
-              <DraggableConfigCollumnsItemAnchor
-                key={i}
-                data-index={i}
-                isSelected={SelectedCheckbox === String(i)}
-                onClick={collumnsHandler}
-              >
-                <DraggableConfigCollumnsItemSpan>
-                  {e}                  
-                </DraggableConfigCollumnsItemSpan>
-              </DraggableConfigCollumnsItemAnchor>
-            ))}
-          </DraggableConfigCollumnsItems>
-        </DraggableConfigCollumnsWrapper>
-      </DraggableConfigLayout>
-    </div>
+    <MainComponentWrapper>
+      <MainComponentContent bg={false}>
+        <DraggableConfigLayout>
+          <DraggableConfigHeaderWrapper>
+            <DraggableConfigHeader>
+              {'Настройки панели'}
+            </DraggableConfigHeader>          
+          </DraggableConfigHeaderWrapper>
+          <DraggableConfigCollumnsWrapper>
+            <DraggableConfigCollumnsHeaderWrapper>
+              <DraggableConfigCollumnsHeader>
+                {'Количество колонок:'}
+              </DraggableConfigCollumnsHeader>
+            </DraggableConfigCollumnsHeaderWrapper>
+            <DraggableConfigCollumnsItems>
+              {CollumnsValuesCollection.map((e, i) => (
+                <DraggableConfigCollumnsItemAnchor
+                  key={i}
+                  data-index={i}
+                  isSelected={SelectedCheckbox === String(i)}
+                  onClick={collumnsHandler}
+                >
+                  <DraggableConfigCollumnsItemSpan>
+                    {e}                  
+                  </DraggableConfigCollumnsItemSpan>
+                </DraggableConfigCollumnsItemAnchor>
+              ))}
+            </DraggableConfigCollumnsItems>
+          </DraggableConfigCollumnsWrapper>
+        </DraggableConfigLayout>
+      </MainComponentContent>
+    </MainComponentWrapper>
   );    
 };
         //   <DraggableConfigCollumnsList>
