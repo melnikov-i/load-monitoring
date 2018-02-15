@@ -49,6 +49,7 @@ export const MainHeaderBreadCrumbsItemSpan = styled.span`
 `;
 
 export const MainHeaderAnchor = styled.a`
+  min-width: 74px;
   font-size: 14px;
   display: inline-block;
   text-decoration: none;

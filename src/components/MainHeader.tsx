@@ -16,7 +16,7 @@ import {
 
 interface MainHeaderProps {
   data: MainHeaderInterface,
-  MainHeaderButtonWasClickedSelector: boolean,
+  MainHeaderButtonWasClicked: boolean,
   mainHeaderButtonSwitch: () => any,
 }
 
@@ -24,7 +24,6 @@ export const MainHeader: React.SFC<MainHeaderProps> = (props) => {
   const {
     data,
     mainHeaderButtonSwitch,
-    MainHeaderButtonWasClickedSelector,
   } = props;
   
   const handler = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -72,9 +71,7 @@ export const MainHeader: React.SFC<MainHeaderProps> = (props) => {
         ? <MainHeaderAnchor
             onClick={handler}
           >
-            {(MainHeaderButtonWasClickedSelector === false)
-              ? 'Настроить' : 'Отмена'
-            }
+            {'Настроить'}
           </MainHeaderAnchor>
         : null
       }

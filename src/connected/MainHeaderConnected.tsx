@@ -10,15 +10,9 @@ import {
   syncActionCreators
 } from '@src/redux/mainHead';
 
-import {
-  MainHeaderButtonWasClickedSelector,
-} from '@src/selectors';
+import {} from '@src/selectors';
 
-const mapStateToProps = createStructuredSelector<RootState, {
-  MainHeaderButtonWasClicked: boolean,
-}>({
-  MainHeaderButtonWasClicked: MainHeaderButtonWasClickedSelector,
-});
+const mapStateToProps = createStructuredSelector<RootState, {}>({});
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
   mainHeaderButtonSwitch: syncActionCreators.mainHeaderButtonSwitch,

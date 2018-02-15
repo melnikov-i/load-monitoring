@@ -8,21 +8,26 @@ import {
 import {
   MainComponentWrapper,
   MainComponentContent,
+  
 } from '@src/styled';
 
 import { Spinner } from '@src/components';
 import MainHeaderConnected from
   '@src/connected/MainHeaderConnected.usage';
+import DraggableDashboardConnected from 
+  '@src/connected/DraggableDashboardConnected.usage';
+import StaticDashboardConnected from 
+  '@src/connected/StaticDashboardConnected.usage';
 
 interface DashboardProps {
   id: DashboardInterface['dash_id']['dashboard_id'],
   DashboardWasRequestedFromAPI: DashboardInterface['dash_id']['dashboard_id'],
-  MainHeaderButtonWasClicked: boolean,
   makeDashboardRequestFromAPI: 
   (payload: DashboardInterface['dash_id']['dashboard_id']) => any,
   DashboardCollection: DashboardInterface,
   reorderDashboardCollection:
   (payload: DashboardInterface['dash_data']) => any,
+  MainHeaderButtonWasClicked: boolean,
 }
 
 
@@ -49,11 +54,6 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
     }    
   }
 
-  console.log(
-    'MainHeaderButtonWasClicked:', 
-    MainHeaderButtonWasClicked
-  );
-
   // Данные для заголовка
   const MainHeaderState: MainHeaderInterface = {
     header: DashboardCollection.dash_id.dashboard_name,
@@ -79,19 +79,12 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
       <MainHeaderConnected data={MainHeaderState} />
       <MainComponentWrapper>
         <MainComponentContent bg={false}>
-
+          {(MainHeaderButtonWasClicked === false)
+            ? <DraggableDashboardConnected />
+            : <StaticDashboardConnected />
+          }
         </MainComponentContent>
       </MainComponentWrapper>
     </div>
   );    
 };
-          // {DashboardCollection.dash_data.map((e, i) => (
-          //   <div key={i}>
-          //     <DashboardText>
-          //       {'Device ID: ' + e.device_id }
-          //     </DashboardText>
-          //     <DashboardText>
-          //       {'Widget Name: ' + e.widget_name }
-          //     </DashboardText>
-          //   </div>
-          // ))}

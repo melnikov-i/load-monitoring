@@ -20,6 +20,8 @@ export const PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION =
   'PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION';
 export const REORDER_DASHBOARD_COLLECTION =
   'REORDER_DASHBOARD_COLLECTION';
+export const CHANGE_SELECTED_CHECKBOX = 
+  'CHANGE_SELECTED_CHECKBOX';
 
 export type Actions = {
   THIS_DASHBOARD_WAS_REQUESTED_FROM_API: {
@@ -33,6 +35,10 @@ export type Actions = {
   REORDER_DASHBOARD_COLLECTION: {
     type: typeof REORDER_DASHBOARD_COLLECTION,
     payload: DashboardInterface['dash_data'],
+  },
+  CHANGE_SELECTED_CHECKBOX: {
+    type: typeof CHANGE_SELECTED_CHECKBOX,
+    payload: string, // поменять на другое
   }
 };
 
@@ -52,6 +58,10 @@ export const syncActionCreators = {
   ( payload: DashboardInterface['dash_data'] ):
   Actions[typeof REORDER_DASHBOARD_COLLECTION] => ({
     type: REORDER_DASHBOARD_COLLECTION, payload,
+  }),
+  changeSelectedCheckbox: (payload: string):
+  Actions[typeof CHANGE_SELECTED_CHECKBOX] => ({
+    type: CHANGE_SELECTED_CHECKBOX, payload,
   })
 };
 

@@ -8,6 +8,7 @@ import {
   THIS_DASHBOARD_WAS_REQUESTED_FROM_API,
   PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION,
   REORDER_DASHBOARD_COLLECTION,
+  CHANGE_SELECTED_CHECKBOX,
 } from '@src/redux/dashboard';
 
 import {
@@ -18,6 +19,7 @@ export type State = {
   readonly DashboardCollection: DashboardInterface,
   readonly DashboardWasRequestedFromAPI: 
     DashboardInterface['dash_id']['dashboard_id'],
+  readonly SelectedCheckbox: string,
 };
 
 const DashboardCollectionInitialState: DashboardInterface = {
@@ -55,4 +57,12 @@ export const reducer = combineReducers({
         return state;
     }
   },
+  SelectedCheckbox: ( state = '0', action ) => {
+    switch ( action.type ) {
+      case CHANGE_SELECTED_CHECKBOX:
+        return action.payload;
+      default:
+        return state;
+    }
+  }
 });

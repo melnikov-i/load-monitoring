@@ -19,3 +19,9 @@ export const MainHeaderButtonWasClickedSelector =
     ( state: RootState ) => state.mainHead.MainHeaderButtonWasClicked,
     ( MainHeaderButtonWasClicked ) => MainHeaderButtonWasClicked,
   );
+
+export const SelectedCheckboxSelector =
+  createSelector(
+    ( state: RootState ) => state.dashboard.SelectedCheckbox,
+    ( SelectedCheckbox ) => SelectedCheckbox,
+  );
