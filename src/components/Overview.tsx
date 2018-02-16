@@ -25,6 +25,7 @@ import {
   OverviewTableActionMenuItem,
   OverviewTableActionMenuAnchor,
   MainComponentWrapper,
+  MainComponentWidgetHeaderWrapper,
   MainComponentHeader,
   MainComponentContent
 } from '@src/styled';
@@ -179,7 +180,12 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
         </MainComponentWrapper>
         <MainComponentWrapper>
           <MainComponentContent bg={true}>
-            <MainComponentHeader>{'Все события'}</MainComponentHeader>
+            <MainComponentWidgetHeaderWrapper>
+              <MainComponentHeader>
+                {'Все события'}
+              </MainComponentHeader>              
+            </MainComponentWidgetHeaderWrapper>
+            
             {(overviewItems.events_table.length !== 0) 
               ? (
                 <OverviewTable>

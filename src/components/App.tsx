@@ -46,6 +46,8 @@ injectGlobal`
     width: 100%;
     min-width: 700px;
     min-height: 100%;
+    box-sizing: border-box;
+    padding-bottom: ${ FOOTER_HEIGHT };
     height: auto;
     background-color: #f3f3f4;
   }

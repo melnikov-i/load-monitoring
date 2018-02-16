@@ -6,19 +6,22 @@ import {
 } from '@src/interfaces';
 
 import {
-  DashboardText,
+  // DashboardText,
   MainComponentWrapper,
   MainComponentContent,
-  StaticDashboardGridLayout,
-  StaticDashboardGrid
+  MainWidgetWrapper,
+  MainWidgetContent,
+  MainComponentWidgetHeaderWrapper,
+  MainComponentWidgetHeader,
+
+  // StaticDashboardGridLayout,
+  // StaticDashboardGridWrapper,
+  // StaticDashboardGridItem,
+
 } from '@src/styled';
 
-// import { Spinner } from '@src/components';
-// import MainHeaderConnected from
-//   '@src/connected/MainHeaderConnected.usage';
-
-
 interface StaticDashboardProps {
+  SelectedCheckbox: string,
   // id: DashboardInterface['dash_id']['dashboard_id'],
   // DashboardWasRequestedFromAPI: DashboardInterface['dash_id']['dashboard_id'],
   // makeDashboardRequestFromAPI: 
@@ -33,6 +36,7 @@ interface StaticDashboardProps {
 export const StaticDashboard: React.SFC<StaticDashboardProps> = 
 (props) => {
   const {
+    SelectedCheckbox,
     // id,
     // DashboardWasRequestedFromAPI,
     // makeDashboardRequestFromAPI,
@@ -40,68 +44,27 @@ export const StaticDashboard: React.SFC<StaticDashboardProps> =
     // MainHeaderButtonWasClicked,
   } = props;
 
-  // if ( DashboardCollection.dash_id.dashboard_id === '' ) {
-  //   if ( DashboardWasRequestedFromAPI !== id ) {
-  //     makeDashboardRequestFromAPI(id);
-  //   } else {
-  //     return (
-  //       <Spinner
-  //         width={3}
-  //         color={'#2f4050'}
-  //         bgColor={'#f3f3f4'}
-  //       />
-  //     );
-  //   }    
-  // }
-
-  // console.log(
-  //   'MainHeaderButtonWasClicked:', 
-  //   MainHeaderButtonWasClicked
-  // );
-
-  // Данные для заголовка
-  // const MainHeaderState: MainHeaderInterface = {
-  //   header: DashboardCollection.dash_id.dashboard_name,
-  //   button: true,
-  //   breadcrumbs: [
-  //     {
-  //       href: '',
-  //       title: 'Главная',
-  //     },
-  //     {
-  //       href: 'devices',
-  //       title: 'Все устройства',
-  //     },
-  //     {
-  //       href: DashboardCollection.dash_id.dashboard_name,
-  //       title: DashboardCollection.dash_id.dashboard_name,
-  //     }
-  //   ],
-  // };
-
   return (
-    <MainComponentWrapper>
-      <MainComponentContent bg={false}>
-        <StaticDashboardGridLayout>
-          <StaticDashboardGrid>
-            
-          </StaticDashboardGrid>
-          <StaticDashboardGrid>
-            
-          </StaticDashboardGrid>
-
-        </StaticDashboardGridLayout>
-        {DashboardCollection.dash_data.map((e, i) => (
-          <div key={i}>
-            <DashboardText>
-              {'Device ID: ' + e.device_id }
-            </DashboardText>
-            <DashboardText>
-              {'Widget Name: ' + e.widget_name }
-            </DashboardText>
-          </div>
-        ))}
-      </MainComponentContent>
-    </MainComponentWrapper>
+      <MainComponentWrapper>
+        <MainComponentContent
+          bg={false}
+        >
+          {DashboardCollection.dash_data.map((e, i) => (
+            <MainWidgetWrapper
+              width={SelectedCheckbox}
+              margin={i}
+              key={i}
+            >
+              <MainWidgetContent>
+                <MainComponentWidgetHeaderWrapper>
+                  <MainComponentWidgetHeader>
+                    { e.widget_name }
+                  </MainComponentWidgetHeader>
+                </MainComponentWidgetHeaderWrapper>
+              </MainWidgetContent>
+            </MainWidgetWrapper>
+          ))}
+        </MainComponentContent>
+      </MainComponentWrapper>
   );    
 };

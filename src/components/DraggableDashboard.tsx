@@ -1,14 +1,14 @@
 import * as React from 'react';
 
 import {
-  // DashboardInterface,
+  DashboardInterface,
   // MainHeaderInterface
 } from '@src/interfaces';
 
 import {
-  DraggableConfigLayout,
-  DraggableConfigHeaderWrapper,
-  DraggableConfigHeader,
+  // DraggableConfigLayout,
+  // DraggableConfigHeaderWrapper,
+  // DraggableConfigHeader,
   DraggableConfigCollumnsWrapper,
   DraggableConfigCollumnsHeaderWrapper,
   DraggableConfigCollumnsHeader,
@@ -17,7 +17,17 @@ import {
   DraggableConfigCollumnsItemSpan,
 
   MainComponentWrapper,
+  MainWidgetWrapper,
   MainComponentContent,
+  MainWidgetContent,
+  MainComponentWidgetHeaderWrapper,
+  MainComponentWidgetHeader,
+
+  // StaticDashboardGridLayout,
+  // StaticDashboardGridWrapper,
+  // StaticDashboardGridItem,
+
+  // DashboardText,
 } from '@src/styled';
 
 interface DraggableDashboardProps {
@@ -27,7 +37,7 @@ interface DraggableDashboardProps {
   // DashboardWasRequestedFromAPI: DashboardInterface['dash_id']['dashboard_id'],
   // makeDashboardRequestFromAPI: 
   // (payload: DashboardInterface['dash_id']['dashboard_id']) => any,
-  // DashboardCollection: DashboardInterface,
+  DashboardCollection: DashboardInterface,
   // reorderDashboardCollection:
   // (payload: DashboardInterface['dash_data']) => any,
   // MainHeaderButtonWasClicked: boolean,
@@ -38,11 +48,11 @@ export const DraggableDashboard: React.SFC<DraggableDashboardProps> =
 (props) => {
   const {
     changeSelectedCheckbox,
-    SelectedCheckbox
+    SelectedCheckbox,
     // id,
     // DashboardWasRequestedFromAPI,
     // makeDashboardRequestFromAPI,
-    // DashboardCollection,
+    DashboardCollection,
     // MainHeaderButtonWasClicked,
   } = props;
 
@@ -66,14 +76,14 @@ export const DraggableDashboard: React.SFC<DraggableDashboardProps> =
   }
 
   return (
-    <MainComponentWrapper>
-      <MainComponentContent bg={false}>
-        <DraggableConfigLayout>
-          <DraggableConfigHeaderWrapper>
-            <DraggableConfigHeader>
+    <div>
+      <MainComponentWrapper>
+        <MainComponentContent bg={true}>
+          <MainComponentWidgetHeaderWrapper>
+            <MainComponentWidgetHeader>
               {'Настройки панели'}
-            </DraggableConfigHeader>          
-          </DraggableConfigHeaderWrapper>
+            </MainComponentWidgetHeader>          
+          </MainComponentWidgetHeaderWrapper>
           <DraggableConfigCollumnsWrapper>
             <DraggableConfigCollumnsHeaderWrapper>
               <DraggableConfigCollumnsHeader>
@@ -95,9 +105,31 @@ export const DraggableDashboard: React.SFC<DraggableDashboardProps> =
               ))}
             </DraggableConfigCollumnsItems>
           </DraggableConfigCollumnsWrapper>
-        </DraggableConfigLayout>
-      </MainComponentContent>
-    </MainComponentWrapper>
+        </MainComponentContent>
+      </MainComponentWrapper>
+      
+      <MainComponentWrapper>
+        <MainComponentContent
+          bg={false}
+        >
+          {DashboardCollection.dash_data.map((e, i) => (
+            <MainWidgetWrapper
+              width={SelectedCheckbox}
+              margin={i}
+              key={i}
+            >
+              <MainWidgetContent>
+                <MainComponentWidgetHeaderWrapper>
+                  <MainComponentWidgetHeader>
+                    { e.widget_name }
+                  </MainComponentWidgetHeader>
+                </MainComponentWidgetHeaderWrapper>
+              </MainWidgetContent>
+            </MainWidgetWrapper>
+          ))}
+        </MainComponentContent>
+      </MainComponentWrapper>
+    </div>
   );    
 };
         //   <DraggableConfigCollumnsList>

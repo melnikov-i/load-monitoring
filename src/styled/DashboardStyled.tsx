@@ -11,24 +11,6 @@ export const DashboardText = styled.p`
   font-size: 14px;
 `;
 
-export const DraggableConfigLayout = styled.div`
-  width: 100%;
-  background-color: #fff;
-  border-top: 2px solid #e7eaec;
-`;
-
-export const DraggableConfigHeaderWrapper = styled.div`
-  border-bottom: 1px solid #e7eaec;
-`;
-
-export const DraggableConfigHeader = styled.h5`
-  display: inline-block;
-  font-size: 14px;
-  text-overflow: ellipsis;
-  padding: 15px;
-  color: #676a6c;
-`;
-
 export const DraggableConfigCollumnsWrapper = styled.div`
   padding: 15px 0;
 `;
@@ -88,21 +70,4 @@ export const DraggableConfigCollumnsItemSpan = styled.span`
   font-weight: 700;
   color: #676a6c;
   padding: 0 5px;
-`;
-
-export const StaticDashboardGridLayout = styled.div`
-  width: 100%;
-
-height: 300px;
-background-color: rgba(255, 0, 0, .4);
-`;
-
-  // width: 33.33%;
-export const StaticDashboardGrid = styled.div`
-  width: 50%;
-  display: inline-block;
-  vertical-align: top;
-
-height: 150px;
-background-color: rgba(0, 255, 0, .4);
 `;

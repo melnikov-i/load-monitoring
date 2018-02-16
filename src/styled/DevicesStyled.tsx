@@ -135,7 +135,7 @@ export const DevicesTableBodyInfoSpan = styled.span`
 export const DevicesTableBodyWrapperLast = styled.div`
   box-sizing: border-box;
   display: inline-block;
-  padding: 8px 0 0 3px;
+  padding: 8px 10px 0 3px;
   width: 100%;
   height: 100%;
   position: relative;
