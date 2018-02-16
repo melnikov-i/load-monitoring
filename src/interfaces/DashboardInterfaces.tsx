@@ -1,12 +1,12 @@
 interface WidgetInterface {
   widget_name: string,
   device_id: string,
-  widget_width: string,
 }
 
 interface DashIdInterface {
   dashboard_id: string,
   dashboard_name: string,
+  dash_columns: string,
 }
 
 export interface DashboardInterface {

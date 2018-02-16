@@ -26,6 +26,7 @@ const DashboardCollectionInitialState: DashboardInterface = {
   dash_id: {
     dashboard_id: '',
     dashboard_name: '',
+    dash_columns: '',
   },
   dash_data: []
 }

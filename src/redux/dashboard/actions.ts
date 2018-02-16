@@ -76,16 +76,30 @@ export const asyncActionCreators = {
       sendRequestToAPI.get('/dash_data2.php?dashboard_id=' + payload).then(
         ( response ) => {
           if ( response.data.dashboard !== null ) {
-            const items: DashboardInterface = response.data.dashboard;
-            dispatch(
-              syncActionCreators
-                .putDashboardItemsFromAPIToDashboardCollection(items)
-            );            
+            if ( response.data.dashboard.dash_id !== null ) {
+              const items: DashboardInterface = response.data.dashboard;
+              dispatch(
+                syncActionCreators
+                  .putDashboardItemsFromAPIToDashboardCollection(items)
+              );              
+            }
           } else {
             dispatch(
               loginActionCreators.userWasLogOut()
             )
           }
+          if ( response.data.dashboard.dash_id !== null ) {
+            return response.data.dashboard.dash_id.dash_columns;
+          } else {
+            return '2';
+          }
+        }
+      )
+      .then(
+        ( checkbox ) => {
+          dispatch(
+            syncActionCreators.changeSelectedCheckbox(checkbox)
+          );
         }
       )
       .catch(
