@@ -24,6 +24,11 @@ import {
   LOGIN_FORM_INPUT_BIG_HEIGHT
 } from '@src/styled';
 
+export const LoginLayoutWrapper = styled.div`
+  width: 100%;
+  overflow: hidden;
+`;
+
 export const LoginLayout = styled.div`
   width: ${ LOGIN_LAYOUT_BIG_WIDTH };
   height: ${ LOGIN_LAYOUT_BIG_HEIGHT };

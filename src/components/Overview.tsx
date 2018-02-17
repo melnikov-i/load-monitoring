@@ -24,10 +24,11 @@ import {
   OverviewTableActionMenuLayout,
   OverviewTableActionMenuItem,
   OverviewTableActionMenuAnchor,
-  MainComponentWrapper,
-  MainComponentWidgetHeaderWrapper,
-  MainComponentHeader,
-  MainComponentContent
+
+  FullWidthWidgetWrapper,
+  FullWidthWidgetContent,
+  WidgetHeaderWrapper,
+  WidgetHeader,
 } from '@src/styled';
 
 import {
@@ -145,8 +146,8 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
     return (
       <div>
         <MainHeaderConnected data={MainHeaderState} />
-        <MainComponentWrapper>
-          <MainComponentContent bg={false}>
+        <FullWidthWidgetWrapper bg={false}>
+          <FullWidthWidgetContent>
             <OverviewIconsLayout>
               <OverviewIconWrapper bgcolor={'#1ab394'}>
                 <OverviewIcon icon={'f058'} />
@@ -176,16 +177,13 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
                 </OverviewIconText>
               </OverviewIconWrapper>
             </OverviewIconsLayout>
-          </MainComponentContent>          
-        </MainComponentWrapper>
-        <MainComponentWrapper>
-          <MainComponentContent bg={true}>
-            <MainComponentWidgetHeaderWrapper>
-              <MainComponentHeader>
-                {'Все события'}
-              </MainComponentHeader>              
-            </MainComponentWidgetHeaderWrapper>
-            
+          </FullWidthWidgetContent>          
+        </FullWidthWidgetWrapper>
+        <FullWidthWidgetWrapper bg={true}>
+          <WidgetHeaderWrapper>
+            <WidgetHeader>{'Все события'}</WidgetHeader>              
+          </WidgetHeaderWrapper>
+          <FullWidthWidgetContent>
             {(overviewItems.events_table.length !== 0) 
               ? (
                 <OverviewTable>
@@ -271,8 +269,8 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
                 <OverwievText>{'Событий не найдено'}</OverwievText>
               )
             }          
-          </MainComponentContent>          
-        </MainComponentWrapper>
+          </FullWidthWidgetContent>          
+        </FullWidthWidgetWrapper>
       </div>
     );    
   } else {

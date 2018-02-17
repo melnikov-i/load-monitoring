@@ -17,8 +17,9 @@ import {
   DraggableConfigCollumnsItemSpan,
 
   MainComponentWrapper,
-  MainWidgetWrapper,
   MainComponentContent,
+  
+  MainWidgetWrapper,
   MainWidgetContent,
   MainComponentWidgetHeaderWrapper,
   MainComponentWidgetHeader,
@@ -83,7 +84,7 @@ export const DraggableDashboard: React.SFC<DraggableDashboardProps> =
             <MainComponentWidgetHeader>
               {'Настройки панели'}
             </MainComponentWidgetHeader>          
-          </MainComponentWidgetHeaderWrapper>
+          </MainComponentWidgetHeaderWrapper>          
           <DraggableConfigCollumnsWrapper>
             <DraggableConfigCollumnsHeaderWrapper>
               <DraggableConfigCollumnsHeader>
@@ -105,6 +106,8 @@ export const DraggableDashboard: React.SFC<DraggableDashboardProps> =
               ))}
             </DraggableConfigCollumnsItems>
           </DraggableConfigCollumnsWrapper>
+
+
         </MainComponentContent>
       </MainComponentWrapper>
       

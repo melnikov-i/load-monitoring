@@ -17,11 +17,89 @@ const emergence = keyframes`
   }
 `;
 
+// Обертка для виджета во всю ширину окна
+export const FullWidthWidgetWrapper = styled.div`
+  box-sizing: border-box;
+  overflow: hidden;
+  margin: 20px 15px;
+  background-color: ${(props: {bg: boolean}) => (
+      props.bg ? '#fff' : 'transparent'
+    )
+  };
+  border-top: ${(props: {bg: boolean}) => (
+      props.bg ? '2px solid #e7eaec' : 'none'
+    )
+  };
+  animation-name: ${ emergence };
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+`;
+
+// Виджет во всю ширину окна
+export const FullWidthWidgetContent = styled.div`
+  box-sizing: border-box;
+  padding: 0 15px 20px;
+`;
+
+export const WidgetHeaderWrapper = styled.div`
+  border-bottom: 1px solid #e7eaec;
+`;
+
+export const WidgetHeader = styled.h4`
+  font-size: 14px;
+  text-overflow: ellipsis;
+  color: #676a6c;
+  padding: 15px;
+  box-sizing: border-box;
+`;
+
+
+
+
+
+
 // Обертка основного компонента 
 export const MainComponentWrapper = styled.div`
   width: 100%;
   overflow: hidden;
 `;
+
+// Сореджимое основного компонента
+export const MainComponentContent = styled.div`
+  margin: 20px 15px 0;
+  box-sizing: border-box;
+  background-color: ${(props: {bg: boolean}) => (
+      props.bg ? '#fff' : 'transparent'
+    )
+  };
+  border-top: ${(props: {bg: boolean}) => (
+      props.bg ? '2px solid #e7eaec' : 'none'
+    )
+  };
+  animation-name: ${ emergence };
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+`;
+
+
+
+
+
+
+// Основной заголовок компонента
+export const MainComponentHeader = styled.h2`
+  font-size: 16px;
+  font-weight: 100;
+  color: #676a6c;
+  padding: 15px;
+`;
+
+
+
+
+
 
 // Происк крайнего элемента в строке
 const checkPosition = (width: number, margin: number):boolean => {
@@ -76,24 +154,6 @@ export const MainWidgetWrapper = MainComponentWrapper.extend`
   }
 `;
 
-// Сореджимое компонента
-export const MainComponentContent = styled.div`
-  margin: 20px 15px 0;
-  box-sizing: border-box;
-  background-color: ${(props: {bg: boolean}) => (
-      props.bg ? '#fff' : 'transparent'
-    )
-  };
-  border-top: ${(props: {bg: boolean}) => (
-      props.bg ? '2px solid #e7eaec' : 'none'
-    )
-  };
-  animation-name: ${ emergence };
-  animation-duration: 1s;
-  animation-timing-function: linear;
-  animation-fill-mode: both;
-`;
-
 // Содержимое виджета
 export const MainWidgetContent = styled.div`
   background-color: #fff;
@@ -105,18 +165,16 @@ export const MainWidgetContent = styled.div`
   right: 0;
 `;
 
+
+
+
+
 export const MainComponentWidgetHeaderWrapper = styled.div`
   width: 100%;
   background-color: #fff;
   border-bottom: 1px solid #e7eaec;
 `;
 
-export const MainComponentHeader = styled.h2`
-  font-size: 16px;
-  font-weight: 100;
-  color: #676a6c;
-  padding: 15px;
-`;
 
 export const MainComponentWidgetHeader = styled.h4`
   display: inline-block;

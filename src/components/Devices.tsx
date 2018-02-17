@@ -22,8 +22,17 @@ import {
   DevicesTableActionMenuLayout,
   DevicesTableActionMenuItem,
   DevicesTableActionLink,
-  MainComponentWrapper,
-  MainComponentContent,
+
+  // MainComponentWrapper,
+  // MainComponentContent,
+  // MainComponentWidgetHeaderWrapper,
+  // MainComponentWidgetHeader,
+
+  FullWidthWidgetWrapper,
+  FullWidthWidgetContent,
+
+  WidgetHeaderWrapper,
+  WidgetHeader
 } from '@src/styled';
 
 import {
@@ -117,8 +126,11 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
   return (
     <div>
       <MainHeaderConnected data={MainHeaderState} />
-      <MainComponentWrapper>
-        <MainComponentContent bg={true}>
+      <FullWidthWidgetWrapper bg={true}>
+        <WidgetHeaderWrapper>
+          <WidgetHeader>{'Все устройства'}</WidgetHeader>          
+        </WidgetHeaderWrapper>
+        <FullWidthWidgetContent>          
           <DevicesTable>
             <thead>
               <DevicesTableHeadRow>
@@ -254,8 +266,8 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
               }
             </tbody>
           </DevicesTable>
-        </MainComponentContent>
-      </MainComponentWrapper>
+        </FullWidthWidgetContent>
+      </FullWidthWidgetWrapper>
     </div>
   );
 };

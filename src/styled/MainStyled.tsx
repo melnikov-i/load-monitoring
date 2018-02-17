@@ -517,3 +517,7 @@ export const MainTopExitLink = styled(NavLink)`
     margin-right: 8px;
   }
 `;
+
+export const MainContent = styled.div`
+  overflow-x: hidden;
+`;

@@ -11,7 +11,7 @@ import {
   LoginFormInput,
   LoginFormButton,
   LoginFormSpinner,  
-  MainComponentWrapper,
+  LoginLayoutWrapper,
 } from '@src/styled';
 
 import {
@@ -64,7 +64,7 @@ export const Login: React.SFC<LoginProps> = (props) => {
   }
 
   return (
-    <MainComponentWrapper>
+    <LoginLayoutWrapper>
       <LoginLayout>
         <LoginWrapper>
           <LoginInnerPart>
@@ -123,6 +123,6 @@ export const Login: React.SFC<LoginProps> = (props) => {
           </LoginInnerPart>
         </LoginWrapper>
       </LoginLayout>
-    </MainComponentWrapper>
+    </LoginLayoutWrapper>
   );
 };

@@ -12,6 +12,7 @@ import {
 } from '@src/interfaces';
 
 export const DevicesTable = styled.table`
+  width: 100%;
   border-spacing: 0;
 `;
 

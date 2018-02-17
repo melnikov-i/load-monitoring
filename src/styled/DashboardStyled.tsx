@@ -2,14 +2,14 @@ import styled from 'styled-components';
 
 const Checkboxes = require('@src/images/checkboxes');
 
-export const DashboardLayout = styled.div`
-  width: 100%;
-  position: relative;
-`;
+// export const DashboardLayout = styled.div`
+//   width: 100%;
+//   position: relative;
+// `;
 
-export const DashboardText = styled.p`
-  font-size: 14px;
-`;
+// export const DashboardText = styled.p`
+//   font-size: 14px;
+// `;
 
 export const DraggableConfigCollumnsWrapper = styled.div`
   padding: 15px 0;

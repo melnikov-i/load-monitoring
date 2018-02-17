@@ -31,6 +31,7 @@ import {
   DevicesMenuLinkSpan,
   MainPage,
   MainTop,
+  MainContent,
   SmallMenuButton,
   UserMenuAnchor,
   UserMenuAnchorSpan,
@@ -295,7 +296,7 @@ export const Main: React.SFC<MainProps> = (props) => {
               </MainTopExitLink>
             </MainTopExitWrapper>
           </MainTop>
-          <div>
+          <MainContent>
             <Switch>
               <Route
                 exact path="/overview"
@@ -325,7 +326,7 @@ export const Main: React.SFC<MainProps> = (props) => {
                 component={OverviewConnected} 
               />
             </Switch>
-          </div>
+          </MainContent>
         </MainPage>
       </MainLayout>
     );    

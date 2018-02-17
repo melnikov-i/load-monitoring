@@ -7,8 +7,8 @@ import {
 
 import {
   // DashboardText,
-  MainComponentWrapper,
-  MainComponentContent,
+  // FullWidthWidgetWrapper,
+  // FullWidthWidgetContent,
   MainWidgetWrapper,
   MainWidgetContent,
   MainComponentWidgetHeaderWrapper,
@@ -44,27 +44,27 @@ export const StaticDashboard: React.SFC<StaticDashboardProps> =
     // MainHeaderButtonWasClicked,
   } = props;
 
+      // <FullWidthWidgetWrapper bg={false}>
+      //   <FullWidthWidgetContent>
   return (
-      <MainComponentWrapper>
-        <MainComponentContent
-          bg={false}
+    <div>
+      {DashboardCollection.dash_data.map((e, i) => (
+        <MainWidgetWrapper
+          width={SelectedCheckbox}
+          margin={i}
+          key={i}
         >
-          {DashboardCollection.dash_data.map((e, i) => (
-            <MainWidgetWrapper
-              width={SelectedCheckbox}
-              margin={i}
-              key={i}
-            >
-              <MainWidgetContent>
-                <MainComponentWidgetHeaderWrapper>
-                  <MainComponentWidgetHeader>
-                    { e.widget_name }
-                  </MainComponentWidgetHeader>
-                </MainComponentWidgetHeaderWrapper>
-              </MainWidgetContent>
-            </MainWidgetWrapper>
-          ))}
-        </MainComponentContent>
-      </MainComponentWrapper>
+          <MainWidgetContent>
+            <MainComponentWidgetHeaderWrapper>
+              <MainComponentWidgetHeader>
+                { e.widget_name }
+              </MainComponentWidgetHeader>
+            </MainComponentWidgetHeaderWrapper>
+          </MainWidgetContent>
+        </MainWidgetWrapper>
+      ))}      
+    </div>
   );    
 };
+      //   </FullWidthWidgetContent>
+      // </FullWidthWidgetWrapper>
