@@ -2,33 +2,26 @@ import * as React from 'react';
 
 import {
   DashboardInterface,
-  // MainHeaderInterface
 } from '@src/interfaces';
 
 import {
-  // DraggableConfigLayout,
-  // DraggableConfigHeaderWrapper,
-  // DraggableConfigHeader,
-  DraggableConfigCollumnsWrapper,
-  DraggableConfigCollumnsHeaderWrapper,
-  DraggableConfigCollumnsHeader,
-  DraggableConfigCollumnsItems,
-  DraggableConfigCollumnsItemAnchor,
-  DraggableConfigCollumnsItemSpan,
+  DraggableConfigColumnsWrapper,
+  DraggableConfigColumnsHeaderWrapper,
+  DraggableConfigColumnsHeader,
+  DraggableConfigColumnsItems,
+  DraggableConfigColumnsItemAnchor,
+  DraggableConfigColumnsItemSpan,
 
   MainComponentWrapper,
-  MainComponentContent,
-  
-  MainWidgetWrapper,
-  MainWidgetContent,
+  MainComponentContent,  
   MainComponentWidgetHeaderWrapper,
   MainComponentWidgetHeader,
 
-  // StaticDashboardGridLayout,
-  // StaticDashboardGridWrapper,
-  // StaticDashboardGridItem,
-
-  // DashboardText,
+  DynamicWidthWidgetsLayout,
+  DynamicWidthWidgetWrapper,
+  DynamicWidthWidgetHeaderWrapper,
+  WidgetHeader,
+  DynamicWidthWidgetContent,
 } from '@src/styled';
 
 interface DraggableDashboardProps {
@@ -58,7 +51,7 @@ export const DraggableDashboard: React.SFC<DraggableDashboardProps> =
   } = props;
 
   // Поля
-  const CollumnsValuesCollection: string[] = [
+  const ColumnsValuesCollection: string[] = [
     '1 Колонка',
     '2 Колонки',
     '3 Колонки',
@@ -66,7 +59,7 @@ export const DraggableDashboard: React.SFC<DraggableDashboardProps> =
   ];
 
   // Обработчики событий
-  const collumnsHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const columnsHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     e.nativeEvent.stopImmediatePropagation();
     const attribute: string | null = 
@@ -85,74 +78,45 @@ export const DraggableDashboard: React.SFC<DraggableDashboardProps> =
               {'Настройки панели'}
             </MainComponentWidgetHeader>          
           </MainComponentWidgetHeaderWrapper>          
-          <DraggableConfigCollumnsWrapper>
-            <DraggableConfigCollumnsHeaderWrapper>
-              <DraggableConfigCollumnsHeader>
+          <DraggableConfigColumnsWrapper>
+            <DraggableConfigColumnsHeaderWrapper>
+              <DraggableConfigColumnsHeader>
                 {'Количество колонок:'}
-              </DraggableConfigCollumnsHeader>
-            </DraggableConfigCollumnsHeaderWrapper>
-            <DraggableConfigCollumnsItems>
-              {CollumnsValuesCollection.map((e, i) => (
-                <DraggableConfigCollumnsItemAnchor
+              </DraggableConfigColumnsHeader>
+            </DraggableConfigColumnsHeaderWrapper>
+            <DraggableConfigColumnsItems>
+              {ColumnsValuesCollection.map((e, i) => (
+                <DraggableConfigColumnsItemAnchor
                   key={i}
-                  data-index={i}
-                  isSelected={SelectedCheckbox === String(i)}
-                  onClick={collumnsHandler}
+                  data-index={i + 1}
+                  isSelected={SelectedCheckbox === String(i + 1)}
+                  onClick={columnsHandler}
                 >
-                  <DraggableConfigCollumnsItemSpan>
+                  <DraggableConfigColumnsItemSpan>
                     {e}                  
-                  </DraggableConfigCollumnsItemSpan>
-                </DraggableConfigCollumnsItemAnchor>
+                  </DraggableConfigColumnsItemSpan>
+                </DraggableConfigColumnsItemAnchor>
               ))}
-            </DraggableConfigCollumnsItems>
-          </DraggableConfigCollumnsWrapper>
-
-
+            </DraggableConfigColumnsItems>
+          </DraggableConfigColumnsWrapper>
         </MainComponentContent>
-      </MainComponentWrapper>
-      
-      <MainComponentWrapper>
-        <MainComponentContent
-          bg={false}
-        >
-          {DashboardCollection.dash_data.map((e, i) => (
-            <MainWidgetWrapper
-              width={SelectedCheckbox}
-              margin={i}
-              key={i}
-            >
-              <MainWidgetContent>
-                <MainComponentWidgetHeaderWrapper>
-                  <MainComponentWidgetHeader>
-                    { e.widget_name }
-                  </MainComponentWidgetHeader>
-                </MainComponentWidgetHeaderWrapper>
-              </MainWidgetContent>
-            </MainWidgetWrapper>
-          ))}
-        </MainComponentContent>
-      </MainComponentWrapper>
+      </MainComponentWrapper>      
+      <DynamicWidthWidgetsLayout>
+        {DashboardCollection.dash_data.map((e, i) => (
+          <DynamicWidthWidgetWrapper
+            width={SelectedCheckbox}
+            margin={i + 1}
+            key={i}
+          >
+            <DynamicWidthWidgetHeaderWrapper>
+              <WidgetHeader>{ e.widget_name }</WidgetHeader>
+            </DynamicWidthWidgetHeaderWrapper>
+            <DynamicWidthWidgetContent>
+
+            </DynamicWidthWidgetContent>
+          </DynamicWidthWidgetWrapper>
+        ))}
+      </DynamicWidthWidgetsLayout>
     </div>
   );    
 };
-        //   <DraggableConfigCollumnsList>
-        //     <DraggableConfigCollumnListItem>
-        //       <DraggableConfigCollumtListItemText>
-        //         {'1 Колонка'}
-        //       </DraggableConfigCollumtListItemText>              
-        //     </DraggableConfigCollumnListItem>
-        //     <DraggableConfigCollumnListItem>
-        //       <DraggableConfigCollumtListItemText>
-        //         {'2 Колонка'}
-        //       </DraggableConfigCollumtListItemText>              
-        //     </DraggableConfigCollumnListItem>
-        //   </DraggableConfigCollumnsList>
-
-
-
-      // <MainHeaderConnected data={MainHeaderState} />
-      // <MainComponentWrapper>
-      //   <MainComponentContent bg={false}>
-
-      //   </MainComponentContent>
-      // </MainComponentWrapper>

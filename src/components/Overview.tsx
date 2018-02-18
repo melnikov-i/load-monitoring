@@ -27,7 +27,7 @@ import {
 
   FullWidthWidgetWrapper,
   FullWidthWidgetContent,
-  WidgetHeaderWrapper,
+  FullWidthWidgetHeaderWrapper,
   WidgetHeader,
 } from '@src/styled';
 
@@ -180,9 +180,9 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
           </FullWidthWidgetContent>          
         </FullWidthWidgetWrapper>
         <FullWidthWidgetWrapper bg={true}>
-          <WidgetHeaderWrapper>
+          <FullWidthWidgetHeaderWrapper>
             <WidgetHeader>{'Все события'}</WidgetHeader>              
-          </WidgetHeaderWrapper>
+          </FullWidthWidgetHeaderWrapper>
           <FullWidthWidgetContent>
             {(overviewItems.events_table.length !== 0) 
               ? (

@@ -6,18 +6,11 @@ import {
 } from '@src/interfaces';
 
 import {
-  // DashboardText,
-  // FullWidthWidgetWrapper,
-  // FullWidthWidgetContent,
-  MainWidgetWrapper,
-  MainWidgetContent,
-  MainComponentWidgetHeaderWrapper,
-  MainComponentWidgetHeader,
-
-  // StaticDashboardGridLayout,
-  // StaticDashboardGridWrapper,
-  // StaticDashboardGridItem,
-
+  DynamicWidthWidgetsLayout,
+  DynamicWidthWidgetWrapper,
+  DynamicWidthWidgetContent,
+  DynamicWidthWidgetHeaderWrapper,
+  WidgetHeader,
 } from '@src/styled';
 
 interface StaticDashboardProps {
@@ -47,24 +40,21 @@ export const StaticDashboard: React.SFC<StaticDashboardProps> =
       // <FullWidthWidgetWrapper bg={false}>
       //   <FullWidthWidgetContent>
   return (
-    <div>
+    <DynamicWidthWidgetsLayout>
       {DashboardCollection.dash_data.map((e, i) => (
-        <MainWidgetWrapper
+        <DynamicWidthWidgetWrapper
           width={SelectedCheckbox}
-          margin={i}
-          key={i}
+          margin={i + 1}
+          key={i + 1}
         >
-          <MainWidgetContent>
-            <MainComponentWidgetHeaderWrapper>
-              <MainComponentWidgetHeader>
-                { e.widget_name }
-              </MainComponentWidgetHeader>
-            </MainComponentWidgetHeaderWrapper>
-          </MainWidgetContent>
-        </MainWidgetWrapper>
-      ))}      
-    </div>
+          <DynamicWidthWidgetHeaderWrapper>
+            <WidgetHeader>{ e.widget_name }</WidgetHeader>
+          </DynamicWidthWidgetHeaderWrapper>
+          <DynamicWidthWidgetContent>
+
+          </DynamicWidthWidgetContent>
+        </DynamicWidthWidgetWrapper>
+      ))}
+    </DynamicWidthWidgetsLayout>
   );    
 };
-      //   </FullWidthWidgetContent>
-      // </FullWidthWidgetWrapper>

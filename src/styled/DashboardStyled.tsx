@@ -11,31 +11,31 @@ const Checkboxes = require('@src/images/checkboxes');
 //   font-size: 14px;
 // `;
 
-export const DraggableConfigCollumnsWrapper = styled.div`
+export const DraggableConfigColumnsWrapper = styled.div`
   padding: 15px 0;
 `;
 
-export const DraggableConfigCollumnsHeaderWrapper = styled.div`
+export const DraggableConfigColumnsHeaderWrapper = styled.div`
   width: 20%;
   box-sizing: border-box;
   display: inline-block;
   vertical-align: top;
 `;
 
-export const DraggableConfigCollumnsHeader = styled.p`
+export const DraggableConfigColumnsHeader = styled.p`
   font-size: 13px;
   font-weight: 700;
   color: #676a6c;
   padding: 0 15px;
 `;
 
-export const DraggableConfigCollumnsItems = styled.div`
+export const DraggableConfigColumnsItems = styled.div`
   width: 30%;
   display: inline-block;
   vertical-align: top;
 `;
 
-export const DraggableConfigCollumnsItemAnchor = styled.a`
+export const DraggableConfigColumnsItemAnchor = styled.a`
   text-decoration: none;
   width: 100%;
   height: 24px;
@@ -65,7 +65,7 @@ export const DraggableConfigCollumnsItemAnchor = styled.a`
   }
 `;
 
-export const DraggableConfigCollumnsItemSpan = styled.span`
+export const DraggableConfigColumnsItemSpan = styled.span`
   font-size: 13px;
   font-weight: 700;
   color: #676a6c;
