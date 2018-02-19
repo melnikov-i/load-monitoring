@@ -76,7 +76,7 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
   return (
     <div>
       <MainHeaderConnected data={MainHeaderState} />
-      {( MainHeaderButtonWasClicked )
+      {( !MainHeaderButtonWasClicked )
         ? <DraggableDashboardConnected />
         : <StaticDashboardConnected />
       }

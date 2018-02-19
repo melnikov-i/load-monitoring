@@ -12,10 +12,14 @@ import {
   DraggableConfigColumnsItemAnchor,
   DraggableConfigColumnsItemSpan,
 
-  MainComponentWrapper,
-  MainComponentContent,  
-  MainComponentWidgetHeaderWrapper,
-  MainComponentWidgetHeader,
+  // MainComponentWrapper,
+  // MainComponentContent,  
+  // MainComponentWidgetHeaderWrapper,
+  // MainComponentWidgetHeader,
+
+  FullWidthWidgetWrapper,
+  FullWidthWidgetContent,
+  FullWidthWidgetHeaderWrapper,
 
   DynamicWidthWidgetsLayout,
   DynamicWidthWidgetWrapper,
@@ -55,7 +59,7 @@ export const DraggableDashboard: React.SFC<DraggableDashboardProps> =
     '1 Колонка',
     '2 Колонки',
     '3 Колонки',
-    '4 Колонки',
+    // '4 Колонки',
   ];
 
   // Обработчики событий
@@ -71,13 +75,11 @@ export const DraggableDashboard: React.SFC<DraggableDashboardProps> =
 
   return (
     <div>
-      <MainComponentWrapper>
-        <MainComponentContent bg={true}>
-          <MainComponentWidgetHeaderWrapper>
-            <MainComponentWidgetHeader>
-              {'Настройки панели'}
-            </MainComponentWidgetHeader>          
-          </MainComponentWidgetHeaderWrapper>          
+      <FullWidthWidgetWrapper bg={true}>
+        <FullWidthWidgetHeaderWrapper>
+          <WidgetHeader>{'Настройки панели'}</WidgetHeader>
+        </FullWidthWidgetHeaderWrapper>
+        <FullWidthWidgetContent>
           <DraggableConfigColumnsWrapper>
             <DraggableConfigColumnsHeaderWrapper>
               <DraggableConfigColumnsHeader>
@@ -99,8 +101,8 @@ export const DraggableDashboard: React.SFC<DraggableDashboardProps> =
               ))}
             </DraggableConfigColumnsItems>
           </DraggableConfigColumnsWrapper>
-        </MainComponentContent>
-      </MainComponentWrapper>      
+        </FullWidthWidgetContent>
+      </FullWidthWidgetWrapper>      
       <DynamicWidthWidgetsLayout>
         {DashboardCollection.dash_data.map((e, i) => (
           <DynamicWidthWidgetWrapper
