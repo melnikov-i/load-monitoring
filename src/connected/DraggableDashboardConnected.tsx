@@ -2,6 +2,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Dispatch, RootState } from '@src/redux';
+import { DragDropContext } from 'react-dnd';
+import MultiBackend from 'react-dnd-multi-backend';
+import HTML5toTouch from 'react-dnd-multi-backend/lib/HTML5toTouch';
 
 import { DraggableDashboard } from '@src/components';
 
@@ -30,6 +33,7 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
   changeSelectedCheckbox: syncActionCreators.changeSelectedCheckbox,
 }, dispatch);
 
-export const DraggableDashboardConnected = connect(
+export const DraggableDashboardConnected = DragDropContext(
+  MultiBackend(HTML5toTouch))(connect(
     mapStateToProps, mapDispatchToProps)(DraggableDashboard
-  );
+  ));

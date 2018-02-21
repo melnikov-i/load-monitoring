@@ -2,14 +2,14 @@ import * as React from 'react';
 
 import {
   DashboardInterface,
+  DashboardWidgetInterface
 } from '@src/interfaces';
+
+import DashboardWidgetConnected from 
+  '@src/connected/DashboardWidgetConnected.usage';
 
 import {
   DynamicWidthWidgetsLayout,
-  DynamicWidthWidgetWrapper,
-  DynamicWidthWidgetContent,
-  DynamicWidthWidgetHeaderWrapper,
-  WidgetHeader,
 } from '@src/styled';
 
 interface StaticDashboardProps {
@@ -27,21 +27,17 @@ export const StaticDashboard: React.SFC<StaticDashboardProps> =
 
   return (
     <DynamicWidthWidgetsLayout>
-      {DashboardCollection.dash_data.map((e, i) => (
-        // Виджет
-        <DynamicWidthWidgetWrapper
-          width={SelectedCheckbox}
-          margin={i + 1}
-          key={i + 1}
-        >
-          <DynamicWidthWidgetHeaderWrapper>
-            <WidgetHeader>{ e.widget_name }</WidgetHeader>
-          </DynamicWidthWidgetHeaderWrapper>
-          <DynamicWidthWidgetContent>
-
-          </DynamicWidthWidgetContent>
-        </DynamicWidthWidgetWrapper>
-        //
+      {DashboardCollection.dash_data.map((e, i) => {
+        const element: DashboardWidgetInterface = {
+          index: i + 1,
+          width: SelectedCheckbox,
+          widget_name: e.widget_name,
+          device_id: e.device_id,
+        }
+        return (
+            <DashboardWidgetConnected key={i} element={element} />
+          );
+        })}
       ))}
     </DynamicWidthWidgetsLayout>
   );    

@@ -15,8 +15,8 @@ export interface DashboardInterface {
 }
 
 export interface DashboardWidgetInterface {
-  index: string,
-  width: number,
+  index: number,
+  width: string,
   widget_name: WidgetInterface['widget_name'],
   device_id: WidgetInterface['device_id'],
 }

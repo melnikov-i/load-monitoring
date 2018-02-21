@@ -1,11 +1,13 @@
 import * as React from 'react';
-import { DragDropContext } from 'react-dnd';
-import MultiBackend from 'react-dnd-multi-backend';
-import HTML5toTouch from 'react-dnd-multi-backend/lib/HTML5toTouch';
+
 
 import {
   DashboardInterface,
+  DashboardWidgetInterface
 } from '@src/interfaces';
+
+import DashboardWidgetConnected from 
+  '@src/connected/DashboardWidgetConnected.usage';
 
 import {
   DraggableConfigColumnsWrapper,
@@ -20,10 +22,7 @@ import {
   FullWidthWidgetHeaderWrapper,
 
   DynamicWidthWidgetsLayout,
-  DynamicWidthWidgetWrapper,
-  DynamicWidthWidgetHeaderWrapper,
   WidgetHeader,
-  DynamicWidthWidgetContent,
 } from '@src/styled';
 
 interface DraggableDashboardProps {
@@ -32,12 +31,7 @@ interface DraggableDashboardProps {
   DashboardCollection: DashboardInterface,
 }
 
-// const ItemType = {
-//   WIDGET: 'WIDGET',
-// };
-
-
-const DraggableDashboard: React.SFC<DraggableDashboardProps> = 
+export const DraggableDashboard: React.SFC<DraggableDashboardProps> = 
 (props) => {
   const {
     changeSelectedCheckbox,
@@ -101,26 +95,30 @@ const DraggableDashboard: React.SFC<DraggableDashboardProps> =
 
 
       <DynamicWidthWidgetsLayout>
-        {DashboardCollection.dash_data.map((e, i) => (
-
-          <DynamicWidthWidgetWrapper
-            width={SelectedCheckbox}
-            margin={i + 1}
-            key={i}
-          >
-            <DynamicWidthWidgetHeaderWrapper>
-              <WidgetHeader>{ e.widget_name }</WidgetHeader>
-            </DynamicWidthWidgetHeaderWrapper>
-            <DynamicWidthWidgetContent>
-
-            </DynamicWidthWidgetContent>
-          </DynamicWidthWidgetWrapper>
-
-        ))}
+        {DashboardCollection.dash_data.map((e, i) => {
+          const element: DashboardWidgetInterface = {
+            index: i + 1,
+            width: SelectedCheckbox,
+            widget_name: e.widget_name,
+            device_id: e.device_id,
+          }
+          return (
+            <DashboardWidgetConnected key={i} element={element} />
+          );
+        })}
       </DynamicWidthWidgetsLayout>
     </div>
   );    
 };
+          // <DynamicWidthWidgetWrapper
+          //   width={SelectedCheckbox}
+          //   margin={i + 1}
+          //   key={i}
+          // >
+          //   <DynamicWidthWidgetHeaderWrapper>
+          //     <WidgetHeader>{ e.widget_name }</WidgetHeader>
+          //   </DynamicWidthWidgetHeaderWrapper>
+          //   <DynamicWidthWidgetContent>
 
-export default DragDropContext(
-  MultiBackend(HTML5toTouch))(DraggableDashboard);
+          //   </DynamicWidthWidgetContent>
+          // </DynamicWidthWidgetWrapper>
