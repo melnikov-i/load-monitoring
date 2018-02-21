@@ -6,6 +6,8 @@ export * from './DevicesLoad';
 export * from './DevicesStatus';
 export * from './Overview';
 export * from './Dashboard';
+export * from './DashboardWidget';
+
 export * from './DraggableDashboard';
 export * from './StaticDashboard';
 export * from './Spinner';

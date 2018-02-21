@@ -1,4 +1,7 @@
 import * as React from 'react';
+import { DragDropContext } from 'react-dnd';
+import MultiBackend from 'react-dnd-multi-backend';
+import HTML5toTouch from 'react-dnd-multi-backend/lib/HTML5toTouch';
 
 import {
   DashboardInterface,
@@ -11,11 +14,6 @@ import {
   DraggableConfigColumnsItems,
   DraggableConfigColumnsItemAnchor,
   DraggableConfigColumnsItemSpan,
-
-  // MainComponentWrapper,
-  // MainComponentContent,  
-  // MainComponentWidgetHeaderWrapper,
-  // MainComponentWidgetHeader,
 
   FullWidthWidgetWrapper,
   FullWidthWidgetContent,
@@ -31,18 +29,15 @@ import {
 interface DraggableDashboardProps {
   changeSelectedCheckbox: (payload: string) => any,
   SelectedCheckbox: string,
-  // id: DashboardInterface['dash_id']['dashboard_id'],
-  // DashboardWasRequestedFromAPI: DashboardInterface['dash_id']['dashboard_id'],
-  // makeDashboardRequestFromAPI: 
-  // (payload: DashboardInterface['dash_id']['dashboard_id']) => any,
   DashboardCollection: DashboardInterface,
-  // reorderDashboardCollection:
-  // (payload: DashboardInterface['dash_data']) => any,
-  // MainHeaderButtonWasClicked: boolean,
 }
 
+// const ItemType = {
+//   WIDGET: 'WIDGET',
+// };
 
-export const DraggableDashboard: React.SFC<DraggableDashboardProps> = 
+
+const DraggableDashboard: React.SFC<DraggableDashboardProps> = 
 (props) => {
   const {
     changeSelectedCheckbox,
@@ -102,9 +97,12 @@ export const DraggableDashboard: React.SFC<DraggableDashboardProps> =
             </DraggableConfigColumnsItems>
           </DraggableConfigColumnsWrapper>
         </FullWidthWidgetContent>
-      </FullWidthWidgetWrapper>      
+      </FullWidthWidgetWrapper>
+
+
       <DynamicWidthWidgetsLayout>
         {DashboardCollection.dash_data.map((e, i) => (
+
           <DynamicWidthWidgetWrapper
             width={SelectedCheckbox}
             margin={i + 1}
@@ -117,8 +115,12 @@ export const DraggableDashboard: React.SFC<DraggableDashboardProps> =
 
             </DynamicWidthWidgetContent>
           </DynamicWidthWidgetWrapper>
+
         ))}
       </DynamicWidthWidgetsLayout>
     </div>
   );    
 };
+
+export default DragDropContext(
+  MultiBackend(HTML5toTouch))(DraggableDashboard);

@@ -13,3 +13,10 @@ export interface DashboardInterface {
   dash_id: DashIdInterface,
   dash_data: WidgetInterface[],
 }
+
+export interface DashboardWidgetInterface {
+  index: string,
+  width: number,
+  widget_name: WidgetInterface['widget_name'],
+  device_id: WidgetInterface['device_id'],
+}
