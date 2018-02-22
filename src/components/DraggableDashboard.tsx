@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-
 import {
   DashboardInterface,
   DashboardWidgetInterface
@@ -36,11 +35,7 @@ export const DraggableDashboard: React.SFC<DraggableDashboardProps> =
   const {
     changeSelectedCheckbox,
     SelectedCheckbox,
-    // id,
-    // DashboardWasRequestedFromAPI,
-    // makeDashboardRequestFromAPI,
     DashboardCollection,
-    // MainHeaderButtonWasClicked,
   } = props;
 
   // Поля
@@ -110,15 +105,3 @@ export const DraggableDashboard: React.SFC<DraggableDashboardProps> =
     </div>
   );    
 };
-          // <DynamicWidthWidgetWrapper
-          //   width={SelectedCheckbox}
-          //   margin={i + 1}
-          //   key={i}
-          // >
-          //   <DynamicWidthWidgetHeaderWrapper>
-          //     <WidgetHeader>{ e.widget_name }</WidgetHeader>
-          //   </DynamicWidthWidgetHeaderWrapper>
-          //   <DynamicWidthWidgetContent>
-
-          //   </DynamicWidthWidgetContent>
-          // </DynamicWidthWidgetWrapper>

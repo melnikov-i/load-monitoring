@@ -5,11 +5,6 @@ import {
   MainHeaderInterface
 } from '@src/interfaces';
 
-import {
-
-  
-} from '@src/styled';
-
 import { Spinner } from '@src/components';
 import MainHeaderConnected from
   '@src/connected/MainHeaderConnected.usage';
