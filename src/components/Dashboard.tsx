@@ -2,16 +2,21 @@ import * as React from 'react';
 
 import {
   DashboardInterface,
-  MainHeaderInterface
+  MainHeaderInterface,
+  // DashboardWidgetInterface
 } from '@src/interfaces';
 
 import { Spinner } from '@src/components';
 import MainHeaderConnected from
   '@src/connected/MainHeaderConnected.usage';
-import DraggableDashboardConnected from 
-  '@src/connected/DraggableDashboardConnected.usage';
-import StaticDashboardConnected from 
-  '@src/connected/StaticDashboardConnected.usage';
+import DashboardGridSettingsConnected from
+  '@src/connected/DashboardGridSettingsConnected.usage';
+import DashboardGridConnected from
+  '@src/connected/DashboardGridConnected.usage';
+
+import {
+  DynamicWidthWidgetsLayout,
+} from '@src/styled';
 
 interface DashboardProps {
   id: DashboardInterface['dash_id']['dashboard_id'],
@@ -68,13 +73,43 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
     ],
   };
 
-  return (
-    <div>
-      <MainHeaderConnected data={MainHeaderState} />
-      {( !MainHeaderButtonWasClicked )
-        ? <DraggableDashboardConnected />
-        : <StaticDashboardConnected />
-      }
-    </div>
-  );    
+  if ( MainHeaderButtonWasClicked ) {
+    // Включен режим настройки дашборда
+    return (
+      <div>
+        <MainHeaderConnected data={MainHeaderState} />
+        <DashboardGridSettingsConnected />
+        <DashboardGridConnected>
+          <div></div>
+        </DashboardGridConnected>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <MainHeaderConnected data={MainHeaderState} />
+        <DynamicWidthWidgetsLayout>
+          {DashboardCollection.dash_data.map((e, i) => {
+            // const element: DashboardWidgetInterface = {
+            //   index: i + 1,
+            //   width: SelectedCheckbox,
+            //   widget_name: e.widget_name,
+            //   device_id: e.device_id,
+            // }
+            return null;
+          })}
+        </DynamicWidthWidgetsLayout>
+      </div>
+    );
+  }
+
 };
+  // return (
+  //   <div>
+  //     <MainHeaderConnected data={MainHeaderState} />
+  //     {( !MainHeaderButtonWasClicked )
+  //       ? <DraggableDashboardConnected />
+  //       : <StaticDashboardConnected />
+  //     }
+  //   </div>
+  // );
