@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+
 import {
   DashboardWidgetInterface,
 } from '@src/interfaces';
@@ -11,28 +12,42 @@ import {
   WidgetHeader,
 } from '@src/styled';
 
+
+interface CollectType {
+  connectDragSource: any,
+  isDragging: any,
+}
+
 interface StaticDashboardProps {
   element: DashboardWidgetInterface,
 }
 
+type WidgetProps = StaticDashboardProps & CollectType;
 
-export const DashboardWidget: React.SFC<StaticDashboardProps> = 
-(props) => {
+export const DashboardWidget: React.SFC<WidgetProps> = (props) => {
   const {
     element,
+    connectDragSource,
   } = props;
 
-  return (
-    <DynamicWidthWidgetWrapper
-      width={element.width}
-      margin={element.index}
+  return connectDragSource(
+    <div
+      style={{
+        display: 'inline-block',
+        verticalAlign: 'top'
+      }}
     >
-      <DynamicWidthWidgetHeaderWrapper>
-        <WidgetHeader>{ element.widget_name }</WidgetHeader>
-      </DynamicWidthWidgetHeaderWrapper>
-      <DynamicWidthWidgetContent>
+      <DynamicWidthWidgetWrapper
+        width={element.width}
+        margin={element.index}
+      >
+        <DynamicWidthWidgetHeaderWrapper>
+          <WidgetHeader>{ element.widget_name }</WidgetHeader>
+        </DynamicWidthWidgetHeaderWrapper>
+        <DynamicWidthWidgetContent>
 
-      </DynamicWidthWidgetContent>
-    </DynamicWidthWidgetWrapper>
+        </DynamicWidthWidgetContent>
+      </DynamicWidthWidgetWrapper>      
+    </div>
   );    
 };
