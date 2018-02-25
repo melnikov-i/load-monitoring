@@ -9,6 +9,7 @@ export * from './Dashboard';
 export * from './DashboardGridSettings';
 export * from './DashboardGrid';
 export * from './DashboardWidgetWrapper';
+export * from './DashboardWidget';
 
 export * from './Spinner';
 export * from './MainHeader';

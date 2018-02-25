@@ -1,4 +1,4 @@
-interface WidgetInterface {
+export interface WidgetInterface {
   widget_name: string,
   device_id: string,
 }

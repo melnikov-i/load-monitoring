@@ -34,7 +34,6 @@ export const DashboardGrid: React.SFC<DashboardGridProps> = (props) => {
           widget_name: e.widget_name,
           device_id: e.device_id,
         }
-        console.log('Element:', element);
         return (
           <DashboardWidgetWrapperConnected
             key={i}

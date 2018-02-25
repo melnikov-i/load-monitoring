@@ -1,12 +1,17 @@
 import styled, { keyframes } from 'styled-components';
 
+import {
+  getWidth,
+  checkPosition
+} from '@src/libs';
+
 interface MainWidgetWrapperInterface {
   width: string,
   margin: number,
 }
 
 // Основная анимация блока
-const emergence = keyframes`
+export const emergence = keyframes`
   0% {
     opacity: 0;
     transform: translateX(20px);
@@ -52,6 +57,7 @@ export const FullWidthWidgetContent = styled.div`
  */
 // обертка для заголовка во всю ширину окна
 export const FullWidthWidgetHeaderWrapper = styled.div`
+  background-color: #fff;
   border-bottom: 1px solid #e7eaec;
   padding: 15px;
 `;
@@ -88,29 +94,13 @@ export const DynamicWidthWidgetsLayout = styled.div`
 `;
 
 // Происк самого правого элемента среди динамических виджетов
-const checkPosition = (width: number, margin: number):boolean => {
-  const currentMargin: number = margin;
-  const currentWidth: number = width;
-  if ( currentMargin % currentWidth === 0 ) {
-    return false;
-  }
-  return true;
-};
 
 export const DynamicWidthWidgetWrapper = styled.div`
-  width: ${(props: MainWidgetWrapperInterface) => {
-      switch (props.width) {
-        case '1': return '100%';
-        case '2': return '49%';
-        case '3': return '32%';
-        case '4': return '24';
-        default: return '100%';
-      }
-    }
+  width: ${(props: MainWidgetWrapperInterface) => (
+      getWidth(props.width)
+    )
   };
   overflow: hidden;
-  background-color: #fff;
-  border-top: 2px solid #e7eaec;
   animation-name: ${ emergence };
   animation-duration: 1s;
   animation-timing-function: linear;
@@ -127,6 +117,7 @@ export const DynamicWidthWidgetWrapper = styled.div`
       ( props.width === '1' ) ? '20px' : '2%'
     )
   };
+  background-color: rgba(255, 0, 0, .4);
   &::before{
     content: "";
     display: block;
@@ -134,12 +125,17 @@ export const DynamicWidthWidgetWrapper = styled.div`
   }
 `;
 
-export const DynamicWidthWidgetContent = styled.div`
-  box-sizing: border-box;
-  padding: 0 15px 20px;
+export const DynamicWidthWidget = styled.div`
+  background-color: #fff;
+  border-top: 2px solid #e7eaec;
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
+`;
+
+export const DynamicWidthWidgetContent = styled.div`
+  padding: 0 15px 20px;
+  box-sizing: border-box;
 `;

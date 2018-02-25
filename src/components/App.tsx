@@ -17,7 +17,8 @@ import LoginConnected from '@src/connected/LoginConnected.usage';
 
 import {
   FOOTER_HEIGHT,
-  FA_SMALL_FONT_SIZE
+  FA_SMALL_FONT_SIZE,
+  emergence,
 } from '@src/styled';
 
 interface AppProps {
@@ -63,6 +64,33 @@ injectGlobal`
   .activeDevicesMenuItem {
     color: #19aa8d;
     background-color: #293846;
+  }
+
+  .dashboardWidgetWrapper {
+    overflow: hidden;
+    animation-name: ${ emergence};
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;    
+    background-color: rgba(255, 0, 0, .4);
+    &::before {
+      content: "";
+      display: block;
+      padding-top: 62%;
+    }
+  }
+
+  .dashboardWidget {
+    background-color: #fff;
+    border-top: 2px solid #e7eaec;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
   }
 
   #footer {

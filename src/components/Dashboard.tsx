@@ -16,6 +16,11 @@ import DashboardGridConnected from
 
 import {
   DynamicWidthWidgetsLayout,
+  DynamicWidthWidgetWrapper,
+  DynamicWidthWidget,
+  DynamicWidthWidgetHeaderWrapper,
+  WidgetHeader,
+  DynamicWidthWidgetContent,
 } from '@src/styled';
 
 interface DashboardProps {
@@ -23,6 +28,7 @@ interface DashboardProps {
   DashboardWasRequestedFromAPI: DashboardInterface['dash_id']['dashboard_id'],
   makeDashboardRequestFromAPI: 
   (payload: DashboardInterface['dash_id']['dashboard_id']) => any,
+  SelectedCheckbox: string,
   DashboardCollection: DashboardInterface,
   reorderDashboardCollection:
   (payload: DashboardInterface['dash_data']) => any,
@@ -35,6 +41,7 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
     id,
     DashboardWasRequestedFromAPI,
     makeDashboardRequestFromAPI,
+    SelectedCheckbox,
     DashboardCollection,
     MainHeaderButtonWasClicked,
   } = props;
@@ -88,26 +95,25 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
         <MainHeaderConnected data={MainHeaderState} />
         <DynamicWidthWidgetsLayout>
           {DashboardCollection.dash_data.map((e, i) => {
-            // const element: DashboardWidgetInterface = {
-            //   index: i + 1,
-            //   width: SelectedCheckbox,
-            //   widget_name: e.widget_name,
-            //   device_id: e.device_id,
-            // }
-            return null;
+            return (
+              <DynamicWidthWidgetWrapper
+                width={SelectedCheckbox}
+                margin={i + 1}
+                key={i}
+              >
+                <DynamicWidthWidget>
+                  <DynamicWidthWidgetHeaderWrapper>
+                    <WidgetHeader>{ e.widget_name }</WidgetHeader>
+                  </DynamicWidthWidgetHeaderWrapper>
+                  <DynamicWidthWidgetContent>
+
+                  </DynamicWidthWidgetContent>
+                </DynamicWidthWidget>
+              </DynamicWidthWidgetWrapper>
+            );
           })}
         </DynamicWidthWidgetsLayout>
       </div>
     );
   }
-
 };
-  // return (
-  //   <div>
-  //     <MainHeaderConnected data={MainHeaderState} />
-  //     {( !MainHeaderButtonWasClicked )
-  //       ? <DraggableDashboardConnected />
-  //       : <StaticDashboardConnected />
-  //     }
-  //   </div>
-  // );
