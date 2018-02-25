@@ -14,7 +14,7 @@ export interface DashboardInterface {
   dash_data: WidgetInterface[],
 }
 
-export interface DashboardWidgetInterface {
+export interface DashboardWidgetWrapperInterface {
   index: number,
   width: string,
   widget_name: WidgetInterface['widget_name'],

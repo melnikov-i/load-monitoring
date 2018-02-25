@@ -8,6 +8,7 @@ export * from './Overview';
 export * from './Dashboard';
 export * from './DashboardGridSettings';
 export * from './DashboardGrid';
+export * from './DashboardWidgetWrapper';
 
 export * from './Spinner';
 export * from './MainHeader';

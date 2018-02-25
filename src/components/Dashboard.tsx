@@ -79,9 +79,7 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
       <div>
         <MainHeaderConnected data={MainHeaderState} />
         <DashboardGridSettingsConnected />
-        <DashboardGridConnected>
-          <div></div>
-        </DashboardGridConnected>
+        <DashboardGridConnected />
       </div>
     );
   } else {
