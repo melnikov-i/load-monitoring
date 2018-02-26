@@ -13,13 +13,22 @@ import {
   checkPosition
 } from '@src/libs';
 
+interface CollectType {
+  connectDropTarget: any,
+}
+
 interface DashboardWidgetWrapperProps {
   element: DashboardWidgetWrapperInterface
 }
 
+type WidgetWrapperProps = DashboardWidgetWrapperProps & CollectType;
+
 export const DashboardWidgetWrapper: 
-React.SFC<DashboardWidgetWrapperProps> = (props) => {
-  const { element } = props;
+React.SFC<WidgetWrapperProps> = (props) => {
+  const {
+    element,
+    connectDropTarget
+  } = props;
 
   const widgetParams: WidgetInterface = {
     widget_name: element.widget_name,
@@ -27,7 +36,7 @@ React.SFC<DashboardWidgetWrapperProps> = (props) => {
   }
 
 
-  return (
+  return connectDropTarget(
     <div
       className={'dashboardWidgetWrapper'}
       style={{
