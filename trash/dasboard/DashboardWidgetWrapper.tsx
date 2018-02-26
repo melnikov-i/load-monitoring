@@ -17,7 +17,6 @@ import {
 } from '@src/libs';
 
 interface CollectType {
-  idDragging: boolean,
   connectDropTarget: any,
   connectDragSource: any,
 }
@@ -28,11 +27,10 @@ interface DashboardWidgetWrapperProps {
 
 type WidgetWrapperProps = DashboardWidgetWrapperProps & CollectType;
 
-export const DashboardWidget: 
+export const DashboardWidgetWrapper: 
 React.SFC<WidgetWrapperProps> = (props) => {
   const {
     element,
-    idDragging,
     connectDragSource,
     connectDropTarget,
   } = props;
@@ -48,8 +46,7 @@ React.SFC<WidgetWrapperProps> = (props) => {
               Number(element.width),
               element.index
             ) ? ( element.width === '1' ) ? '0' : '2%' : '0',
-          marginBottom: ( element.width === '1' ) ? '20px' : '2%',
-          opacity: idDragging ? 0 : 1,
+          marginBottom: ( element.width === '1' ) ? '20px' : '2%',        
         }}
       >
         <DynamicWidthWidget>
@@ -64,3 +61,13 @@ React.SFC<WidgetWrapperProps> = (props) => {
     )
   );
 };
+
+
+
+
+
+  // const widgetParams: WidgetInterface = {
+  //   widget_name: element.widget_name,
+  //   device_id: element.device_id,
+  // }
+        // <DashboardWidgetConnected widgetParams={widgetParams} />

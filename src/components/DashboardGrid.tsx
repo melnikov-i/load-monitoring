@@ -5,8 +5,8 @@ import {
   DashboardWidgetWrapperInterface
 } from '@src/interfaces';
 
-import DashboardWidgetWrapperConnected from 
-  '@src/connected/DashboardWidgetWrapperConnected.usage';
+import DashboardWidgetConnected from 
+  '@src/connected/DashboardWidgetConnected.usage';
 
 interface DashboardGridProps {
   SelectedCheckbox: string,
@@ -35,7 +35,7 @@ export const DashboardGrid: React.SFC<DashboardGridProps> = (props) => {
           device_id: e.device_id,
         }
         return (
-          <DashboardWidgetWrapperConnected
+          <DashboardWidgetConnected
             key={i}
             element={element} 
           />

@@ -83,16 +83,6 @@ injectGlobal`
     }
   }
 
-  .dashboardWidget {
-    background-color: #fff;
-    border-top: 2px solid #e7eaec;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-  }
-
   #footer {
     width: 100%;
     height: ${ FOOTER_HEIGHT };
