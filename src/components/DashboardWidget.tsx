@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDnd from 'react-dnd';
 
 import {
   DashboardWidgetWrapperInterface,
@@ -16,26 +17,25 @@ import {
   checkPosition
 } from '@src/libs';
 
-interface CollectType {
-  isDragging: boolean,
-  connectDropTarget: any,
-  connectDragSource: any,
-}
-
-interface DashboardWidgetWrapperProps {
+export interface DashboardWidgetProps {
   element: DashboardWidgetWrapperInterface
+  isDragging?: boolean,
+  connectDropTarget?: ReactDnd.ConnectDropTarget,
+  connectDragSource?: ReactDnd.ConnectDragSource,
 }
-
-type WidgetWrapperProps = DashboardWidgetWrapperProps & CollectType;
 
 export const DashboardWidget: 
-React.SFC<WidgetWrapperProps> = (props) => {
+React.SFC<DashboardWidgetProps> = (props) => {
   const {
     element,
     isDragging,
     connectDragSource,
     connectDropTarget,
   } = props;
+
+  if ( !connectDragSource || !connectDropTarget ) {
+    return null;
+  }
 
   return connectDragSource(
     connectDropTarget(
@@ -47,7 +47,8 @@ React.SFC<WidgetWrapperProps> = (props) => {
               Number(element.width),
               element.index
             ) ? ( element.width === '1' ) ? '0' : '2%' : '0',
-          marginBottom: ( element.width === '1' ) ? '20px' : '2%',
+          marginBottom: ( element.width === '1' ) 
+            ? '20px' : '2%',
           visibility: isDragging ? 'hidden' : 'visible',
           opacity: 1,
           cursor: 'move',
@@ -57,11 +58,14 @@ React.SFC<WidgetWrapperProps> = (props) => {
     )
   );
 };
-        // <DynamicWidthWidget>
-        //   <DynamicWidthWidgetHeaderWrapper>
-        //     <WidgetHeader>{ element.widget_name }</WidgetHeader>
-        //   </DynamicWidthWidgetHeaderWrapper>
-        //   <DynamicWidthWidgetContent>
 
-        //   </DynamicWidthWidgetContent>
-        // </DynamicWidthWidget>
+
+
+// <DynamicWidthWidget>
+//   <DynamicWidthWidgetHeaderWrapper>
+//     <WidgetHeader>{ element.widget_name }</WidgetHeader>
+//   </DynamicWidthWidgetHeaderWrapper>
+//   <DynamicWidthWidgetContent>
+
+//   </DynamicWidthWidgetContent>
+// </DynamicWidthWidget>

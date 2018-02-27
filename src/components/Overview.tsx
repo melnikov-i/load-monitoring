@@ -40,7 +40,7 @@ import {
 
 import { Spinner } from '@src/components';
 import MainHeaderConnected from
-  '@src/connected/MainHeaderConnected.usage';
+  '@src/usage/MainHeaderUsage';
 
 interface OverviewProps {
   OverviewItemsWasRequestedFromAPI: boolean,

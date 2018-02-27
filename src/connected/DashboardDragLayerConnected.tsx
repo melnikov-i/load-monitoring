@@ -2,14 +2,14 @@
 // import { connect } from 'react-redux';
 // import { createStructuredSelector } from 'reselect';
 // import { Dispatch, RootState } from '@src/redux';
-import { DragLayer } from 'react-dnd';
+// import { DragLayer } from 'react-dnd';
 
 import {
   // asyncActionCreators,
   // syncActionCreators,
 } from '@src/redux/dashboard';
 
-import { DashboardDragLayer } from '@src/components';
+// import { DashboardDragLayer } from '@src/components';
 
 import {} from '@src/interfaces';
 
@@ -43,12 +43,12 @@ import {} from '@src/selectors';
 // const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({}, dispatch);
 
 
-export const DashboardDragLayerConnected = DragLayer((monitor) => ({
-    item: monitor.getItem(),
-    itemType: monitor.getItemType(),
-    currentOffset: monitor.getSourceClientOffset(),
-    isDragging: monitor.isDragging(),
-  }))(DashboardDragLayer);
+// export const DashboardDragLayerConnected = DragLayer((monitor) => ({
+//     item: monitor.getItem(),
+//     itemType: monitor.getItemType(),
+//     currentOffset: monitor.getSourceClientOffset(),
+//     isDragging: monitor.isDragging(),
+//   }))(DashboardDragLayer);
 
 // export default DragLayer((monitor) => ({
 //     currentOffset: monitor.getSourceClientOffset(),

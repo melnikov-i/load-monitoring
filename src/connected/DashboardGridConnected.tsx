@@ -2,7 +2,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Dispatch, RootState } from '@src/redux';
-import { DragDropContext } from 'react-dnd';
+import * as ReactDnd from 'react-dnd';
+import DragDropContext = ReactDnd.DragDropContext;
 import MultiBackend from 'react-dnd-multi-backend';
 import HTML5toTouch from 'react-dnd-multi-backend/lib/HTML5toTouch';
 

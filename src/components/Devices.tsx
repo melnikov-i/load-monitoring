@@ -37,11 +37,11 @@ import {
 import { Spinner } from '@src/components';
 import { DroppedMenu } from '@src/libs';
 import DevicesLoadConnected from 
-  '@src/connected/DevicesLoadConnected.usage';
+  '@src/usage/DevicesLoadUsage';
 import DevicesStatusConnected from 
-  '@src/connected/DevicesStatusConnected.usage';
+  '@src/usage/DevicesStatusUsage';
 import MainHeaderConnected from
-  '@src/connected/MainHeaderConnected.usage';
+  '@src/usage/MainHeaderUsage';
 
 interface DevicesProps {
   DevicesItemsWasRequestedFromAPI: boolean,

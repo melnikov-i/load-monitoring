@@ -12,8 +12,8 @@ const FontAwesomeWOFF = require('@src/fonts/fontawesome-webfont.woff');
 const FontAwesomeTTF = require('@src/fonts/fontawesome-webfont.ttf');
 const FontAwesomeSVG = require('@src/fonts/fontawesome-webfont.svg');
 
-import MainConnected from '@src/connected/MainConnected.usage';
-import LoginConnected from '@src/connected/LoginConnected.usage';
+import MainConnected from '@src/usage/MainUsage';
+import LoginConnected from '@src/usage/LoginUsage';
 
 import {
   FOOTER_HEIGHT,

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import AppConnected from '@src/connected/AppConnected.usage';
+import AppConnected from '@src/usage/AppUsage';
 
 interface AppContainerProps {}
 

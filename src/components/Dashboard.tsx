@@ -8,11 +8,11 @@ import {
 
 import { Spinner } from '@src/components';
 import MainHeaderConnected from
-  '@src/connected/MainHeaderConnected.usage';
+  '@src/usage/MainHeaderUsage';
 import DashboardGridSettingsConnected from
-  '@src/connected/DashboardGridSettingsConnected.usage';
+  '@src/usage/DashboardGridSettingsUsage';
 import DashboardGridConnected from
-  '@src/connected/DashboardGridConnected.usage';
+  '@src/usage/DashboardGridUsage';
 
 import {
   DynamicWidthWidgetsLayout,

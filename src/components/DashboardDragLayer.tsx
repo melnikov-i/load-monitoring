@@ -18,13 +18,13 @@ import {
   // checkPosition
 } from '@src/libs';
 
-interface DashboardDragLayerPros {
-  currentOffset: any,
-  isDragging: boolean,
-  item: any,
-  itemType: any,
-  // element: DashboardWidgetWrapperInterface,
-}
+// interface DashboardDragLayerPros {
+//   currentOffset: any,
+//   isDragging: boolean,
+//   item: any,
+//   itemType: any,
+//   // element: DashboardWidgetWrapperInterface,
+// }
 
 type State = {};
 
@@ -71,7 +71,7 @@ const getItemStyles = (props) => {
 }
 
 class DashboardDragLayer 
-extends React.Component<DashboardDragLayerPros, State> {
+extends React.Component<{}, State> {
   renderItem(type, item) {
     switch ( type ) {
       case ItemTypes.WIDGET:
@@ -83,18 +83,18 @@ extends React.Component<DashboardDragLayerPros, State> {
   }
 
   render() {
-    const { item, itemType, isDragging } = this.props;
-    if ( !isDragging ) {
-      return null;
-    }
+    // const { item, itemType, isDragging } = this.props;
+    // if ( !isDragging ) {
+    //   return null;
+    // }
 
     return (
       <div style={layerStyles}>
         <div style={getItemStyles(this.props)}>
-          {this.renderItem(itemType, item)}
         </div>
       </div>
     );    
+          // {this.renderItem(itemType, item)}
   }
 }
 

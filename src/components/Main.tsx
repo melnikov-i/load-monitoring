@@ -43,9 +43,9 @@ import {
   MainTopExitLink,
 } from '@src/styled';
 
-import DashboardConnected from '@src/connected/DashboardConnected.usage';
-import DevicesConnected from '@src/connected/DevicesConnected.usage';
-import OverviewConnected from '@src/connected/OverviewConnected.usage';
+import DashboardConnected from '@src/usage/DashboardUsage';
+import DevicesConnected from '@src/usage/DevicesUsage';
+import OverviewConnected from '@src/usage/OverviewUsage';
 
 interface MainProps {
   MainMenuWasRequestedFromAPI: boolean,
