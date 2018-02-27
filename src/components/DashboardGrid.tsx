@@ -7,6 +7,8 @@ import {
 
 import DashboardWidgetConnected from 
   '@src/connected/DashboardWidgetConnected.usage';
+import DashboardDragLayer from
+  '@src/components/DashboardDragLayer';
 
 interface DashboardGridProps {
   SelectedCheckbox: string,
@@ -19,6 +21,13 @@ export const DashboardGrid: React.SFC<DashboardGridProps> = (props) => {
     DashboardCollection,
   } = props;
 
+  // const dragLayerElement: DashboardWidgetWrapperInterface = {
+  //   index: 100,
+  //   width: '2',
+  //   widget_name: 'test',
+  //   device_id: '123123123',
+  // }
+
 
   return (
     <div
@@ -27,6 +36,7 @@ export const DashboardGrid: React.SFC<DashboardGridProps> = (props) => {
         margin: '20px 15px 0',
       }}
     >
+      <DashboardDragLayer />
       {DashboardCollection.dash_data.map((e, i) => {
         const element: DashboardWidgetWrapperInterface = {
           index: i + 1,

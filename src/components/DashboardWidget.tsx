@@ -5,10 +5,10 @@ import {
 } from '@src/interfaces';
 
 import {
-  DynamicWidthWidget,
-  DynamicWidthWidgetHeaderWrapper,
-  WidgetHeader,
-  DynamicWidthWidgetContent,
+  // DynamicWidthWidget,
+  // DynamicWidthWidgetHeaderWrapper,
+  // WidgetHeader,
+  // DynamicWidthWidgetContent,
 } from '@src/styled';
 
 import {
@@ -17,7 +17,7 @@ import {
 } from '@src/libs';
 
 interface CollectType {
-  idDragging: boolean,
+  isDragging: boolean,
   connectDropTarget: any,
   connectDragSource: any,
 }
@@ -32,11 +32,10 @@ export const DashboardWidget:
 React.SFC<WidgetWrapperProps> = (props) => {
   const {
     element,
-    idDragging,
+    isDragging,
     connectDragSource,
     connectDropTarget,
   } = props;
-
 
   return connectDragSource(
     connectDropTarget(
@@ -49,18 +48,20 @@ React.SFC<WidgetWrapperProps> = (props) => {
               element.index
             ) ? ( element.width === '1' ) ? '0' : '2%' : '0',
           marginBottom: ( element.width === '1' ) ? '20px' : '2%',
-          opacity: idDragging ? 0 : 1,
+          visibility: isDragging ? 'hidden' : 'visible',
+          opacity: 1,
+          cursor: 'move',
         }}
       >
-        <DynamicWidthWidget>
-          <DynamicWidthWidgetHeaderWrapper>
-            <WidgetHeader>{ element.widget_name }</WidgetHeader>
-          </DynamicWidthWidgetHeaderWrapper>
-          <DynamicWidthWidgetContent>
-
-          </DynamicWidthWidgetContent>
-        </DynamicWidthWidget>
       </div>
     )
   );
 };
+        // <DynamicWidthWidget>
+        //   <DynamicWidthWidgetHeaderWrapper>
+        //     <WidgetHeader>{ element.widget_name }</WidgetHeader>
+        //   </DynamicWidthWidgetHeaderWrapper>
+        //   <DynamicWidthWidgetContent>
+
+        //   </DynamicWidthWidgetContent>
+        // </DynamicWidthWidget>
