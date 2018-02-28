@@ -7,7 +7,7 @@ import {
 
 import DashboardWidgetConnected from 
   '@src/usage/DashboardWidgetUsage';
-// import DashboardDragLayer from
+// import { DashboardDragLayer } from
 //   '@src/components/DashboardDragLayer';
 
 interface DashboardGridProps {
@@ -28,8 +28,8 @@ export const DashboardGrid: React.SFC<DashboardGridProps> = (props) => {
   //   device_id: '123123123',
   // }
 
-      // <DashboardDragLayer />
 
+      // <DashboardDragLayer />
   return (
     <div
       style={{

@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { DragLayer } from 'react-dnd';
+import * as ReactDnd from 'react-dnd';
+import DragLayer = ReactDnd.DragLayer;
+
 // import { RootState } from '@src/redux';
 
 import {
@@ -18,38 +20,36 @@ import {
   // checkPosition
 } from '@src/libs';
 
-// interface DashboardDragLayerPros {
-//   currentOffset: any,
-//   isDragging: boolean,
-//   item: any,
-//   itemType: any,
-//   // element: DashboardWidgetWrapperInterface,
-// }
+interface DashboardDragLayerPros {
+  currentOffset?: any,
+  isDragging?: boolean,
+  item?: any,
+  itemType?: any,
+}
 
-type State = {};
+// type State = {};
 
-const ItemTypes = {
-  WIDGET: 'WIDGET'
-};
+// const ItemTypes = {
+//   WIDGET: 'WIDGET'
+// };
 
 interface layerStylesInterface {
-  position: any,
-  pointerEvents: string,
-  zIndex: number,
-  left: number,
-  top: number,
-  backgroundColor: string,
+  position?: any,
+  pointerEvents?: string,
+  zIndex?: number,
+  left?: number,
+  top?: number,
+  backgroundColor?: string,
   width: string,
   height: string,
 }
 
 const layerStyles: layerStylesInterface = {
-  position: 'fixed',
-  pointerEvents: 'none',
-  zIndex: 100,
-  left: 0,
-  top: 0,
-  backgroundColor: 'rgba(0, 0, 255, .4)',
+  // position: 'fixed',
+  // pointerEvents: 'none',
+  // zIndex: 100,
+  // left: 0,
+  // top: 0,
   width: '100%',
   height: '100%',
 }
@@ -65,45 +65,48 @@ const getItemStyles = (props) => {
   const { x, y } = currentOffset;
   const transform = `translate(${x}px, ${y}px)`;
   return {
+    width: '500px',
+    height: '500px',
     transform: transform,
     WebkitTransform: transform,
+    backgroundColor: 'rgba(0, 0, 255, .4)',
   };
 }
 
-class DashboardDragLayer 
-extends React.Component<{}, State> {
-  renderItem(type, item) {
-    switch ( type ) {
-      case ItemTypes.WIDGET:
-        return (
-          <div>{'aaa'}</div>
-        );
-      default: return null;
-    }
-  }
+class DashboardDragLayerComponent 
+extends React.Component<DashboardDragLayerPros> {
+  // renderItem(type, item) {
+  //   switch ( type ) {
+  //     case ItemTypes.WIDGET:
+  //       return (
+  //         <div>{'aaa'}</div>
+  //       );
+  //     default: return null;
+  //   }
+  // }
 
   render() {
-    // const { item, itemType, isDragging } = this.props;
-    // if ( !isDragging ) {
-    //   return null;
-    // }
+    const { /*item, itemType,*/ isDragging } = this.props;
+    if ( !isDragging ) {
+      return null;
+    }
 
     return (
       <div style={layerStyles}>
         <div style={getItemStyles(this.props)}>
+          {/*this.renderItem(itemType, item)*/}
         </div>
       </div>
     );    
-          // {this.renderItem(itemType, item)}
   }
 }
 
-export default DragLayer((monitor) => ({
+export const DashboardDragLayer = DragLayer((monitor) => ({
   item: monitor.getItem(),
   itemType: monitor.getItemType(),
   currentOffset: monitor.getSourceClientOffset(),
   isDragging: monitor.isDragging(),
-}))(DashboardDragLayer)
+}))(DashboardDragLayerComponent)
 
 
 ////////////

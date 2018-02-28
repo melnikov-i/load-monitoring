@@ -2,7 +2,9 @@
 // import { connect } from 'react-redux';
 // import { createStructuredSelector } from 'reselect';
 // import { Dispatch, RootState } from '@src/redux';
-// import { DragLayer } from 'react-dnd';
+
+// import * as ReactDnd from 'react-dnd';
+// import DragLayer = ReactDnd.DragLayer;
 
 import {
   // asyncActionCreators,

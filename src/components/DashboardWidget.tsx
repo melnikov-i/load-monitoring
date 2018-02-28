@@ -50,10 +50,11 @@ React.SFC<DashboardWidgetProps> = (props) => {
           marginBottom: ( element.width === '1' ) 
             ? '20px' : '2%',
           visibility: isDragging ? 'hidden' : 'visible',
-          opacity: 1,
+          // opacity: isDragging ? 1 : 1,
           cursor: 'move',
         }}
       >
+
       </div>
     )
   );
