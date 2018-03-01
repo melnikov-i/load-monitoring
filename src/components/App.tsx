@@ -83,6 +83,13 @@ injectGlobal`
     }
   }
 
+  .test {
+    width: 100%;
+    height: 100%;
+    background-color: orange;
+
+  }
+
   #footer {
     width: 100%;
     height: ${ FOOTER_HEIGHT };

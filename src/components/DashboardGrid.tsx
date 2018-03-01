@@ -1,5 +1,9 @@
 import * as React from 'react';
 
+// import {
+//   Preview,
+// } from 'react-dnd-multi-backend';
+
 import {
   DashboardInterface,
   DashboardWidgetWrapperInterface
@@ -21,6 +25,8 @@ export const DashboardGrid: React.SFC<DashboardGridProps> = (props) => {
     DashboardCollection,
   } = props;
 
+
+
   // const dragLayerElement: DashboardWidgetWrapperInterface = {
   //   index: 100,
   //   width: '2',
@@ -37,6 +43,7 @@ export const DashboardGrid: React.SFC<DashboardGridProps> = (props) => {
         margin: '20px 15px 0',
       }}
     >
+      
       {DashboardCollection.dash_data.map((e, i) => {
         const element: DashboardWidgetWrapperInterface = {
           index: i + 1,

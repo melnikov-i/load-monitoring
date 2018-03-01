@@ -1,16 +1,18 @@
 import * as React from 'react';
 import * as ReactDnd from 'react-dnd';
-import { getEmptyImage } from 'react-dnd-html5-backend';
+import {
+  Preview,
+} from 'react-dnd-multi-backend';
 
 import {
   DashboardWidgetWrapperInterface,
 } from '@src/interfaces';
 
 import {
-  // DynamicWidthWidget,
-  // DynamicWidthWidgetHeaderWrapper,
-  // WidgetHeader,
-  // DynamicWidthWidgetContent,
+  DynamicWidthWidget,
+  DynamicWidthWidgetHeaderWrapper,
+  WidgetHeader,
+  DynamicWidthWidgetContent,
 } from '@src/styled';
 
 import {
@@ -21,7 +23,7 @@ import {
 export interface DashboardWidgetProps {
   element: DashboardWidgetWrapperInterface
   isDragging?: boolean,
-  getItem?: any,
+  item?: any,
   connectDropTarget?: ReactDnd.ConnectDropTarget,
   connectDragSource?: ReactDnd.ConnectDragSource,
   connectDragPreview?: ReactDnd.ConnectDragPreview,
@@ -33,22 +35,32 @@ React.SFC<DashboardWidgetProps> = (props) => {
   const {
     element,
     isDragging,
-    getItem,
+    item,
     connectDragSource,
     connectDropTarget,
-    connectDragPreview
+    // connectDragPreview
   } = props;
 
-console.log('getItem', getItem);
-console.log('element', element);
-
-  if ( getItem && connectDragPreview && getItem.id === element.index ) {
-    const img = getEmptyImage();
-    img.onload = () => connectDragPreview(img);
-    // img.addEventListener('load', () => connectDragPreview(img));
-    console.log('img:', img);
+  const generator = (type: string, item: any, style: React.CSSProperties) => {
+    if ( type === 'WIDGET' ) {
+      console.log('item:', item);
+      const currentStyle: React.CSSProperties = {
+        ...style,
+        // width: '100vw',
+        // height: '100vh',
+        opacity: 1,
+        backgroundColor: 'green',
+        backgroundImage: 'none',
+      }
+      console.log('style', currentStyle);
+      return (<div style={currentStyle}></div>);
+    } else {
+      console.log('type !== WIDGET');
+      return <div />;
+    }
   }
-  
+
+  console.log('item', item);
   
   if ( !connectDragSource || !connectDropTarget ) {
     return null;
@@ -70,70 +82,120 @@ console.log('element', element);
           cursor: 'move',
         }}
       >
+        <Preview generator={generator} />
+        <DynamicWidthWidget>
+          <DynamicWidthWidgetHeaderWrapper>
+            <WidgetHeader>{ element.widget_name }</WidgetHeader>
+          </DynamicWidthWidgetHeaderWrapper>
+          <DynamicWidthWidgetContent>
 
+          </DynamicWidthWidgetContent>
+        </DynamicWidthWidget>
       </div>
     )
   );
 };
 
 
-// <DynamicWidthWidget>
-//   <DynamicWidthWidgetHeaderWrapper>
-//     <WidgetHeader>{ element.widget_name }</WidgetHeader>
-//   </DynamicWidthWidgetHeaderWrapper>
-//   <DynamicWidthWidgetContent>
+// export class DashboardWidget extends React.Component<DashboardWidgetProps> {
 
-//   </DynamicWidthWidgetContent>
-// </DynamicWidthWidget>
-
-
-
-// export class DashboardWidget1 extends React.Component<DashboardWidgetProps> {
 //   componentDidMount() {
-//     console.log('didMount');
-//     const img = getEmptyImage();
-//     const connectDragPreview = 
-//       this.props.connectDragPreview ? this.props.connectDragPreview : null;
-//     if ( connectDragPreview !== null ) {
-//       img.onload = () => connectDragPreview(img);
-//       console.log('img:', img);
+//     const connectDragPreview: 
+//     ReactDnd.DragElementWrapper<ReactDnd.DragPreviewOptions> | undefined =
+//       this.props.connectDragPreview;
+//     if ( connectDragPreview !== undefined ) {
+//       const img = getEmptyImage();
+//       img.onload = () => connectDragPreview(img);      
 //     }
 //   }
+  
 
 //   render() {
 //     const {
 //       element,
 //       isDragging,
+//       // getItem,
 //       connectDragSource,
-//       connectDropTarget,
+//       // connectDropTarget,
+//       // connectDragPreview
 //     } = this.props;
 
-//     if ( !connectDragSource || !connectDropTarget ) {
-//       return null;
-//     }
+//   if ( !connectDragSource ) return null;
+
+//   // console.log('element:', element);
 
 //     return connectDragSource(
-//       connectDropTarget(
-//         <div
-//           className={'dashboardWidgetWrapper'}
-//           style={{
-//             width: getWidth(element.width),
-//             marginRight: checkPosition(
-//                 Number(element.width),
-//                 element.index
-//               ) ? ( element.width === '1' ) ? '0' : '2%' : '0',
-//             marginBottom: ( element.width === '1' ) 
-//               ? '20px' : '2%',
-//             visibility: isDragging ? 'hidden' : 'visible',
-//             // opacity: isDragging ? 1 : 1,
-//             cursor: 'move',
-//           }}
-//         >
+//       <div
+//         style={{
+//           backgroundColor: '#fff',
+//           visibility: isDragging ? 'hidden' : 'visible',
+//           borderTop: '2px solid #e7eaec',
+//           position: 'absolute',
+//           top: '0',
+//           left: '0',
+//           bottom: '0',
+//           right: '0',
+//         }}
+//       >
+//         <DynamicWidthWidgetHeaderWrapper>
+//           <WidgetHeader>{ element.widget_name }</WidgetHeader>
+//         </DynamicWidthWidgetHeaderWrapper>
+//         <DynamicWidthWidgetContent>
 
-//         </div>
-//       )
-//     );
+//         </DynamicWidthWidgetContent>
+//       </div>
+//     );    
 //   }
-// }
+// };
+
+// export const DashboardWidget: 
+// React.SFC<DashboardWidgetProps> = (props) => {
+//   const {
+//     element,
+//     isDragging,
+//     getItem,
+//     connectDragSource,
+//     connectDropTarget,
+//     connectDragPreview
+//   } = props;
+
+// console.log('getItem', getItem);
+// console.log('element', element);
+
+//   if ( getItem && connectDragPreview && getItem.id === element.index ) {
+//     const img = getEmptyImage();
+//     img.onload = () => connectDragPreview(img);
+//     // img.addEventListener('load', () => connectDragPreview(img));
+//     console.log('img:', img);
+//   }
+  
+  
+//   if ( !connectDragSource || !connectDropTarget ) {
+//     return null;
+//   }
+
+//   return connectDragSource(
+//     connectDropTarget(
+//       <div
+//         className={'dashboardWidgetWrapper'}
+//         style={{
+//           width: getWidth(element.width),
+//           marginRight: checkPosition(
+//               Number(element.width), element.index
+//             ) ? ( element.width === '1' ) ? '0' : '2%' : '0',
+//           marginBottom: ( element.width === '1' ) 
+//             ? '20px' : '2%',
+//           visibility: isDragging ? 'hidden' : 'visible',
+//           // opacity: isDragging ? 1 : 1,
+//           cursor: 'move',
+//         }}
+//       >
+
+//       </div>
+//     )
+//   );
+// };
 
 
+// <DynamicWidthWidget>
+// </DynamicWidthWidget>

@@ -18,7 +18,7 @@ const ItemTypes = {
 
 const widgetSource: 
 ReactDnd.DragSourceSpec<DashboardWidgetProps> = {
-  beginDrag: (props) => ({
+  beginDrag: (props: DashboardWidgetProps) => ({
     id: props.element.index,
     index: props.element.index - 1,
   }),
@@ -26,7 +26,10 @@ ReactDnd.DragSourceSpec<DashboardWidgetProps> = {
 
 const widgetTarget:
 ReactDnd.DropTargetSpec<DashboardWidgetProps> = {
-  hover: (props, monitor, component) => {},
+  hover: (
+    props: DashboardWidgetProps,
+    monitor: ReactDnd.DropTargetMonitor,
+    component: React.Component<DashboardWidgetProps>) => {},
 };
 
 const dragSourceCollect = (
@@ -35,7 +38,7 @@ const dragSourceCollect = (
     connectDragSource: connect.dragSource(),
     connectDragPreview: connect.dragPreview(),
     isDragging: monitor.isDragging(),
-    getItem: monitor.getItem(),
+    item: monitor.getItem(),
   });
 
 const dropTargetCollect = (
@@ -59,5 +62,5 @@ export const DashboardWidgetConnected = DropTarget(
       ItemTypes.WIDGET, widgetSource, dragSourceCollect)(
         connect(
           mapStateToProps, mapDispatchToProps)(DashboardWidget)
-        )
-      );
+      )
+    );
