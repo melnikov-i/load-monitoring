@@ -35,64 +35,74 @@ React.SFC<DashboardWidgetProps> = (props) => {
   const {
     element,
     isDragging,
-    item,
+    // item,
     connectDragSource,
     connectDropTarget,
-    // connectDragPreview
   } = props;
 
-  const generator = (type: string, item: any, style: React.CSSProperties) => {
-    if ( type === 'WIDGET' ) {
-      console.log('item:', item);
-      const currentStyle: React.CSSProperties = {
-        ...style,
-        // width: '100vw',
-        // height: '100vh',
-        opacity: 1,
-        backgroundColor: 'green',
-        backgroundImage: 'none',
-      }
-      console.log('style', currentStyle);
-      return (<div style={currentStyle}></div>);
-    } else {
-      console.log('type !== WIDGET');
-      return <div />;
-    }
-  }
 
-  console.log('item', item);
-  
+
   if ( !connectDragSource || !connectDropTarget ) {
     return null;
   }
 
-  return connectDragSource(
-    connectDropTarget(
-      <div
-        className={'dashboardWidgetWrapper'}
-        style={{
-          width: getWidth(element.width),
-          marginRight: checkPosition(
-              Number(element.width), element.index
-            ) ? ( element.width === '1' ) ? '0' : '2%' : '0',
-          marginBottom: ( element.width === '1' ) 
-            ? '20px' : '2%',
-          visibility: isDragging ? 'hidden' : 'visible',
-          // opacity: isDragging ? 1 : 1,
-          cursor: 'move',
-        }}
-      >
-        <Preview generator={generator} />
-        <DynamicWidthWidget>
-          <DynamicWidthWidgetHeaderWrapper>
-            <WidgetHeader>{ element.widget_name }</WidgetHeader>
-          </DynamicWidthWidgetHeaderWrapper>
-          <DynamicWidthWidgetContent>
+  const generator = (type: string, item: any, style: React.CSSProperties) => {
+    if ( type === 'WIDGET' ) {
+      const currentStyle: React.CSSProperties = {
+        ...style,
+        width: '100px',
+        height: '100px',
+        opacity: 1,
+        backgroundColor: 'green',
+        zIndex: 1000,
+      }
+      return (<div style={currentStyle}></div>);
+    } else {
+      return <div />;
+    }
+  }
+        
+  return (
+    <div
+      className={'dashboardWidgetWrapper'}
+      style={{
+        width: getWidth(element.width),
+        marginRight: checkPosition(
+            Number(element.width), element.index
+          ) ? ( element.width === '1' ) ? '0' : '2%' : '0',
+        marginBottom: ( element.width === '1' ) 
+          ? '20px' : '2%',
+        visibility: isDragging ? 'hidden' : 'visible',
+        // opacity: isDragging ? 1 : 1,
+        cursor: 'move',
+      }}
+    >
+      <Preview generator={generator} />
+      {connectDragSource(
+        connectDropTarget(
+          <div
+            style={{
+              position: 'absolute',
+              top: '0',
+              left: '0',
+              bottom: '0',
+              right: '0',
+              backgroundColor: 'tranceparent',
+              zIndex: 100,
+            }}>
+              
+            </div>
+        )
+      )}
+      <DynamicWidthWidget>
+        <DynamicWidthWidgetHeaderWrapper>
+          <WidgetHeader>{ element.widget_name }</WidgetHeader>
+        </DynamicWidthWidgetHeaderWrapper>
+        <DynamicWidthWidgetContent>
 
-          </DynamicWidthWidgetContent>
-        </DynamicWidthWidget>
-      </div>
-    )
+        </DynamicWidthWidgetContent>
+      </DynamicWidthWidget>
+    </div>
   );
 };
 

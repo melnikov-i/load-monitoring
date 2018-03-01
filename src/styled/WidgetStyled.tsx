@@ -126,7 +126,7 @@ export const DynamicWidthWidgetWrapper = styled.div`
 `;
 
 export const DynamicWidthWidget = styled.div`
-  background-color: #fff;
+  background-color: #f00;
   border-top: 2px solid #e7eaec;
   position: absolute;
   top: 0;

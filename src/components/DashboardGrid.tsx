@@ -1,18 +1,23 @@
 import * as React from 'react';
 
-// import {
-//   Preview,
-// } from 'react-dnd-multi-backend';
+import {
+  Preview,
+} from 'react-dnd-multi-backend';
 
 import {
   DashboardInterface,
   DashboardWidgetWrapperInterface
 } from '@src/interfaces';
 
+import {
+  // DynamicWidthWidget,
+  DynamicWidthWidgetHeaderWrapper,
+  WidgetHeader,
+  DynamicWidthWidgetContent,
+} from '@src/styled';
+
 import DashboardWidgetConnected from 
   '@src/usage/DashboardWidgetUsage';
-// import { DashboardDragLayer } from
-//   '@src/components/DashboardDragLayer';
 
 interface DashboardGridProps {
   SelectedCheckbox: string,
@@ -25,25 +30,41 @@ export const DashboardGrid: React.SFC<DashboardGridProps> = (props) => {
     DashboardCollection,
   } = props;
 
+  const generator = (type: string, item: any, style: React.CSSProperties) => {
+    if ( type === 'WIDGET' ) {
+      const currentStyle: React.CSSProperties = {
+        ...style,
+        backgroundColor: 'green',
+        zIndex: 1000,
+      };
+
+      console.log('item:', item);
+      return (
+        <div style={currentStyle}>
+          <DynamicWidthWidgetHeaderWrapper>
+            <WidgetHeader>{ 
+              DashboardCollection.dash_data[item.index].widget_name 
+            }</WidgetHeader>
+          </DynamicWidthWidgetHeaderWrapper>
+          <DynamicWidthWidgetContent>
+
+          </DynamicWidthWidgetContent>
+        </div>
+      );
+    } else {
+      return <div />;
+    }
+  }
 
 
-  // const dragLayerElement: DashboardWidgetWrapperInterface = {
-  //   index: 100,
-  //   width: '2',
-  //   widget_name: 'test',
-  //   device_id: '123123123',
-  // }
-
-
-      // <DashboardDragLayer />
   return (
     <div
       style={{
         boxSizing: 'border-box',
         margin: '20px 15px 0',
       }}
-    >
-      
+    >      
+      <Preview generator={generator} />
       {DashboardCollection.dash_data.map((e, i) => {
         const element: DashboardWidgetWrapperInterface = {
           index: i + 1,

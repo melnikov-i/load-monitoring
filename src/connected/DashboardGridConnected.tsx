@@ -32,6 +32,7 @@ const CustomBakcends: Backends = {
     {
       backend: TouchBackend({}),
       transition: TouchTransition,
+      preview: true,
     }
   ],
 }
