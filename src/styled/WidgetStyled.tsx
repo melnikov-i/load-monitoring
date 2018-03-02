@@ -10,6 +10,8 @@ interface MainWidgetWrapperInterface {
   margin: number,
 }
 
+
+
 // Основная анимация блока
 export const emergence = keyframes`
   0% {
@@ -117,7 +119,6 @@ export const DynamicWidthWidgetWrapper = styled.div`
       ( props.width === '1' ) ? '20px' : '2%'
     )
   };
-  background-color: rgba(255, 0, 0, .4);
   &::before{
     content: "";
     display: block;
@@ -126,7 +127,7 @@ export const DynamicWidthWidgetWrapper = styled.div`
 `;
 
 export const DynamicWidthWidget = styled.div`
-  background-color: #f00;
+  background-color: #fff;
   border-top: 2px solid #e7eaec;
   position: absolute;
   top: 0;

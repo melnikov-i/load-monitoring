@@ -3,8 +3,18 @@ export const getWidth = (width: string): string => {
     case '1': return '100%';
     case '2': return '49%';
     case '3': return '32%';
-    case '4': return '24';
+    case '4': return '24%';
     default: return '100%';
+  }
+};
+
+export const getPreviewWidth = (width: string): string => {
+  switch ( width ) {
+    case '1': return '1';
+    case '2': return '0.49';
+    case '3': return '0.32';
+    case '4': return '0.24';
+    default: return '1';
   }
 };
 

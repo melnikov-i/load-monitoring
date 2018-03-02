@@ -74,8 +74,8 @@ injectGlobal`
     animation-fill-mode: both;
     display: inline-block;
     vertical-align: top;
+    --background-color: rgba(255, 0, 0, .4);
     position: relative;    
-    background-color: rgba(255, 0, 0, .4);
     &::before {
       content: "";
       display: block;
@@ -83,11 +83,15 @@ injectGlobal`
     }
   }
 
-  .test {
-    width: 100%;
-    height: 100%;
-    background-color: orange;
-
+  .dashboardWidgetPreview {
+    box-sizing: border-box;
+    z-index: 1000;
+    opacity: 0.5;
+    &::before {
+      content: "";
+      display: block;
+      padding-top: 62%;
+    }
   }
 
   #footer {

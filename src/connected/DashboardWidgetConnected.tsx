@@ -38,7 +38,6 @@ const dragSourceCollect = (
     connectDragSource: connect.dragSource(),
     connectDragPreview: connect.dragPreview(),
     isDragging: monitor.isDragging(),
-    item: monitor.getItem(),
   });
 
 const dropTargetCollect = (
