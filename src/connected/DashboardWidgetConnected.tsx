@@ -32,11 +32,22 @@ ReactDnd.DropTargetSpec<DashboardWidgetProps> = {
     component: React.Component<DashboardWidgetProps>) => {},
 };
 
+let lastUpdate = +new Date();
+
+const getCustomClientOffset = (offset: ReactDnd.ClientOffset) => {
+  if ( +new Date() - lastUpdate > 16 ) {
+    lastUpdate = +new Date();
+    return offset
+  }
+  return undefined;
+};
+
 const dragSourceCollect = (
   connect: ReactDnd.DragSourceConnector,
   monitor: ReactDnd.DragSourceMonitor) => ({
     connectDragSource: connect.dragSource(),
-    connectDragPreview: connect.dragPreview(),
+    // connectDragPreview: connect.dragPreview(),
+    getClientOffset: getCustomClientOffset(monitor.getClientOffset()),
     isDragging: monitor.isDragging(),
   });
 
