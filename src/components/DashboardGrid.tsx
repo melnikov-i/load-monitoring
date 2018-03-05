@@ -1,57 +1,94 @@
 import * as React from 'react';
-import * as ReactDnd from 'react-dnd';
-
-// import {
-//   Preview,
-// } from 'react-dnd-multi-backend';
+// import * as ReactDnd from 'react-dnd';
 
 import {
   DashboardInterface,
   DashboardWidgetWrapperInterface,
 } from '@src/interfaces';
 
-
-import {
-  // DynamicWidthWidget,
-  // DynamicWidthWidgetHeaderWrapper,
-  // WidgetHeader,
-  // DynamicWidthWidgetContent,
-  // MENU_LAYOUT_BIG_WIDTH
-} from '@src/styled';
+import { DashboardDragLayer } from '@src/components';
 
 import DashboardWidgetConnected from 
   '@src/usage/DashboardWidgetUsage';
-
-// import {
-//   getPreviewWidth,
-// } from '@src/libs';
 
 interface DashboardGridProps {
   SelectedCheckbox: string,
   DashboardCollection: DashboardInterface,
 }
 
-const preview = (clientOffset: ReactDnd.ClientOffset) => {
-  console.log('clientOffset:', clientOffset);
-  const preview: HTMLElement = document.createElement('div');
-  preview.id = 'preview';
-  preview.style.position = 'fixed';
-  preview.style.top = '0';
-  preview.style.left = '0';
-  preview.style.pointerEvents = 'none';
-  preview.style.zIndex = '100';
-  preview.style.opacity = '0.5';
-  preview.style.display = 'none';
+export const DashboardGrid: React.SFC<DashboardGridProps> = (props) => {
+  const {
+    SelectedCheckbox,
+    DashboardCollection,
+  } = props;
+
+
+  return (
+    <div
+      style={{
+        boxSizing: 'border-box',
+        margin: '20px 15px 0',
+      }}
+    >
+      <DashboardDragLayer />
+      {DashboardCollection.dash_data.map((e, i) => {
+        const element: DashboardWidgetWrapperInterface = {
+          index: i + 1,
+          width: SelectedCheckbox,
+          widget_name: e.widget_name,
+          device_id: e.device_id,
+        }
+        return (
+          <DashboardWidgetConnected
+            key={i}
+            element={element} 
+          />
+        );
+      })}
+    </div>
+  );
+};
+
+//////////////////
+
+// import {
+//   getPreviewWidth,
+// } from '@src/libs';
+
+// import {
+//   Preview,
+// } from 'react-dnd-multi-backend';
+
+// import {
+  // DynamicWidthWidget,
+  // DynamicWidthWidgetHeaderWrapper,
+  // WidgetHeader,
+  // DynamicWidthWidgetContent,
+  // MENU_LAYOUT_BIG_WIDTH
+// } from '@src/styled';
+
+
+// const preview = (clientOffset: ReactDnd.ClientOffset) => {
+//   console.log('clientOffset:', clientOffset);
+//   const preview: HTMLElement = document.createElement('div');
+//   preview.id = 'preview';
+//   preview.style.position = 'fixed';
+//   preview.style.top = '0';
+//   preview.style.left = '0';
+//   preview.style.pointerEvents = 'none';
+//   preview.style.zIndex = '100';
+//   preview.style.opacity = '0.5';
+//   preview.style.display = 'none';
   
   // preview.style.transform = `translate(${clientOffset.x}px, ${clientOffset.y}px)`;
 
 
-  preview.style.width = '300px';
-  preview.style.height = '160px';
-  preview.style.backgroundColor = 'green';
+  // preview.style.width = '300px';
+  // preview.style.height = '160px';
+  // preview.style.backgroundColor = 'green';
 
-  const root = document.getElementById('app');
-  if ( root !== null ) root.appendChild(preview);
+  // const root = document.getElementById('app');
+  // if ( root !== null ) root.appendChild(preview);
   
   // const preview: HTMLElement | null = document.getElementById('preview');
   
@@ -70,15 +107,9 @@ const preview = (clientOffset: ReactDnd.ClientOffset) => {
   //   }
   // }
   
-};
+// };
 
-export const DashboardGrid: React.SFC<DashboardGridProps> = (props) => {
-  const {
-    SelectedCheckbox,
-    DashboardCollection,
-  } = props;
-
-  preview({x: 0, y: 0});
+  // preview({x: 0, y: 0});
 
   // console.log('DashboardGrid was updated');
   // let checkingTime = +new Date();
@@ -153,27 +184,3 @@ export const DashboardGrid: React.SFC<DashboardGridProps> = (props) => {
   
 
       // <Preview generator={generator} />
-  return (
-    <div
-      style={{
-        boxSizing: 'border-box',
-        margin: '20px 15px 0',
-      }}
-    >
-      {DashboardCollection.dash_data.map((e, i) => {
-        const element: DashboardWidgetWrapperInterface = {
-          index: i + 1,
-          width: SelectedCheckbox,
-          widget_name: e.widget_name,
-          device_id: e.device_id,
-        }
-        return (
-          <DashboardWidgetConnected
-            key={i}
-            element={element} 
-          />
-        );
-      })}
-    </div>
-  );
-};

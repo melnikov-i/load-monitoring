@@ -27,7 +27,7 @@ export interface DashboardWidgetProps {
   isDragging?: boolean,
   connectDropTarget?: ReactDnd.ConnectDropTarget,
   connectDragSource?: ReactDnd.ConnectDragSource,
-  getClientOffset?: ReactDnd.ClientOffset,
+  // getClientOffset?: ReactDnd.ClientOffset,
   // connectDragPreview?: ReactDnd.ConnectDragPreview,
 }
 
@@ -87,7 +87,7 @@ React.SFC<DashboardWidgetProps> = (props) => {
   }
 
   // console.log('DashBoardWidget:', getClientOffset);
-  console.log('DashBoardWidget:', isDragging);
+  // console.log('DashBoardWidget:', isDragging);
   // let lastUpdate = +new Date();
   // let offsetX = 0;
   // let offsetY = 0;
