@@ -10,8 +10,6 @@ interface MainWidgetWrapperInterface {
   margin: number,
 }
 
-
-
 // Основная анимация блока
 export const emergence = keyframes`
   0% {

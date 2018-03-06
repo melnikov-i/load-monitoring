@@ -74,7 +74,6 @@ injectGlobal`
     animation-fill-mode: both;
     display: inline-block;
     vertical-align: top;
-    --background-color: rgba(255, 0, 0, .4);
     position: relative;    
     &::before {
       content: "";
@@ -86,7 +85,7 @@ injectGlobal`
   .dashboardWidgetPreview {
     box-sizing: border-box;
     z-index: 1000;
-    opacity: 0.5;
+    opacity: 0.6;
     &::before {
       content: "";
       display: block;

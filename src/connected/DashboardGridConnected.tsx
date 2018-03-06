@@ -61,5 +61,5 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
 }, dispatch);
 
 export const DashboardGridConnected = DragDropContext(
-    MultiBackend(CustomBakcends)
-  )(connect(mapStateToProps, mapDispatchToProps)(DashboardGrid));
+  MultiBackend(CustomBakcends))(connect(
+    mapStateToProps, mapDispatchToProps)(DashboardGrid));

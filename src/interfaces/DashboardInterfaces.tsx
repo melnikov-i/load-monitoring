@@ -20,3 +20,8 @@ export interface DashboardWidgetWrapperInterface {
   widget_name: WidgetInterface['widget_name'],
   device_id: WidgetInterface['device_id'],
 }
+
+export interface MoveWidgetsInterface {
+  source: number,
+  target: number,
+};

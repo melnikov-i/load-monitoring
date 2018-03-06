@@ -30,8 +30,8 @@ interface DashboardProps {
   (payload: DashboardInterface['dash_id']['dashboard_id']) => any,
   SelectedCheckbox: string,
   DashboardCollection: DashboardInterface,
-  reorderDashboardCollection:
-  (payload: DashboardInterface['dash_data']) => any,
+  // reorderDashboardCollection:
+  // (payload: DashboardInterface['dash_data']) => any,
   MainHeaderButtonWasClicked: boolean,
 }
 
