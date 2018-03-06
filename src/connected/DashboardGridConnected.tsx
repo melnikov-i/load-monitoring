@@ -8,11 +8,8 @@ import DragDropContext = ReactDnd.DragDropContext;
 import MultiBackend, {
   Backends,
   createTransition,
-  // Preview,
   TouchTransition,
-  // HTML5DragTransition,
 } from 'react-dnd-multi-backend';
-// import HTML5toTouch from 'react-dnd-multi-backend/lib/HTML5toTouch';
 import HTML5Backend from 'react-dnd-html5-backend';
 import TouchBackend from 'react-dnd-touch-backend';
 

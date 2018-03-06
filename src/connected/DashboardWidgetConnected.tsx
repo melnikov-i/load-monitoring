@@ -13,6 +13,10 @@ import {
 } from '@src/components';
 
 import {
+  MoveWidgetsInterface
+} from '@src/interfaces';
+
+import {
   syncActionCreators
 } from '@src/redux/dashboard';
 
@@ -20,16 +24,13 @@ const ItemTypes = {
   WIDGET: 'WIDGET'
 };
 
-let source = -1;
-// let target = -1;
+let source: number = -1;
+// let target: number = -1;
 
 const widgetSource: 
 ReactDnd.DragSourceSpec<DashboardWidgetProps> = {
   beginDrag: (props: DashboardWidgetProps) => {
-    if ( source === -1 ) {
-      console.log('begin');
-      source = props.element.index - 1;
-    }
+    source = props.element.index - 1;
     return {
       width: props.element.width,
       widget_name: props.element.widget_name,
@@ -37,27 +38,22 @@ ReactDnd.DragSourceSpec<DashboardWidgetProps> = {
       index: props.element.index,      
     };
   },
-  // endDrag: (props: DashboardWidgetProps) => {
-  //   target = -1;
-  //   return {};
-  // }
 };
 
 
 const widgetTarget:
 ReactDnd.DropTargetSpec<DashboardWidgetProps> = {
-  hover: (
+  drop: (
     props: DashboardWidgetProps,
     monitor: ReactDnd.DropTargetMonitor,
     component: React.Component<DashboardWidgetProps>) => {
-      if ( source !== -1 ) {
-        const items = {
+        // target = props.element.index - 1;
+        const items: MoveWidgetsInterface = {
           source: source,
           target: props.element.index - 1,
         }
+        console.log('items:', items);
         props.reorderDashboardCollection(items);
-        source = -1;
-      }
     },
 };
 

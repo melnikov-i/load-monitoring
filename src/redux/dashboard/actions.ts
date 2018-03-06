@@ -11,18 +11,12 @@ import {
   syncActionCreators as loginActionCreators
 } from '@src/redux/login';
 
-import {
-  // syncActionCreators as loginActionCreators
-} from '@src/redux/login';
-
 export const THIS_DASHBOARD_WAS_REQUESTED_FROM_API =
   'THIS_DASHBOARD_WAS_REQUESTED_FROM_API';
 export const PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION =
   'PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION';
 export const CHANGE_SELECTED_CHECKBOX = 
   'CHANGE_SELECTED_CHECKBOX';
-// export const MOVE_DASHBOARD_WIDGETS = 
-//   'MOVE_DASHBOARD_WIDGETS';
 export const REORDER_DASHBOARD_COLLECTION =
   'REORDER_DASHBOARD_COLLECTION';
 
@@ -39,13 +33,9 @@ export type Actions = {
     type: typeof CHANGE_SELECTED_CHECKBOX,
     payload: string, // поменять на другое
   },
-  // MOVE_DASHBOARD_WIDGETS: {
-  //   type: typeof MOVE_DASHBOARD_WIDGETS,
-  //   payload: MoveWidgetsInterface,
-  // }  
   REORDER_DASHBOARD_COLLECTION: {
     type: typeof REORDER_DASHBOARD_COLLECTION,
-    payload: DashboardInterface['dash_data'],
+    payload: MoveWidgetsInterface,
   },
 };
 
@@ -65,12 +55,8 @@ export const syncActionCreators = {
   Actions[typeof CHANGE_SELECTED_CHECKBOX] => ({
     type: CHANGE_SELECTED_CHECKBOX, payload,
   }),
-  // moveDashboardWidgets: ( payload: MoveWidgetsInterface ):
-  // Actions[typeof MOVE_DASHBOARD_WIDGETS] => ({
-  //   type: MOVE_DASHBOARD_WIDGETS, payload,
-  // }),
   reorderDashboardCollection:
-  ( payload: DashboardInterface['dash_data'] ):
+  ( payload: MoveWidgetsInterface ):
   Actions[typeof REORDER_DASHBOARD_COLLECTION] => ({
     type: REORDER_DASHBOARD_COLLECTION, payload,
   }),

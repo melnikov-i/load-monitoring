@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
 
 import {
-  DashboardInterface
+  DashboardInterface,
+  MoveWidgetsInterface
 } from '@src/interfaces';
 
 import {
@@ -29,7 +30,27 @@ const DashboardCollectionInitialState: DashboardInterface = {
     dash_columns: '',
   },
   dash_data: []
-}
+};
+
+const reorder = ( dash_data: DashboardInterface['dash_data'],
+items: MoveWidgetsInterface ) => {
+  console.log('source:', dash_data[items.source]);
+  console.log('target:', dash_data[items.target]);
+  
+  const result = dash_data.map((e, i) => {
+    switch ( i ) {
+      case items.source: return dash_data[items.target];
+      case items.target: return dash_data[items.source];
+      default: return dash_data[i];
+    }
+  });
+
+  // const result = Array.from(dash_data);
+  // const [removed] = result.splice(items.source, 1);
+  // result.splice(items.target, 0, removed);
+
+  return result;
+};
 
 export const reducer = combineReducers({
   DashboardCollection: 
@@ -38,9 +59,12 @@ export const reducer = combineReducers({
       case PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION:
         return action.payload;
       case REORDER_DASHBOARD_COLLECTION:
+        // console.log('items:', action.payload);
+        // console.log('beforeState:', state);
+        // console.log('afterState:', reorder(state.dash_data, action.payload));
         return {
           ...state,
-          ['dash_data']: action.payload,
+          ['dash_data']: reorder(state.dash_data, action.payload),
         };
       case USER_WAS_LOGOUT:
         return DashboardCollectionInitialState;

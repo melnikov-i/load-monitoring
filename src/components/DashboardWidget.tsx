@@ -3,7 +3,7 @@ import * as ReactDnd from 'react-dnd';
 
 import {
   DashboardWidgetWrapperInterface,
-  DashboardInterface
+  MoveWidgetsInterface
 } from '@src/interfaces';
 
 import {
@@ -24,7 +24,7 @@ export interface DashboardWidgetProps {
   connectDropTarget?: ReactDnd.ConnectDropTarget,
   connectDragSource?: ReactDnd.ConnectDragSource,
   reorderDashboardCollection:
-  (payload: DashboardInterface['dash_data']) => any,
+  (payload: MoveWidgetsInterface) => any,
 }
 
 export const DashboardWidget: 
