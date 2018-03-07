@@ -3,16 +3,15 @@ import * as React from 'react';
 import {
   DashboardInterface,
   MainHeaderInterface,
-  // DashboardWidgetInterface
 } from '@src/interfaces';
 
 import { Spinner } from '@src/components';
 import MainHeaderConnected from
-  '@src/usage/MainHeaderUsage';
+  '@src/usage/MainHeaderUsage';  
 import DashboardGridSettingsConnected from
   '@src/usage/DashboardGridSettingsUsage';
-import DashboardGridConnected from
-  '@src/usage/DashboardGridUsage';
+import DashboardDraggableWidgetLayoutConnected from
+  '@src/usage/DashboardDraggableWidgetLayoutUsage';
 
 import {
   DynamicWidthWidgetsLayout,
@@ -30,8 +29,6 @@ interface DashboardProps {
   (payload: DashboardInterface['dash_id']['dashboard_id']) => any,
   SelectedCheckbox: string,
   DashboardCollection: DashboardInterface,
-  // reorderDashboardCollection:
-  // (payload: DashboardInterface['dash_data']) => any,
   MainHeaderButtonWasClicked: boolean,
 }
 
@@ -81,26 +78,29 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
   };
 
   if ( MainHeaderButtonWasClicked ) {
-    // Включен режим настройки дашборда
+    /* Настройка дашборда */ 
     return (
       <div>
         <MainHeaderConnected data={MainHeaderState} />
         <DashboardGridSettingsConnected />
-        <DashboardGridConnected />
+        <DashboardDraggableWidgetLayoutConnected />
       </div>
     );
   } else {
+    /* Отображение дашборда */
     return (
       <div>
         <MainHeaderConnected data={MainHeaderState} />
-        <DynamicWidthWidgetsLayout>
-          {DashboardCollection.dash_data.map((e, i) => {
+        <DynamicWidthWidgetsLayout>          
+          {DashboardCollection.dash_data.map((e, i) => {            
             return (
+
               <DynamicWidthWidgetWrapper
                 width={SelectedCheckbox}
                 margin={i + 1}
                 key={i}
               >
+
                 <DynamicWidthWidget>
                   <DynamicWidthWidgetHeaderWrapper>
                     <WidgetHeader>{ e.widget_name }</WidgetHeader>
@@ -109,9 +109,12 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
 
                   </DynamicWidthWidgetContent>
                 </DynamicWidthWidget>
+              
               </DynamicWidthWidgetWrapper>
+
             );
           })}
+
         </DynamicWidthWidgetsLayout>
       </div>
     );

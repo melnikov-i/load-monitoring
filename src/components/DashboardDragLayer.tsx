@@ -48,6 +48,7 @@ extends React.Component<DashboardDragLayerPros> {
               * ${getPreviewWidth(item.width)})`,
           }}
         >
+          
           <DynamicWidthWidget>
             <DynamicWidthWidgetHeaderWrapper>
               <WidgetHeader>{ item.widget_name }</WidgetHeader>
@@ -56,6 +57,7 @@ extends React.Component<DashboardDragLayerPros> {
 
             </DynamicWidthWidgetContent>
           </DynamicWidthWidget>
+          
         </div>
       );
     } else {

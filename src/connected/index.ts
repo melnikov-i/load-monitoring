@@ -8,7 +8,7 @@ export * from './OverviewConnected';
 export * from './MainHeaderConnected';
 export * from './DashboardConnected';
 export * from './DashboardGridSettingsConnected';
-export * from './DashboardGridConnected';
+export * from './DashboardDraggableWidgetLayoutConnected';
 export * from './DashboardWidgetConnected';
 export * from './DashboardWidgetWrapperConnected';
 export * from './DashboardDragLayerConnected';

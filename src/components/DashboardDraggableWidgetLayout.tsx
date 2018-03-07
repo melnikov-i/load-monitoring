@@ -10,12 +10,13 @@ import { DashboardDragLayer } from '@src/components';
 import DashboardWidgetConnected from 
   '@src/usage/DashboardWidgetUsage';
 
-interface DashboardGridProps {
+interface DashboardWidgetsPositionSettingsProps {
   SelectedCheckbox: string,
   DashboardCollection: DashboardInterface,
 }
 
-export const DashboardGrid: React.SFC<DashboardGridProps> = (props) => {
+export const DashboardDraggableWidgetLayout: 
+React.SFC<DashboardWidgetsPositionSettingsProps> = (props) => {
   const {
     SelectedCheckbox,
     DashboardCollection,
@@ -43,7 +44,7 @@ export const DashboardGrid: React.SFC<DashboardGridProps> = (props) => {
             element={element} 
           />
         );
-      })}
+      })}      
     </div>
   );
 };

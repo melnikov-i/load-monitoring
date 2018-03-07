@@ -7,14 +7,10 @@ export * from './DevicesStatus';
 export * from './Overview';
 export * from './Dashboard';
 export * from './DashboardGridSettings';
-export * from './DashboardGrid';
+export * from './DashboardDraggableWidgetLayout';
 export * from './DashboardWidget';
 export * from './DashboardWidgetWrapper';
 export * from './DashboardDragLayer';
 
 export * from './Spinner';
 export * from './MainHeader';
-// export * from './Device';
-// export * from './DashboardWidget';
-// export * from './DraggableDashboard';
-// export * from './StaticDashboard';

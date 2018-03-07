@@ -5,7 +5,6 @@ import { Dispatch, RootState } from '@src/redux';
 
 import {
   asyncActionCreators,
-  // syncActionCreators,
 } from '@src/redux/dashboard';
 
 import { Dashboard } from '@src/components';
@@ -37,8 +36,6 @@ const mapStateToProps = createStructuredSelector<RootState, {
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
   makeDashboardRequestFromAPI: 
     asyncActionCreators.makeDashboardRequestFromAPI,
-  // reorderDashboardCollection: 
-  //   syncActionCreators.reorderDashboardCollection,
 }, dispatch);
 
 export const DashboardConnected = 

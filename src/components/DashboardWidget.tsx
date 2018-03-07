@@ -40,7 +40,6 @@ React.SFC<DashboardWidgetProps> = (props) => {
     return null;
   }
 
-
   return (
     <div
       className={'dashboardWidgetWrapper'}
@@ -67,11 +66,11 @@ React.SFC<DashboardWidgetProps> = (props) => {
               right: '0',
               backgroundColor: 'tranceparent',
               zIndex: 100,
-            }}>
-              
+            }}>              
             </div>
         )
       )}
+
       <DynamicWidthWidget>
         <DynamicWidthWidgetHeaderWrapper>
           <WidgetHeader>{ element.widget_name }</WidgetHeader>
@@ -80,6 +79,7 @@ React.SFC<DashboardWidgetProps> = (props) => {
 
         </DynamicWidthWidgetContent>
       </DynamicWidthWidget>
+
     </div>
   );
 };
