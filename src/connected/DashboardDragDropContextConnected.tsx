@@ -34,7 +34,7 @@ const CustomBakcends: Backends = {
   ],
 }
 
-import { DashboardDraggableWidgetLayout } from '@src/components';
+import { DashboardDragDropContext } from '@src/components';
 
 import {
   DashboardInterface,
@@ -56,6 +56,6 @@ const mapStateToProps = createStructuredSelector<RootState, {
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
 }, dispatch);
 
-export const DashboardDraggableWidgetLayoutConnected = DragDropContext(
+export const DashboardDragDropContextConnected = DragDropContext(
   MultiBackend(CustomBakcends))(connect(
-    mapStateToProps, mapDispatchToProps)(DashboardDraggableWidgetLayout));
+    mapStateToProps, mapDispatchToProps)(DashboardDragDropContext));

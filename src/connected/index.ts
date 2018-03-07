@@ -8,11 +8,8 @@ export * from './OverviewConnected';
 export * from './MainHeaderConnected';
 export * from './DashboardConnected';
 export * from './DashboardGridSettingsConnected';
-export * from './DashboardDraggableWidgetLayoutConnected';
-export * from './DashboardWidgetConnected';
-export * from './DashboardWidgetWrapperConnected';
+export * from './DashboardDragDropContextConnected';
+export * from './DashboardDragSourceDropTargetConnected';
 export * from './DashboardDragLayerConnected';
-
-// export * from './DashboardWidgetConnected';
-// export * from './DraggableDashboardConnected';
-// export * from './StaticDashboardConnected';
+export * from './DashboardWidgetConnected';
+// export * from './DashboardWidgetWrapperConnected';

@@ -8,5 +8,6 @@ export * from './OverviewUsage';
 export * from './MainHeaderUsage';
 export * from './DashboardUsage';
 export * from './DashboardGridSettingsUsage';
-export * from './DashboardDraggableWidgetLayoutUsage';
+export * from './DashboardDragDropContextUsage';
+export * from './DashboardDragSourceDropTargetUsage';
 export * from './DashboardWidgetUsage';

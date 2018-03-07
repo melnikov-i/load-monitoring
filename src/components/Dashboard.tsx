@@ -3,6 +3,7 @@ import * as React from 'react';
 import {
   DashboardInterface,
   MainHeaderInterface,
+  WidgetInterface,
 } from '@src/interfaces';
 
 import { Spinner } from '@src/components';
@@ -10,16 +11,14 @@ import MainHeaderConnected from
   '@src/usage/MainHeaderUsage';  
 import DashboardGridSettingsConnected from
   '@src/usage/DashboardGridSettingsUsage';
-import DashboardDraggableWidgetLayoutConnected from
-  '@src/usage/DashboardDraggableWidgetLayoutUsage';
+import DashboardDragDropContextConnected from
+  '@src/usage/DashboardDragDropContextUsage';
+import DashboardWidgetConnected from
+  '@src/usage/DashboardWidgetUsage';
 
 import {
   DynamicWidthWidgetsLayout,
   DynamicWidthWidgetWrapper,
-  DynamicWidthWidget,
-  DynamicWidthWidgetHeaderWrapper,
-  WidgetHeader,
-  DynamicWidthWidgetContent,
 } from '@src/styled';
 
 interface DashboardProps {
@@ -83,7 +82,7 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
       <div>
         <MainHeaderConnected data={MainHeaderState} />
         <DashboardGridSettingsConnected />
-        <DashboardDraggableWidgetLayoutConnected />
+        <DashboardDragDropContextConnected />
       </div>
     );
   } else {
@@ -92,29 +91,23 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
       <div>
         <MainHeaderConnected data={MainHeaderState} />
         <DynamicWidthWidgetsLayout>          
-          {DashboardCollection.dash_data.map((e, i) => {            
+          {DashboardCollection.dash_data.map((e, i) => {
+            const item: WidgetInterface = {
+              widget_name: e.widget_name,
+              device_id: e.device_id,
+              isPreview: false,
+            }
             return (
-
               <DynamicWidthWidgetWrapper
                 width={SelectedCheckbox}
                 margin={i + 1}
                 key={i}
               >
-
-                <DynamicWidthWidget>
-                  <DynamicWidthWidgetHeaderWrapper>
-                    <WidgetHeader>{ e.widget_name }</WidgetHeader>
-                  </DynamicWidthWidgetHeaderWrapper>
-                  <DynamicWidthWidgetContent>
-
-                  </DynamicWidthWidgetContent>
-                </DynamicWidthWidget>
-              
+                <DashboardWidgetConnected item={item} />
               </DynamicWidthWidgetWrapper>
 
             );
           })}
-
         </DynamicWidthWidgetsLayout>
       </div>
     );

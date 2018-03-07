@@ -2,11 +2,10 @@ import * as React from 'react';
 import * as ReactDnd from 'react-dnd';
 import DragLayer = ReactDnd.DragLayer;
 
+import DashboardWidgetConnected from
+  '@src/usage/DashboardWidgetUsage';
+
 import {
-  DynamicWidthWidget,
-  DynamicWidthWidgetHeaderWrapper,
-  WidgetHeader,
-  DynamicWidthWidgetContent,
   MENU_LAYOUT_BIG_WIDTH,
   MENU_LAYOUT_MIDDLE_WIDTH,
   MIDDLE_SCREEN_MAX,
@@ -48,16 +47,7 @@ extends React.Component<DashboardDragLayerPros> {
               * ${getPreviewWidth(item.width)})`,
           }}
         >
-          
-          <DynamicWidthWidget>
-            <DynamicWidthWidgetHeaderWrapper>
-              <WidgetHeader>{ item.widget_name }</WidgetHeader>
-            </DynamicWidthWidgetHeaderWrapper>
-            <DynamicWidthWidgetContent>
-
-            </DynamicWidthWidgetContent>
-          </DynamicWidthWidget>
-          
+          <DashboardWidgetConnected item={item} />
         </div>
       );
     } else {

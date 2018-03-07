@@ -7,16 +7,16 @@ import {
 
 import { DashboardDragLayer } from '@src/components';
 
-import DashboardWidgetConnected from 
-  '@src/usage/DashboardWidgetUsage';
+import DashboardDragSourceDropTargetConnected from 
+  '@src/usage/DashboardDragSourceDropTargetUsage';
 
-interface DashboardWidgetsPositionSettingsProps {
+interface DashboardDragDropContextProps {
   SelectedCheckbox: string,
   DashboardCollection: DashboardInterface,
 }
 
-export const DashboardDraggableWidgetLayout: 
-React.SFC<DashboardWidgetsPositionSettingsProps> = (props) => {
+export const DashboardDragDropContext: 
+React.SFC<DashboardDragDropContextProps> = (props) => {
   const {
     SelectedCheckbox,
     DashboardCollection,
@@ -39,7 +39,7 @@ React.SFC<DashboardWidgetsPositionSettingsProps> = (props) => {
           device_id: e.device_id,
         }
         return (
-          <DashboardWidgetConnected
+          <DashboardDragSourceDropTargetConnected
             key={i}
             element={element} 
           />
