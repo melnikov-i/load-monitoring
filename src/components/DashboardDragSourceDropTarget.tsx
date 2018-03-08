@@ -21,7 +21,7 @@ export interface DashboardDragSourceDropTargetProps {
   connectDropTarget?: ReactDnd.ConnectDropTarget,
   connectDragSource?: ReactDnd.ConnectDragSource,
   isOver?: boolean,
-  reorderDashboardCollection:
+  reorderDraggableWidgetsCollection:
   (payload: MoveWidgetsInterface) => any,
 }
 

@@ -50,7 +50,7 @@ ReactDnd.DropTargetSpec<DashboardDragSourceDropTargetProps> = {
           source: source,
           target: props.element.index - 1,
         }
-        props.reorderDashboardCollection(items);
+        props.reorderDraggableWidgetsCollection(items);
     },
 };
 
@@ -84,8 +84,8 @@ const mapStateToProps = createStructuredSelector<RootState, {
 }>({});
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
-  reorderDashboardCollection: 
-    syncActionCreators.reorderDashboardCollection,
+  reorderDraggableWidgetsCollection: 
+    syncActionCreators.reorderDraggableWidgetsCollection,
 }, dispatch);
 
 

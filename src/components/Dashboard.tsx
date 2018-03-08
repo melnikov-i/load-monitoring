@@ -53,7 +53,7 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
           bgColor={'#f3f3f4'}
         />
       );
-    }    
+    }
   }
 
   // Данные для заголовка
@@ -77,7 +77,7 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
   };
 
   if ( MainHeaderButtonWasClicked ) {
-    /* Настройка дашборда */ 
+    /* Настройка дашборда */
     return (
       <div>
         <MainHeaderConnected data={MainHeaderState} />

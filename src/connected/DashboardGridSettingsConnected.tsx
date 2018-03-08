@@ -12,13 +12,13 @@ import {
 import {} from '@src/interfaces';
 
 import {
-  SelectedCheckboxSelector,
+  DraggableSelectedCheckboxSelector,
 } from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector<RootState, {
-  SelectedCheckbox: string,
+  DraggableSelectedCheckbox: string,
 }>({
-  SelectedCheckbox: SelectedCheckboxSelector,
+  DraggableSelectedCheckbox: DraggableSelectedCheckboxSelector,
 });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({

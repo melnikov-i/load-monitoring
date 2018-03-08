@@ -15,13 +15,13 @@ import {
 
 interface DashboardGridSettingsProps {
   changeSelectedCheckbox: (payload: string) => any,
-  SelectedCheckbox: string,
+  DraggableSelectedCheckbox: string,
 }
 
 export const DashboardGridSettings: React.SFC<DashboardGridSettingsProps> = (props) => {
   const {
     changeSelectedCheckbox,
-    SelectedCheckbox,
+    DraggableSelectedCheckbox,
   } = props;
 
   // Поля
@@ -60,7 +60,7 @@ export const DashboardGridSettings: React.SFC<DashboardGridSettingsProps> = (pro
               <DraggableConfigColumnsItemAnchor
                 key={i}
                 data-index={i + 1}
-                isSelected={SelectedCheckbox === String(i + 1)}
+                isSelected={DraggableSelectedCheckbox === String(i + 1)}
                 onClick={columnsHandler}
               >
                 <DraggableConfigColumnsItemSpan>

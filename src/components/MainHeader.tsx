@@ -34,9 +34,7 @@ export const MainHeader: React.SFC<MainHeaderProps> = (props) => {
 
   return (
     <MainHeaderLayout>
-      <MainHeaderH1>
-        {data.header}
-      </MainHeaderH1>
+      <MainHeaderH1>{data.header}</MainHeaderH1>
       <MainHeaderBreadCrumbsLayout>
         {data.breadcrumbs.map((e, i, a) => {
           if ( i !== (a.length - 1) ) {

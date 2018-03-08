@@ -5,57 +5,43 @@ import { Dispatch, RootState } from '@src/redux';
 import * as ReactDnd from 'react-dnd';
 import DragDropContext = ReactDnd.DragDropContext;
 
-import MultiBackend, {
-  Backends,
-  createTransition,
-  TouchTransition,
-} from 'react-dnd-multi-backend';
-import HTML5Backend from 'react-dnd-html5-backend';
-import TouchBackend from 'react-dnd-touch-backend';
-
-const CustomBakcends: Backends = {
-  backends: [
-    {
-      backend: HTML5Backend,
-      preview: true,
-    },
-    {
-      backend: TouchBackend({ enableMouseEvents: false }),
-      preview: true,
-      transition: createTransition('touchstart', (event: TouchEvent) => {
-        return event.touches !== null;
-      }),
-    },
-    {
-      backend: TouchBackend({}),
-      transition: TouchTransition,
-      preview: true,
-    }
-  ],
-}
+import MultiBackend from 'react-dnd-multi-backend';
+import HTML5toTouch from 'react-dnd-multi-backend/lib/HTML5toTouch';
 
 import { DashboardDragDropContext } from '@src/components';
+
+import {
+  syncActionCreators
+} from '@src/redux/dashboard';
 
 import {
   DashboardInterface,
 } from '@src/interfaces';
 
 import {
-  SelectedCheckboxSelector,
-  DashboardCollectionSelector
+  DashboardCollectionSelector,
+  DraggableWidgetsCollectionSelector,
+  isDraggableWidgetsCollectionSelector,
+  DraggableSelectedCheckboxSelector,
 } from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector<RootState, {
-  SelectedCheckbox: string,
   DashboardCollection: DashboardInterface,
+  DraggableWidgetsCollection: DashboardInterface['dash_data'],
+  isDraggableWidgetsCollection: boolean,
+  DraggableSelectedCheckbox: string,
 }>({
-  SelectedCheckbox: SelectedCheckboxSelector,
   DashboardCollection: DashboardCollectionSelector,
+  DraggableWidgetsCollection: DraggableWidgetsCollectionSelector,
+  isDraggableWidgetsCollection: isDraggableWidgetsCollectionSelector,
+  DraggableSelectedCheckbox: DraggableSelectedCheckboxSelector,
 });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
+  createDraggableDashboard:
+    syncActionCreators.createDraggableDashboard,
 }, dispatch);
 
 export const DashboardDragDropContextConnected = DragDropContext(
-  MultiBackend(CustomBakcends))(connect(
+  MultiBackend(HTML5toTouch))(connect(
     mapStateToProps, mapDispatchToProps)(DashboardDragDropContext));
