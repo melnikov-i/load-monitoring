@@ -31,7 +31,6 @@ React.SFC<DashboardDragDropContextProps> = (props) => {
   } = props;
 
   if ( !isDraggableWidgetsCollection ) {
-    console.log('DraggableWidgetsCollection create:')
     createDraggableDashboard(DashboardCollection.dash_data);
     return (
       <Spinner

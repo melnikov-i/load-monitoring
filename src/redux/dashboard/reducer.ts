@@ -76,7 +76,6 @@ export const reducer = combineReducers({
   DraggableWidgetsCollection: ( state = [], action ) => {
     switch ( action.type ) {
       case CREATE_DRAGGABLE_DASHBOARD:
-        console.log('DraggableDashboard State:', action.payload);
         return action.payload;
       case REORDER_DRAGGABLE_WIDGETS_COLLECTION:
         return reorder(state, action.payload);

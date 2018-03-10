@@ -13,6 +13,11 @@ import {
 } from '@src/components';
 
 import {
+  trottler
+} from '@src/libs';
+
+
+import {
   MoveWidgetsInterface
 } from '@src/interfaces';
 
@@ -34,7 +39,7 @@ ReactDnd.DragSourceSpec<DashboardDragSourceDropTargetProps> = {
       width: props.element.width,
       widget_name: props.element.widget_name,
       device_id: props.element.device_id,
-      index: props.element.index,      
+      // index: props.element.index,      
     };
   },
 };
@@ -54,21 +59,13 @@ ReactDnd.DropTargetSpec<DashboardDragSourceDropTargetProps> = {
     },
 };
 
-let lastUpdate = +new Date();
-
-const getCustomClientOffset = (offset: ReactDnd.ClientOffset) => {
-  if ( +new Date() - lastUpdate > 16 ) {
-    lastUpdate = +new Date();
-    return offset
-  }
-  return undefined;
-};
-
 const dragSourceCollect = (
   connect: ReactDnd.DragSourceConnector,
   monitor: ReactDnd.DragSourceMonitor) => ({
     connectDragSource: connect.dragSource(),
-    getClientOffset: getCustomClientOffset(monitor.getClientOffset()),
+    getInitialSourceClientOffset: 
+      trottler(monitor.getInitialSourceClientOffset()),
+    getSourceClientOffset: trottler(monitor.getSourceClientOffset()),
     isDragging: monitor.isDragging(),
   });
 

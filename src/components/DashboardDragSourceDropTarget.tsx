@@ -20,6 +20,8 @@ export interface DashboardDragSourceDropTargetProps {
   isDragging?: boolean,
   connectDropTarget?: ReactDnd.ConnectDropTarget,
   connectDragSource?: ReactDnd.ConnectDragSource,
+  getSourceClientOffset?: any,
+  getInitialSourceClientOffset?: any,
   isOver?: boolean,
   reorderDraggableWidgetsCollection:
   (payload: MoveWidgetsInterface) => any,
@@ -32,7 +34,9 @@ React.SFC<DashboardDragSourceDropTargetProps> = (props) => {
     isDragging,
     connectDragSource,
     connectDropTarget,
-    isOver,
+    // getSourceClientOffset,
+    getInitialSourceClientOffset,
+    // isOver,
   } = props;
 
   if ( !connectDragSource || !connectDropTarget ) {
@@ -45,38 +49,66 @@ React.SFC<DashboardDragSourceDropTargetProps> = (props) => {
     isPreview: false,
   }
 
-  return (
-    <div
-      className={'dashboardWidgetWrapper'}
-      id={element.device_id}
-      style={{
-        width: getWidth(element.width),
-        marginRight: checkPosition(
-            Number(element.width), element.index
-          ) ? ( element.width === '1' ) ? '0' : '2%' : '0',
-        marginBottom: ( element.width === '1' ) 
-          ? '20px' : '2%',
-        cursor: 'move',
-        visibility: isDragging ? 'hidden' : 'visible',
-        boxShadow: isOver ? '0 0 15px 3px #ccc' : 'none',
-      }}
-    >
-      {connectDragSource(
-        connectDropTarget(
-          <div
-            style={{
-              position: 'absolute',
-              top: '0',
-              left: '0',
-              bottom: '0',
-              right: '0',
-              backgroundColor: 'tranceparent',
-              zIndex: 100,
-            }}>              
-            </div>
-        )
-      )}
-      <DashboardWidgetConnected item={item} />
-    </div>
-  );
+  if ( isDragging ) {
+    // console.log('SourceClietnOffset:', getSourceClientOffset);
+    return (
+      <div
+        className={'dashboardWidgetWrapper'}
+        id={element.device_id}
+        style={{
+          width: getWidth(element.width),
+          marginRight: checkPosition(
+              Number(element.width), element.index
+            ) ? ( element.width === '1' ) ? '0' : '2%' : '0',
+          marginBottom: ( element.width === '1' ) 
+            ? '20px' : '2%',
+          boxSizing: 'border-box',
+          border: '1px dashed #cecece',
+          backgroundColor: '#e7eaec',
+
+        }}
+      >
+
+      </div>
+    );
+  } else {
+    let toX: number = getInitialSourceClientOffset.x;
+    // let toY: number = getInitialSourceClientOffset.y;
+    console.log('initial_toX:', toX);
+    return (
+      <div
+        className={'dashboardWidgetWrapper'}
+        id={element.device_id}
+        style={{
+          width: getWidth(element.width),
+          marginRight: checkPosition(
+              Number(element.width), element.index
+            ) ? ( element.width === '1' ) ? '0' : '2%' : '0',
+          marginBottom: ( element.width === '1' ) 
+            ? '20px' : '2%',
+          cursor: 'move',
+          // boxShadow: isOver ? '0 0 15px 3px #ccc' : 'none',
+          // position: 'fixed',
+          // transform: `translate(${toX}, ${toY})`,
+        }}
+      >
+        {connectDragSource(
+          connectDropTarget(
+            <div
+              style={{
+                position: 'absolute',
+                top: '0',
+                left: '0',
+                bottom: '0',
+                right: '0',
+                backgroundColor: 'tranceparent',
+                zIndex: 100,
+              }}>              
+              </div>
+          )
+        )}
+        <DashboardWidgetConnected item={item} />
+      </div>
+    );    
+  }
 };

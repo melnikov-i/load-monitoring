@@ -13,6 +13,7 @@ import {
 
 import {
   getPreviewWidth,
+  trottler
 } from '@src/libs';
 
 export interface DashboardDragLayerPros 
@@ -54,19 +55,6 @@ extends React.Component<DashboardDragLayerPros> {
       return null;      
     }
   }
-}
-
-let timeUpdate = +new Date();
-let currentSourceClientOffset = {x: 0, y: 0};
-
-const trottler = (sourceClientOffset) => {
-  if ( +new Date() - timeUpdate > 40 ) {
-    if ( sourceClientOffset !== null ) {
-      currentSourceClientOffset = sourceClientOffset;
-      timeUpdate = +new Date();      
-    }
-  }
-  return currentSourceClientOffset;
 }
 
 export const DashboardDragLayer = DragLayer((monitor) => ({
