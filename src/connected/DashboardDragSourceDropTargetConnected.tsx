@@ -63,9 +63,7 @@ const dragSourceCollect = (
   connect: ReactDnd.DragSourceConnector,
   monitor: ReactDnd.DragSourceMonitor) => ({
     connectDragSource: connect.dragSource(),
-    getInitialSourceClientOffset: 
-      trottler(monitor.getInitialSourceClientOffset()),
-    getSourceClientOffset: trottler(monitor.getSourceClientOffset()),
+    
     isDragging: monitor.isDragging(),
   });
 
@@ -74,6 +72,7 @@ const dropTargetCollect = (
   monitor: ReactDnd.DropTargetMonitor) => ({
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver(),
+    getSourceClientOffset: trottler(monitor.getSourceClientOffset()),
   });
 
 const mapStateToProps = createStructuredSelector<RootState, {

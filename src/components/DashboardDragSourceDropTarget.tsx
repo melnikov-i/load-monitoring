@@ -21,7 +21,6 @@ export interface DashboardDragSourceDropTargetProps {
   connectDropTarget?: ReactDnd.ConnectDropTarget,
   connectDragSource?: ReactDnd.ConnectDragSource,
   getSourceClientOffset?: any,
-  getInitialSourceClientOffset?: any,
   isOver?: boolean,
   reorderDraggableWidgetsCollection:
   (payload: MoveWidgetsInterface) => any,
@@ -34,9 +33,8 @@ React.SFC<DashboardDragSourceDropTargetProps> = (props) => {
     isDragging,
     connectDragSource,
     connectDropTarget,
-    // getSourceClientOffset,
-    getInitialSourceClientOffset,
-    // isOver,
+    getSourceClientOffset,
+    isOver,
   } = props;
 
   if ( !connectDragSource || !connectDropTarget ) {
@@ -72,9 +70,13 @@ React.SFC<DashboardDragSourceDropTargetProps> = (props) => {
       </div>
     );
   } else {
-    let toX: number = getInitialSourceClientOffset.x;
+    let SourceX: number = -1;
+    if ( SourceX === -1 ) SourceX = getSourceClientOffset.x;
+    let SourceY: number = -1;
+    if ( SourceY === -1 ) SourceY = getSourceClientOffset.y;
+
     // let toY: number = getInitialSourceClientOffset.y;
-    console.log('initial_toX:', toX);
+    console.log('Source:', SourceX);
     return (
       <div
         className={'dashboardWidgetWrapper'}
@@ -88,8 +90,10 @@ React.SFC<DashboardDragSourceDropTargetProps> = (props) => {
             ? '20px' : '2%',
           cursor: 'move',
           // boxShadow: isOver ? '0 0 15px 3px #ccc' : 'none',
-          // position: 'fixed',
-          // transform: `translate(${toX}, ${toY})`,
+          position: isOver ? 'fixed' : 'static',
+          transform: isOver 
+            ? `translate(${SourceX}, ${SourceY})`
+            : 'none',
         }}
       >
         {connectDragSource(
