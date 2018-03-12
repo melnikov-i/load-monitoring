@@ -43,3 +43,9 @@ export const DraggableSelectedCheckboxSelector =
     ( state: RootState ) => state.dashboard.DraggableSelectedCheckbox,
     ( DraggableSelectedCheckbox ) => DraggableSelectedCheckbox,
   );
+
+export const MovingWidgetsSelector =
+  createSelector(
+    ( state: RootState ) => state.dashboard.MovingWidgets,
+    ( MovingWidgets ) => MovingWidgets,
+  );

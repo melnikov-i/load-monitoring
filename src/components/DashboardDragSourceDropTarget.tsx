@@ -21,9 +21,12 @@ export interface DashboardDragSourceDropTargetProps {
   connectDropTarget?: ReactDnd.ConnectDropTarget,
   connectDragSource?: ReactDnd.ConnectDragSource,
   getSourceClientOffset?: any,
+  MovingWidgets: WidgetInterface,
   isOver?: boolean,
   reorderDraggableWidgetsCollection:
-  (payload: MoveWidgetsInterface) => any,
+  ( payload: MoveWidgetsInterface ) => any,
+  movindWidgets: ( payload: WidgetInterface ) => any,
+  cleanMovindWidgets: () => any,
 }
 
 export const DashboardDragSourceDropTarget: 
@@ -33,7 +36,7 @@ React.SFC<DashboardDragSourceDropTargetProps> = (props) => {
     isDragging,
     connectDragSource,
     connectDropTarget,
-    getSourceClientOffset,
+    MovingWidgets,
     isOver,
   } = props;
 
@@ -41,46 +44,74 @@ React.SFC<DashboardDragSourceDropTargetProps> = (props) => {
     return null;
   }
 
-  const item: WidgetInterface = {
+  console.log('Item:', MovingWidgets);
+
+  const widgetItem: WidgetInterface = {
     widget_name: element.widget_name,
     device_id: element.device_id,
     isPreview: false,
   }
 
+  // const getDashboard = (item: any) => {
+  //   return {
+  //     widget_name: item.widget_name,
+  //     device_id: item.device_id,
+  //     isPreview: false,
+  //   }
+  // };
+
   if ( isDragging ) {
-    // console.log('SourceClietnOffset:', getSourceClientOffset);
-    return (
-      <div
-        className={'dashboardWidgetWrapper'}
-        id={element.device_id}
-        style={{
-          width: getWidth(element.width),
-          marginRight: checkPosition(
-              Number(element.width), element.index
-            ) ? ( element.width === '1' ) ? '0' : '2%' : '0',
-          marginBottom: ( element.width === '1' ) 
-            ? '20px' : '2%',
-          boxSizing: 'border-box',
-          border: '1px dashed #cecece',
-          backgroundColor: '#e7eaec',
+    // if ( item === null ) {
+      return (
+        <div
+          className={'dashboardWidgetWrapper'}
+          id={element.device_id}
+          style={{
+            width: getWidth(element.width),
+            marginRight: checkPosition(
+                Number(element.width), element.index
+              ) ? ( element.width === '1' ) ? '0' : '2%' : '0',
+            marginBottom: ( element.width === '1' ) 
+              ? '20px' : '2%',
+            boxSizing: 'border-box',
+            border: '1px dashed #cecece',
+            backgroundColor: '#e7eaec',
 
-        }}
-      >
+          }}
+        >
 
-      </div>
-    );
+        </div>
+      );      
+    // } else {
+    //   return (
+    //     <div
+    //       className={'dashboardWidgetWrapper'}
+    //       style={{
+    //         width: getWidth(element.width),
+    //         marginRight: checkPosition(
+    //             Number(element.width), element.index
+    //           ) ? ( element.width === '1' ) ? '0' : '2%' : '0',
+    //         marginBottom: ( element.width === '1' ) 
+    //           ? '20px' : '2%',
+    //         cursor: 'move',
+    //         boxSizing: 'border-box',
+    //         border: isOver ? '1px dashed #cecece' : 'none',
+    //         backgroundColor: isOver ? '#e7eaec' : 'transparent',
+    //         // boxShadow: isOver ? '0 0 15px 3px #ccc' : 'none',
+    //         // position: isOver ? 'fixed' : 'static',
+    //         // transform: isOver 
+    //         //   ? `translate(${SourceX}, ${SourceY})`
+    //         //   : 'none',
+    //       }}
+    //     >
+    //       <DashboardWidgetConnected item={getDashboard(item)} />
+    //     </div>
+    //   );
+    // }
   } else {
-    let SourceX: number = -1;
-    if ( SourceX === -1 ) SourceX = getSourceClientOffset.x;
-    let SourceY: number = -1;
-    if ( SourceY === -1 ) SourceY = getSourceClientOffset.y;
-
-    // let toY: number = getInitialSourceClientOffset.y;
-    console.log('Source:', SourceX);
     return (
       <div
         className={'dashboardWidgetWrapper'}
-        id={element.device_id}
         style={{
           width: getWidth(element.width),
           marginRight: checkPosition(
@@ -89,11 +120,14 @@ React.SFC<DashboardDragSourceDropTargetProps> = (props) => {
           marginBottom: ( element.width === '1' ) 
             ? '20px' : '2%',
           cursor: 'move',
+          boxSizing: 'border-box',
+          border: isOver ? '1px dashed #cecece' : 'none',
+          backgroundColor: isOver ? '#e7eaec' : 'transparent',
           // boxShadow: isOver ? '0 0 15px 3px #ccc' : 'none',
-          position: isOver ? 'fixed' : 'static',
-          transform: isOver 
-            ? `translate(${SourceX}, ${SourceY})`
-            : 'none',
+          // position: isOver ? 'fixed' : 'static',
+          // transform: isOver 
+          //   ? `translate(${SourceX}, ${SourceY})`
+          //   : 'none',
         }}
       >
         {connectDragSource(
@@ -111,8 +145,13 @@ React.SFC<DashboardDragSourceDropTargetProps> = (props) => {
               </div>
           )
         )}
-        <DashboardWidgetConnected item={item} />
+        {
+          !isOver
+            ? <DashboardWidgetConnected item={widgetItem} />
+            : null
+        }
       </div>
-    );    
+    );
   }
 };
+            // : <DashboardWidgetConnected item={getDashboard(item)} />

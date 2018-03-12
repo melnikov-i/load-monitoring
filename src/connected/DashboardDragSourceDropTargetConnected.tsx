@@ -18,12 +18,17 @@ import {
 
 
 import {
-  MoveWidgetsInterface
+  MoveWidgetsInterface,
+  WidgetInterface
 } from '@src/interfaces';
 
 import {
   syncActionCreators
 } from '@src/redux/dashboard';
+
+import {
+  MovingWidgetsSelector
+} from '@src/selectors';
 
 const ItemTypes = {
   WIDGET: 'WIDGET'
@@ -44,6 +49,7 @@ ReactDnd.DragSourceSpec<DashboardDragSourceDropTargetProps> = {
   },
 };
 
+let isDispatched: boolean = false;
 
 const widgetTarget:
 ReactDnd.DropTargetSpec<DashboardDragSourceDropTargetProps> = {
@@ -57,13 +63,35 @@ ReactDnd.DropTargetSpec<DashboardDragSourceDropTargetProps> = {
         }
         props.reorderDraggableWidgetsCollection(items);
     },
+  hover: (
+    props: DashboardDragSourceDropTargetProps,
+    monitor: ReactDnd.DropTargetMonitor,
+    component: React.Component<DashboardDragSourceDropTargetProps>) => {
+      const item: any = monitor.getItem();
+      const isOver = monitor.isOver();
+      const widgetItem: WidgetInterface = {
+        widget_name: item.widget_name,
+        device_id: item.device_id,
+        isPreview: false,
+      }
+      if ( isOver ) {
+        if ( !isDispatched ) {
+          props.movindWidgets(widgetItem);
+          isDispatched = true;
+        }
+      } else {
+        if ( isDispatched ) {
+          trottler(props.cleanMovindWidgets());
+          isDispatched = false;          
+        }
+      }
+    },
 };
 
 const dragSourceCollect = (
   connect: ReactDnd.DragSourceConnector,
   monitor: ReactDnd.DragSourceMonitor) => ({
     connectDragSource: connect.dragSource(),
-    
     isDragging: monitor.isDragging(),
   });
 
@@ -71,17 +99,22 @@ const dropTargetCollect = (
   connect: ReactDnd.DropTargetConnector,
   monitor: ReactDnd.DropTargetMonitor) => ({
     connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver(),
+    isOver: monitor.isOver({ shallow: true }),
+    item: monitor.getItem(),
     getSourceClientOffset: trottler(monitor.getSourceClientOffset()),
   });
 
 const mapStateToProps = createStructuredSelector<RootState, {
-
-}>({});
+  MovingWidgets: WidgetInterface,
+}>({
+  MovingWidgets: MovingWidgetsSelector,
+});
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
   reorderDraggableWidgetsCollection: 
     syncActionCreators.reorderDraggableWidgetsCollection,
+  movindWidgets: syncActionCreators.movindWidgets,
+  cleanMovindWidgets: syncActionCreators.cleanMovindWidgets,
 }, dispatch);
 
 

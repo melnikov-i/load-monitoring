@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import {
   DashboardInterface,
   MoveWidgetsInterface,
+  WidgetInterface
 } from '@src/interfaces';
 
 import {
@@ -12,6 +13,8 @@ import {
   SET_SELECTED_CHECKBOX,
   CREATE_DRAGGABLE_DASHBOARD,
   REORDER_DRAGGABLE_WIDGETS_COLLECTION,
+  MOVING_WIDGETS,
+  CLEAN_MOVING_WIDGETS,
 } from '@src/redux/dashboard';
 
 import {
@@ -31,6 +34,7 @@ export type State = {
     DashboardInterface['dash_id']['dashboard_id'],
   readonly SelectedCheckbox: string,
   readonly DraggableSelectedCheckbox: string,
+  readonly MovingWidgets: WidgetInterface,
 };
 
 const DashboardCollectionInitialState: DashboardInterface = {
@@ -41,6 +45,12 @@ const DashboardCollectionInitialState: DashboardInterface = {
   },
   dash_data: []
 };
+
+const MovingWidgetsInitialState: WidgetInterface = {
+  widget_name: '',
+  device_id: '',
+  isPreview: false,
+}
 
 const reorder = ( dash_data: DashboardInterface['dash_data'],
 items: MoveWidgetsInterface ) => {
@@ -123,6 +133,16 @@ export const reducer = combineReducers({
         return action.payload;
       case CHANGE_SELECTED_CHECKBOX:
         return action.payload;
+      default:
+        return state;
+    }
+  },
+  MovingWidgets: ( state = MovingWidgetsInitialState, action ) => {
+    switch ( action.type ) {
+      case MOVING_WIDGETS:
+        return action.payload;
+      case CLEAN_MOVING_WIDGETS:
+        return MovingWidgetsInitialState;
       default:
         return state;
     }
