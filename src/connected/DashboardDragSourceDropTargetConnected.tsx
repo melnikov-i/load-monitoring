@@ -43,13 +43,16 @@ ReactDnd.DragSourceSpec<DashboardDragSourceDropTargetProps> = {
     return {
       width: props.element.width,
       widget_name: props.element.widget_name,
-      device_id: props.element.device_id,
-      // index: props.element.index,      
+      device_id: props.element.device_id, 
     };
   },
+  // endDrag: (props: DashboardDragSourceDropTargetProps) => {
+  //   console.log('isNotOver');
+  //   props.cleanMovindWidgets();    
+  // }
 };
 
-let isDispatched: boolean = false;
+// let isDispatched: boolean = false;
 
 const widgetTarget:
 ReactDnd.DropTargetSpec<DashboardDragSourceDropTargetProps> = {
@@ -63,29 +66,28 @@ ReactDnd.DropTargetSpec<DashboardDragSourceDropTargetProps> = {
         }
         props.reorderDraggableWidgetsCollection(items);
     },
-  hover: (
-    props: DashboardDragSourceDropTargetProps,
-    monitor: ReactDnd.DropTargetMonitor,
-    component: React.Component<DashboardDragSourceDropTargetProps>) => {
-      const item: any = monitor.getItem();
-      const isOver = monitor.isOver();
-      const widgetItem: WidgetInterface = {
-        widget_name: item.widget_name,
-        device_id: item.device_id,
-        isPreview: false,
-      }
-      if ( isOver ) {
-        if ( !isDispatched ) {
-          props.movindWidgets(widgetItem);
-          isDispatched = true;
-        }
-      } else {
-        if ( isDispatched ) {
-          trottler(props.cleanMovindWidgets());
-          isDispatched = false;          
-        }
-      }
-    },
+  // hover: (
+  //   props: DashboardDragSourceDropTargetProps,
+  //   monitor: ReactDnd.DropTargetMonitor,
+  //   component: React.Component<DashboardDragSourceDropTargetProps>) => {
+  //     // const isOver = monitor.isOver();
+  //     const widgetItem: WidgetInterface = {
+  //       widget_name: props.element.widget_name,
+  //       device_id: props.element.device_id,
+  //       isPreview: false,
+  //     }
+  //     // if ( monitor.isOver() ) {
+  //       if ( !isDispatched ) {
+  //         console.log('isOver');
+  //         props.movindWidgets(widgetItem);
+  //         isDispatched = true;
+  //       }
+  //     // } else {
+  //     //   if ( isDispatched ) {
+  //     //     isDispatched = false;
+  //     //   }
+  //     // }
+  //   },
 };
 
 const dragSourceCollect = (
