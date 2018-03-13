@@ -66,8 +66,6 @@ export const asyncActionCreators = {
               syncActionCreators
                 .putDevicesItemsFromAPIToTableCollection(items)
             )
-            setTimeout(() => {
-            }, 1000);
           } else {
             dispatch(
               loginActionCreators.userWasLogOut()

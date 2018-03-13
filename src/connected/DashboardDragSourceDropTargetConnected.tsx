@@ -19,16 +19,11 @@ import {
 
 import {
   MoveWidgetsInterface,
-  WidgetInterface
 } from '@src/interfaces';
 
 import {
   syncActionCreators
 } from '@src/redux/dashboard';
-
-import {
-  MovingWidgetsSelector
-} from '@src/selectors';
 
 const ItemTypes = {
   WIDGET: 'WIDGET'
@@ -43,16 +38,10 @@ ReactDnd.DragSourceSpec<DashboardDragSourceDropTargetProps> = {
     return {
       width: props.element.width,
       widget_name: props.element.widget_name,
-      device_id: props.element.device_id, 
+      device_id: props.element.device_id,
     };
   },
-  // endDrag: (props: DashboardDragSourceDropTargetProps) => {
-  //   console.log('isNotOver');
-  //   props.cleanMovindWidgets();    
-  // }
 };
-
-// let isDispatched: boolean = false;
 
 const widgetTarget:
 ReactDnd.DropTargetSpec<DashboardDragSourceDropTargetProps> = {
@@ -60,34 +49,12 @@ ReactDnd.DropTargetSpec<DashboardDragSourceDropTargetProps> = {
     props: DashboardDragSourceDropTargetProps,
     monitor: ReactDnd.DropTargetMonitor,
     component: React.Component<DashboardDragSourceDropTargetProps>) => {
-        const items: MoveWidgetsInterface = {
-          source: source,
-          target: props.element.index - 1,
-        }
-        props.reorderDraggableWidgetsCollection(items);
+      const items: MoveWidgetsInterface = {
+        source: source,
+        target: props.element.index - 1,
+      }
+      props.reorderDraggableWidgetsCollection(items);
     },
-  // hover: (
-  //   props: DashboardDragSourceDropTargetProps,
-  //   monitor: ReactDnd.DropTargetMonitor,
-  //   component: React.Component<DashboardDragSourceDropTargetProps>) => {
-  //     // const isOver = monitor.isOver();
-  //     const widgetItem: WidgetInterface = {
-  //       widget_name: props.element.widget_name,
-  //       device_id: props.element.device_id,
-  //       isPreview: false,
-  //     }
-  //     // if ( monitor.isOver() ) {
-  //       if ( !isDispatched ) {
-  //         console.log('isOver');
-  //         props.movindWidgets(widgetItem);
-  //         isDispatched = true;
-  //       }
-  //     // } else {
-  //     //   if ( isDispatched ) {
-  //     //     isDispatched = false;
-  //     //   }
-  //     // }
-  //   },
 };
 
 const dragSourceCollect = (
@@ -102,21 +69,14 @@ const dropTargetCollect = (
   monitor: ReactDnd.DropTargetMonitor) => ({
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver({ shallow: true }),
-    item: monitor.getItem(),
     getSourceClientOffset: trottler(monitor.getSourceClientOffset()),
   });
 
-const mapStateToProps = createStructuredSelector<RootState, {
-  MovingWidgets: WidgetInterface,
-}>({
-  MovingWidgets: MovingWidgetsSelector,
-});
+const mapStateToProps = createStructuredSelector<RootState, {}>({});
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
   reorderDraggableWidgetsCollection: 
     syncActionCreators.reorderDraggableWidgetsCollection,
-  movindWidgets: syncActionCreators.movindWidgets,
-  cleanMovindWidgets: syncActionCreators.cleanMovindWidgets,
 }, dispatch);
 
 

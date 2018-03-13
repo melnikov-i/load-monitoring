@@ -3,7 +3,6 @@ import sendRequestToAPI from '@src/ajax';
 import {
   DashboardInterface,
   MoveWidgetsInterface,
-  WidgetInterface
 } from '@src/interfaces';
 
 import { Dispatch } from '@src/redux';
@@ -24,10 +23,6 @@ export const REORDER_DRAGGABLE_WIDGETS_COLLECTION =
   'REORDER_DRAGGABLE_WIDGETS_COLLECTION';
 export const CREATE_DRAGGABLE_DASHBOARD =
   'CREATE_DRAGGABLE_DASHBOARD';
-export const MOVING_WIDGETS =
-  'MOVING_WIDGETS';
-export const CLEAN_MOVING_WIDGETS =
-  'CLEAN_MOVING_WIDGETS';
 
 export type Actions = {
   THIS_DASHBOARD_WAS_REQUESTED_FROM_API: {
@@ -54,13 +49,6 @@ export type Actions = {
     type: typeof CREATE_DRAGGABLE_DASHBOARD,
     payload: DashboardInterface['dash_data'],
   },
-  MOVING_WIDGETS: {
-    type: typeof MOVING_WIDGETS,
-    payload: WidgetInterface,
-  },
-  CLEAN_MOVING_WIDGETS: {
-    type: typeof CLEAN_MOVING_WIDGETS,
-  }
 };
 
 // Sync Action Creators
@@ -93,14 +81,6 @@ export const syncActionCreators = {
   Actions[typeof CREATE_DRAGGABLE_DASHBOARD] => ({
     type: CREATE_DRAGGABLE_DASHBOARD, payload,
   }),
-  movindWidgets: ( payload: WidgetInterface ):
-  Actions[typeof MOVING_WIDGETS] => ({
-    type: MOVING_WIDGETS, payload,
-  }),
-  cleanMovindWidgets: ():
-  Actions[typeof CLEAN_MOVING_WIDGETS] => ({
-    type: CLEAN_MOVING_WIDGETS,
-  })
 };
 
 // Async Action Creators
