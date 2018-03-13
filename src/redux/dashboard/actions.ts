@@ -95,6 +95,7 @@ export const asyncActionCreators = {
         ( response ) => {
           if ( response.data.dashboard !== null ) {
             if ( response.data.dashboard.dash_id !== null ) {
+              console.log('Dashboard:', response.data.dashboard);
               const items: DashboardInterface = response.data.dashboard;
               dispatch(
                 syncActionCreators

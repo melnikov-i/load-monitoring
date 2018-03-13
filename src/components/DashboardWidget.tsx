@@ -24,7 +24,13 @@ React.SFC<DashboardWidgetProps> = (props) => {
         <WidgetHeader>{ item.widget_name }</WidgetHeader>
       </DynamicWidthWidgetHeaderWrapper>
       <DynamicWidthWidgetContent>
-
+        <span
+          style={{
+            fontSize: '14px',
+          }}
+        >
+          {item.device_id}
+        </span>
       </DynamicWidthWidgetContent>
     </DynamicWidthWidget>
   );

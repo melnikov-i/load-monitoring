@@ -136,5 +136,6 @@ export const DynamicWidthWidget = styled.div`
 
 export const DynamicWidthWidgetContent = styled.div`
   padding: 0 15px 20px;
+  margin-top: 50px;
   box-sizing: border-box;
 `;
