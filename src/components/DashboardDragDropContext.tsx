@@ -3,6 +3,7 @@ import * as React from 'react';
 import {
   DashboardInterface,
   DashboardWidgetWrapperInterface,
+  DraggableDashboardChangerIterface,
 } from '@src/interfaces';
 
 import { DashboardDragLayer } from '@src/components';
@@ -13,25 +14,31 @@ import DashboardDragSourceDropTargetConnected from
 
 interface DashboardDragDropContextProps {
   DashboardCollection: DashboardInterface,
-  DraggableWidgetsCollection: DashboardInterface['dash_data'],
+  DraggableWidgetsCollection: DashboardInterface,
+  SelectedCheckbox: string,
   DraggableSelectedCheckbox: string,
   isDraggableWidgetsCollection: boolean,
   createDraggableDashboard:
-  ( payload: DashboardInterface['dash_data'] ) => any,
+  ( payload: DraggableDashboardChangerIterface ) => any,
 }
 
 export const DashboardDragDropContext: 
 React.SFC<DashboardDragDropContextProps> = (props) => {
   const {
     DashboardCollection,
-    DraggableSelectedCheckbox,
     DraggableWidgetsCollection,
+    SelectedCheckbox,
+    DraggableSelectedCheckbox,
     isDraggableWidgetsCollection,
     createDraggableDashboard,
   } = props;
 
   if ( !isDraggableWidgetsCollection ) {
-    createDraggableDashboard(DashboardCollection.dash_data);
+    const item: DraggableDashboardChangerIterface = {
+      dashboard: DashboardCollection,
+      checkbox: SelectedCheckbox,
+    }
+    createDraggableDashboard(item);
     return (
       <Spinner
         width={3}
@@ -49,7 +56,7 @@ React.SFC<DashboardDragDropContextProps> = (props) => {
       }}
     >
       <DashboardDragLayer />
-      {DraggableWidgetsCollection.map((e, i) => {
+      {DraggableWidgetsCollection.dash_data.map((e, i) => {
         const element: DashboardWidgetWrapperInterface = {
           index: i + 1,
           width: DraggableSelectedCheckbox,

@@ -4,6 +4,7 @@ export * from './LoginStyled';
 export * from './SpinnerStyled';
 export * from './MainHeaderStyled';
 export * from './WidgetStyled';
+export * from './AnchorStyled';
 
 export * from './DevicesStyled';
 export * from './DevicesLoadStyled';

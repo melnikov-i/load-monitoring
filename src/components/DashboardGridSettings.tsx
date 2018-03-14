@@ -1,6 +1,10 @@
 import * as React from 'react';
 
 import {
+  DashboardInterface
+} from '@src/interfaces';
+
+import {
   FullWidthWidgetWrapper,
   FullWidthWidgetHeaderWrapper,
   WidgetHeader,
@@ -11,18 +15,29 @@ import {
   DraggableConfigColumnsItems,
   DraggableConfigColumnsItemAnchor,
   DraggableConfigColumnsItemSpan,
+  DraggableConfigAnchorsWrapper,
+  Anchor
 } from '@src/styled';
 
 interface DashboardGridSettingsProps {
   changeSelectedCheckbox: (payload: string) => any,
   DraggableSelectedCheckbox: string,
+  DraggableWidgetsCollection: DashboardInterface,
+  mainHeaderButtonSwitch: () => any,
+  sendChangedDashboardToAPI: 
+  ( payload: DashboardInterface ) => any,
 }
 
 export const DashboardGridSettings: React.SFC<DashboardGridSettingsProps> = (props) => {
   const {
     changeSelectedCheckbox,
     DraggableSelectedCheckbox,
+    DraggableWidgetsCollection,
+    mainHeaderButtonSwitch,
+    sendChangedDashboardToAPI
   } = props;
+
+  // console.log('DraggableWidgetsCollection:', DraggableWidgetsCollection);
 
   // Поля
   const ColumnsValuesCollection: string[] = [
@@ -41,6 +56,25 @@ export const DashboardGridSettings: React.SFC<DashboardGridSettingsProps> = (pro
     if ( attribute !== null ) {
       changeSelectedCheckbox(attribute)
     }
+  };
+
+  const canselHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    e.nativeEvent.stopImmediatePropagation();
+    mainHeaderButtonSwitch();
+  };
+
+  const confirmHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    e.nativeEvent.stopImmediatePropagation();
+    const item: DashboardInterface = {
+      ...DraggableWidgetsCollection,
+      ['dash_id']: {
+        ...DraggableWidgetsCollection.dash_id,
+        dash_columns: DraggableSelectedCheckbox,
+      }
+    }
+    sendChangedDashboardToAPI(item);
   };
 
   return (
@@ -69,6 +103,22 @@ export const DashboardGridSettings: React.SFC<DashboardGridSettingsProps> = (pro
               </DraggableConfigColumnsItemAnchor>
             ))}
           </DraggableConfigColumnsItems>
+        </DraggableConfigColumnsWrapper>
+        <DraggableConfigColumnsWrapper>
+          <DraggableConfigAnchorsWrapper>
+            <Anchor
+              background={'#f8ac59'}
+              onClick={canselHandler}
+            >
+              {'Отмена'}
+            </Anchor>
+            <Anchor
+              background={'#1ab394'}
+              onClick={confirmHandler}
+            >
+              {'Применить'}
+            </Anchor>            
+          </DraggableConfigAnchorsWrapper>
         </DraggableConfigColumnsWrapper>
       </FullWidthWidgetContent>
     </FullWidthWidgetWrapper>

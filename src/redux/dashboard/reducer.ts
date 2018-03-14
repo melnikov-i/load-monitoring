@@ -25,7 +25,7 @@ import {
 
 export type State = {
   readonly DashboardCollection: DashboardInterface,
-  readonly DraggableWidgetsCollection: DashboardInterface['dash_data'],
+  readonly DraggableWidgetsCollection: DashboardInterface,
   readonly isDraggableWidgetsCollection: boolean,
   readonly DashboardWasRequestedFromAPI: 
     DashboardInterface['dash_id']['dashboard_id'],
@@ -68,14 +68,18 @@ export const reducer = combineReducers({
     }
   },
   /* Коллекция виджетов для настройки */
-  DraggableWidgetsCollection: ( state = [], action ) => {
+  DraggableWidgetsCollection: 
+  ( state = DashboardCollectionInitialState, action ) => {
     switch ( action.type ) {
       case CREATE_DRAGGABLE_DASHBOARD:
-        return action.payload;
+        return action.payload.dashboard;
       case REORDER_DRAGGABLE_WIDGETS_COLLECTION:
-        return reorder(state, action.payload);
+        return {
+          ...state,
+          ['dash_data']: reorder(state.dash_data, action.payload),
+        };
       case USER_WAS_LOGOUT:
-        return [];
+        return DashboardCollectionInitialState;
       default:
         return state;
     }
@@ -114,8 +118,8 @@ export const reducer = combineReducers({
   /* Количество колонок на странице редактирования */
   DraggableSelectedCheckbox: ( state = '0', action ) => {
     switch ( action.type ) {
-      case SET_SELECTED_CHECKBOX:
-        return action.payload;
+      case CREATE_DRAGGABLE_DASHBOARD:
+        return action.payload.checkbox;
       case CHANGE_SELECTED_CHECKBOX:
         return action.payload;
       default:

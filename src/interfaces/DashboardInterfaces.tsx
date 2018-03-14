@@ -26,3 +26,8 @@ export interface MoveWidgetsInterface {
   source: number,
   target: number,
 };
+
+export interface DraggableDashboardChangerIterface {
+  dashboard: DashboardInterface,
+  checkbox: string,
+}

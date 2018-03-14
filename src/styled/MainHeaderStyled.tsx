@@ -48,20 +48,8 @@ export const MainHeaderBreadCrumbsItemSpan = styled.span`
   font-weight: 600;
 `;
 
-export const MainHeaderAnchor = styled.a`
-  min-width: 74px;
-  font-size: 14px;
-  display: inline-block;
-  text-decoration: none;
-  color: #fff;
-  background-color: #1ab394;
-  border-radius: 3px;
-  padding: 4px 12px;
-  cursor: pointer;
-  line-height: 22px;
-  text-align: center;
-  user-select: none;
+export const MainHeaderAnchorWrapper = styled.div`
   position: absolute;
   top: 38px;
-  right: 20px;
+  right: 15px;
 `;

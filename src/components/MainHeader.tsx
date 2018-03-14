@@ -7,7 +7,8 @@ import {
   MainHeaderBreadCrumbsItem,
   MainHeaderBreadCrumbsItemLink,
   MainHeaderBreadCrumbsItemSpan,
-  MainHeaderAnchor,
+  MainHeaderAnchorWrapper,
+  Anchor,
 } from '@src/styled';
 
 import {
@@ -66,11 +67,14 @@ export const MainHeader: React.SFC<MainHeaderProps> = (props) => {
         })}
       </MainHeaderBreadCrumbsLayout>
       {(data.button)
-        ? <MainHeaderAnchor
-            onClick={handler}
-          >
-            {'Настроить'}
-          </MainHeaderAnchor>
+        ? <MainHeaderAnchorWrapper>
+            <Anchor
+              background={'#1c84c6'}
+              onClick={handler}
+            >
+              {'Настроить'}
+            </Anchor>
+          </MainHeaderAnchorWrapper>
         : null
       }
     </MainHeaderLayout>

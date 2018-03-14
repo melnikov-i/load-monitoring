@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const Checkboxes = require('@src/images/checkboxes');
 
 export const DraggableConfigColumnsWrapper = styled.div`
-  padding: 15px 0;
+  padding: 15px 0 0;
 `;
 
 export const DraggableConfigColumnsHeaderWrapper = styled.div`
@@ -61,4 +61,8 @@ export const DraggableConfigColumnsItemSpan = styled.span`
   font-weight: 700;
   color: #676a6c;
   padding: 0 5px;
+`;
+
+export const DraggableConfigAnchorsWrapper = styled.div`
+  text-align: right;
 `;

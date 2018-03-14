@@ -23,18 +23,21 @@ import {
   DraggableWidgetsCollectionSelector,
   isDraggableWidgetsCollectionSelector,
   DraggableSelectedCheckboxSelector,
+  SelectedCheckboxSelector,
 } from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector<RootState, {
   DashboardCollection: DashboardInterface,
-  DraggableWidgetsCollection: DashboardInterface['dash_data'],
+  DraggableWidgetsCollection: DashboardInterface,
   isDraggableWidgetsCollection: boolean,
   DraggableSelectedCheckbox: string,
+  SelectedCheckbox: string,
 }>({
   DashboardCollection: DashboardCollectionSelector,
   DraggableWidgetsCollection: DraggableWidgetsCollectionSelector,
   isDraggableWidgetsCollection: isDraggableWidgetsCollectionSelector,
   DraggableSelectedCheckbox: DraggableSelectedCheckboxSelector,
+  SelectedCheckbox: SelectedCheckboxSelector,
 });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({

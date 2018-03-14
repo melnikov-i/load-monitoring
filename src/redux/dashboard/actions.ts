@@ -3,6 +3,7 @@ import sendRequestToAPI from '@src/ajax';
 import {
   DashboardInterface,
   MoveWidgetsInterface,
+  DraggableDashboardChangerIterface,
 } from '@src/interfaces';
 
 import { Dispatch } from '@src/redux';
@@ -47,7 +48,7 @@ export type Actions = {
   },
   CREATE_DRAGGABLE_DASHBOARD: {
     type: typeof CREATE_DRAGGABLE_DASHBOARD,
-    payload: DashboardInterface['dash_data'],
+    payload: DraggableDashboardChangerIterface,
   },
 };
 
@@ -77,7 +78,7 @@ export const syncActionCreators = {
     type: REORDER_DRAGGABLE_WIDGETS_COLLECTION, payload,
   }),
   createDraggableDashboard:
-  ( payload: DashboardInterface['dash_data'] ):
+  ( payload: DraggableDashboardChangerIterface ):
   Actions[typeof CREATE_DRAGGABLE_DASHBOARD] => ({
     type: CREATE_DRAGGABLE_DASHBOARD, payload,
   }),
@@ -95,7 +96,7 @@ export const asyncActionCreators = {
         ( response ) => {
           if ( response.data.dashboard !== null ) {
             if ( response.data.dashboard.dash_id !== null ) {
-              console.log('Dashboard:', response.data.dashboard);
+              // console.log('Dashboard:', response.data.dashboard);
               const items: DashboardInterface = response.data.dashboard;
               dispatch(
                 syncActionCreators
@@ -128,4 +129,20 @@ export const asyncActionCreators = {
       );
     }
   },
+  sendChangedDashboardToAPI:
+  ( payload: DashboardInterface ) => {
+    return ( dispatch: Dispatch ) => {
+      console.log('payload:', payload);
+      sendRequestToAPI.post('/dash_data2.php', payload).then(
+        ( response ) => {
+          console.log('response:', response.data);
+        }
+      )
+      .catch(
+        ( error ) => {
+          console.log('[ERROR]:', error);
+        }
+      )
+    }
+  }
 };
