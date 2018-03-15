@@ -25,6 +25,7 @@ import {
   isDevicesMenuOpenedSelector,
   isMainMenuOpenedSelector,
   DroppedMenuButtonClickedIdSelector,
+  isMenuOpenedOnSmallScreenSelector,
 } from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector<RootState, {
@@ -36,6 +37,7 @@ const mapStateToProps = createStructuredSelector<RootState, {
     isDevicesMenuOpened: IsOpenedInterface,
     isMainMenuOpened: IsOpenedInterface,
     DroppedMenuButtonClickedId: DroppedMenuButtonClickedType,
+    isMenuOpenedOnSmallScreen: boolean,
   }>({
     MainMenuWasRequestedFromAPI: MainMenuWasRequestedFromAPISelector,
     MainMenuItemsCollection: MainMenuItemsCollectionSelector,
@@ -45,6 +47,7 @@ const mapStateToProps = createStructuredSelector<RootState, {
     isDevicesMenuOpened: isDevicesMenuOpenedSelector,
     isMainMenuOpened: isMainMenuOpenedSelector,
     DroppedMenuButtonClickedId: DroppedMenuButtonClickedIdSelector,
+    isMenuOpenedOnSmallScreen: isMenuOpenedOnSmallScreenSelector,
   });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
@@ -65,6 +68,8 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
   sendLogOutToAPI: loginActionCreators.sendLogOutToAPI,
   changeDroppedMenuClickedId:
     syncActionCreators.changeDroppedMenuClickedId,
+  switchMenuOnSmallScreens: 
+    syncActionCreators.switchMenuOnSmallScreens,
 }, dispatch);
 
 export const MainConnected = 

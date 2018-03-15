@@ -1,6 +1,7 @@
+type EventType = HTMLAnchorElement | HTMLDivElement;
 
 export const DroppedMenu = (
-  e: React.MouseEvent<HTMLAnchorElement>,
+  e: React.MouseEvent<EventType>,
   buttonClickedId,
   action ) => {
     e.preventDefault();

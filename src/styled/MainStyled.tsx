@@ -19,6 +19,7 @@ import {
   MIDDLE_SCREEN_MIN,
   MENU_LAYOUT_BIG_WIDTH,
   MENU_LAYOUT_MIDDLE_WIDTH,
+  FOOTER_HEIGHT,
   MENU_LOGO_HEIGHT,
   BIG_MAIN_LINK_HEIGHT,
   BIG_USER_FAKE_LINK_HEIGHT,
@@ -27,16 +28,32 @@ import {
   TOP_HEIGHT,
 } from '@src/styled';
 
-export const MainLayout = styled.div`
+/**
+ * Основной блок каркаса страницы
+ *
+ * @return {React.Component}
+ */
+
+export const PageLayout = styled.div`
   width: 100%;
   min-height: 100%;
   height: auto;
 `;
 
-export const MainMenu = styled.div`
+
+/**
+ * Колонка с основным меню
+ * В зависимости от ширины экрана может быть разной ширины
+ *
+ * @param {boolean} isMenuOpenedOnSmallScreen
+ * @return {React.Component}
+ */
+
+export const PageMenu = styled.div`
   width: ${ MENU_LAYOUT_BIG_WIDTH };
   display: inline-block;
   vertical-align: top;
+  min-height: 100vh;
   &::before {
     content: "";
     display: block;
@@ -49,42 +66,199 @@ export const MainMenu = styled.div`
     left: 0;
     z-index: 1;
   }
-  @media screen 
-    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+  @media screen
+    and ( min-width: ${ MIDDLE_SCREEN_MIN } )
+    and ( max-width: ${ MIDDLE_SCREEN_MAX } ) {
       width: ${ MENU_LAYOUT_MIDDLE_WIDTH };
       &::before {
         width: ${ MENU_LAYOUT_MIDDLE_WIDTH };
       }
-    }
+    };
   @media screen
-    and (max-width: ${ SMALL_SCREEN_MAX }) {
+    and ( max-width: ${ SMALL_SCREEN_MAX } ) {
       width: ${ MENU_LAYOUT_MIDDLE_WIDTH };
-      margin-left: ${( props: MMDivIsOpenedProps ) => (
-          props.onSmallScreen 
+      margin-left: ${ ( props: { isMenuOpenedOnSmallScreen: boolean } ) => (
+          props.isMenuOpenedOnSmallScreen
             ? '0' : `-${ MENU_LAYOUT_MIDDLE_WIDTH }`
         )
       };
       &::before {
         width: ${ MENU_LAYOUT_MIDDLE_WIDTH };
-        margin-left: ${( props: MMDivIsOpenedProps ) => (
-            props.onSmallScreen 
+        margin-left: ${ ( props: { isMenuOpenedOnSmallScreen: boolean } ) => (
+            props.isMenuOpenedOnSmallScreen
               ? '0' : `-${ MENU_LAYOUT_MIDDLE_WIDTH }`
           )
         };
       }
+
+    };
+`;
+
+
+/**
+ * Колонка основного контента
+ * В зависимости от ширины экрана может быть разной ширины
+ *
+ * @param {boolean} isMenuOpenedOnSmallScreen
+ * @return {React.Component}
+ */
+
+export const PageWrapper = styled.div`
+  display: inline-block;
+  vertical-align: top;
+  width: calc(100% - ${ MENU_LAYOUT_BIG_WIDTH });
+  height: 100vh;
+  @media screen 
+    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      width: calc(100% - ${ MENU_LAYOUT_MIDDLE_WIDTH });
+    }
+  @media screen
+    and (max-width: ${ SMALL_SCREEN_MAX }) {
+      width: ${ ( props: { isMenuOpenedOnSmallScreen: boolean } ) => (
+          props.isMenuOpenedOnSmallScreen
+            ? `calc(100% - ${ MENU_LAYOUT_MIDDLE_WIDTH })`
+            : '100%'
+        )
+      };
     }
 `;
 
-export const SmallMenuButton = styled.button`
+
+/**
+ * Шапка страницы
+ *
+ * @return {React.Component}
+ */
+
+export const PageHeader = styled.div`
+  width: 100%;
+  height: ${ TOP_HEIGHT };
+  background-color: #f3f3f4;
+  border-bottom: 1px solid #e7eaec;
+  box-sizing: border-box;
+  position: relative;
+`;
+
+
+/**
+ * Обертка для кнопки выхода в шапке страницы
+ *
+ * @return {React.Component}
+ */
+
+export const PageHeaderExitWrapper = styled.div`
+  width: ${ TOP_HEIGHT };
+  height: ${ TOP_HEIGHT };
+  line-height: ${ TOP_HEIGHT };
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 20px;
+`;
+
+
+/**
+ * Кнопка выхода в шапке страницы
+ *
+ * @return {React.Component}
+ */
+
+export const PageHeaderExitLink = styled(NavLink)`
+  color: #999c9e;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  &:hover {
+    color: #23527c;
+  }
+  &::before {
+    content: "\f08b";
+    font-family: 'FontAwesome';
+    font-weight: normal;
+    font-size: ${ FA_SMALL_FONT_SIZE };
+    margin-right: 8px;
+  }
+`;
+
+
+/**
+ * Блок с основным контентом страницы
+ *
+ * @return {React.Component}
+ */
+
+export const PageContent = styled.div`
+  overflow-x: hidden;
+  width: 100%;
+  background-color: #f3f3f4;
+  min-height: calc( 100vh - ${ TOP_HEIGHT } - ${ FOOTER_HEIGHT } );
+`;
+
+
+/**
+ * Подвал страницы
+ *
+ * @return {React.Component}
+ */
+
+export const PageFooter = styled.div`
+  width: 100%;
+  height: ${ FOOTER_HEIGHT };
+  box-sizing: border-box;
+  border-top: 1px solid #e7eaec;
+  position: relative;
+  background-color: #fff;
+`;
+
+
+/**
+ * Копирайт страницы
+ *
+ * @return {React.Component}
+ */
+
+export const PageFooterCopyright = styled.div`
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  font-size: calc(${ FA_SMALL_FONT_SIZE } - 2px);
+  font-weight: 600;
+  color: #676a6c;
+  &::before {
+    content: "\f1f9";
+    font-family: 'FontAwesome';
+    font-size: calc(${ FA_SMALL_FONT_SIZE } - 2px);
+    color: #676a6c;
+    margin-right: 3px;
+  }
+  &::after {
+    content: "${ new Date().getFullYear() }";
+    font-size: calc(${ FA_SMALL_FONT_SIZE } - 2px);
+    color: #676a6c;
+    margin-left: 3px;
+  }
+`;
+
+
+/**
+ * Кнопка открытия меню на малых экранах
+ * На больших экранах скрыта.
+ *
+ * @param {boolean} isMenuOpenedOnSmallScreen
+ * @return {React.Component}
+ */
+
+export const PageSmallMenuAnchor = styled.a`
   display: none;
   @media screen
     and (max-width: ${ SMALL_SCREEN_MAX }) {
       display: block;
+      cursor: pointer;
       position: absolute;
       top: 15px;
-      left: ${( props: MMButtonIsOpenedProps ) => (
-          props.onSmallScreen
+      left: ${ ( props: { isMenuOpenedOnSmallScreen: boolean } ) => (
+          props.isMenuOpenedOnSmallScreen
             ? `calc(${ MENU_LAYOUT_MIDDLE_WIDTH } + 15px)`
             : '15px'
         )
@@ -101,9 +275,13 @@ export const SmallMenuButton = styled.button`
         font-weight: normal;
         font-size: ${ FA_BIG_FONT_SIZE };
         color: #fff;
+        padding: 0 8px;
       }
     }
 `;
+
+
+
 
 export const MainMenuLogoWrapper = styled.div`
   width: 100%;
@@ -462,6 +640,60 @@ export const DevicesMenuLinkSpan = MainMenuLinkSpan.extend`
     }
 `;
 
+
+
+///////////////////////////////////
+
+export const MainLayout = styled.div`
+  width: 100%;
+  min-height: 100%;
+  height: auto;
+`;
+
+export const MainMenu = styled.div`
+  width: ${ MENU_LAYOUT_BIG_WIDTH };
+  display: inline-block;
+  vertical-align: top;
+  
+  &::before {
+    content: "";
+    display: block;
+    width: ${ MENU_LAYOUT_BIG_WIDTH };
+    min-height: 100%;
+    height: auto;
+    background-color: #2f4050;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+  @media screen 
+    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      width: ${ MENU_LAYOUT_MIDDLE_WIDTH };
+      &::before {
+        width: ${ MENU_LAYOUT_MIDDLE_WIDTH };
+      }
+    }
+  @media screen
+    and (max-width: ${ SMALL_SCREEN_MAX }) {
+      width: ${ MENU_LAYOUT_MIDDLE_WIDTH };
+      margin-left: ${( props: MMDivIsOpenedProps ) => (
+          props.onSmallScreen 
+            ? '0' : `-${ MENU_LAYOUT_MIDDLE_WIDTH }`
+        )
+      };
+      &::before {
+        width: ${ MENU_LAYOUT_MIDDLE_WIDTH };
+        margin-left: ${( props: MMDivIsOpenedProps ) => (
+            props.onSmallScreen 
+              ? '0' : `-${ MENU_LAYOUT_MIDDLE_WIDTH }`
+          )
+        };
+      }
+    }
+`;
+
 export const MainPage = styled.div`
   display: inline-block;
   vertical-align: top;
@@ -482,6 +714,9 @@ export const MainPage = styled.div`
     }
 `;
 
+
+
+
 export const MainTop = styled.div`
   width: 100%;
   height: ${ TOP_HEIGHT };
@@ -490,6 +725,10 @@ export const MainTop = styled.div`
   box-sizing: border-box;
   position: relative;
 `;
+
+
+
+
 
 export const MainTopExitWrapper = styled.div`
   width: ${ TOP_HEIGHT };
@@ -500,6 +739,11 @@ export const MainTopExitWrapper = styled.div`
   top: 0;
   right: 20px;
 `;
+
+
+
+
+
 
 export const MainTopExitLink = styled(NavLink)`
   color: #999c9e;
@@ -518,6 +762,39 @@ export const MainTopExitLink = styled(NavLink)`
   }
 `;
 
+
+
+
+
 export const MainContent = styled.div`
   overflow-x: hidden;
+`;
+
+export const SmallMenuButton = styled.button`
+  display: none;
+  @media screen
+    and (max-width: ${ SMALL_SCREEN_MAX }) {
+      display: block;
+      position: absolute;
+      top: 15px;
+      left: ${( props: MMButtonIsOpenedProps ) => (
+          props.onSmallScreen
+            ? `calc(${ MENU_LAYOUT_MIDDLE_WIDTH } + 15px)`
+            : '15px'
+        )
+      };
+      z-index: 1;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      background-color: #19aa8d;
+      border-radius: 4px;
+      &::before {
+        content: "\f0c9";
+        font-family: 'FontAwesome';
+        font-weight: normal;
+        font-size: ${ FA_BIG_FONT_SIZE };
+        color: #fff;
+      }
+    }
 `;

@@ -44,8 +44,8 @@ export type MMSpanIconProps =
 export type MMUListIsOpenedProps =
   IsOpenedInterface & React.HTMLProps<HTMLUListElement>;
 
-export type MMDivIsOpenedProps =
-  IsOpenedOnSmallScreenInterface & React.HTMLProps<HTMLDivElement>;
+  export type MMDivIsOpenedProps =
+    IsOpenedOnSmallScreenInterface & React.HTMLProps<HTMLDivElement>;
 
 export type MMLinkIsOpenedProps =
   IsOpenedInterface & React.HTMLProps<HTMLLinkElement>;

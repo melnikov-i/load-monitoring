@@ -37,6 +37,8 @@ export const CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID =
   'CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID';
 export const CHANGE_USER_AGENT =
   'CHANGE_USER_AGENT';
+export const SWITCH_MENU_ON_SMALL_SCREENS =
+  'SWITCH_MENU_ON_SMALL_SCREENS';
 
 
 export type Actions = {
@@ -79,6 +81,9 @@ export type Actions = {
   },
   CHANGE_USER_AGENT: {
     type: typeof CHANGE_USER_AGENT,
+  },
+  SWITCH_MENU_ON_SMALL_SCREENS: {
+    type: typeof SWITCH_MENU_ON_SMALL_SCREENS,
   }
 };
 
@@ -134,6 +139,10 @@ export const syncActionCreators = {
   }),
   changeUserAgent: (): Actions[typeof CHANGE_USER_AGENT] => ({
     type: CHANGE_USER_AGENT,
+  }),
+  switchMenuOnSmallScreens: (): 
+  Actions[typeof SWITCH_MENU_ON_SMALL_SCREENS] => ({
+    type: SWITCH_MENU_ON_SMALL_SCREENS,
   }),
 };
 

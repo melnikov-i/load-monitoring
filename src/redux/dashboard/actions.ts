@@ -12,6 +12,10 @@ import {
   syncActionCreators as loginActionCreators
 } from '@src/redux/login';
 
+import {
+  syncActionCreators as mainHeadActionCreators
+} from '@src/redux/mainHead';
+
 export const THIS_DASHBOARD_WAS_REQUESTED_FROM_API =
   'THIS_DASHBOARD_WAS_REQUESTED_FROM_API';
 export const PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION =
@@ -84,58 +88,68 @@ export const syncActionCreators = {
   }),
 };
 
+const getDashboardFromAPI = (
+payload: DashboardInterface['dash_id']['dashboard_id'],
+dispatch: Dispatch) => {
+  dispatch(
+    syncActionCreators.dashboardWasRequestedFromAPI(payload)
+  );
+  sendRequestToAPI.get('/dash_data2.php?dashboard_id=' + payload).then(
+    ( response ) => {
+      if ( response.data.dashboard !== null ) {
+        if ( response.data.dashboard.dash_id !== null ) {
+          console.log('3) Dashboard:', response.data.dashboard);
+          const items: DashboardInterface = response.data.dashboard;
+          dispatch(
+            syncActionCreators
+              .putDashboardItemsFromAPIToDashboardCollection(items)
+          );              
+        }
+      } else {
+        dispatch(
+          loginActionCreators.userWasLogOut()
+        )
+      }
+      if ( response.data.dashboard.dash_id !== null ) {
+        return response.data.dashboard.dash_id.dash_columns;
+      } else {
+        return '2';
+      }
+    }
+  )
+  .then(
+    ( checkbox ) => {
+      dispatch(
+        syncActionCreators.setSelectedCheckbox(checkbox)
+      );
+    }
+  )
+  .catch(
+    ( error ) => {
+      console.log('[ERROR]:', error);
+    }
+  );  
+}
+
 // Async Action Creators
 export const asyncActionCreators = {
   makeDashboardRequestFromAPI: 
   ( payload: DashboardInterface['dash_id']['dashboard_id'] ) => {
     return ( dispatch: Dispatch ) => {
-      dispatch(
-        syncActionCreators.dashboardWasRequestedFromAPI(payload)
-      );
-      sendRequestToAPI.get('/dash_data2.php?dashboard_id=' + payload).then(
-        ( response ) => {
-          if ( response.data.dashboard !== null ) {
-            if ( response.data.dashboard.dash_id !== null ) {
-              // console.log('Dashboard:', response.data.dashboard);
-              const items: DashboardInterface = response.data.dashboard;
-              dispatch(
-                syncActionCreators
-                  .putDashboardItemsFromAPIToDashboardCollection(items)
-              );              
-            }
-          } else {
-            dispatch(
-              loginActionCreators.userWasLogOut()
-            )
-          }
-          if ( response.data.dashboard.dash_id !== null ) {
-            return response.data.dashboard.dash_id.dash_columns;
-          } else {
-            return '2';
-          }
-        }
-      )
-      .then(
-        ( checkbox ) => {
-          dispatch(
-            syncActionCreators.setSelectedCheckbox(checkbox)
-          );
-        }
-      )
-      .catch(
-        ( error ) => {
-          console.log('[ERROR]:', error);
-        }
-      );
+      getDashboardFromAPI(payload, dispatch);
     }
   },
   sendChangedDashboardToAPI:
   ( payload: DashboardInterface ) => {
     return ( dispatch: Dispatch ) => {
-      console.log('payload:', payload);
+      console.log('1) payload:', payload);
       sendRequestToAPI.post('/dash_data2.php', payload).then(
         ( response ) => {
-          console.log('response:', response.data);
+          console.log('2) response:', response.data);
+          getDashboardFromAPI(payload.dash_id.dashboard_id, dispatch);
+          dispatch(
+            mainHeadActionCreators.mainHeaderButtonSwitch()
+          );
         }
       )
       .catch(

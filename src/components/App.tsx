@@ -17,7 +17,6 @@ import LoginConnected from '@src/usage/LoginUsage';
 
 import {
   FOOTER_HEIGHT,
-  FA_SMALL_FONT_SIZE,
   emergence,
 } from '@src/styled';
 
@@ -39,16 +38,12 @@ injectGlobal`
     height: 100%;
   }
 
-  body {
-    background-color: #fff;
-  }
-
   #app {
     width: 100%;
     min-width: 700px;
     min-height: 100%;
     box-sizing: border-box;
-    padding-bottom: ${ FOOTER_HEIGHT };
+    --padding-bottom: ${ FOOTER_HEIGHT };
     height: auto;
     background-color: #f3f3f4;
   }
@@ -90,39 +85,6 @@ injectGlobal`
       content: "";
       display: block;
       padding-top: 62%;
-    }
-  }
-
-  #footer {
-    width: 100%;
-    height: ${ FOOTER_HEIGHT };
-    margin-top: -${ FOOTER_HEIGHT };
-    margin-left: 0;
-    box-sizing: border-box;
-    border-top: 1px solid #e7eaec;
-    position: relative;
-    background-color: #fff;
-  }
-
-  #copyright {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    font-size: calc(${ FA_SMALL_FONT_SIZE } - 2px);
-    font-weight: 600;
-    color: #676a6c;
-    &::before {
-      content: "\f1f9";
-      font-family: 'FontAwesome';
-      font-size: calc(${ FA_SMALL_FONT_SIZE } - 2px);
-      color: #676a6c;
-      margin-right: 3px;
-    }
-    &::after {
-      content: "${ new Date().getFullYear() }";
-      font-size: calc(${ FA_SMALL_FONT_SIZE } - 2px);
-      color: #676a6c;
-      margin-left: 3px;
     }
   }
 

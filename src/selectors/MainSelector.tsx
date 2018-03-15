@@ -48,3 +48,8 @@ export const isFirefoxInUseSelector = createSelector(
     ( state: RootState ) => state.main.isFirefoxInUse,
     ( isFirefoxInUse ) => isFirefoxInUse,
   );
+
+export const isMenuOpenedOnSmallScreenSelector = createSelector(
+    ( state: RootState ) => state.main.isMenuOpenedOnSmallScreen,
+    ( isMenuOpenedOnSmallScreen ) => isMenuOpenedOnSmallScreen,
+  );
