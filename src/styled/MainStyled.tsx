@@ -7,7 +7,7 @@ import {
   MMDivIsOpenedProps,
   MMLinkIsOpenedProps,
   MMButtonIsOpenedProps,
-  DActionAnchorClickedInterface,
+  // DActionAnchorClickedInterface,
 } from '@src/interfaces';
 
 const HeaderProfile = require('@src/images/HeaderProfile');
@@ -106,18 +106,18 @@ export const PageMenu = styled.div`
 export const PageWrapper = styled.div`
   display: inline-block;
   vertical-align: top;
-  width: calc(100% - ${ MENU_LAYOUT_BIG_WIDTH });
+  width: calc( 100% - ${ MENU_LAYOUT_BIG_WIDTH } );
   height: 100vh;
   @media screen 
-    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      width: calc(100% - ${ MENU_LAYOUT_MIDDLE_WIDTH });
+    and ( min-width: ${ MIDDLE_SCREEN_MIN } ) 
+    and ( max-width: ${ MIDDLE_SCREEN_MAX } ) {
+      width: calc( 100% - ${ MENU_LAYOUT_MIDDLE_WIDTH } );
     }
   @media screen
-    and (max-width: ${ SMALL_SCREEN_MAX }) {
+    and ( max-width: ${ SMALL_SCREEN_MAX } ) {
       width: ${ ( props: { isMenuOpenedOnSmallScreen: boolean } ) => (
           props.isMenuOpenedOnSmallScreen
-            ? `calc(100% - ${ MENU_LAYOUT_MIDDLE_WIDTH })`
+            ? `calc( 100% - ${ MENU_LAYOUT_MIDDLE_WIDTH } )`
             : '100%'
         )
       };
@@ -222,19 +222,19 @@ export const PageFooterCopyright = styled.div`
   position: absolute;
   top: 5px;
   right: 10px;
-  font-size: calc(${ FA_SMALL_FONT_SIZE } - 2px);
+  font-size: calc( ${ FA_SMALL_FONT_SIZE } - 2px );
   font-weight: 600;
   color: #676a6c;
   &::before {
     content: "\f1f9";
     font-family: 'FontAwesome';
-    font-size: calc(${ FA_SMALL_FONT_SIZE } - 2px);
+    font-size: calc( ${ FA_SMALL_FONT_SIZE } - 2px );
     color: #676a6c;
     margin-right: 3px;
   }
   &::after {
     content: "${ new Date().getFullYear() }";
-    font-size: calc(${ FA_SMALL_FONT_SIZE } - 2px);
+    font-size: calc( ${ FA_SMALL_FONT_SIZE } - 2px );
     color: #676a6c;
     margin-left: 3px;
   }
@@ -252,14 +252,14 @@ export const PageFooterCopyright = styled.div`
 export const PageSmallMenuAnchor = styled.a`
   display: none;
   @media screen
-    and (max-width: ${ SMALL_SCREEN_MAX }) {
+    and ( max-width: ${ SMALL_SCREEN_MAX } ) {
       display: block;
       cursor: pointer;
       position: absolute;
       top: 15px;
       left: ${ ( props: { isMenuOpenedOnSmallScreen: boolean } ) => (
           props.isMenuOpenedOnSmallScreen
-            ? `calc(${ MENU_LAYOUT_MIDDLE_WIDTH } + 15px)`
+            ? `calc( ${ MENU_LAYOUT_MIDDLE_WIDTH } + 15px )`
             : '15px'
         )
       };
@@ -279,6 +279,185 @@ export const PageSmallMenuAnchor = styled.a`
       }
     }
 `;
+
+/**
+ * Обертка для логотипа
+ *
+ * @return {React.Component}
+ */
+
+export const PageLogoWrapper = styled.div`
+  width: 100%;
+  height: ${ MENU_LOGO_HEIGHT };
+  background-image: url( ${ HeaderProfile } );
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 30px 25px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2;
+  @media screen 
+    and ( max-width: ${ MIDDLE_SCREEN_MAX } ) {
+      background-image: none;
+      height: 30px;
+      padding: 0;
+    }
+`;
+
+
+/**
+ * Логотип
+ *
+ * @return {React.Component}
+ */
+
+export const PageLogo = styled.div`
+  width: 100%;
+  min-height: 100%;
+  height: auto;
+  background-image: url( ${ Logo } );
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: 60%;
+  @media screen 
+    and ( max-width: ${ MIDDLE_SCREEN_MAX } ) {
+      background-image: none;
+      &::before {
+        content: "Monyze";
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        height: 70px;
+        line-height: 70px;
+        color: #fff;
+        text-align: center;
+      }
+    }
+`;
+
+
+/**
+ * Кнопка вызова пользовательского меню под логотипом
+ *
+ * @param {boolean} isClicked
+ * @return {React.Component}
+ */
+
+export const UserMenuAnchor = styled.a`
+  width: 100%;
+  height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+  line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+  position: relative;
+  top: 65px;
+  background-color: transparent;
+  text-align: left;  
+  font-size: 13px;
+  font-weight: 600;
+  color: #dfe4fe;
+  cursor: pointer;
+  &::selection {
+    background-color: transparent;
+  }
+  &::after {
+    width: ${ BIG_USER_FAKE_LINK_HEIGHT };
+    height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+    line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+    text-align: center;
+    content: "${ ( props: { isClicked: boolean } ) => (
+        props.isClicked ? "\f078" : "\f053"
+      )
+    }";
+    font-family: 'FontAwesome';
+    font-weight: normal;
+    font-size: calc( ${ FA_SMALL_FONT_SIZE } - 4px );
+    color: #dfe4fe;
+    margin-left: 10px;
+  }
+  &:focus {
+    outline: 0 solid transparent;
+  }  
+  @media screen 
+    and ( max-width: ${ MIDDLE_SCREEN_MAX } ) {
+      display: none;
+    }
+`;
+
+
+/**
+ * Список пунктов пользовательского меню под логотипом
+ *
+ * @param {boolean} isClicked
+ * @return {React.Component}
+ */
+
+export const UserMenuLayout = styled.ul`
+  display: ${ ( props: { isClicked: boolean } ) => (
+      props.isClicked ? 'block' : 'none'
+    )
+  };
+  width: 100%;
+  background-color: #fff;
+  border-radius: 3px;
+  padding: 3px 0;
+  position: relative;
+  top: 65px;
+  left: 0;
+  @media screen 
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      display: none;
+    }
+`;
+
+
+/**
+ * Элемент списка пользовательского меню под логотипом
+ *
+ * @return {React.Component}
+ */
+
+export const UserMenuItem = styled.li`
+  list-style-position: inside;
+  list-style-type: none;
+`;
+
+
+/**
+ * Содержимое элемента списка пользовательского меню
+ * под логотипом
+ *
+ * @return {React.Component}
+ */
+
+export const UserMenuLink = styled(NavLink)`
+  display: block;
+  text-decoration: none;
+  display: block;
+  height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+  line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+  font-size: 13px;
+  font-weight: normal;
+  color: #333;
+  white-space: nowrap;
+  padding: 3px 10px;
+  &::selection {
+    background-color: transparent;
+  }
+  &:hover {
+    background-color: #f5f5f5;
+    color: #262626;
+  }
+  @media screen
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      display: none;
+    }
+`;
+
+
+
+
+
+
 
 
 
@@ -326,97 +505,7 @@ export const MainMenuLogo = styled.div`
     }
 `;
 
-export const UserMenuAnchor = styled.a`
-  width: 100%;
-  position: relative;
-  top: 65px;
-  background-color: transparent;
-  height: ${ BIG_USER_FAKE_LINK_HEIGHT };
-  line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
-  text-align: left;  
-  &:focus {
-    outline: 0 solid transparent;
-  }  
-  @media screen 
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      display: none;
-    }
-`;
 
-export const UserMenuAnchorSpan = styled.span`
-  font-size: 13px;
-  font-weight: 600;
-  color: #dfe4fe;
-  cursor: pointer;
-  &::selection {
-    background-color: transparent;
-  }
-  &::after {
-    width: ${ BIG_USER_FAKE_LINK_HEIGHT };
-    height: ${ BIG_USER_FAKE_LINK_HEIGHT };
-    line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
-    text-align: center;
-    content: "${( props: DActionAnchorClickedInterface ) => (
-        props.isClicked ? "\f078" : "\f053"
-      )
-    }";
-    font-family: 'FontAwesome';
-    font-weight: normal;
-    font-size: calc(${ FA_SMALL_FONT_SIZE } - 4px);
-    color: #dfe4fe;
-    margin-left: 10px;
-  }
-`;
-
-export const UserMenuLayout = styled.ul`
-  display: ${( props: DActionAnchorClickedInterface ) => (
-      props.isClicked ? 'block' : 'none'
-    )
-  };
-  width: 100%;
-  background-color: #fff;
-  border-radius: 3px;
-  padding: 3px 0;
-  position: relative;
-  top: 65px;
-  left: 0;
-  @media screen 
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      display: none;
-    }
-`;
-
-export const UserMenuItem = styled.li`
-  list-style-position: inside;
-  list-style-type: none;
-`;
-
-export const UserMenuLink = styled(NavLink)`
-  display: block;
-  text-decoration: none;
-`;
-
-export const UserMenuLinkSpan = styled.span`
-  display: block;
-  height: ${ BIG_USER_FAKE_LINK_HEIGHT };
-  line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
-  font-size: 13px;
-  font-weight: normal;
-  color: #333;
-  white-space: nowrap;
-  padding: 3px 5px;
-  &::selection {
-    background-color: transparent;
-  }
-  &:hover {
-    background-color: #f5f5f5;
-    color: #262626;
-  }
-  @media screen
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      display: none;
-    }
-`;
 
 export const MainMenuLayout = styled.ul`
   width: 100%;
