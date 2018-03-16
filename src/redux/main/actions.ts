@@ -39,6 +39,8 @@ export const CHANGE_USER_AGENT =
   'CHANGE_USER_AGENT';
 export const SWITCH_MENU_ON_SMALL_SCREENS =
   'SWITCH_MENU_ON_SMALL_SCREENS';
+export const SWITCH_PAGE_MENU_ITEM_ACTIVE =
+  'SWITCH_PAGE_MENU_ITEM_ACTIVE';
 
 
 export type Actions = {
@@ -84,6 +86,9 @@ export type Actions = {
   },
   SWITCH_MENU_ON_SMALL_SCREENS: {
     type: typeof SWITCH_MENU_ON_SMALL_SCREENS,
+  },
+  SWITCH_PAGE_MENU_ITEM_ACTIVE: {
+    type: typeof SWITCH_PAGE_MENU_ITEM_ACTIVE,
   }
 };
 
@@ -143,6 +148,10 @@ export const syncActionCreators = {
   switchMenuOnSmallScreens: (): 
   Actions[typeof SWITCH_MENU_ON_SMALL_SCREENS] => ({
     type: SWITCH_MENU_ON_SMALL_SCREENS,
+  }),
+  switchPageMenuItemActive: ():
+  Actions[typeof SWITCH_PAGE_MENU_ITEM_ACTIVE] => ({
+    type: SWITCH_PAGE_MENU_ITEM_ACTIVE,
   }),
 };
 

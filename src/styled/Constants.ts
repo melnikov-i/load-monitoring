@@ -1,3 +1,16 @@
+import { keyframes } from 'styled-components';
+
+export const emergence = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
+
 export const MENU_LAYOUT_BIG_WIDTH: string = '220px';
 export const MENU_LAYOUT_MIDDLE_WIDTH: string = '60px';
 

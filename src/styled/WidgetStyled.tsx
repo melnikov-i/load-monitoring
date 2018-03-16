@@ -1,26 +1,18 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 import {
   getWidth,
   checkPosition
 } from '@src/libs';
 
+import {
+  emergence
+} from '@src/styled';
+
 interface MainWidgetWrapperInterface {
   width: string,
   margin: number,
 }
-
-// Основная анимация блока
-export const emergence = keyframes`
-  0% {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-`;
 
 
 /**

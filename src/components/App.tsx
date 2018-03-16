@@ -48,13 +48,13 @@ injectGlobal`
     background-color: #f3f3f4;
   }
   
-  .activeMainMenuItem {
-    background-color: #293846;
-    color: #fff;
-    &::before {
-      background-color: #19aa8d;
+    .activeMainMenuItem {
+      background-color: #293846;
+      color: #fff;
+      &::before {
+        background-color: #19aa8d;
+      }
     }
-  }
 
   .activeDevicesMenuItem {
     color: #19aa8d;

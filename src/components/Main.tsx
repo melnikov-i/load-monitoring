@@ -30,13 +30,18 @@ import {
   PageLogoWrapper,
   PageLogo,
   UserMenuAnchor,
-  // UserMenuAnchorSpan,
   UserMenuLayout,
   UserMenuItem,
   UserMenuLink,
+  PageMenuLayout,
+  PageMenuItem,
+  PageMenuItemLink,
+
+
+
+
+  // UserMenuAnchorSpan,
   // UserMenuLinkSpan,
-
-
   // MainLayout,
   // MainMenu,
   // MainMenuLogoWrapper,
@@ -83,26 +88,28 @@ interface MainProps {
   (payload: DroppedMenuButtonClickedType) => any,
 
   isMenuOpenedOnSmallScreen: boolean,
+  isPageMenuItemActive: boolean,
   switchMenuOnSmallScreens: () => any,
+  switchPageMenuItemActive: () => any,
 }
 
 export const Main: React.SFC<MainProps> = (props) => {
   const {
-    // MainMenuWasRequestedFromAPI,
-    // MainMenuItemsCollection,
-    // makeMainMenuRequestToAPI,
+    MainMenuWasRequestedFromAPI,
+    MainMenuItemsCollection,
+    makeMainMenuRequestToAPI,
     DevicesMenuWasRequestedFromAPI,
     DevicesMenuItemsCollection,
     makeDevicesMenuRequestToAPI,
   } = props;
 
-  // const getMainMenu = (): MainMenuLinksInterface[] => {
-  //   if ( !MainMenuWasRequestedFromAPI ) {
-  //     makeMainMenuRequestToAPI();
-  //   }
-  //   return MainMenuItemsCollection;
-  // };
-  // const mainMenu = getMainMenu();
+  const getMainMenu = (): MainMenuLinksInterface[] => {
+    if ( !MainMenuWasRequestedFromAPI ) {
+      makeMainMenuRequestToAPI();
+    }
+    return MainMenuItemsCollection;
+  };
+  const mainMenu = getMainMenu();
 
   const getDevicesMenu = (): MainMenuLinksInterface[] => {
     if ( !DevicesMenuWasRequestedFromAPI ) {
@@ -113,23 +120,57 @@ export const Main: React.SFC<MainProps> = (props) => {
   const devicesMenu = getDevicesMenu();
 
   /* Покажет компонент после загрузки меню устройств (грузится последним) */
-  if ( devicesMenu.length !== 0 ) {
-  
+  if ( devicesMenu.length !== 0 ) { 
 
-    const switchKey: boolean = true;
+    const switchKey: boolean = true; // временно
+    if ( switchKey ) { // временное условие
 
-    if ( switchKey ) {
       const {
         UserMenuItemsCollection,
         DroppedMenuButtonClickedId,
-
         isMenuOpenedOnSmallScreen,
+        isPageMenuItemActive,
+
         changeDroppedMenuClickedId,
         sendLogOutToAPI,
-        switchMenuOnSmallScreens
+        switchMenuOnSmallScreens,
+        switchPageMenuItemActive
       } = props;
 
+
+      /* Вспомогательные функции */
+
+      /**
+       * Проверка, содержит ли пункт меню вложенное подменю.
+       * 
+       * Содержит в себе коллекцию элементов основного меню, 
+       * у которых есть вложенные подменю.
+       *
+       * @param {string} to
+       * @return {boolean}
+       */
+
+      const isMultiplePageMenuItem = (to: string): boolean => {
+        const items: string[] = [
+          'devices',          
+        ];
+        let key: boolean = false;
+        items.forEach((e) => {
+          if ( e === to ) {
+            key = true;
+          }
+        });
+        return key;
+      };
+
       /* Обработчики событий */
+
+      /**
+       * Отправляет в бекэнд команду на завершение сессии
+       *
+       * @return {undefined}
+       */
+
       const pageHeaderExitLinkHandler = () => {
         const payload: LogOunInterface = {
           step: 'exit',
@@ -137,9 +178,30 @@ export const Main: React.SFC<MainProps> = (props) => {
         sendLogOutToAPI(payload);
       };
 
+      /**
+       * Отправляет в Store команду на смену значения ключа,
+       * который используется для формирования ширины элементов
+       * страницы с помощью isMenuOpenedOnSmallScreen.
+       *
+       * @return {undefined}
+       */
+
       const smallScreenMenuOpenedHandler = 
       (e: React.MouseEvent<HTMLAnchorElement>) => {
         switchMenuOnSmallScreens();
+      };
+
+      /**
+       * Отправляет в Store команду на смену значения ключа,
+       * который используется для выбора стиля отображения 
+       * пункта меню: активное поле и неактивное поле (по умолчанию).
+       *
+       * @return {undefined}
+       */
+
+      const pageMenuItemActiveHandler =
+      ( e: React.MouseEvent<HTMLLIElement> ) => {
+        switchPageMenuItemActive();
       }
 
 
@@ -152,7 +214,6 @@ export const Main: React.SFC<MainProps> = (props) => {
               onClick={smallScreenMenuOpenedHandler}
               isMenuOpenedOnSmallScreen={isMenuOpenedOnSmallScreen}
             />
-
             <PageLogoWrapper>
               <PageLogo>
                 <UserMenuAnchor 
@@ -176,8 +237,8 @@ export const Main: React.SFC<MainProps> = (props) => {
                       <UserMenuLink
                         to={'/' + e.to}
                         title={e.value}
-                        onClick={
-                          (e.to === 'exit') ? pageHeaderExitLinkHandler : null
+                        onClick={(e.to === 'exit')
+                          ? pageHeaderExitLinkHandler : null
                         }
                       >
                         { e.value }
@@ -187,6 +248,35 @@ export const Main: React.SFC<MainProps> = (props) => {
                 </UserMenuLayout>
               </PageLogo>
             </PageLogoWrapper>
+            
+
+            <PageMenuLayout>
+              {mainMenu.map((e, i) => {
+                if ( isMultiplePageMenuItem(e.to) ) {
+                  console.log(e.to, '- с вложенным меню');
+                  return (
+                    <div key={i}></div>
+                  );
+                } else {
+                  console.log(e.to, '- без вложенного меню');
+                  return (
+                    <PageMenuItem
+                      key={i}
+                      onClick={pageMenuItemActiveHandler}
+                      isPageMenuItemActive={isPageMenuItemActive}
+                    >
+                      <PageMenuItemLink
+                        to={'/' + e.to}
+                        title={e.value}
+                      >
+                        {e.value}
+                      </PageMenuItemLink>
+                    </PageMenuItem>
+                  );
+                }
+              })}
+            </PageMenuLayout>
+
 
           </PageMenu>
           <PageWrapper isMenuOpenedOnSmallScreen={isMenuOpenedOnSmallScreen}>
@@ -231,12 +321,12 @@ export const Main: React.SFC<MainProps> = (props) => {
                 />
               </Switch>
             </PageContent>
-            <PageFooter>
-              <PageFooterCopyright>
-                {'Monyze'}
-              </PageFooterCopyright>
-            </PageFooter>
           </PageWrapper>
+          <PageFooter>
+            <PageFooterCopyright>
+              {'Monyze'}
+            </PageFooterCopyright>
+          </PageFooter>
         </PageLayout>
       );
     } else {

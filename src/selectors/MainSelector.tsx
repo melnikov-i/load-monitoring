@@ -53,3 +53,8 @@ export const isMenuOpenedOnSmallScreenSelector = createSelector(
     ( state: RootState ) => state.main.isMenuOpenedOnSmallScreen,
     ( isMenuOpenedOnSmallScreen ) => isMenuOpenedOnSmallScreen,
   );
+
+export const isPageMenuItemActiveSelector = createSelector(
+    ( state: RootState ) => state.main.isPageMenuItemActive,
+    ( isPageMenuItemActive ) => isPageMenuItemActive,
+  );

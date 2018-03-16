@@ -1,15 +1,8 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
-const emergence = keyframes`
-  0% {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-`;
+import {
+  emergence
+} from '@src/styled';
 
 import {
   LoginFormStateIndexType
