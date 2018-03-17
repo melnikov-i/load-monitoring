@@ -47,6 +47,12 @@ injectGlobal`
     height: auto;
     background-color: #f3f3f4;
   }
+
+    .pageMenuItemLink {
+      border-left: 4px solid #19aa8d;
+      background-color: #293846;
+      color: #fff;
+    }
   
     .activeMainMenuItem {
       background-color: #293846;

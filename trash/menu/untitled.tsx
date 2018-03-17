@@ -1,3 +1,37 @@
+              // if ( isMultiplePageMenuItem(e.to) ) {
+              //   console.log(e.to, '- с вложенным меню');
+              //   return (
+              //     <PageMenuItem
+              //       key={i}
+              //       data-page-menu-id={'3' + i}
+              //       onClick={PageMenuItemActiveLabelHandler}
+              //       PageMenuItemActiveLabel={
+              //         PageMenuItemActiveLabel === '3' + i
+              //       }
+              //     >
+              //       <PageMenuItemLink
+              //         icon={e.icon}
+              //         PageMenuItemActiveLabel={
+              //           PageMenuItemActiveLabel === '3' + i
+              //         }
+              //         to={'/' + e.to}
+              //         title={e.value}
+              //       >
+              //         {e.value}
+              //       </PageMenuItemLink>
+
+
+
+              //     </PageMenuItem>
+              //   );
+              // } else {
+              //   console.log(e.to, '- без вложенного меню');
+              // }
+
+
+
+
+
 //   <MainLayout>
 //     <MainMenu
 //       onSmallScreen={isMainMenuOpened.onSmallScreen}
@@ -53,15 +87,15 @@
       //     if ( e.to !== 'devices' ) {
       //       return (
       //         <MainMenuItem key={i}>
-                <MainMenuLink
-                  to={'/' + e.to}
-                  activeClassName={'activeMainMenuItem'}
-                  title={e.value}
-                >
-                  <MainMenuLinkSpan icon={ e.icon }>
-                    { e.value }
-                  </MainMenuLinkSpan>
-          //       </MainMenuLink>
+          //       <MainMenuLink
+          //         to={'/' + e.to}
+          //         activeClassName={'activeMainMenuItem'}
+          //         title={e.value}
+          //       >
+          //         <MainMenuLinkSpan icon={ e.icon }>
+          //           { e.value }
+          //         </MainMenuLinkSpan>
+          // //       </MainMenuLink>
           //     </MainMenuItem>
           //   );
           // } else {
@@ -86,6 +120,9 @@
                     </MainMenuLinkSpan>
                   </MainMenuFakeLink>
                 </div>
+
+
+                
                 <DevicesMenuLayout
                   onBigScreen={
                     isDevicesMenuOpened.onBigScreen

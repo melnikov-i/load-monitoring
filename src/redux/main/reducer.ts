@@ -21,7 +21,7 @@ import {
   CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID,
   CHANGE_USER_AGENT,
   SWITCH_MENU_ON_SMALL_SCREENS,
-  SWITCH_PAGE_MENU_ITEM_ACTIVE
+  SWITCH_PAGE_MENU_ITEM_ACTIVE_LABEL
 } from '@src/redux/main';
 
 import {
@@ -39,7 +39,7 @@ export type State = {
   readonly DroppedMenuButtonClickedId: DroppedMenuButtonClickedType,
   readonly isFirefoxInUse: boolean,
   readonly isMenuOpenedOnSmallScreen: boolean,
-  readonly isPageMenuItemActive: boolean,
+  readonly PageMenuItemActiveLabel: string,
 };
 
 const isMainMenuOpenedInitialState: IsOpenedInterface = {
@@ -218,11 +218,14 @@ export const reducer = combineReducers({
         return state;
     }
   },
-
-  isPageMenuItemActive: ( state = false, action ) => {
+  
+  /* Значение атрибута нажатого элемента основного меню */
+  PageMenuItemActiveLabel: ( state = '', action ) => {
     switch ( action.type ) {
-      case SWITCH_PAGE_MENU_ITEM_ACTIVE:
-        return !state;
+      case SWITCH_PAGE_MENU_ITEM_ACTIVE_LABEL:
+        return action.payload;
+      case USER_WAS_LOGOUT:
+        return '';
       default:
         return state;
     }

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 import {
-  MMSpanIconProps,
+  // MMSpanIconProps,
   MMUListIsOpenedProps,
   MMDivIsOpenedProps,
   MMLinkIsOpenedProps,
@@ -495,21 +495,30 @@ export const PageMenuItem = styled.li`
   list-style-position: inside;
   list-style-type: none;
   display: block;
-  transition: ${ ( props: { isPageMenuItemActive } ) => (
-      props.isPageMenuItemActive
+  transition: ${ ( props: { pageMenuItemActiveLabel: boolean } ) => (
+      props.pageMenuItemActiveLabel
         ? 'all 0.4s' : 'all 0s'
     )
   };
-  border-left: ${ ( props: { isPageMenuItemActive } ) => (
-      props.isPageMenuItemActive
+  border-left: ${ ( props: { pageMenuItemActiveLabel: boolean } ) => (
+      props.pageMenuItemActiveLabel
         ? '4px solid #19aa8d' : 'none'
     )
   };
-  background-color: ${ ( props: { isPageMenuItemActive } ) => (
-      props.isPageMenuItemActive
+  background-color: ${ ( props: { pageMenuItemActiveLabel: boolean } ) => (
+      props.pageMenuItemActiveLabel
         ? '#293846' : 'transparent'
     )
   };
+  color: ${ ( props: { pageMenuItemActiveLabel: boolean } ) => (
+      props.pageMenuItemActiveLabel
+        ? '#fff' : '#a7b1c2'
+    )
+  };
+  &:hover {
+    color: #fff;
+    background-color: #293846;
+  }
 `;
   // @media screen
   //   and (max-width: ${ MIDDLE_SCREEN_MAX }) {
@@ -520,24 +529,34 @@ export const PageMenuItem = styled.li`
 /**
  * Вложенная ссылка элемента основного меню страницы
  *
+ * @param {boolean} pageMenuItemActiveLabel
+ * @param {string | null} icon
  * @return {React.Component}
  */
 
 export const PageMenuItemLink = styled(NavLink)`
   display: block;
   text-decoration: none;
-  color: #a7b1c2;
   font-size: 13px;
   font-weight: 600;
   padding: 14px 20px 14px 25px;
   background-color: transparent;
+  color: #a7b1c2;
   &::selection {
     background-color: transparent;
   }
-  &:hover {
-    color: #fff;
+  &::before {
+    content: "\\${ ( props: { icon: string | null } ) => (
+        props.icon !== null ? props.icon : 'f05e'
+      )
+    }";
+    font-family: 'FontAwesome';
+    font-weight: normal;
+    font-size: ${ FA_SMALL_FONT_SIZE };
+    margin-right: 6px;
   }
 `;
+    // margin-left: 14px;
   // &::before {
   //   content: "";
   //   display: inline-block;
@@ -553,17 +572,6 @@ export const PageMenuItemLink = styled(NavLink)`
         line-height: ${ BIG_MAIN_LINK_HEIGHT };
         display: inline-block;
         vertical-align: top;
-        &::before {
-          content: "\\${ (props: MMSpanIconProps) => (
-              ( props.icon !== null ) ? props.icon : 'f05e'
-            )
-          }";
-          font-family: 'FontAwesome';
-          font-weight: normal;
-          font-size: ${ FA_SMALL_FONT_SIZE };
-          margin-left: 14px;
-          margin-right: 6px;
-        }
         @media screen
           and (max-width: ${ MIDDLE_SCREEN_MAX }) {
             font-size: 0;
