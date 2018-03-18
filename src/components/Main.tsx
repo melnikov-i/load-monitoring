@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {
   Route,
-  Switch
+  Switch,
+  Redirect
 } from 'react-router-dom';
 
 import {
@@ -104,6 +105,7 @@ export const Main: React.SFC<MainProps> = (props) => {
   } = props;
 
   const getMainMenu = (): MainMenuLinksInterface[] => {
+    console.log('getMainMenu');
     if ( !MainMenuWasRequestedFromAPI ) {
       makeMainMenuRequestToAPI();
     }
@@ -112,6 +114,7 @@ export const Main: React.SFC<MainProps> = (props) => {
   const mainMenu = getMainMenu();
 
   const getDevicesMenu = (): MainMenuLinksInterface[] => {
+    console.log('getDevicesMenu');
     if ( !DevicesMenuWasRequestedFromAPI ) {
       makeDevicesMenuRequestToAPI();
     }
@@ -125,7 +128,7 @@ export const Main: React.SFC<MainProps> = (props) => {
    * (грузится последним) 
    */
   
-  if ( devicesMenu.length !== 0 ) { 
+  if ( devicesMenu.length !== 0 ) {
     const {
       UserMenuItemsCollection,
       DroppedMenuButtonClickedId,
@@ -194,19 +197,11 @@ export const Main: React.SFC<MainProps> = (props) => {
       switchMenuOnSmallScreens();
     };
 
-
-    /**
-     * Отправляет в Store значение нажатого пункта меню.
-     *
-     * @return {undefined}
-     */
-
-    const PageMenuItemActiveLabelHandler =
-    ( e: React.MouseEvent<HTMLLIElement> ) => {
-      const current: string = 
-        String(e.currentTarget.getAttribute('data-page-menu-id'));
-      switchPageMenuItemActiveLabel(current);
-    };
+    // const isMenuItemActiveHandler = ( payload: string ) => {
+    //   if ( PageMenuItemActiveLabel !== payload ) {
+    //     switchPageMenuItemActiveLabel(payload);
+    //   }
+    // }
 
 
     return (
@@ -255,36 +250,41 @@ export const Main: React.SFC<MainProps> = (props) => {
           
 
           <PageMenuLayout>
-            {mainMenu.map((e, i) => {
-              return (
-                <PageMenuItem
-                  key={i}
-                  data-page-menu-id={'3' + i}
-                  onClick={PageMenuItemActiveLabelHandler}
-                  pageMenuItemActiveLabel={
-                    PageMenuItemActiveLabel === '3' + i
-                  }
-                >
-                  <PageMenuItemLink
-                    icon={e.icon}
-                    to={'/' + e.to}
-                    isActive={( match, location ) => {
-                      if ( !match ) {
-                        return false;
-                      }
-
-                      if ( PageMenuItemActiveLabel === '' ) {
-                        switchPageMenuItemActiveLabel('3' + i);                        
-                      }
-                      return true;
-                    }}
-                    title={e.value}
+            {
+              mainMenu.map((e, i) => {
+                return (
+                  <PageMenuItem
+                    key={i}
+                    pageMenuItemActiveLabel={
+                      PageMenuItemActiveLabel === e.to
+                    }
                   >
-                    {e.value}
-                  </PageMenuItemLink>
-                </PageMenuItem>
-              );
-            })}
+                    <PageMenuItemLink
+                      icon={e.icon}
+                      to={'/' + e.to}
+                      isActive={( match, location ) => {
+                        /* Пункт меню активен */
+                        console.log('match:', match);
+                        console.log('location:', location);
+                        // if ( match !== null ) {
+                        //   console.log(
+                        //     'PageMenuItemActiveLabel:',
+                        //     PageMenuItemActiveLabel
+                        //   )
+                        //   if ( PageMenuItemActiveLabel !== '3' + i ) {
+                        //     switchPageMenuItemActiveLabel('3' + i);
+                        //   }
+                        // }
+                      }}
+                      title={e.value}
+                    >
+                      {e.value}
+                    </PageMenuItemLink>
+                  </PageMenuItem>
+                );
+
+              })
+            }
           </PageMenuLayout>
 
 
@@ -304,7 +304,13 @@ export const Main: React.SFC<MainProps> = (props) => {
             <Switch>
               <Route
                 exact path="/overview"
-                component={OverviewConnected} 
+                render={() => {
+                  console.log('render');
+                  switchPageMenuItemActiveLabel('overview');
+                  return (
+                    <OverviewConnected />
+                  );
+                }} 
               />
               <Route
                 exact path={'/devices'}
@@ -325,9 +331,16 @@ export const Main: React.SFC<MainProps> = (props) => {
                   />
                 );
               })}
-              <Route 
-                exact path={'/'}
-                component={OverviewConnected} 
+              <Route exact path={'/'} render={() => (
+                  
+                  /**
+                   * При обращении к корню сайта, запрос 
+                   * перенаправляется на /overview 
+                   */
+                  
+                  <Redirect to={'/overview'} />
+                )
+              }
               />
             </Switch>
           </PageContent>

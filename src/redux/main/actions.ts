@@ -160,9 +160,7 @@ export const syncActionCreators = {
 export const asyncActionCreators = {
   makeMainMenuRequestToAPI: () => {
     return ( dispatch: Dispatch ) => {
-      dispatch(
-        syncActionCreators.mainMenuWasRequestedFromAPI()
-      );
+
       sendRequestToAPI.post('/menu_data.php').then(
         ( response ) => {
           if ( response.data.menu !== null ) {
@@ -191,14 +189,19 @@ export const asyncActionCreators = {
       .then(
         () => {
           if ( window.navigator.userAgent.indexOf('Firefox') !== -1 ) {
-            console.log(
-              'asyncActionCreator',
-              window.navigator.userAgent.indexOf('Firefox')
-              );
             dispatch(
               syncActionCreators.changeUserAgent()
             )
           }
+          const responce: boolean = true;
+          return responce;
+        }
+      )
+      .then(
+        ( responce ) => {
+          dispatch(
+            syncActionCreators.mainMenuWasRequestedFromAPI()
+          );
         }
       )
       .catch(
@@ -210,9 +213,6 @@ export const asyncActionCreators = {
   },
   makeDevicesMenuRequestToAPI: () => {
     return ( dispatch: Dispatch ) => {
-      dispatch(
-        syncActionCreators.devicesMenuWasRequestedFromAPI()
-      );
       sendRequestToAPI.post('/menu_devices.php').then(
         ( response ) => {
           if ( response.data.devices_list !== null ) {
@@ -226,6 +226,17 @@ export const asyncActionCreators = {
           } else {
             dispatch(
               loginActionCreators.userWasLogOut()
+            );
+          }
+          const responce: boolean = true;
+          return responce;
+        }
+      )
+      .then (
+        ( responce ) => {
+          if ( responce ) {
+            dispatch(
+              syncActionCreators.devicesMenuWasRequestedFromAPI()
             );
           }
         }
