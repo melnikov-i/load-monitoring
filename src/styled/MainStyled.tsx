@@ -3,10 +3,10 @@ import { NavLink } from 'react-router-dom';
 
 import {
   // MMSpanIconProps,
-  MMUListIsOpenedProps,
-  MMDivIsOpenedProps,
-  MMLinkIsOpenedProps,
-  MMButtonIsOpenedProps,
+  // MMUListIsOpenedProps,
+  // MMDivIsOpenedProps,
+  // MMLinkIsOpenedProps,
+  // MMButtonIsOpenedProps,
   // DActionAnchorClickedInterface,
 } from '@src/interfaces';
 
@@ -577,11 +577,6 @@ export const PageMenuItemLink = styled(NavLink)`
  * @return {React.Component}
  */
 
-interface PageMenuItemAnchorProps {
-  isActive: boolean,
-  icon: string | null,
-}
-
 export const PageMenuItemAnchor = styled.a`
   display: block;
   text-decoration: none;
@@ -619,23 +614,30 @@ export const PageMenuItemAnchor = styled.a`
  * @return {React.Component}
  */
 
+interface PageSubMenuLayoutProps {
+  isActive: boolean,
+  subMenuHeight: string
+}
+
 export const PageSubMenuLayout = styled.ul`
   display: block;
-  height: 0;
-  visibility: hidden;
-  overflow: hidden;
-  transition-duration: ${ ( props: { isActive: boolean } ) => (
+  transition: height .35s;
+  height: ${ ( props: PageSubMenuLayoutProps ) => (
       props.isActive
-        ? '.35s' : '0s'
+        ? props.subMenuHeight + 'px' : '0'
     )
   };
-  transition-timing-function: ease;
-  transition-property: ${ ( props: { isActive: boolean } ) => (
-      props.isActive
-      ? 'height, visibility' : 'all'
-    )
-  }
+  overflow: hidden;
 `;
+
+
+/**
+ * Элемент подменю
+ *
+ * @param {boolean} isActive
+ * @return {React.Component}
+ */
+
 
 export const PageSubMenuItem = styled.li`
   list-style-position: inside;
@@ -655,6 +657,13 @@ export const PageSubMenuItem = styled.li`
 `;
 
 
+/**
+ * Вложенная ссылка элемента подменю
+ *
+ * @param {string | null} icon
+ * @return {React.Component}
+ */
+
 export const PageSubMenuAnchor = styled(NavLink)`
   display: block;
   text-decoration: none;
@@ -664,6 +673,8 @@ export const PageSubMenuAnchor = styled(NavLink)`
   padding: 7px 10px 7px 52px;
   background-color: #293846;
   color: inherit;
+  height: 32px;
+  box-sizing: border-box;
   &:hover {
     color: #fff;
   }
@@ -671,7 +682,7 @@ export const PageSubMenuAnchor = styled(NavLink)`
     background-color: transparent;
   }
   &::before {
-    content: "\\${ ( props: PageMenuItemAnchorProps ) => (
+    content: "\\${ ( props: { icon: string | null } ) => (
         props.icon !== null ? props.icon : 'f05e'
       )
     }";
@@ -681,386 +692,3 @@ export const PageSubMenuAnchor = styled(NavLink)`
     margin-right: 6px;
   }
 `;
-
-
-
-
-
-
-      export const DevicesMenuLayout = styled.ul`
-        display: ${( props: MMUListIsOpenedProps ) =>
-            props.onBigScreen ? 'block' : 'none'
-        };
-        overflow: hidden;
-        margin-right: 5px;
-        @media screen 
-          and (min-width: ${ MIDDLE_SCREEN_MIN })
-          and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-            display: ${( props: MMUListIsOpenedProps ) =>
-                props.onMiddleScreen ? 'block' : 'none'
-            };
-            background-color: #2f4050;
-            position: absolute;
-            left: ${ MENU_LAYOUT_MIDDLE_WIDTH };
-            top: 0;
-            min-width: 300%;
-            padding-right: 5px;
-          }
-        @media screen
-          and (max-width: ${ SMALL_SCREEN_MAX }) {
-            display: ${( props: MMUListIsOpenedProps ) => 
-                props.onSmallScreen ? 'block' : 'none'
-            };
-            background-color: #2f4050;
-            position: absolute;
-            left: ${ MENU_LAYOUT_MIDDLE_WIDTH };
-            top: 0;
-            min-width: 300%;
-            padding-right: 5px;
-          }
-      `;
-
-
-
-
-
-
-
-
-export const MainMenuFakeLink = styled.a`
-  display: block;
-  position: relative;
-  cursor: pointer;
-  &:hover {
-    color: #fff;
-  }
-  &::selection {
-    background: transparent;
-  }
-  color: ${( props: MMLinkIsOpenedProps ) => (
-      props.onBigScreen ? '#fff' : '#a7b1c2'
-    )
-  };
-  background-color: ${
-    ( props: MMLinkIsOpenedProps ) =>
-      props.onBigScreen ? '#293846' : 'transparent'
-  };
-  &::before {
-    content: "";
-    display: inline-block;
-    vertical-align: top;
-    width: 5px;
-    height: ${ BIG_MAIN_LINK_HEIGHT };
-    background-color: ${( props: MMLinkIsOpenedProps ) =>
-        props.onBigScreen ? '#19aa8d' : 'transparent'
-    };
-  }
-  &::after {
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    content: "${( props: MMLinkIsOpenedProps ) => (
-        props.onBigScreen ? "\f078" : "\f053"
-      )
-    }";
-    font-family: 'FontAwesome';
-    font-weight: normal;
-    font-size: ${ FA_SMALL_FONT_SIZE };
-    position: absolute;
-    top: 8px;
-    right: 10px;
-  }
-  @media screen 
-    and (min-width: ${ MIDDLE_SCREEN_MIN })
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      color: ${( props: MMLinkIsOpenedProps ) => (
-          props.onMiddleScreen ? '#fff' : '#a7b1c2'
-        )
-      };
-      background-color: ${( props: MMLinkIsOpenedProps ) =>
-          props.onMiddleScreen ? '#293846' : 'transparent'
-      };
-      &::before {
-        background-color: ${( props: MMLinkIsOpenedProps ) =>
-            props.onMiddleScreen ? '#19aa8d' : 'transparent'
-        };
-      }
-      &::after {
-        display: none;          
-      }
-    }
-  @media screen 
-    and (max-width: ${ SMALL_SCREEN_MAX }) {
-      color: ${( props: MMLinkIsOpenedProps ) => (
-          props.onSmallScreen ? '#fff' : '#a7b1c2'
-        )
-      };
-      background-color: ${( props: MMLinkIsOpenedProps ) =>
-          props.onSmallScreen ? '#293846' : 'transparent'
-      };
-      &::before {
-        background-color: ${( props: MMLinkIsOpenedProps ) =>
-            props.onSmallScreen ? '#19aa8d' : 'transparent'
-        };
-      }
-      &::after {
-        display: none;          
-      }
-    }
-`;
-
-
-
-
-
-export const DevicesMenuLink = styled(NavLink)`
-  display: block;
-  text-decoration: none;
-  color: #a7b1c2;
-  position: relative;
-  &:hover {
-    color: #19aa8d;
-  }
-  @media screen
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      &:hover {
-        color: #fff;
-        background-color: #293846;
-      }      
-    }
-`;
-
-
-
-      export const MainMenuLinkSpan = styled.span`
-        width: calc(100% - 5px);
-        height: ${ BIG_MAIN_LINK_HEIGHT };
-        line-height: ${ BIG_MAIN_LINK_HEIGHT };
-        display: inline-block;
-        vertical-align: top;
-      `;
-
-
-
-export const DevicesMenuLinkSpan = MainMenuLinkSpan.extend`
-  white-space: nowrap;
-  &::before {
-    margin-left: 40px;
-  }
-  @media screen
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      width: 100%;
-      font-size: 13px;
-      &::before {
-        margin-left: 20px;
-        margin-right: 10px;
-        display: inline-block;
-        vertical-align: top;
-      }
-    }
-`;
-
-
-
-///////////////////////////////////
-
-
-
-export const MainLayout = styled.div`
-  width: 100%;
-  min-height: 100%;
-  height: auto;
-`;
-
-export const MainMenu = styled.div`
-  width: ${ MENU_LAYOUT_BIG_WIDTH };
-  display: inline-block;
-  vertical-align: top;
-  
-  &::before {
-    content: "";
-    display: block;
-    width: ${ MENU_LAYOUT_BIG_WIDTH };
-    min-height: 100%;
-    height: auto;
-    background-color: #2f4050;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1;
-  }
-  @media screen 
-    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      width: ${ MENU_LAYOUT_MIDDLE_WIDTH };
-      &::before {
-        width: ${ MENU_LAYOUT_MIDDLE_WIDTH };
-      }
-    }
-  @media screen
-    and (max-width: ${ SMALL_SCREEN_MAX }) {
-      width: ${ MENU_LAYOUT_MIDDLE_WIDTH };
-      margin-left: ${( props: MMDivIsOpenedProps ) => (
-          props.onSmallScreen 
-            ? '0' : `-${ MENU_LAYOUT_MIDDLE_WIDTH }`
-        )
-      };
-      &::before {
-        width: ${ MENU_LAYOUT_MIDDLE_WIDTH };
-        margin-left: ${( props: MMDivIsOpenedProps ) => (
-            props.onSmallScreen 
-              ? '0' : `-${ MENU_LAYOUT_MIDDLE_WIDTH }`
-          )
-        };
-      }
-    }
-`;
-
-export const MainPage = styled.div`
-  display: inline-block;
-  vertical-align: top;
-  width: calc(100% - ${ MENU_LAYOUT_BIG_WIDTH });
-  @media screen 
-    and (min-width: ${ MIDDLE_SCREEN_MIN }) 
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      width: calc(100% - ${ MENU_LAYOUT_MIDDLE_WIDTH });
-    }
-  @media screen
-    and (max-width: ${ SMALL_SCREEN_MAX }) {
-      width: ${( props: MMDivIsOpenedProps ) => (
-          props.onSmallScreen
-            ? `calc(100% - ${ MENU_LAYOUT_MIDDLE_WIDTH })`
-            : '100%'
-        )
-      };
-    }
-`;
-
-
-
-
-export const MainTop = styled.div`
-  width: 100%;
-  height: ${ TOP_HEIGHT };
-  background-color: #f3f3f4;
-  border-bottom: 1px solid #e7eaec;
-  box-sizing: border-box;
-  position: relative;
-`;
-
-
-
-
-
-export const MainTopExitWrapper = styled.div`
-  width: ${ TOP_HEIGHT };
-  height: ${ TOP_HEIGHT };
-  line-height: ${ TOP_HEIGHT };
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 20px;
-`;
-
-
-
-
-
-
-export const MainTopExitLink = styled(NavLink)`
-  color: #999c9e;
-  font-size: 14px;
-  font-weight: 600;
-  text-decoration: none;
-  &:hover {
-    color: #23527c;
-  }
-  &::before {
-    content: "\f08b";
-    font-family: 'FontAwesome';
-    font-weight: normal;
-    font-size: ${ FA_SMALL_FONT_SIZE };
-    margin-right: 8px;
-  }
-`;
-
-
-
-
-
-export const MainContent = styled.div`
-  overflow-x: hidden;
-`;
-
-export const SmallMenuButton = styled.button`
-  display: none;
-  @media screen
-    and (max-width: ${ SMALL_SCREEN_MAX }) {
-      display: block;
-      position: absolute;
-      top: 15px;
-      left: ${( props: MMButtonIsOpenedProps ) => (
-          props.onSmallScreen
-            ? `calc(${ MENU_LAYOUT_MIDDLE_WIDTH } + 15px)`
-            : '15px'
-        )
-      };
-      z-index: 1;
-      width: 40px;
-      height: 40px;
-      line-height: 40px;
-      background-color: #19aa8d;
-      border-radius: 4px;
-      &::before {
-        content: "\f0c9";
-        font-family: 'FontAwesome';
-        font-weight: normal;
-        font-size: ${ FA_BIG_FONT_SIZE };
-        color: #fff;
-      }
-    }
-`;
-
-  export const MainMenuLogoWrapper = styled.div`
-    width: 100%;
-    height: ${ MENU_LOGO_HEIGHT };
-    background-image: url( ${ HeaderProfile } );
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding: 30px 25px;
-    box-sizing: border-box;
-    position: relative;
-    z-index: 2;
-    @media screen 
-      and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-        background-image: none;
-        height: 30px;
-        padding: 0;
-      }
-  `;
-
-  export const MainMenuLogo = styled.div`
-    width: 100%;
-    min-height: 100%;
-    height: auto;
-    background-image: url( ${ Logo } );
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-size: 60%;
-    @media screen 
-      and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-        background-image: none;
-        &::before {
-          content: "Monyze";
-          display: block;
-          font-size: 14px;
-          font-weight: 600;
-          height: 70px;
-          line-height: 70px;
-          color: #fff;
-          text-align: center;
-        }
-      }
-  `;

@@ -7,14 +7,14 @@ import {
 
 import {
   MainMenuLinksInterface,
-  IsOpenedInterface,
+  // IsOpenedInterface,
   UserMenuInterface,
   DashboardInterface,
   LogOunInterface,
   DroppedMenuButtonClickedType,
 } from '@src/interfaces';
 
-// import { Spinner } from '@src/components';
+import { Spinner } from '@src/components';
 import { DroppedMenu } from '@src/libs';
 
 import {
@@ -41,30 +41,6 @@ import {
   PageSubMenuLayout,
   PageSubMenuItem,
   PageSubMenuAnchor,
-
-
-
-
-  // UserMenuAnchorSpan,
-  // UserMenuLinkSpan,
-  // MainLayout,
-  // MainMenu,
-  // MainMenuLogoWrapper,
-  // MainMenuLogo,
-  // MainMenuLayout,
-  // MainMenuItem,
-  // MainMenuLink,
-  // MainMenuFakeLink,
-  // MainMenuLinkSpan,
-  // DevicesMenuLayout,
-  // DevicesMenuLink,
-  // DevicesMenuLinkSpan,
-  // MainPage,
-  // MainTop,
-  // MainContent,
-  // SmallMenuButton,
-  // MainTopExitWrapper,
-  // MainTopExitLink,
 } from '@src/styled';
 
 /* Компоненты для подгрузки с помощью роутера */
@@ -100,19 +76,12 @@ interface MainProps {
   sendLogOutToAPI: (payload: LogOunInterface) => any,
   /* Идентификатор активного составного пункта основного меню */
   PageMenuItemActive: string,
+  /* Ключ состояния составного пункта основного меню */
+  PageMenuItemMultiActive: string,
   /* Метод в actions, изменяющий идентифкатор PageMenuItemActive */
   switchPageMenuItemActive: ( payload: string ) => any,
-
-
-  
-  isDevicesMenuOpened: IsOpenedInterface,
-  isMainMenuOpened: IsOpenedInterface,
-  doMainMenuOnSmallScreenSwitch: () => any,
-  doDevicesMenuOnBigScreenSwitch: () => any,
-  doDevicesMenuOnMiddleScreenSwitch: () => any,
-  doDevicesMenuOnSmallScreenSwitch: () => any,
-  doBothMenuOnSmallScreenOff: () => any,
-
+  /* Метод в action, изменяющий состояние ключа PageMenuItemMultiActive */
+  switchPageMenuItemMultiActive: ( payload: string ) => any,
 }
 
 export const Main: React.SFC<MainProps> = (props) => {
@@ -177,11 +146,13 @@ export const Main: React.SFC<MainProps> = (props) => {
       DroppedMenuButtonClickedId,
       isMenuOpenedOnSmallScreen,
       PageMenuItemActive,
+      PageMenuItemMultiActive,
 
       changeDroppedMenuClickedId,
       sendLogOutToAPI,
       switchMenuOnSmallScreens,
-      switchPageMenuItemActive
+      switchPageMenuItemActive,
+      switchPageMenuItemMultiActive
     } = props;
 
 
@@ -244,26 +215,53 @@ export const Main: React.SFC<MainProps> = (props) => {
 
 
     /**
-     * Отправляет в Store идентификатор активного элемента
+     * Отправляет в Store идентификатор активного простого элемента
      * основного меню.
      *
      * @param {React.MouseEvent<T>} e
      * @return {undefined}
      */
 
-    type MouseEventGenericType = HTMLLIElement & HTMLUListElement;
+    type MouseEventGenericType = 
+      | HTMLLIElement
+      | HTMLUListElement
+      | HTMLAnchorElement;
 
     const PageMenuItemActiveHandler =
     ( e: React.MouseEvent<MouseEventGenericType> ) => {
+      e.preventDefault();
+      e.nativeEvent.stopImmediatePropagation();
       const current: string = 
         String(e.currentTarget.getAttribute('data-item-id'));
       switchPageMenuItemActive(current);
-    }
+    };
+
 
     /**
+     * Отправляет в Store идентификатор активного составного элемента
+     * основного меню.
      *
-     *
+     * @param {React.MouseEvent<T>} e
      * @return {undefined}
+     */
+
+    const PageMenuItemMultiActiveHandler =
+    ( e: React.MouseEvent<MouseEventGenericType> ) => {
+      const current: string = 
+        String(e.currentTarget.getAttribute('data-item-id'));
+      if ( PageMenuItemMultiActive === current ) {
+        switchPageMenuItemMultiActive('');
+      } else {
+        switchPageMenuItemMultiActive(current);
+      }
+    };
+
+    /**
+     * Возвращает стиль активного меню для NavLink. Необходим для показа
+     * активного элемента меню согласно react-router до того, как будет нажат
+     * какой-нибудь пункт меню (сразу после загрузки страницы).
+     *
+     * @return {Object}
      */
 
     const PageMenuItemActiveStyle = () => {
@@ -275,7 +273,39 @@ export const Main: React.SFC<MainProps> = (props) => {
         borderLeft: '4px solid #19aa8d',
         transition: 'border-left 0.4s',
       };
-    }
+    };
+
+
+    /**
+     * Возвращает коллекцию с элементами подменю для текущего элемента
+     * основного меню.
+     *
+     * @param {string} to
+     * @return {Array}
+     */
+
+    const getSubMenu = (to: string) => {
+      switch ( to ) {
+        case 'devices': return devicesMenu;
+        default: return [];
+      }
+    };
+
+    /**
+     * Возвращает значение пункта подменю, не входящего в
+     * коллекцию элементов подменю.
+     *
+     * @param {string} to
+     * @return {string}
+     */
+
+    const getSubMenuTitle = (to: string) => {
+      switch ( to ) {
+        case 'devices': return 'Все устройства';
+        case 'dashboards': return 'Все дашборды';
+        default: return '';
+      }
+    };
 
 
     return (
@@ -321,36 +351,69 @@ export const Main: React.SFC<MainProps> = (props) => {
               </UserMenuLayout>
             </PageLogo>
           </PageLogoWrapper>
-          
-
           <PageMenuLayout>
             {
               mainMenu.map((e, i) => {
                 console.log('e:', e);
+                
+                /**
+                 * Построение основного меню страницы на основе коллекции элементов 
+                 * основного меню.
+                 */
+
                 if ( isMultiplePageMenuItem(e.to) ) {
+                  /* Пункт меню содержит подменю */
+                  
+                  /* Получение коллекции элементов подменю */
+                  const subMenu: MainMenuLinksInterface[] = getSubMenu(e.to);
+                  /* Вычисление высоты подменю для плавного выпадания */
+                  const subMenuHeight: string = 
+                    ( subMenu.length !== 0 )
+                      ? String(subMenu.length * 32 + 42) : '42';
+
                   return (
                     <PageMenuItem
                       key={i}
-                      onClick={PageMenuItemActiveHandler}
-                      data-item-id={'3' + i}
-                      isActive={PageMenuItemActive === '3' + i}
+                      isActive={PageMenuItemMultiActive === '3' + i}
                     >
-                      <PageMenuItemAnchor icon={e.icon}>
+                      {/* Пункт основного меню */}
+                      <PageMenuItemAnchor
+                        icon={e.icon}
+                        data-item-id={'3' + i}
+                        onClick={PageMenuItemMultiActiveHandler}
+                      >
                         {e.value}
                       </PageMenuItemAnchor>
+                      {/* Подменю */}
                       <PageSubMenuLayout
-                        onClick={PageMenuItemActiveHandler}
-                        data-item-id={'3' + i}
-                        isActive={PageMenuItemActive === '3' + i}
+                        isActive={PageMenuItemMultiActive === '3' + i}
+                        subMenuHeight={subMenuHeight}
                       >
+                        {/* Пункт подменю, не входящий в коллекцию */}
+                        <PageSubMenuItem
+                          key={i}
+                          onClick={PageMenuItemActiveHandler}
+                          data-item-id={'40'}
+                          isActive={PageMenuItemActive === '40'}
+                        >
+                          <PageSubMenuAnchor
+                            to={'/' + e.to}
+                            title={getSubMenuTitle(e.to)}
+                            activeStyle={{
+                              color: '#fff',
+                            }}
+                            icon={'f069'}
+                          >{getSubMenuTitle(e.to)}</PageSubMenuAnchor>
+                        </PageSubMenuItem>
                         {
-                          devicesMenu.map((e, i) => {
+                          subMenu.map((e, i) => {
+                            /* Пункты подменю из коллекции */
                             return (
                               <PageSubMenuItem
                                 key={i}
                                 onClick={PageMenuItemActiveHandler}
-                                data-item-id={'4' + i}
-                                isActive={PageMenuItemActive === '4' + i}
+                                data-item-id={'4' + (i + 1)}
+                                isActive={PageMenuItemActive === '4' + (i + 1)}
                               >
                                 <PageSubMenuAnchor
                                   to={'/' + e.to}
@@ -368,14 +431,15 @@ export const Main: React.SFC<MainProps> = (props) => {
                     </PageMenuItem>
                   );
                 } else {
+                  /* Простой пункт основного меню */
                   return (
                     <PageMenuItem
                       key={i}
-                      onClick={PageMenuItemActiveHandler}
-                      data-item-id={'3' + i}
                       isActive={PageMenuItemActive === '3' + i}
                     >
                       <PageMenuItemLink
+                        onClick={PageMenuItemActiveHandler}
+                        data-item-id={'3' + i}
                         icon={e.icon}
                         to={'/' + e.to}
                         activeStyle={PageMenuItemActiveStyle()}
@@ -387,8 +451,6 @@ export const Main: React.SFC<MainProps> = (props) => {
               })
             }
           </PageMenuLayout>
-
-
         </PageMenu>
         <PageWrapper isMenuOpenedOnSmallScreen={isMenuOpenedOnSmallScreen}>
           <PageHeader>
@@ -453,13 +515,13 @@ export const Main: React.SFC<MainProps> = (props) => {
     );
   } else {
     /* Пока подгружаются данные, пользователю показывается спиннер */
-    return null;
-    // return (
-    //   <Spinner
-    //     width={3}
-    //     color={'#2f4050'}
-    //     bgColor={'#f3f3f4'}
-    //   />
-    // );
+    // return null;
+    return (
+      <Spinner
+        width={3}
+        color={'#2f4050'}
+        bgColor={'#f3f3f4'}
+      />
+    );
   }
 };

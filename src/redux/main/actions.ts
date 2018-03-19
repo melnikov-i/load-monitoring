@@ -23,16 +23,6 @@ export const DEVICES_MENU_WAS_REQUESTED_FROM_API =
   'DEVICES_MENU_WAS_REQUESTED_FROM_API';
 export const PUT_DEVICES_MENU_FROM_API_TO_COLLECTION =
   'PUT_DEVICES_MENU_FROM_API_TO_COLLECTION';
-export const DO_MAIN_MENU_ON_SMALL_SCREEN_SWITCH = 
-  'DO_MAIN_MENU_ON_SMALL_SCREEN_SWITCH';
-export const DO_DEVICES_MENU_ON_BIG_SCREEN_SWITCH = 
-  'DO_DEVICES_MENU_ON_BIG_SCREEN_SWITCH';
-export const DO_DEVICES_MENU_ON_MIDDLE_SCREEN_SWITCH =
-  'DO_DEVICES_MENU_ON_MIDDLE_SCREEN_SWITCH';
-export const DO_DEVICES_MENU_ON_SMALL_SCREEN_SWITCH =
-  'DO_DEVICES_MENU_ON_SMALL_SCREEN_SWITCH';
-export const DO_BOTH_MENU_ON_SMALL_SCREEN_OFF =
-  'DO_BOTH_MENU_ON_SMALL_SCREEN_OFF';
 export const CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID =
   'CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID';
 export const CHANGE_USER_AGENT =
@@ -41,6 +31,8 @@ export const SWITCH_MENU_ON_SMALL_SCREENS =
   'SWITCH_MENU_ON_SMALL_SCREENS';
 export const SWITCH_PAGE_MENU_ITEM_ACTIVE =
   'SWITCH_PAGE_MENU_ITEM_ACTIVE';
+export const SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE =
+  'SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE';
 
 
 export type Actions = {
@@ -62,21 +54,6 @@ export type Actions = {
     type: typeof PUT_DEVICES_MENU_FROM_API_TO_COLLECTION,
     payload: MainMenuLinksInterface[],
   },
-  DO_MAIN_MENU_ON_SMALL_SCREEN_SWITCH: {
-    type: typeof DO_MAIN_MENU_ON_SMALL_SCREEN_SWITCH,
-  },
-  DO_DEVICES_MENU_ON_BIG_SCREEN_SWITCH: {
-    type: typeof DO_DEVICES_MENU_ON_BIG_SCREEN_SWITCH,
-  },
-  DO_DEVICES_MENU_ON_MIDDLE_SCREEN_SWITCH: {
-    type: typeof DO_DEVICES_MENU_ON_MIDDLE_SCREEN_SWITCH,
-  },
-  DO_DEVICES_MENU_ON_SMALL_SCREEN_SWITCH: {
-    type: typeof DO_DEVICES_MENU_ON_SMALL_SCREEN_SWITCH,
-  },
-  DO_BOTH_MENU_ON_SMALL_SCREEN_OFF: {
-    type: typeof DO_BOTH_MENU_ON_SMALL_SCREEN_OFF,
-  },
   CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID: {
     type: typeof CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID,
     payload: DroppedMenuButtonClickedType,
@@ -89,6 +66,10 @@ export type Actions = {
   },
   SWITCH_PAGE_MENU_ITEM_ACTIVE: {
     type: typeof SWITCH_PAGE_MENU_ITEM_ACTIVE,
+    payload: string,
+  },
+  SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE: {
+    type: typeof SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE,
     payload: string,
   }
 };
@@ -118,26 +99,6 @@ export const syncActionCreators = {
   Actions[typeof PUT_DEVICES_MENU_FROM_API_TO_COLLECTION] => ({
     type: PUT_DEVICES_MENU_FROM_API_TO_COLLECTION, payload,
   }),
-  doMainMenuOnSmallScreenSwitch:():
-  Actions[typeof DO_MAIN_MENU_ON_SMALL_SCREEN_SWITCH] => ({
-    type: DO_MAIN_MENU_ON_SMALL_SCREEN_SWITCH
-  }),
-  doDevicesMenuOnBigScreenSwitch:():
-  Actions[typeof DO_DEVICES_MENU_ON_BIG_SCREEN_SWITCH] => ({
-    type: DO_DEVICES_MENU_ON_BIG_SCREEN_SWITCH
-  }),
-  doDevicesMenuOnMiddleScreenSwitch:():
-  Actions[typeof DO_DEVICES_MENU_ON_MIDDLE_SCREEN_SWITCH] => ({
-    type: DO_DEVICES_MENU_ON_MIDDLE_SCREEN_SWITCH
-  }),
-  doDevicesMenuOnSmallScreenSwitch:():
-  Actions[typeof DO_DEVICES_MENU_ON_SMALL_SCREEN_SWITCH] => ({
-    type: DO_DEVICES_MENU_ON_SMALL_SCREEN_SWITCH
-  }),
-  doBothMenuOnSmallScreenOff:():
-  Actions[typeof DO_BOTH_MENU_ON_SMALL_SCREEN_OFF] => ({
-    type: DO_BOTH_MENU_ON_SMALL_SCREEN_OFF,
-  }),
   changeDroppedMenuClickedId:
   ( payload: DroppedMenuButtonClickedType ):
   Actions[typeof CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID] => ({
@@ -153,6 +114,10 @@ export const syncActionCreators = {
   switchPageMenuItemActive: ( payload: string ):
   Actions[typeof SWITCH_PAGE_MENU_ITEM_ACTIVE] => ({
     type: SWITCH_PAGE_MENU_ITEM_ACTIVE, payload,
+  }),
+  switchPageMenuItemMultiActive: ( payload: string ):
+  Actions[typeof SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE] => ({
+    type: SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE, payload,
   }),
 };
 

@@ -11,7 +11,7 @@ import { Main } from '@src/components';
 
 import {
   MainMenuLinksInterface,
-  IsOpenedInterface,
+  // IsOpenedInterface,
   UserMenuInterface,
   DroppedMenuButtonClickedType,
 } from '@src/interfaces';
@@ -22,11 +22,12 @@ import {
   UserMenuItemsCollectionSelector,
   DevicesMenuWasRequestedFromAPISelector,
   DevicesMenuItemsCollectionSelector,
-  isDevicesMenuOpenedSelector,
-  isMainMenuOpenedSelector,
+  // isDevicesMenuOpenedSelector,
+  // isMainMenuOpenedSelector,
   DroppedMenuButtonClickedIdSelector,
   isMenuOpenedOnSmallScreenSelector,
   PageMenuItemActiveSelector,
+  PageMenuItemMultiActiveSelector,
 } from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector<RootState, {
@@ -35,22 +36,24 @@ const mapStateToProps = createStructuredSelector<RootState, {
     UserMenuItemsCollection: UserMenuInterface,
     DevicesMenuWasRequestedFromAPI: boolean,
     DevicesMenuItemsCollection: MainMenuLinksInterface[],
-    isDevicesMenuOpened: IsOpenedInterface,
-    isMainMenuOpened: IsOpenedInterface,
+    // isDevicesMenuOpened: IsOpenedInterface,
+    // isMainMenuOpened: IsOpenedInterface,
     DroppedMenuButtonClickedId: DroppedMenuButtonClickedType,
     isMenuOpenedOnSmallScreen: boolean,
     PageMenuItemActive: string,
+    PageMenuItemMultiActive: string,
   }>({
     MainMenuWasRequestedFromAPI: MainMenuWasRequestedFromAPISelector,
     MainMenuItemsCollection: MainMenuItemsCollectionSelector,
     UserMenuItemsCollection: UserMenuItemsCollectionSelector,
     DevicesMenuWasRequestedFromAPI: DevicesMenuWasRequestedFromAPISelector,
     DevicesMenuItemsCollection: DevicesMenuItemsCollectionSelector,
-    isDevicesMenuOpened: isDevicesMenuOpenedSelector,
-    isMainMenuOpened: isMainMenuOpenedSelector,
+    // isDevicesMenuOpened: isDevicesMenuOpenedSelector,
+    // isMainMenuOpened: isMainMenuOpenedSelector,
     DroppedMenuButtonClickedId: DroppedMenuButtonClickedIdSelector,
     isMenuOpenedOnSmallScreen: isMenuOpenedOnSmallScreenSelector,
     PageMenuItemActive: PageMenuItemActiveSelector,
+    PageMenuItemMultiActive: PageMenuItemMultiActiveSelector,
   });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
@@ -58,16 +61,16 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
     asyncActionCreators.makeMainMenuRequestToAPI,
   makeDevicesMenuRequestToAPI: 
     asyncActionCreators.makeDevicesMenuRequestToAPI,
-  doMainMenuOnSmallScreenSwitch: 
-    syncActionCreators.doMainMenuOnSmallScreenSwitch,  
-  doDevicesMenuOnBigScreenSwitch: 
-    syncActionCreators.doDevicesMenuOnBigScreenSwitch,
-  doDevicesMenuOnMiddleScreenSwitch: 
-    syncActionCreators.doDevicesMenuOnMiddleScreenSwitch,
-  doDevicesMenuOnSmallScreenSwitch:
-    syncActionCreators.doDevicesMenuOnSmallScreenSwitch,
-  doBothMenuOnSmallScreenOff: 
-    syncActionCreators.doBothMenuOnSmallScreenOff,
+  // doMainMenuOnSmallScreenSwitch: 
+    // syncActionCreators.doMainMenuOnSmallScreenSwitch,  
+  // doDevicesMenuOnBigScreenSwitch: 
+  //   syncActionCreators.doDevicesMenuOnBigScreenSwitch,
+  // doDevicesMenuOnMiddleScreenSwitch: 
+  //   syncActionCreators.doDevicesMenuOnMiddleScreenSwitch,
+  // doDevicesMenuOnSmallScreenSwitch:
+  //   syncActionCreators.doDevicesMenuOnSmallScreenSwitch,
+  // doBothMenuOnSmallScreenOff: 
+  //   syncActionCreators.doBothMenuOnSmallScreenOff,
   sendLogOutToAPI: loginActionCreators.sendLogOutToAPI,
   changeDroppedMenuClickedId:
     syncActionCreators.changeDroppedMenuClickedId,
@@ -75,6 +78,8 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
     syncActionCreators.switchMenuOnSmallScreens,
   switchPageMenuItemActive:
     syncActionCreators.switchPageMenuItemActive,
+  switchPageMenuItemMultiActive:
+    syncActionCreators.switchPageMenuItemMultiActive,
 }, dispatch);
 
 export const MainConnected = 

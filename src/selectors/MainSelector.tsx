@@ -29,16 +29,6 @@ export const DevicesMenuItemsCollectionSelector = createSelector(
     ( DevicesMenuItemsCollection ) => DevicesMenuItemsCollection,
   );
 
-export const isDevicesMenuOpenedSelector = createSelector(
-    ( state: RootState ) => state.main.isDevicesMenuOpened,
-    ( isDevicesMenuOpened ) => isDevicesMenuOpened,
-  );
-
-export const isMainMenuOpenedSelector = createSelector(
-    ( state: RootState ) => state.main.isMainMenuOpened,
-    ( isMainMenuOpened ) => isMainMenuOpened,
-  );
-
 export const DroppedMenuButtonClickedIdSelector = createSelector(
     ( state: RootState ) => state.main.DroppedMenuButtonClickedId,
     ( DroppedMenuButtonClickedId ) => DroppedMenuButtonClickedId,
@@ -57,4 +47,9 @@ export const isMenuOpenedOnSmallScreenSelector = createSelector(
 export const PageMenuItemActiveSelector = createSelector(
     ( state: RootState ) => state.main.PageMenuItemActive,
     ( PageMenuItemActive ) => PageMenuItemActive,
+  );
+
+export const PageMenuItemMultiActiveSelector = createSelector(
+    ( state: RootState ) => state.main.PageMenuItemMultiActive,
+    ( PageMenuItemMultiActive ) => PageMenuItemMultiActive,
   );
