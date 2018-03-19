@@ -41,11 +41,12 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
     DashboardCollection,
     MainHeaderButtonWasClicked,
   } = props;
+  
 
-  if ( DashboardCollection.dash_id.dashboard_id === '' ) {
-    if ( DashboardWasRequestedFromAPI !== id ) {
-      makeDashboardRequestFromAPI(id);
-    } else {
+  if ( DashboardWasRequestedFromAPI !== id ) {
+    makeDashboardRequestFromAPI(id);
+  } else {
+    if ( DashboardCollection.dash_id.dashboard_id !== id ) {
       return (
         <Spinner
           width={3}
@@ -53,9 +54,9 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
           bgColor={'#f3f3f4'}
         />
       );
-    }
+    }      
   }
-
+    
   // Данные для заголовка
   const MainHeaderState: MainHeaderInterface = {
     header: DashboardCollection.dash_id.dashboard_name,

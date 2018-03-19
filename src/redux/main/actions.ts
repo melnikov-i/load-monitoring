@@ -39,8 +39,8 @@ export const CHANGE_USER_AGENT =
   'CHANGE_USER_AGENT';
 export const SWITCH_MENU_ON_SMALL_SCREENS =
   'SWITCH_MENU_ON_SMALL_SCREENS';
-export const SWITCH_PAGE_MENU_ITEM_ACTIVE_LABEL =
-  'SWITCH_PAGE_MENU_ITEM_ACTIVE_LABEL';
+export const SWITCH_PAGE_MENU_ITEM_ACTIVE =
+  'SWITCH_PAGE_MENU_ITEM_ACTIVE';
 
 
 export type Actions = {
@@ -87,8 +87,8 @@ export type Actions = {
   SWITCH_MENU_ON_SMALL_SCREENS: {
     type: typeof SWITCH_MENU_ON_SMALL_SCREENS,
   },
-  SWITCH_PAGE_MENU_ITEM_ACTIVE_LABEL: {
-    type: typeof SWITCH_PAGE_MENU_ITEM_ACTIVE_LABEL,
+  SWITCH_PAGE_MENU_ITEM_ACTIVE: {
+    type: typeof SWITCH_PAGE_MENU_ITEM_ACTIVE,
     payload: string,
   }
 };
@@ -150,9 +150,9 @@ export const syncActionCreators = {
   Actions[typeof SWITCH_MENU_ON_SMALL_SCREENS] => ({
     type: SWITCH_MENU_ON_SMALL_SCREENS,
   }),
-  switchPageMenuItemActiveLabel: ( payload: string ):
-  Actions[typeof SWITCH_PAGE_MENU_ITEM_ACTIVE_LABEL] => ({
-    type: SWITCH_PAGE_MENU_ITEM_ACTIVE_LABEL, payload,
+  switchPageMenuItemActive: ( payload: string ):
+  Actions[typeof SWITCH_PAGE_MENU_ITEM_ACTIVE] => ({
+    type: SWITCH_PAGE_MENU_ITEM_ACTIVE, payload,
   }),
 };
 
@@ -160,7 +160,9 @@ export const syncActionCreators = {
 export const asyncActionCreators = {
   makeMainMenuRequestToAPI: () => {
     return ( dispatch: Dispatch ) => {
-
+      dispatch(
+        syncActionCreators.mainMenuWasRequestedFromAPI()
+      );
       sendRequestToAPI.post('/menu_data.php').then(
         ( response ) => {
           if ( response.data.menu !== null ) {
@@ -193,15 +195,6 @@ export const asyncActionCreators = {
               syncActionCreators.changeUserAgent()
             )
           }
-          const responce: boolean = true;
-          return responce;
-        }
-      )
-      .then(
-        ( responce ) => {
-          dispatch(
-            syncActionCreators.mainMenuWasRequestedFromAPI()
-          );
         }
       )
       .catch(
@@ -213,6 +206,9 @@ export const asyncActionCreators = {
   },
   makeDevicesMenuRequestToAPI: () => {
     return ( dispatch: Dispatch ) => {
+      dispatch(
+        syncActionCreators.devicesMenuWasRequestedFromAPI()
+      );
       sendRequestToAPI.post('/menu_devices.php').then(
         ( response ) => {
           if ( response.data.devices_list !== null ) {
@@ -221,22 +217,9 @@ export const asyncActionCreators = {
             dispatch(
               syncActionCreators.putDevicesMenuFromAPIToCollection(devices)
             );
-            // setTimeout(() => {
-            // }, 1000);
           } else {
             dispatch(
               loginActionCreators.userWasLogOut()
-            );
-          }
-          const responce: boolean = true;
-          return responce;
-        }
-      )
-      .then (
-        ( responce ) => {
-          if ( responce ) {
-            dispatch(
-              syncActionCreators.devicesMenuWasRequestedFromAPI()
             );
           }
         }

@@ -98,7 +98,6 @@ dispatch: Dispatch) => {
     ( response ) => {
       if ( response.data.dashboard !== null ) {
         if ( response.data.dashboard.dash_id !== null ) {
-          console.log('3) Dashboard:', response.data.dashboard);
           const items: DashboardInterface = response.data.dashboard;
           dispatch(
             syncActionCreators
@@ -142,10 +141,8 @@ export const asyncActionCreators = {
   sendChangedDashboardToAPI:
   ( payload: DashboardInterface ) => {
     return ( dispatch: Dispatch ) => {
-      console.log('1) payload:', payload);
       sendRequestToAPI.post('/dash_data2.php', payload).then(
         ( response ) => {
-          console.log('2) response:', response.data);
           getDashboardFromAPI(payload.dash_id.dashboard_id, dispatch);
           dispatch(
             mainHeadActionCreators.mainHeaderButtonSwitch()

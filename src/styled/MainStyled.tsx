@@ -488,6 +488,7 @@ export const PageMenuLayout = styled.ul`
 /**
  * Элемент основного меню страницы
  *
+ * @param {boolean} isActive
  * @return {React.Component}
  */
 
@@ -495,53 +496,53 @@ export const PageMenuItem = styled.li`
   list-style-position: inside;
   list-style-type: none;
   display: block;
-  transition: ${ ( props: { pageMenuItemActiveLabel: boolean } ) => (
-      props.pageMenuItemActiveLabel
-        ? 'all 0.4s' : 'all 0s'
+  transition: ${ ( props: { isActive: boolean } ) => (
+      props.isActive
+        ? 'border-left 0.4s' : 'all 0s'
     )
   };
-  border-left: ${ ( props: { pageMenuItemActiveLabel: boolean } ) => (
-      props.pageMenuItemActiveLabel
+  border-left: ${ ( props: { isActive: boolean } ) => (
+      props.isActive
         ? '4px solid #19aa8d' : 'none'
     )
   };
-  background-color: ${ ( props: { pageMenuItemActiveLabel: boolean } ) => (
-      props.pageMenuItemActiveLabel
+  background-color: ${ ( props: { isActive: boolean } ) => (
+      props.isActive
         ? '#293846' : 'transparent'
     )
   };
-  color: ${ ( props: { pageMenuItemActiveLabel: boolean } ) => (
-      props.pageMenuItemActiveLabel
+  color: ${ ( props: { isActive: boolean } ) => (
+      props.isActive
         ? '#fff' : '#a7b1c2'
     )
   };
   &:hover {
-    color: #fff;
     background-color: #293846;
+    color: #fff;
+  }
+  &::selection {
+    background-color: transparent;
   }
 `;
-  // @media screen
-  //   and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-  //     position: relative;
-  //   }
+
 
 
 /**
- * Вложенная ссылка элемента основного меню страницы
+ * Вложенная ссылка простого элемента основного меню страницы
  *
- * @param {boolean} pageMenuItemActiveLabel
  * @param {string | null} icon
  * @return {React.Component}
  */
+
 
 export const PageMenuItemLink = styled(NavLink)`
   display: block;
   text-decoration: none;
   font-size: 13px;
   font-weight: 600;
+  color: inherit;
   padding: 14px 20px 14px 25px;
   background-color: transparent;
-  color: #a7b1c2;
   &::selection {
     background-color: transparent;
   }
@@ -555,77 +556,172 @@ export const PageMenuItemLink = styled(NavLink)`
     font-size: ${ FA_SMALL_FONT_SIZE };
     margin-right: 6px;
   }
+  @media screen
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      font-size: 0;
+      padding: 10px 14px 10px 14px;
+      &::before {
+        font-size: ${ FA_BIG_FONT_SIZE };
+        margin-right: 0;
+      }
+    }
 `;
-    // margin-left: 14px;
-  // &::before {
-  //   content: "";
-  //   display: inline-block;
-  //   vertical-align: top;
-  //   width: 5px;
-  //   height: ${ BIG_MAIN_LINK_HEIGHT };
-  // }
 
 
-      export const MainMenuLinkSpan = styled.span`
-        width: calc(100% - 5px);
-        height: ${ BIG_MAIN_LINK_HEIGHT };
-        line-height: ${ BIG_MAIN_LINK_HEIGHT };
-        display: inline-block;
-        vertical-align: top;
-        @media screen
+/**
+ * Вложенная ссылка составного элемента основного меню страницы
+ * (с вложенным подменю)
+ *
+ * @param {boolean} isActive
+ * @param {string | null} icon
+ * @return {React.Component}
+ */
+
+interface PageMenuItemAnchorProps {
+  isActive: boolean,
+  icon: string | null,
+}
+
+export const PageMenuItemAnchor = styled.a`
+  display: block;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 14px 20px 14px 25px;
+  color: inherit;
+  &::before {
+    content: "\\${ ( props: { icon: string | null } ) => (
+        props.icon !== null ? props.icon : 'f05e'
+      )
+    }";
+    font-family: 'FontAwesome';
+    font-weight: normal;
+    font-size: ${ FA_SMALL_FONT_SIZE };
+    margin-right: 6px;
+  }
+  @media screen
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      font-size: 0;
+      padding: 10px 14px 10px 14px;
+      &::before {
+        font-size: ${ FA_BIG_FONT_SIZE };
+        margin-right: 0;
+      }
+    }
+`;
+
+
+
+/**
+ * Каркас вложенного меню страницы
+ *
+ * @return {React.Component}
+ */
+
+export const PageSubMenuLayout = styled.ul`
+  display: block;
+  height: 0;
+  visibility: hidden;
+  overflow: hidden;
+  transition-duration: ${ ( props: { isActive: boolean } ) => (
+      props.isActive
+        ? '.35s' : '0s'
+    )
+  };
+  transition-timing-function: ease;
+  transition-property: ${ ( props: { isActive: boolean } ) => (
+      props.isActive
+      ? 'height, visibility' : 'all'
+    )
+  }
+`;
+
+export const PageSubMenuItem = styled.li`
+  list-style-position: inside;
+  list-style-type: none;
+  display: block;
+  color: ${ ( props: { isActive: boolean } ) => (
+      props.isActive
+        ? '#fff' : '#a7b1c2'
+    )
+  };
+  &:hover {
+    color: #fff;
+  }
+  &::selection {
+    background-color: transparent;
+  }
+`;
+
+
+export const PageSubMenuAnchor = styled(NavLink)`
+  display: block;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 7px 10px 7px 52px;
+  background-color: #293846;
+  color: inherit;
+  &:hover {
+    color: #fff;
+  }
+  &::selection {
+    background-color: transparent;
+  }
+  &::before {
+    content: "\\${ ( props: PageMenuItemAnchorProps ) => (
+        props.icon !== null ? props.icon : 'f05e'
+      )
+    }";
+    font-family: 'FontAwesome';
+    font-weight: normal;
+    font-size: ${ FA_SMALL_FONT_SIZE };
+    margin-right: 6px;
+  }
+`;
+
+
+
+
+
+
+      export const DevicesMenuLayout = styled.ul`
+        display: ${( props: MMUListIsOpenedProps ) =>
+            props.onBigScreen ? 'block' : 'none'
+        };
+        overflow: hidden;
+        margin-right: 5px;
+        @media screen 
+          and (min-width: ${ MIDDLE_SCREEN_MIN })
           and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-            font-size: 0;
-            &::before {
-              font-size: ${ FA_BIG_FONT_SIZE };
-              margin-left: 10px;
-              margin-right: 0;
-            }
+            display: ${( props: MMUListIsOpenedProps ) =>
+                props.onMiddleScreen ? 'block' : 'none'
+            };
+            background-color: #2f4050;
+            position: absolute;
+            left: ${ MENU_LAYOUT_MIDDLE_WIDTH };
+            top: 0;
+            min-width: 300%;
+            padding-right: 5px;
+          }
+        @media screen
+          and (max-width: ${ SMALL_SCREEN_MAX }) {
+            display: ${( props: MMUListIsOpenedProps ) => 
+                props.onSmallScreen ? 'block' : 'none'
+            };
+            background-color: #2f4050;
+            position: absolute;
+            left: ${ MENU_LAYOUT_MIDDLE_WIDTH };
+            top: 0;
+            min-width: 300%;
+            padding-right: 5px;
           }
       `;
 
 
-export const MainMenuLogoWrapper = styled.div`
-  width: 100%;
-  height: ${ MENU_LOGO_HEIGHT };
-  background-image: url( ${ HeaderProfile } );
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  padding: 30px 25px;
-  box-sizing: border-box;
-  position: relative;
-  z-index: 2;
-  @media screen 
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      background-image: none;
-      height: 30px;
-      padding: 0;
-    }
-`;
 
-export const MainMenuLogo = styled.div`
-  width: 100%;
-  min-height: 100%;
-  height: auto;
-  background-image: url( ${ Logo } );
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-size: 60%;
-  @media screen 
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      background-image: none;
-      &::before {
-        content: "Monyze";
-        display: block;
-        font-size: 14px;
-        font-weight: 600;
-        height: 70px;
-        line-height: 70px;
-        color: #fff;
-        text-align: center;
-      }
-    }
-`;
 
 
 
@@ -716,38 +812,7 @@ export const MainMenuFakeLink = styled.a`
 
 
 
-export const DevicesMenuLayout = styled.ul`
-  display: ${( props: MMUListIsOpenedProps ) =>
-      props.onBigScreen ? 'block' : 'none'
-  };
-  overflow: hidden;
-  margin-right: 5px;
-  @media screen 
-    and (min-width: ${ MIDDLE_SCREEN_MIN })
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      display: ${( props: MMUListIsOpenedProps ) =>
-          props.onMiddleScreen ? 'block' : 'none'
-      };
-      background-color: #2f4050;
-      position: absolute;
-      left: ${ MENU_LAYOUT_MIDDLE_WIDTH };
-      top: 0;
-      min-width: 300%;
-      padding-right: 5px;
-    }
-  @media screen
-    and (max-width: ${ SMALL_SCREEN_MAX }) {
-      display: ${( props: MMUListIsOpenedProps ) => 
-          props.onSmallScreen ? 'block' : 'none'
-      };
-      background-color: #2f4050;
-      position: absolute;
-      left: ${ MENU_LAYOUT_MIDDLE_WIDTH };
-      top: 0;
-      min-width: 300%;
-      padding-right: 5px;
-    }
-`;
+
 
 export const DevicesMenuLink = styled(NavLink)`
   display: block;
@@ -765,6 +830,18 @@ export const DevicesMenuLink = styled(NavLink)`
       }      
     }
 `;
+
+
+
+      export const MainMenuLinkSpan = styled.span`
+        width: calc(100% - 5px);
+        height: ${ BIG_MAIN_LINK_HEIGHT };
+        line-height: ${ BIG_MAIN_LINK_HEIGHT };
+        display: inline-block;
+        vertical-align: top;
+      `;
+
+
 
 export const DevicesMenuLinkSpan = MainMenuLinkSpan.extend`
   white-space: nowrap;
@@ -787,6 +864,8 @@ export const DevicesMenuLinkSpan = MainMenuLinkSpan.extend`
 
 
 ///////////////////////////////////
+
+
 
 export const MainLayout = styled.div`
   width: 100%;
@@ -942,3 +1021,46 @@ export const SmallMenuButton = styled.button`
       }
     }
 `;
+
+  export const MainMenuLogoWrapper = styled.div`
+    width: 100%;
+    height: ${ MENU_LOGO_HEIGHT };
+    background-image: url( ${ HeaderProfile } );
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 30px 25px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 2;
+    @media screen 
+      and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+        background-image: none;
+        height: 30px;
+        padding: 0;
+      }
+  `;
+
+  export const MainMenuLogo = styled.div`
+    width: 100%;
+    min-height: 100%;
+    height: auto;
+    background-image: url( ${ Logo } );
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: 60%;
+    @media screen 
+      and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+        background-image: none;
+        &::before {
+          content: "Monyze";
+          display: block;
+          font-size: 14px;
+          font-weight: 600;
+          height: 70px;
+          line-height: 70px;
+          color: #fff;
+          text-align: center;
+        }
+      }
+  `;

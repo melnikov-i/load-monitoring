@@ -54,7 +54,7 @@ export const isMenuOpenedOnSmallScreenSelector = createSelector(
     ( isMenuOpenedOnSmallScreen ) => isMenuOpenedOnSmallScreen,
   );
 
-export const PageMenuItemActiveLabelSelector = createSelector(
-    ( state: RootState ) => state.main.PageMenuItemActiveLabel,
-    ( PageMenuItemActiveLabel ) => PageMenuItemActiveLabel,
+export const PageMenuItemActiveSelector = createSelector(
+    ( state: RootState ) => state.main.PageMenuItemActive,
+    ( PageMenuItemActive ) => PageMenuItemActive,
   );

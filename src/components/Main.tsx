@@ -37,6 +37,10 @@ import {
   PageMenuLayout,
   PageMenuItem,
   PageMenuItemLink,
+  PageMenuItemAnchor,
+  PageSubMenuLayout,
+  PageSubMenuItem,
+  PageSubMenuAnchor,
 
 
 
@@ -69,29 +73,46 @@ import DevicesConnected from '@src/usage/DevicesUsage';
 import OverviewConnected from '@src/usage/OverviewUsage';
 
 interface MainProps {
+  /* Ключ, указывающий, что основное меню было запрошено с бэкэнда */
   MainMenuWasRequestedFromAPI: boolean,
+  /* Коллекция элементов основного меню */
   MainMenuItemsCollection: MainMenuLinksInterface[],
+  /* Коллекция элементов пользовательского меню */
   UserMenuItemsCollection: UserMenuInterface,
+  /* Ключ, указывающий, что меню устройств было запрошено с бэкэнда */
   DevicesMenuWasRequestedFromAPI: boolean,
+  /* Коллекция элементов меню устройств */
   DevicesMenuItemsCollection: MainMenuLinksInterface[],
+  /* Запускает в actions метод запроса основного меню с бэкэнда */
+  makeMainMenuRequestToAPI: () => any,
+  /* Запускает в actions метод запросаменю устройств с бэкэнда */
+  makeDevicesMenuRequestToAPI: () => any,
+  /* Идентификатор активированного выпадающего списка */
+  DroppedMenuButtonClickedId: DroppedMenuButtonClickedType,
+  /* Ключ, задающий поведение ширины основного меню на различных экранах */
+  isMenuOpenedOnSmallScreen: boolean,
+  /* Метод в actions, меняющий значение ключа isMenuOpenedOnSmallScreen */
+  switchMenuOnSmallScreens: () => any,
+  /* Метод в actions, меняющий значение DroppedMenuButtonClickedId */
+  changeDroppedMenuClickedId: 
+  (payload: DroppedMenuButtonClickedType) => any,
+  /* Запускает в actions метод, посылающий в бэкэнд событие выхода */
+  sendLogOutToAPI: (payload: LogOunInterface) => any,
+  /* Идентификатор активного составного пункта основного меню */
+  PageMenuItemActive: string,
+  /* Метод в actions, изменяющий идентифкатор PageMenuItemActive */
+  switchPageMenuItemActive: ( payload: string ) => any,
+
+
+  
   isDevicesMenuOpened: IsOpenedInterface,
   isMainMenuOpened: IsOpenedInterface,
-  makeMainMenuRequestToAPI: () => any,
-  makeDevicesMenuRequestToAPI: () => any,
   doMainMenuOnSmallScreenSwitch: () => any,
   doDevicesMenuOnBigScreenSwitch: () => any,
   doDevicesMenuOnMiddleScreenSwitch: () => any,
   doDevicesMenuOnSmallScreenSwitch: () => any,
   doBothMenuOnSmallScreenOff: () => any,
-  sendLogOutToAPI: (payload: LogOunInterface) => any,
-  DroppedMenuButtonClickedId: DroppedMenuButtonClickedType,  
-  changeDroppedMenuClickedId: 
-  (payload: DroppedMenuButtonClickedType) => any,
 
-  isMenuOpenedOnSmallScreen: boolean,
-  PageMenuItemActiveLabel: string,
-  switchMenuOnSmallScreens: () => any,
-  switchPageMenuItemActiveLabel: ( payload: string ) => any,
 }
 
 export const Main: React.SFC<MainProps> = (props) => {
@@ -104,23 +125,45 @@ export const Main: React.SFC<MainProps> = (props) => {
     makeDevicesMenuRequestToAPI,
   } = props;
 
+  
+  /**
+   * Выполняет проверку наличия основного меню в Store.
+   * при отсутствии запускает action makeMainMenuRequestToAPI(),
+   * который выполняет запрос меню в actions. Возвращает коллекцию
+   * элементов основного меню.
+   *
+   * @return {MainMenuLinksInterface[]}
+   */
+
   const getMainMenu = (): MainMenuLinksInterface[] => {
-    console.log('getMainMenu');
     if ( !MainMenuWasRequestedFromAPI ) {
       makeMainMenuRequestToAPI();
     }
     return MainMenuItemsCollection;
   };
+
+  /* Получает и хранит коллекцию элементов основного меню */
   const mainMenu = getMainMenu();
 
+  /**
+   * Выполняет проверку наличия меню устройств в Store.
+   * при отсутствии запускает action makeDevicesMenuRequestToAPI(),
+   * который выполняет запрос меню в actions. Возвращает коллекцию
+   * элементов меню устройств.
+   *
+   * @return {MainMenuLinksInterface[]}
+   */
+
   const getDevicesMenu = (): MainMenuLinksInterface[] => {
-    console.log('getDevicesMenu');
     if ( !DevicesMenuWasRequestedFromAPI ) {
       makeDevicesMenuRequestToAPI();
     }
     return DevicesMenuItemsCollection;
   };
-  const devicesMenu = getDevicesMenu();
+
+  /* Получает и хранит коллекцию элементов меню устройств */
+  const devicesMenu = getDevicesMenu(); 
+
 
 
   /**
@@ -133,19 +176,19 @@ export const Main: React.SFC<MainProps> = (props) => {
       UserMenuItemsCollection,
       DroppedMenuButtonClickedId,
       isMenuOpenedOnSmallScreen,
-      PageMenuItemActiveLabel,
+      PageMenuItemActive,
 
       changeDroppedMenuClickedId,
       sendLogOutToAPI,
       switchMenuOnSmallScreens,
-      switchPageMenuItemActiveLabel
+      switchPageMenuItemActive
     } = props;
 
 
     /* Вспомогательные функции */
 
     /**
-     * Проверка, содержит ли пункт меню вложенное подменю.
+     * Проверяет, содержит ли пункт меню вложенное подменю.
      * 
      * Содержит в себе коллекцию элементов основного меню, 
      * у которых есть вложенные подменю.
@@ -154,18 +197,19 @@ export const Main: React.SFC<MainProps> = (props) => {
      * @return {boolean}
      */
 
-    // const isMultiplePageMenuItem = (to: string): boolean => {
-    //   const items: string[] = [
-    //     'devices',          
-    //   ];
-    //   let key: boolean = false;
-    //   items.forEach((e) => {
-    //     if ( e === to ) {
-    //       key = true;
-    //     }
-    //   });
-    //   return key;
-    // };
+    const isMultiplePageMenuItem = (to: string): boolean => {
+      const items: string[] = [
+        'devices',
+        'dashboards',
+      ];
+      let key: boolean = false;
+      items.forEach((e) => {
+        if ( e === to ) {
+          key = true;
+        }
+      });
+      return key;
+    };
 
 
     /* Обработчики событий */
@@ -189,6 +233,7 @@ export const Main: React.SFC<MainProps> = (props) => {
      * который используется для формирования ширины элементов
      * страницы с помощью isMenuOpenedOnSmallScreen.
      *
+     * @param {React.MouseEvent<T>} e
      * @return {undefined}
      */
 
@@ -197,11 +242,40 @@ export const Main: React.SFC<MainProps> = (props) => {
       switchMenuOnSmallScreens();
     };
 
-    // const isMenuItemActiveHandler = ( payload: string ) => {
-    //   if ( PageMenuItemActiveLabel !== payload ) {
-    //     switchPageMenuItemActiveLabel(payload);
-    //   }
-    // }
+
+    /**
+     * Отправляет в Store идентификатор активного элемента
+     * основного меню.
+     *
+     * @param {React.MouseEvent<T>} e
+     * @return {undefined}
+     */
+
+    type MouseEventGenericType = HTMLLIElement & HTMLUListElement;
+
+    const PageMenuItemActiveHandler =
+    ( e: React.MouseEvent<MouseEventGenericType> ) => {
+      const current: string = 
+        String(e.currentTarget.getAttribute('data-item-id'));
+      switchPageMenuItemActive(current);
+    }
+
+    /**
+     *
+     *
+     * @return {undefined}
+     */
+
+    const PageMenuItemActiveStyle = () => {
+      if ( PageMenuItemActive !== '') 
+        return {};
+      return {
+        color: '#fff',
+        backgroundColor: '#293846',
+        borderLeft: '4px solid #19aa8d',
+        transition: 'border-left 0.4s',
+      };
+    }
 
 
     return (
@@ -252,37 +326,64 @@ export const Main: React.SFC<MainProps> = (props) => {
           <PageMenuLayout>
             {
               mainMenu.map((e, i) => {
-                return (
-                  <PageMenuItem
-                    key={i}
-                    pageMenuItemActiveLabel={
-                      PageMenuItemActiveLabel === e.to
-                    }
-                  >
-                    <PageMenuItemLink
-                      icon={e.icon}
-                      to={'/' + e.to}
-                      isActive={( match, location ) => {
-                        /* Пункт меню активен */
-                        console.log('match:', match);
-                        console.log('location:', location);
-                        // if ( match !== null ) {
-                        //   console.log(
-                        //     'PageMenuItemActiveLabel:',
-                        //     PageMenuItemActiveLabel
-                        //   )
-                        //   if ( PageMenuItemActiveLabel !== '3' + i ) {
-                        //     switchPageMenuItemActiveLabel('3' + i);
-                        //   }
-                        // }
-                      }}
-                      title={e.value}
+                console.log('e:', e);
+                if ( isMultiplePageMenuItem(e.to) ) {
+                  return (
+                    <PageMenuItem
+                      key={i}
+                      onClick={PageMenuItemActiveHandler}
+                      data-item-id={'3' + i}
+                      isActive={PageMenuItemActive === '3' + i}
                     >
-                      {e.value}
-                    </PageMenuItemLink>
-                  </PageMenuItem>
-                );
-
+                      <PageMenuItemAnchor icon={e.icon}>
+                        {e.value}
+                      </PageMenuItemAnchor>
+                      <PageSubMenuLayout
+                        onClick={PageMenuItemActiveHandler}
+                        data-item-id={'3' + i}
+                        isActive={PageMenuItemActive === '3' + i}
+                      >
+                        {
+                          devicesMenu.map((e, i) => {
+                            return (
+                              <PageSubMenuItem
+                                key={i}
+                                onClick={PageMenuItemActiveHandler}
+                                data-item-id={'4' + i}
+                                isActive={PageMenuItemActive === '4' + i}
+                              >
+                                <PageSubMenuAnchor
+                                  to={'/' + e.to}
+                                  title={e.value}
+                                  activeStyle={{
+                                    color: '#fff',
+                                  }}
+                                  icon={e.icon}
+                                >{e.value}</PageSubMenuAnchor>
+                              </PageSubMenuItem>
+                            );
+                          })
+                        }
+                      </PageSubMenuLayout>
+                    </PageMenuItem>
+                  );
+                } else {
+                  return (
+                    <PageMenuItem
+                      key={i}
+                      onClick={PageMenuItemActiveHandler}
+                      data-item-id={'3' + i}
+                      isActive={PageMenuItemActive === '3' + i}
+                    >
+                      <PageMenuItemLink
+                        icon={e.icon}
+                        to={'/' + e.to}
+                        activeStyle={PageMenuItemActiveStyle()}
+                        title={e.value}
+                      >{e.value}</PageMenuItemLink>
+                    </PageMenuItem>
+                  );                  
+                }
               })
             }
           </PageMenuLayout>
@@ -305,8 +406,6 @@ export const Main: React.SFC<MainProps> = (props) => {
               <Route
                 exact path="/overview"
                 render={() => {
-                  console.log('render');
-                  switchPageMenuItemActiveLabel('overview');
                   return (
                     <OverviewConnected />
                   );
@@ -334,7 +433,7 @@ export const Main: React.SFC<MainProps> = (props) => {
               <Route exact path={'/'} render={() => (
                   
                   /**
-                   * При обращении к корню сайта, запрос 
+                   * При обращении к строго корню сайта, запрос 
                    * перенаправляется на /overview 
                    */
                   
