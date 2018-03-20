@@ -41,6 +41,7 @@ import {
   PageSubMenuLayout,
   PageSubMenuItem,
   PageSubMenuAnchor,
+  PageSubMenuCloseAnchor,
 } from '@src/styled';
 
 /* Компоненты для подгрузки с помощью роутера */
@@ -229,8 +230,6 @@ export const Main: React.SFC<MainProps> = (props) => {
 
     const PageMenuItemActiveHandler =
     ( e: React.MouseEvent<MouseEventGenericType> ) => {
-      e.preventDefault();
-      e.nativeEvent.stopImmediatePropagation();
       const current: string = 
         String(e.currentTarget.getAttribute('data-item-id'));
       switchPageMenuItemActive(current);
@@ -299,13 +298,29 @@ export const Main: React.SFC<MainProps> = (props) => {
      * @return {string}
      */
 
-    const getSubMenuTitle = (to: string) => {
+    const getSubMenuTitle = ( to: string ) => {
       switch ( to ) {
         case 'devices': return 'Все устройства';
         case 'dashboards': return 'Все дашборды';
         default: return '';
       }
     };
+
+    /**
+     * Возвращает индекс активного подменю на основе поля e.to
+     * в цикле перебора элементов подменю
+     *
+     * @param {string} to
+     * @return {string}
+     */
+
+    const getSubMenuIndex = ( to: string ) => {
+      switch ( to ) {
+        case 'devices': return '4';
+        case 'dashboards': return '5';
+        default: return '4'
+      }
+    }
 
 
     return (
@@ -354,8 +369,6 @@ export const Main: React.SFC<MainProps> = (props) => {
           <PageMenuLayout>
             {
               mainMenu.map((e, i) => {
-                console.log('e:', e);
-                
                 /**
                  * Построение основного меню страницы на основе коллекции элементов 
                  * основного меню.
@@ -381,6 +394,7 @@ export const Main: React.SFC<MainProps> = (props) => {
                         icon={e.icon}
                         data-item-id={'3' + i}
                         onClick={PageMenuItemMultiActiveHandler}
+                        isActive={PageMenuItemMultiActive === '3' + i}
                       >
                         {e.value}
                       </PageMenuItemAnchor>
@@ -389,12 +403,18 @@ export const Main: React.SFC<MainProps> = (props) => {
                         isActive={PageMenuItemMultiActive === '3' + i}
                         subMenuHeight={subMenuHeight}
                       >
+                        <PageSubMenuCloseAnchor
+                          isActive={PageMenuItemMultiActive === '3' + i}
+                          onClick={PageMenuItemMultiActiveHandler}
+                        />
                         {/* Пункт подменю, не входящий в коллекцию */}
                         <PageSubMenuItem
                           key={i}
                           onClick={PageMenuItemActiveHandler}
-                          data-item-id={'40'}
-                          isActive={PageMenuItemActive === '40'}
+                          data-item-id={getSubMenuIndex(e.to) + '0'}
+                          isActive={
+                            PageMenuItemActive === getSubMenuIndex(e.to) + '0'
+                          }
                         >
                           <PageSubMenuAnchor
                             to={'/' + e.to}
@@ -413,7 +433,9 @@ export const Main: React.SFC<MainProps> = (props) => {
                                 key={i}
                                 onClick={PageMenuItemActiveHandler}
                                 data-item-id={'4' + (i + 1)}
-                                isActive={PageMenuItemActive === '4' + (i + 1)}
+                                isActive={
+                                  PageMenuItemActive === getSubMenuIndex(e.to) + (i + 1)
+                                }
                               >
                                 <PageSubMenuAnchor
                                   to={'/' + e.to}

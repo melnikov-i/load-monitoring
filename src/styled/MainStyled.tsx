@@ -1,15 +1,6 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
-import {
-  // MMSpanIconProps,
-  // MMUListIsOpenedProps,
-  // MMDivIsOpenedProps,
-  // MMLinkIsOpenedProps,
-  // MMButtonIsOpenedProps,
-  // DActionAnchorClickedInterface,
-} from '@src/interfaces';
-
 const HeaderProfile = require('@src/images/HeaderProfile');
 const Logo = require('@src/images/Logo');
 
@@ -459,7 +450,7 @@ export const UserMenuLink = styled(NavLink)`
     color: #262626;
   }
   @media screen
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+    and ( max-width: ${ MIDDLE_SCREEN_MAX } ) {
       display: none;
     }
 `;
@@ -478,7 +469,7 @@ export const PageMenuLayout = styled.ul`
   position: relative;
   z-index: 1;
   @media screen 
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+    and ( max-width: ${ MIDDLE_SCREEN_MAX } ) {
       margin-top: 40px;
       padding-top: 5px;
     }
@@ -496,6 +487,7 @@ export const PageMenuItem = styled.li`
   list-style-position: inside;
   list-style-type: none;
   display: block;
+  position: relative;
   transition: ${ ( props: { isActive: boolean } ) => (
       props.isActive
         ? 'border-left 0.4s' : 'all 0s'
@@ -557,7 +549,7 @@ export const PageMenuItemLink = styled(NavLink)`
     margin-right: 6px;
   }
   @media screen
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+    and ( max-width: ${ MIDDLE_SCREEN_MAX } ) {
       font-size: 0;
       padding: 10px 14px 10px 14px;
       &::before {
@@ -577,6 +569,11 @@ export const PageMenuItemLink = styled(NavLink)`
  * @return {React.Component}
  */
 
+interface PageMenuItemAnchorProps {
+  icon: string | null;
+  isActive: boolean;
+}
+
 export const PageMenuItemAnchor = styled.a`
   display: block;
   text-decoration: none;
@@ -586,7 +583,7 @@ export const PageMenuItemAnchor = styled.a`
   padding: 14px 20px 14px 25px;
   color: inherit;
   &::before {
-    content: "\\${ ( props: { icon: string | null } ) => (
+    content: "\\${ ( props: PageMenuItemAnchorProps ) => (
         props.icon !== null ? props.icon : 'f05e'
       )
     }";
@@ -595,8 +592,22 @@ export const PageMenuItemAnchor = styled.a`
     font-size: ${ FA_SMALL_FONT_SIZE };
     margin-right: 6px;
   }
+  &::after {
+    content: "\\${ ( props: PageMenuItemAnchorProps ) => (
+        props.isActive
+          ? 'f107' : 'f104'
+      )
+    }";
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    font-family: 'FontAwesome';
+    font-weight: normal;
+    font-size: ${ FA_SMALL_FONT_SIZE };
+    margin-right: 6px;
+  }
   @media screen
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+    and ( max-width: ${ MIDDLE_SCREEN_MAX } ) {
       font-size: 0;
       padding: 10px 14px 10px 14px;
       &::before {
@@ -628,6 +639,81 @@ export const PageSubMenuLayout = styled.ul`
     )
   };
   overflow: hidden;
+  @media screen
+    and ( max-width: ${ MIDDLE_SCREEN_MAX } ) {
+      display: block;
+      width: calc( 100% - ${ MENU_LAYOUT_MIDDLE_WIDTH } - 30px );
+      position: fixed;
+      top: calc( ${ MENU_LAYOUT_MIDDLE_WIDTH } / 4 );
+      left: calc( ${ MENU_LAYOUT_MIDDLE_WIDTH } + 15px );
+      transform: ${ ( props: PageSubMenuLayoutProps ) => (
+          props.isActive
+            ? 'translateX(0)' : 'translateX(20px)'
+        )
+      };
+      z-index: 10;
+      transition: height 0s;
+      transition: transform 1s;
+      overflow: ${ ( props: PageSubMenuLayoutProps ) => (
+          props.isActive
+            ? 'visible' : 'hidden'
+        )
+      };
+      &::before {
+        content: "";
+        display: ${ ( props: PageSubMenuLayoutProps ) => (
+            props.isActive
+              ? 'block' : 'none'
+          )
+        };
+        position: fixed;
+        width: 100%;
+        height: calc( 100vh - 30px );
+        background-color: #293846;
+        opacity: 0.9;
+      }
+    }
+`;
+
+
+/**
+ * Кнопка закрытия выпадающего меню, оторбажаемая на малых экранах
+ *
+ * @param {boolean} isActive
+ * @return {React.Component}
+ */
+
+export const PageSubMenuCloseAnchor = styled.a`
+  display: none;
+  @media screen
+    and ( max-width: ${ MIDDLE_SCREEN_MAX } ) {
+      display: ${ ( props: { isActive: boolean } ) => (
+        props.isActive
+          ? 'block' : 'none'
+        )
+      };
+      color: #a7b1c2;
+      position: fixed;
+      right: 0;
+      width: 46px;
+      height: 46px;
+      cursor: pointer;
+      z-index: 200;
+      &:hover {
+        color: #fff;
+        background-color: #293846;
+      }
+      
+      &::before {
+        content: "\002b";
+        display: block;
+        font-weight: normal;
+        font-size: 54px;
+        margin-top: -16px;
+        text-align: center;
+        transform: rotateZ(45deg)
+      }
+  }  
 `;
 
 
@@ -654,6 +740,14 @@ export const PageSubMenuItem = styled.li`
   &::selection {
     background-color: transparent;
   }
+  @media screen
+    and ( max-width: ${ MIDDLE_SCREEN_MAX } ) {
+      width: 33.33%;
+      display: inline-block;
+      vertical-align: top;
+      position: relative;
+      z-index: 100;
+    }
 `;
 
 
@@ -691,4 +785,25 @@ export const PageSubMenuAnchor = styled(NavLink)`
     font-size: ${ FA_SMALL_FONT_SIZE };
     margin-right: 6px;
   }
+  @media screen
+    and ( max-width: ${ MIDDLE_SCREEN_MAX } ) {
+      padding: 10px 14px 10px 14px;
+      height: auto;
+      background-color: transparent;
+      &:hover {
+        background-color: #293846;
+      }
+      &::before {
+        content: "\\${ ( props: { icon: string | null } ) => (
+            props.icon !== null ? props.icon : 'f05e'
+          )
+        }";
+        display: inline-block;
+        vertical-align: sub;
+        font-family: 'FontAwesome';
+        font-weight: normal;
+        font-size: ${ FA_BIG_FONT_SIZE };
+        margin-right: 6px;
+      }
+    }
 `;
