@@ -61,9 +61,6 @@ FullWidthWidgetHeaderWrapper.extend`
   display: block;
   height: 50px;
   box-sizing: border-box;
-  position: absolute;
-  top: 0;
-  left: 0;
 `;
 
 // заголовок любого виджета
@@ -127,7 +124,8 @@ export const DynamicWidthWidget = styled.div`
 `;
 
 export const DynamicWidthWidgetContent = styled.div`
-  padding: 0 15px 20px;
-  margin-top: 50px;
+  padding: 10px 15px 20px;
+  display: block;
+  height: calc( 100% - 50px );
   box-sizing: border-box;
 `;

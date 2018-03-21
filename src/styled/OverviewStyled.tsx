@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import {
   FA_OVERVIEW_ICON_SIZE,
-  BIG_USER_FAKE_LINK_HEIGHT
+  DROPPED_MENU_ITEM_HEIGHT
 } from '@src/styled';
 
 import {
@@ -192,8 +192,8 @@ export const OverviewTableActionMenuItem = styled.li`
 export const OverviewTableActionMenuAnchor = styled.a`
   display: block;
   text-decoration: none;
-  height: ${ BIG_USER_FAKE_LINK_HEIGHT };
-  line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+  height: ${ DROPPED_MENU_ITEM_HEIGHT };
+  line-height: ${ DROPPED_MENU_ITEM_HEIGHT };
   font-size: 13px;
   font-weight: normal;
   color: #333;

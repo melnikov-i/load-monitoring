@@ -1,0 +1,90 @@
+ajax - перенести в libs
+components:
+  [-] App
+  [-] Dashboard
+  [-] DashboardDragDropContext
+  [-] DashboardDragLayer
+  [-] DashboardDragSourceDropTarget
+  [-] DashboardGridSettings
+  [-] DashboardWidget
+  [-] Devices
+  [-] DevicesLoad
+  [-] DevicesStatus
+  [-] Login
+  [+] Main
+  [-] MainHeader
+  [-] Overview
+  [-] Spinner
+connected:
+  [-] AppConnected
+  [-] DashboardConnected
+  [-] DashboardDragDropContextConnected
+  [-] DashboardDragLayerConnected
+  [-] DashboardDragSourceDropTargetConnected
+  [-] DashboardGridSettingsConnected
+  [-] DashboardWidgetConnected
+  [-] DevicesConnected
+  [-] DevicesLoadConnected
+  [-] DevicesStatusConnected
+  [-] LoginConnected
+  [-] MainConnected
+  [-] MainHeaderConnected
+  [-] OverviewConnected
+containers:
+  [-] AppContainer
+fonts:
+images:
+interfaces:
+  [-] DashboardInterfaces
+  [-] DevicesInterfaces
+  [-] LoginInterfaces
+  [-] MainInterfaces
+  [-] MainHeaderInterfaces
+  [-] OverviewInterfaces
+  [-] SpinnerInterfaces
+libs:
+  [-] DragAndDrop
+  [-] DroppedMenu
+  [-] WidgetWrapper
+redux:
+  dashboard:
+    [-] actions
+    [-] reducer
+  devices:
+    [-] actions
+    [-] reducer
+  login:
+    [-] actions
+    [-] reducer
+  main:
+    [-] actions
+    [-] reducer
+  mainHead:
+    [-] actions
+    [-] reducer
+  overview:
+    [-] actions
+    [-] reducer
+  widget:
+    [-] actions
+    [-] reducer
+selectors:
+  [-] DashboardSelector
+  [-] DevicesSelector
+  [-] LoginSelector
+  [-] MainSelector
+  [-] OverviewSelector
+styled:
+  [-] AnchorStyled
+  [+] Constants
+  [-] DashboardStyled
+  [-] DevicesLoadStyled
+  [-] DevicesStyled
+  [-] LoginStyled
+  [-] MainHeaderStyled
+  [+] MainStyled
+  [-] OverviewStyled
+  [-] SpinnerStyled
+  [-] TableStyled
+  [-] WidgetStyled
+usage:

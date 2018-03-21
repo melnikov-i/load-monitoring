@@ -7,7 +7,6 @@ import {
 
 import {
   MainMenuLinksInterface,
-  // IsOpenedInterface,
   UserMenuInterface,
   DashboardInterface,
   LogOunInterface,
@@ -328,13 +327,15 @@ export const Main: React.SFC<MainProps> = (props) => {
         <PageMenu
           isMenuOpenedOnSmallScreen={isMenuOpenedOnSmallScreen}
         >
-          <PageSmallMenuAnchor 
+          <PageSmallMenuAnchor
+            /* Кнопка вызова меню на малом экране */
             onClick={smallScreenMenuOpenedHandler}
             isMenuOpenedOnSmallScreen={isMenuOpenedOnSmallScreen}
           />
           <PageLogoWrapper>
             <PageLogo>
-              <UserMenuAnchor 
+              <UserMenuAnchor
+                /* Кнопка вызова меню пользователя */ 
                 onClick={(e) => 
                   DroppedMenu(
                     e,
@@ -348,6 +349,7 @@ export const Main: React.SFC<MainProps> = (props) => {
                 { UserMenuItemsCollection.user[0].login }
               </UserMenuAnchor>              
               <UserMenuLayout
+                /* Меню пользователя */
                 isClicked={DroppedMenuButtonClickedId === '20'}
               >
                 {UserMenuItemsCollection.links.map((e, i) => (

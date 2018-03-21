@@ -1,7 +1,11 @@
 import * as React from 'react';
-import * as rd3 from 'react-d3';
-
-const AreaChart = rd3.AreaChart;
+import {
+  Chart,
+  Transform,
+  Lines,
+  // Dots,
+  // Layer,
+} from 'rumble-charts';
 
 import {
   WidgetInterface,
@@ -14,6 +18,74 @@ import {
   DynamicWidthWidgetContent,
 } from '@src/styled';
 
+const series = [
+  {
+    // color: '#1ab394',
+    data: [
+      45,
+      23,
+      65,
+      12,
+      67,
+      43,
+      1,
+      34,
+      88,
+      99,
+      33,
+      45,
+      45,
+      23,
+      65,
+      12,
+      67,
+      43,
+      1,
+      34,
+      88,
+      99,
+      33,
+      45,
+      45,
+      23,
+      65,
+      12,
+      67,
+      43,
+      1,
+      34,
+      88,
+      99,
+      33,
+      45,
+      45,
+      23,
+      65,
+      12,
+      67,
+      43,
+      1,
+      34,
+      88,
+      99,
+      33,
+      45,
+      45,
+      23,
+      65,
+      12,
+      67,
+      43,
+      1,
+      34,
+      88,
+      99,
+      33,
+      99,
+    ]
+  }
+];
+
 interface DashboardWidgetProps {
   item: WidgetInterface,
 }
@@ -21,31 +93,83 @@ interface DashboardWidgetProps {
 export const DashboardWidget: 
 React.SFC<DashboardWidgetProps> = (props) => {
   const { item } = props;
+
+
+
   return (
     <DynamicWidthWidget>
       <DynamicWidthWidgetHeaderWrapper>
         <WidgetHeader>{ item.widget_name }</WidgetHeader>
       </DynamicWidthWidgetHeaderWrapper>
       <DynamicWidthWidgetContent>
-        <span
+        <Chart
+          series={series}
+          viewBox={'0 0 100 50'}
           style={{
-            fontSize: '14px',
+            display: 'block',
+            width: '100%',
+            height: '100%',
+            // backgroundColor: 'rgba(255, 0, 0, .4)',
           }}
+          minY={0}
+          scaleX={{paddingStart: 0, paddingEnd: 0}}
+          scaleY={{paddingTop: 2}}
         >
-          {item.device_id}
-        </span>
-        <AreaChart
-          width={250}
-          height={250}
-          data={[
-            [
-              { x: 1, y: 20 },
-              { x: 2, y: 10 },
-              { x: 3, y: 25 }
-            ]
-          ]}
-        />
+          <Transform method={'stack'}>
+            <Lines
+              asAreas={true}
+              colors={['#1ab394']}
+            />            
+          </Transform>
+        </Chart>
       </DynamicWidthWidgetContent>
     </DynamicWidthWidget>
   );
 }
+// const handleMouseMove = ( { closestPoints } ) => {
+
+// }
+
+// interface DashboardWidgetProps {
+//   item: WidgetInterface,
+// }
+
+// export const DashboardWidget: 
+// React.SFC<DashboardWidgetProps> = (props) => {
+//   const { item } = props;
+//   return (
+//     <DynamicWidthWidget>
+//       <DynamicWidthWidgetHeaderWrapper>
+//         <WidgetHeader>{ item.widget_name }</WidgetHeader>
+//       </DynamicWidthWidgetHeaderWrapper>
+//       <DynamicWidthWidgetContent>
+//         <Chart
+//           series={series}
+//           viewBox={'0 0 100 50'}
+//           style={{
+//             display: 'block',
+//             width: '100%',
+//             height: '100%',
+//             // backgroundColor: 'rgba(255, 0, 0, .4)',
+//           }}
+//           minY={0}
+//           scaleX={{paddingStart: 0, paddingEnd: 0}}
+//           scaleY={{paddingTop: 2}}
+//         >
+//           <Layer width={'100%'} height={'100%'} position={'top left'}>
+//             <Transform method={'sort'}>
+//               <Lines
+//                 asAreas={true}
+//                 colors={['#1ab394']}
+//               />
+//               <Dots
+//                 // className='dots'
+//                 dotStyle={{transition: 'all 250ms', fillOpacity:0}}
+//               />
+//             </Transform>
+//           </Layer>
+//         </Chart>
+//       </DynamicWidthWidgetContent>
+//     </DynamicWidthWidget>
+//   );
+// }

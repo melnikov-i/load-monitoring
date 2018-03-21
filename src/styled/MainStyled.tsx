@@ -6,16 +6,16 @@ const Logo = require('@src/images/Logo');
 
 import {
   SMALL_SCREEN_MAX,
-  MIDDLE_SCREEN_MAX,
   MIDDLE_SCREEN_MIN,
+  MIDDLE_SCREEN_MAX,
+  BIG_SCREEN_MIN,
   MENU_LAYOUT_BIG_WIDTH,
   MENU_LAYOUT_MIDDLE_WIDTH,
   FOOTER_HEIGHT,
   MENU_LOGO_HEIGHT,
-  BIG_MAIN_LINK_HEIGHT,
-  BIG_USER_FAKE_LINK_HEIGHT,
   FA_BIG_FONT_SIZE,
   FA_SMALL_FONT_SIZE,
+  DROPPED_MENU_ITEM_HEIGHT,
   TOP_HEIGHT,
   emergence,
 } from '@src/styled';
@@ -344,8 +344,8 @@ export const PageLogo = styled.div`
 
 export const UserMenuAnchor = styled.a`
   width: 100%;
-  height: ${ BIG_USER_FAKE_LINK_HEIGHT };
-  line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+  height: ${ DROPPED_MENU_ITEM_HEIGHT };
+  line-height: ${ DROPPED_MENU_ITEM_HEIGHT };
   position: relative;
   top: 65px;
   background-color: transparent;
@@ -358,9 +358,9 @@ export const UserMenuAnchor = styled.a`
     background-color: transparent;
   }
   &::after {
-    width: ${ BIG_USER_FAKE_LINK_HEIGHT };
-    height: ${ BIG_USER_FAKE_LINK_HEIGHT };
-    line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+    width: ${ DROPPED_MENU_ITEM_HEIGHT };
+    height: ${ DROPPED_MENU_ITEM_HEIGHT };
+    line-height: ${ DROPPED_MENU_ITEM_HEIGHT };
     text-align: center;
     content: "${ ( props: { isClicked: boolean } ) => (
         props.isClicked ? "\f078" : "\f053"
@@ -435,8 +435,8 @@ export const UserMenuLink = styled(NavLink)`
   display: block;
   text-decoration: none;
   display: block;
-  height: ${ BIG_USER_FAKE_LINK_HEIGHT };
-  line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+  height: ${ DROPPED_MENU_ITEM_HEIGHT };
+  line-height: ${ DROPPED_MENU_ITEM_HEIGHT };
   font-size: 13px;
   font-weight: normal;
   color: #333;
@@ -465,7 +465,7 @@ export const UserMenuLink = styled(NavLink)`
 export const PageMenuLayout = styled.ul`
   width: 100%;
   margin-top: 10px;
-  padding-bottom: ${ BIG_MAIN_LINK_HEIGHT };
+  padding-bottom: 50px;
   position: relative;
   z-index: 1;
   @media screen 
@@ -592,20 +592,23 @@ export const PageMenuItemAnchor = styled.a`
     font-size: ${ FA_SMALL_FONT_SIZE };
     margin-right: 6px;
   }
-  &::after {
-    content: "\\${ ( props: PageMenuItemAnchorProps ) => (
-        props.isActive
-          ? 'f107' : 'f104'
-      )
-    }";
-    position: absolute;
-    top: 16px;
-    right: 20px;
-    font-family: 'FontAwesome';
-    font-weight: normal;
-    font-size: ${ FA_SMALL_FONT_SIZE };
-    margin-right: 6px;
-  }
+  @media screen
+    and ( min-width: ${ BIG_SCREEN_MIN } ) {
+      &::after {
+        content: "\\${ ( props: PageMenuItemAnchorProps ) => (
+            props.isActive
+              ? 'f107' : 'f104'
+          )
+        }";
+        position: absolute;
+        top: 16px;
+        right: 20px;
+        font-family: 'FontAwesome';
+        font-weight: normal;
+        font-size: ${ FA_SMALL_FONT_SIZE };
+        margin-right: 6px;
+      }      
+    }
   @media screen
     and ( max-width: ${ MIDDLE_SCREEN_MAX } ) {
       font-size: 0;

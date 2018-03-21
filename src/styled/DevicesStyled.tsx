@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 import {
   FA_SMALL_FONT_SIZE,
-  BIG_USER_FAKE_LINK_HEIGHT,
+  DROPPED_MENU_ITEM_HEIGHT,
 } from '@src/styled';
 
 import {
@@ -204,8 +204,8 @@ export const DevicesTableActionMenuItem = styled.li`
 export const DevicesTableActionLink = styled(NavLink)`
   display: block;
   text-decoration: none;
-  height: ${ BIG_USER_FAKE_LINK_HEIGHT };
-  line-height: ${ BIG_USER_FAKE_LINK_HEIGHT };
+  height: ${ DROPPED_MENU_ITEM_HEIGHT };
+  line-height: ${ DROPPED_MENU_ITEM_HEIGHT };
   font-size: 13px;
   font-weight: normal;
   color: #333;
