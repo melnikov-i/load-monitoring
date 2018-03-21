@@ -1,10 +1,11 @@
 import * as React from 'react';
 import {
   Chart,
-  Transform,
+  Layer,
   Lines,
+  Ticks,
+  // Transform,
   // Dots,
-  // Layer,
 } from 'rumble-charts';
 
 import {
@@ -101,7 +102,7 @@ React.SFC<DashboardWidgetProps> = (props) => {
       <DynamicWidthWidgetHeaderWrapper>
         <WidgetHeader>{ item.widget_name }</WidgetHeader>
       </DynamicWidthWidgetHeaderWrapper>
-      <DynamicWidthWidgetContent>
+      <DynamicWidthWidgetContent style={{fontSize: '14px'}}>
         <Chart
           series={series}
           viewBox={'0 0 100 50'}
@@ -112,15 +113,30 @@ React.SFC<DashboardWidgetProps> = (props) => {
             // backgroundColor: 'rgba(255, 0, 0, .4)',
           }}
           minY={0}
-          scaleX={{paddingStart: 0, paddingEnd: 0}}
+          scaleX={{paddingStart: 0, paddingEnd: 5}}
           scaleY={{paddingTop: 2}}
         >
-          <Transform method={'stack'}>
+          <Layer width={'100%'} height={'100%'} position={'top left'}>
+            <Ticks 
+              axis={'y'}
+              lineLength={'100%'}
+              lineVisible={true}
+              lineStyle={{
+                stroke: 'lightgray',
+              }}
+              labelStyle={{
+                textAnchor:'end',
+                // dominantBaseline:'small',
+                // fill:'lightgray'
+              }}
+              labelVisible={true}
+              labelAttributes={{x: -5}}
+            />
             <Lines
               asAreas={true}
               colors={['#1ab394']}
             />            
-          </Transform>
+          </Layer>
         </Chart>
       </DynamicWidthWidgetContent>
     </DynamicWidthWidget>
