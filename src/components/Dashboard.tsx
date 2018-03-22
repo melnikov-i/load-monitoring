@@ -12,17 +12,16 @@ import { Spinner } from '@src/components';
 import MainHeaderConnected from
   '@src/usage/MainHeaderUsage';  
 /* Компонент с параметрами настройки виджетов с диаграммами */
-// import DashboardGridSettingsConnected from
-//   '@src/usage/DashboardGridSettingsUsage';
+import DashboardGridSettingsConnected from
+  '@src/usage/DashboardGridSettingsUsage';
 /* Компонент перемещаемых виджетов */
-// import DashboardDragDropContextConnected from
-//   '@src/usage/DashboardDragDropContextUsage';
+import DashboardDragDropContextConnected from
+  '@src/usage/DashboardDragDropContextUsage';
 /* Компонент статических виджетов */
 import DashboardWidgetConnected from
   '@src/usage/DashboardWidgetUsage';
 
 import {
-  // DynamicWidthWidgetsLayout,
   WidgetLayout,
   Widget,
 } from '@src/styled';
@@ -51,9 +50,15 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
     makeDashboardRequestFromAPI,
     SelectedCheckbox,
     DashboardCollection,
-    // MainHeaderButtonWasClicked,
+    MainHeaderButtonWasClicked,
   } = props;
   
+
+  /**
+   * Выполняет проверку наличия информации о структуре дашборда
+   * в Store. При отсутствии запускает в action 
+   * makeDashboardRequestFromAPI()
+   */
 
   if ( DashboardWasRequestedFromAPI !== id ) {
     makeDashboardRequestFromAPI(id);
@@ -110,10 +115,34 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
   ];
 
   
-  return (
-    <div>
-      {/* Основной заголовок страницы */}
-      <MainHeaderConnected data={MainHeaderState} />
+  /**
+   * По нажатию на кнопку 'Настройка', расположенную в компоненте 
+   * заголовка страницы (MainHeader), показывается один из двух
+   * видов: Статические виджеты (по-умолчанию) и динамические с 
+   * возможностью конфигурирования их отображения.
+   *
+   * Конфигурирование дашборда вынесено в отдельный компонент,
+   * т.к. в connector'е подключаются компоненты библиотеки
+   * react-dnd.
+   */
+
+  if ( MainHeaderButtonWasClicked ) {
+    /* Настройка дашборда */
+    return (
+      <div>
+        {/* Основной заголовок страницы */}
+        <MainHeaderConnected data={MainHeaderState} />
+        {/* Виджет редактирования, отмены и применения параметров */}
+        <DashboardGridSettingsConnected />
+        {/* Корневой компонент перетаскиваемых виджетов */}
+        <DashboardDragDropContextConnected />
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        {/* Основной заголовок страницы */}
+        <MainHeaderConnected data={MainHeaderState} />
         {/* Контейнер с виджетами */}
         <WidgetLayout>
           {DashboardCollection.dash_data.map((e, i) => {
@@ -134,8 +163,9 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
             )
           })}
         </WidgetLayout>
-    </div>
-  );
+      </div>
+    );
+  }
       // <DynamicWidthWidgetsLayout>
       // </DynamicWidthWidgetsLayout>
         // {DashboardCollection.dash_data.map((e, i) => {

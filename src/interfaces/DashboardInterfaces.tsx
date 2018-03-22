@@ -3,6 +3,8 @@ export interface WidgetInterface {
   device_id: string,
   isPreview?: boolean,
   series: any,
+  index?: number,
+  width?: string,
 }
 
 interface DashIdInterface {
@@ -16,13 +18,11 @@ export interface DashboardInterface {
   dash_data: WidgetInterface[],
 }
 
-export interface DashboardWidgetWrapperInterface {
-  index: number,
-  width: string,
-  widget_name: WidgetInterface['widget_name'],
-  device_id: WidgetInterface['device_id'],
-  series: any,
-}
+// export interface DashboardWidgetWrapperInterface {
+//   widget_name: WidgetInterface['widget_name'],
+//   device_id: WidgetInterface['device_id'],
+//   series: any,
+// }
 
 export interface MoveWidgetsInterface {
   source: number,

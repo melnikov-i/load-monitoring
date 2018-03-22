@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { DashboardWidgetWrapperInterface } from '@src/interfaces';
+import { WidgetInterface } from '@src/interfaces';
 import { DashboardDragSourceDropTargetConnected } from '@src/connected';
 
-export default ({element}: {element: DashboardWidgetWrapperInterface}) => (
+export default ({element}: {element: WidgetInterface}) => (
   <DashboardDragSourceDropTargetConnected element={element} />
 );

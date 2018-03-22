@@ -23,13 +23,13 @@ import {
 
 export const WidgetLayout = styled.div`
   display: block;  
+  box-sizing: border-box;
   overflow: hidden;
+  margin: 20px 15px 0;
   animation-name: ${ emergence };
   animation-duration: 1s;
   animation-timing-function: linear;
   animation-fill-mode: both;
-  margin: 20px 15px 0;
-  box-sizing: border-box;
 `;
 
 
@@ -73,13 +73,13 @@ export const Widget = styled.div`
       ( props.margin !== undefined && props.width !== undefined )
         ? checkPosition(Number(props.width), props.margin)
           ? ( props.width === '1' ) ? '0' : '2%' : '0'
-        : '15px'
+        : '0'
     )
   };
   margin-bottom: ${(props: WidgetProps) => (
       ( props.margin !== undefined && props.width !== undefined )
         ? ( props.width === '1' ) ? '20px' : '2%'
-        : '20px'
+        : '0'
     )
   };
 

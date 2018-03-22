@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDnd from 'react-dnd';
 
 import {
-  DashboardWidgetWrapperInterface,
+  // WidgetInterface,
   MoveWidgetsInterface,
   WidgetInterface
 } from '@src/interfaces';
@@ -11,12 +11,12 @@ import DashboardWidgetConnected from
   '@src/usage/DashboardWidgetUsage';
 
 import {
-  getWidth,
-  checkPosition
+  // getWidth,
+  // checkPosition
 } from '@src/libs';
 
 export interface DashboardDragSourceDropTargetProps {
-  element: DashboardWidgetWrapperInterface
+  element: WidgetInterface,
   isDragging?: boolean,
   connectDropTarget?: ReactDnd.ConnectDropTarget,
   connectDragSource?: ReactDnd.ConnectDragSource,
@@ -49,22 +49,29 @@ React.SFC<DashboardDragSourceDropTargetProps> = (props) => {
 
     return (
       <div
-        className={'dashboardWidgetWrapper'}
+        // className={'dashboardWidgetWrapper'}
         style={{
-          width: getWidth(element.width),
-          marginRight: checkPosition(
-              Number(element.width), element.index
-            ) ? ( element.width === '1' ) ? '0' : '2%' : '0',
-          marginBottom: ( element.width === '1' ) 
-            ? '20px' : '2%',
-          cursor: 'move',
-          boxSizing: 'border-box',
+          // width: getWidth(element.width),
+          // marginRight: checkPosition(
+          //     Number(element.width), element.index
+          //   ) ? ( element.width === '1' ) ? '0' : '2%' : '0',
+          // marginBottom: ( element.width === '1' ) 
+          //   ? '20px' : '2%',
+          // width: '100%',
+          // height: '100%',
+          position: 'relative',
+          // top: 0,
+          // left: 0,
+          // bottom: 0,
+          // right: 0,
+          // cursor: 'move',
+          // boxSizing: 'border-box',
           border: isDragging 
             ? '1px dashed #cecece'
             : isOver ? '1px dashed #cecece' : 'none',
           backgroundColor: isDragging
             ? '#e7eaec'
-            : isOver ? '#e7eaec' : 'transparent',
+            : isOver ? '#e7eaec' : 'rgba(0, 255, 0, .5)',//'transparent',
         }}
       >
         {connectDragSource(
@@ -76,7 +83,7 @@ React.SFC<DashboardDragSourceDropTargetProps> = (props) => {
                 left: '0',
                 bottom: '0',
                 right: '0',
-                backgroundColor: 'tranceparent',
+                backgroundColor: 'rgba(255, 0, 0, .5)',//'tranceparent',
                 zIndex: 100,
               }}>              
               </div>

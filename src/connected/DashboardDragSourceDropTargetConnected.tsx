@@ -34,7 +34,8 @@ let source: number = -1;
 const widgetSource: 
 ReactDnd.DragSourceSpec<DashboardDragSourceDropTargetProps> = {
   beginDrag: (props: DashboardDragSourceDropTargetProps) => {
-    source = props.element.index - 1;
+    source = props.element.index !== undefined
+      ? props.element.index - 1 : -1;
     return {
       width: props.element.width,
       widget_name: props.element.widget_name,
@@ -51,9 +52,12 @@ ReactDnd.DropTargetSpec<DashboardDragSourceDropTargetProps> = {
     component: React.Component<DashboardDragSourceDropTargetProps>) => {
       const items: MoveWidgetsInterface = {
         source: source,
-        target: props.element.index - 1,
+        target: props.element.index !== undefined
+          ? props.element.index - 1 : -1,
       }
-      props.reorderDraggableWidgetsCollection(items);
+      if ( props.element.index !== undefined ) {
+        props.reorderDraggableWidgetsCollection(items);        
+      }
     },
 };
 

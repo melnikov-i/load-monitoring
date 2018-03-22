@@ -1,13 +1,20 @@
 import * as React from 'react';
 
+
 import {
   DashboardInterface,
-  DashboardWidgetWrapperInterface,
+  WidgetInterface,
   DraggableDashboardChangerIterface,
 } from '@src/interfaces';
 
-import { DashboardDragLayer } from '@src/components';
 
+import {
+  emergence,
+  Widget
+} from '@src/styled';
+
+
+import { DashboardDragLayer } from '@src/components';
 import { Spinner } from '@src/components';
 import DashboardDragSourceDropTargetConnected from 
   '@src/usage/DashboardDragSourceDropTargetUsage';
@@ -61,27 +68,49 @@ React.SFC<DashboardDragDropContextProps> = (props) => {
     }
   ];
 
+
+  /**
+   * Особенностью React-DnD является то, что она ждет в качестве
+   * корневого элемента JSX.Element. Поэтому в данном месте
+   * необходимо повторить стиль WidgetLayout
+   */
+
   return (
-    <div
+    <div /* WidgetLayout */
       style={{
+        display: 'block',  
         boxSizing: 'border-box',
+        overflow: 'hidden',
         margin: '20px 15px 0',
+        animationName: emergence,
+        animationDuration: '1s',
+        animationTimingFunction: 'linear',
+        animationFillMode: 'both',
+        // position: 'relative',
       }}
     >
+      {/* Компонент, отображаемый при перемещении под курсором */}
       <DashboardDragLayer />
+
       {DraggableWidgetsCollection.dash_data.map((e, i) => {
-        const element: DashboardWidgetWrapperInterface = {
+        const element: WidgetInterface = {
           index: i + 1,
           width: DraggableSelectedCheckbox,
           widget_name: e.widget_name,
           device_id: e.device_id,
+          isPreview: false,
           series: series,
         }
         return (
-          <DashboardDragSourceDropTargetConnected
+          <Widget
             key={i}
-            element={element} 
-          />
+            width={DraggableSelectedCheckbox}
+            margin={i + 1}
+          >
+            <DashboardDragSourceDropTargetConnected
+              element={element} 
+            />            
+          </Widget>
         );
       })}      
     </div>
