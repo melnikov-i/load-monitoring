@@ -44,6 +44,7 @@ React.SFC<DashboardDragSourceDropTargetProps> = (props) => {
     widget_name: element.widget_name,
     device_id: element.device_id,
     isPreview: false,
+    series: element.series,
   };
 
     return (

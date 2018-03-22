@@ -2,6 +2,7 @@ export interface WidgetInterface {
   widget_name: string,
   device_id: string,
   isPreview?: boolean,
+  series: any,
 }
 
 interface DashIdInterface {
@@ -20,6 +21,7 @@ export interface DashboardWidgetWrapperInterface {
   width: string,
   widget_name: WidgetInterface['widget_name'],
   device_id: WidgetInterface['device_id'],
+  series: any,
 }
 
 export interface MoveWidgetsInterface {

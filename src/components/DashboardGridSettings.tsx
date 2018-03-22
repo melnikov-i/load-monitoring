@@ -5,7 +5,9 @@ import {
 } from '@src/interfaces';
 
 import {
-  FullWidthWidgetWrapper,
+  WidgetLayout,
+  Widget,
+
   FullWidthWidgetHeaderWrapper,
   WidgetHeader,
   FullWidthWidgetContent,
@@ -78,49 +80,53 @@ export const DashboardGridSettings: React.SFC<DashboardGridSettingsProps> = (pro
   };
 
   return (
-    <FullWidthWidgetWrapper bg={true}>
-      <FullWidthWidgetHeaderWrapper>
-        <WidgetHeader>{'Настройки панели'}</WidgetHeader>
-      </FullWidthWidgetHeaderWrapper>
-      <FullWidthWidgetContent>
-        <DraggableConfigColumnsWrapper>
-          <DraggableConfigColumnsHeaderWrapper>
-            <DraggableConfigColumnsHeader>
-              {'Количество колонок:'}
-            </DraggableConfigColumnsHeader>
-          </DraggableConfigColumnsHeaderWrapper>
-          <DraggableConfigColumnsItems>
-            {ColumnsValuesCollection.map((e, i) => (
-              <DraggableConfigColumnsItemAnchor
-                key={i}
-                data-index={i + 1}
-                isSelected={DraggableSelectedCheckbox === String(i + 1)}
-                onClick={columnsHandler}
+    <WidgetLayout>
+      <Widget>
+
+        <FullWidthWidgetHeaderWrapper>
+          <WidgetHeader>{'Настройки панели'}</WidgetHeader>
+        </FullWidthWidgetHeaderWrapper>
+        <FullWidthWidgetContent>
+          <DraggableConfigColumnsWrapper>
+            <DraggableConfigColumnsHeaderWrapper>
+              <DraggableConfigColumnsHeader>
+                {'Количество колонок:'}
+              </DraggableConfigColumnsHeader>
+            </DraggableConfigColumnsHeaderWrapper>
+            <DraggableConfigColumnsItems>
+              {ColumnsValuesCollection.map((e, i) => (
+                <DraggableConfigColumnsItemAnchor
+                  key={i}
+                  data-index={i + 1}
+                  isSelected={DraggableSelectedCheckbox === String(i + 1)}
+                  onClick={columnsHandler}
+                >
+                  <DraggableConfigColumnsItemSpan>
+                    {e}                  
+                  </DraggableConfigColumnsItemSpan>
+                </DraggableConfigColumnsItemAnchor>
+              ))}
+            </DraggableConfigColumnsItems>
+          </DraggableConfigColumnsWrapper>
+          <DraggableConfigColumnsWrapper>
+            <DraggableConfigAnchorsWrapper>
+              <Anchor
+                background={'#f8ac59'}
+                onClick={canselHandler}
               >
-                <DraggableConfigColumnsItemSpan>
-                  {e}                  
-                </DraggableConfigColumnsItemSpan>
-              </DraggableConfigColumnsItemAnchor>
-            ))}
-          </DraggableConfigColumnsItems>
-        </DraggableConfigColumnsWrapper>
-        <DraggableConfigColumnsWrapper>
-          <DraggableConfigAnchorsWrapper>
-            <Anchor
-              background={'#f8ac59'}
-              onClick={canselHandler}
-            >
-              {'Отмена'}
-            </Anchor>
-            <Anchor
-              background={'#1ab394'}
-              onClick={confirmHandler}
-            >
-              {'Применить'}
-            </Anchor>            
-          </DraggableConfigAnchorsWrapper>
-        </DraggableConfigColumnsWrapper>
-      </FullWidthWidgetContent>
-    </FullWidthWidgetWrapper>
+                {'Отмена'}
+              </Anchor>
+              <Anchor
+                background={'#1ab394'}
+                onClick={confirmHandler}
+              >
+                {'Применить'}
+              </Anchor>
+            </DraggableConfigAnchorsWrapper>
+          </DraggableConfigColumnsWrapper>
+        </FullWidthWidgetContent>
+
+      </Widget>      
+    </WidgetLayout>
   );
 };

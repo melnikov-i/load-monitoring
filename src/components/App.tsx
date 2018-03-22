@@ -77,9 +77,9 @@ injectGlobal`
     vertical-align: top;
     position: relative;    
     &::before {
-      content: "";
-      display: block;
-      padding-top: 62%;
+      --content: "";
+      --display: block;
+      --padding-top: 62%;
     }
   }
 

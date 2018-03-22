@@ -19,73 +19,18 @@ import {
   DynamicWidthWidgetContent,
 } from '@src/styled';
 
-const series = [
-  {
-    // color: '#1ab394',
-    data: [
-      45,
-      23,
-      65,
-      12,
-      67,
-      43,
-      1,
-      34,
-      88,
-      99,
-      33,
-      45,
-      45,
-      23,
-      65,
-      12,
-      67,
-      43,
-      1,
-      34,
-      88,
-      99,
-      33,
-      45,
-      45,
-      23,
-      65,
-      12,
-      67,
-      43,
-      1,
-      34,
-      88,
-      99,
-      33,
-      45,
-      45,
-      23,
-      65,
-      12,
-      67,
-      43,
-      1,
-      34,
-      88,
-      99,
-      33,
-      45,
-      45,
-      23,
-      65,
-      12,
-      67,
-      43,
-      1,
-      34,
-      88,
-      99,
-      33,
-      99,
-    ]
-  }
-];
+// const series = [
+//   {
+//     // color: '#1ab394',
+//     data: [
+//       45, 23, 65, 12, 67, 43, 1, 34, 88, 99, 33, 45, 45,
+//       23, 65, 12, 67, 43, 1, 34, 88, 99, 33, 45, 45, 23,
+//       65, 12, 67, 43, 1, 34, 88, 99, 33, 45, 45, 23, 65,
+//       12, 67, 43, 1, 34, 88, 99, 33, 45, 45, 23, 65, 12,
+//       67, 43, 1, 34, 88, 99, 33, 99,
+//     ]
+//   }
+// ];
 
 interface DashboardWidgetProps {
   item: WidgetInterface,
@@ -104,7 +49,7 @@ React.SFC<DashboardWidgetProps> = (props) => {
       </DynamicWidthWidgetHeaderWrapper>
       <DynamicWidthWidgetContent style={{fontSize: '14px'}}>
         <Chart
-          series={series}
+          series={item.series}
           viewBox={'0 0 100 50'}
           style={{
             display: 'block',
@@ -120,9 +65,11 @@ React.SFC<DashboardWidgetProps> = (props) => {
             <Ticks 
               axis={'y'}
               lineLength={'100%'}
+
               lineVisible={true}
               lineStyle={{
                 stroke: 'lightgray',
+                strokeWidth: '0.2',
               }}
               labelStyle={{
                 textAnchor:'end',

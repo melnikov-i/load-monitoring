@@ -48,6 +48,19 @@ React.SFC<DashboardDragDropContextProps> = (props) => {
     );
   }
 
+  const series: any = [
+    {
+      // color: '#1ab394',
+      data: [
+        45, 23, 65, 12, 67, 43, 1, 34, 88, 99, 33, 45, 45,
+        23, 65, 12, 67, 43, 1, 34, 88, 99, 33, 45, 45, 23,
+        65, 12, 67, 43, 1, 34, 88, 99, 33, 45, 45, 23, 65,
+        12, 67, 43, 1, 34, 88, 99, 33, 45, 45, 23, 65, 12,
+        67, 43, 1, 34, 88, 99, 33, 99,
+      ]
+    }
+  ];
+
   return (
     <div
       style={{
@@ -62,6 +75,7 @@ React.SFC<DashboardDragDropContextProps> = (props) => {
           width: DraggableSelectedCheckbox,
           widget_name: e.widget_name,
           device_id: e.device_id,
+          series: series,
         }
         return (
           <DashboardDragSourceDropTargetConnected
