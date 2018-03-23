@@ -166,6 +166,15 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
       </div>
     );
   }
+};
+
+
+
+
+
+
+
+
       // <DynamicWidthWidgetsLayout>
       // </DynamicWidthWidgetsLayout>
         // {DashboardCollection.dash_data.map((e, i) => {
@@ -241,4 +250,3 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
   //     </div>
   //   );
   // }
-};

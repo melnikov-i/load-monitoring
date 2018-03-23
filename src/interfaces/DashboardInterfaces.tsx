@@ -18,6 +18,12 @@ export interface DashboardInterface {
   dash_data: WidgetInterface[],
 }
 
+export interface DashboardDragWidgetInterface {
+  id: string,
+  findWidget: ( id: string ) => any,
+  moveWidget: ( id: string, atIndex: string ) => any,
+}
+
 // export interface DashboardWidgetWrapperInterface {
 //   widget_name: WidgetInterface['widget_name'],
 //   device_id: WidgetInterface['device_id'],
