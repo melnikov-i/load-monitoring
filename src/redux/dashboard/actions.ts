@@ -20,10 +20,10 @@ export const THIS_DASHBOARD_WAS_REQUESTED_FROM_API =
   'THIS_DASHBOARD_WAS_REQUESTED_FROM_API';
 export const PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION =
   'PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION';
-export const CHANGE_SELECTED_CHECKBOX = 
-  'CHANGE_SELECTED_CHECKBOX';
-export const SET_SELECTED_CHECKBOX = 
-  'SET_SELECTED_CHECKBOX';
+// export const CHANGE_SELECTED_CHECKBOX = 
+//   'CHANGE_SELECTED_CHECKBOX';
+// export const SET_SELECTED_CHECKBOX = 
+//   'SET_SELECTED_CHECKBOX';
 export const REORDER_DRAGGABLE_WIDGETS_COLLECTION =
   'REORDER_DRAGGABLE_WIDGETS_COLLECTION';
 export const CREATE_DRAGGABLE_DASHBOARD =
@@ -38,14 +38,14 @@ export type Actions = {
     type: typeof PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION,
     payload: DashboardInterface,
   },
-  SET_SELECTED_CHECKBOX: {
-    type: typeof SET_SELECTED_CHECKBOX,
-    payload: string,
-  },
-  CHANGE_SELECTED_CHECKBOX: {
-    type: typeof CHANGE_SELECTED_CHECKBOX,
-    payload: string,
-  },
+  // SET_SELECTED_CHECKBOX: {
+  //   type: typeof SET_SELECTED_CHECKBOX,
+  //   payload: string,
+  // },
+  // CHANGE_SELECTED_CHECKBOX: {
+  //   type: typeof CHANGE_SELECTED_CHECKBOX,
+  //   payload: string,
+  // },
   REORDER_DRAGGABLE_WIDGETS_COLLECTION: {
     type: typeof REORDER_DRAGGABLE_WIDGETS_COLLECTION,
     payload: MoveWidgetsInterface,
@@ -68,14 +68,14 @@ export const syncActionCreators = {
   Actions[typeof PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION] => ({
     type: PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION, payload,
   }),
-  setSelectedCheckbox: (payload: string):
-  Actions[typeof SET_SELECTED_CHECKBOX] => ({
-    type: SET_SELECTED_CHECKBOX, payload,
-  }),
-  changeSelectedCheckbox: (payload: string):
-  Actions[typeof CHANGE_SELECTED_CHECKBOX] => ({
-    type: CHANGE_SELECTED_CHECKBOX, payload,
-  }),
+  // setSelectedCheckbox: (payload: string):
+  // Actions[typeof SET_SELECTED_CHECKBOX] => ({
+  //   type: SET_SELECTED_CHECKBOX, payload,
+  // }),
+  // changeSelectedCheckbox: (payload: string):
+  // Actions[typeof CHANGE_SELECTED_CHECKBOX] => ({
+  //   type: CHANGE_SELECTED_CHECKBOX, payload,
+  // }),
   reorderDraggableWidgetsCollection:
   ( payload: MoveWidgetsInterface ):
   Actions[typeof REORDER_DRAGGABLE_WIDGETS_COLLECTION] => ({
@@ -109,20 +109,20 @@ dispatch: Dispatch) => {
           loginActionCreators.userWasLogOut()
         )
       }
-      if ( response.data.dashboard.dash_id !== null ) {
-        return response.data.dashboard.dash_id.dash_columns;
-      } else {
-        return '2';
-      }
+      // if ( response.data.dashboard.dash_id !== null ) {
+      //   return response.data.dashboard.dash_id.dash_columns;
+      // } else {
+      //   return '2';
+      // }
     }
   )
-  .then(
-    ( checkbox ) => {
-      dispatch(
-        syncActionCreators.setSelectedCheckbox(checkbox)
-      );
-    }
-  )
+  // .then(
+  //   ( checkbox ) => {
+  //     dispatch(
+  //       syncActionCreators.setSelectedCheckbox(checkbox)
+  //     );
+  //   }
+  // )
   .catch(
     ( error ) => {
       console.log('[ERROR]:', error);

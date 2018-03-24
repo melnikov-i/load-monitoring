@@ -12,16 +12,13 @@ import {
 
 
 /**
- * Каркас виджета. Задает ширину и проигрывает
- * анимацию при старте страницы.
+ * Компонент, содержащий компоненты виджетов. 
+ * Задает отступы и проигрывает анимацию при старте страницы.
  *
- * @param {boolean} bg
- * @param {string} width
- * @param {margin} number
  * @return {React.Component}
  */
 
-export const WidgetLayout = styled.div`
+export const WidgetsLayout = styled.div`
   display: block;  
   box-sizing: border-box;
   overflow: hidden;
@@ -34,7 +31,11 @@ export const WidgetLayout = styled.div`
 
 
 /**
- * Контейнер виджета.
+ * Контейнер отдельного виджета.
+ *
+ * @param {boolean} bg
+ * @param {string} width
+ * @param {number} margin
  */
 
 interface WidgetProps {

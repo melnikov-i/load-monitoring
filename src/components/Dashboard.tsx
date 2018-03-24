@@ -3,7 +3,7 @@ import * as React from 'react';
 import {
   DashboardInterface,
   MainHeaderInterface,
-  WidgetInterface,
+  // WidgetInterface,
 } from '@src/interfaces';
 
 /* Компонент спиннера */
@@ -11,20 +11,29 @@ import { Spinner } from '@src/components';
 /* Компонент заголовка страницы */
 import MainHeaderConnected from
   '@src/usage/MainHeaderUsage';  
-/* Компонент с параметрами настройки виджетов с диаграммами */
-import DashboardGridSettingsConnected from
-  '@src/usage/DashboardGridSettingsUsage';
-/* Компонент перемещаемых виджетов */
-import DashboardDragDropContextConnected from
-  '@src/usage/DashboardDragDropContextUsage';
-/* Компонент статических виджетов */
-import DashboardWidgetConnected from
-  '@src/usage/DashboardWidgetUsage';
+/* Контейнер с перемещаемыми виджетами */
+import DashboardDragContainerConnected from
+  '@src/usage/DashboardDragContainerUsage';
+/* Контейнер со статическими виджетами */
+import DashboardStaticContainer from
+  '@src/usage/DashboardStaticContainerUsage';
 
-import {
-  WidgetLayout,
-  Widget,
-} from '@src/styled';
+
+/* Компонент с параметрами настройки виджетов с диаграммами */
+// import DashboardGridSettingsConnected from
+//   '@src/usage/DashboardGridSettingsUsage';
+
+
+//  Компонент статических виджетов 
+// import DashboardWidgetConnected from
+//   '@src/usage/DashboardWidgetUsage';
+
+
+
+// import {
+//   WidgetsLayout,
+//   Widget,
+// } from '@src/styled';
 
 interface DashboardProps {
   /* Идентификатор дашборда */
@@ -48,7 +57,7 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
     id,
     DashboardWasRequestedFromAPI,
     makeDashboardRequestFromAPI,
-    SelectedCheckbox,
+    // SelectedCheckbox,
     DashboardCollection,
     MainHeaderButtonWasClicked,
   } = props;
@@ -101,18 +110,18 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
 
   /* Тестовые данные для диаграмм */
 
-  const series: any = [
-    {
-      // color: '#1ab394',
-      data: [
-        45, 23, 65, 12, 67, 43, 1, 34, 88, 99, 33, 45, 45,
-        23, 65, 12, 67, 43, 1, 34, 88, 99, 33, 45, 45, 23,
-        65, 12, 67, 43, 1, 34, 88, 99, 33, 45, 45, 23, 65,
-        12, 67, 43, 1, 34, 88, 99, 33, 45, 45, 23, 65, 12,
-        67, 43, 1, 34, 88, 99, 33, 99,
-      ]
-    }
-  ];
+  // const series: any = [
+  //   {
+  //     // color: '#1ab394',
+  //     data: [
+  //       45, 23, 65, 12, 67, 43, 1, 34, 88, 99, 33, 45, 45,
+  //       23, 65, 12, 67, 43, 1, 34, 88, 99, 33, 45, 45, 23,
+  //       65, 12, 67, 43, 1, 34, 88, 99, 33, 45, 45, 23, 65,
+  //       12, 67, 43, 1, 34, 88, 99, 33, 45, 45, 23, 65, 12,
+  //       67, 43, 1, 34, 88, 99, 33, 99,
+  //     ]
+  //   }
+  // ];
 
   
   /**
@@ -125,47 +134,61 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
    * т.к. в connector'е подключаются компоненты библиотеки
    * react-dnd.
    */
+        // <DashboardDragDropContextConnected />
+        // <DashboardDragContainer
+        //       item={DashboardCollection}
+        //     />
 
-  if ( MainHeaderButtonWasClicked ) {
-    /* Настройка дашборда */
-    return (
-      <div>
-        {/* Основной заголовок страницы */}
-        <MainHeaderConnected data={MainHeaderState} />
-        {/* Виджет редактирования, отмены и применения параметров */}
-        <DashboardGridSettingsConnected />
-        {/* Корневой компонент перетаскиваемых виджетов */}
-        <DashboardDragDropContextConnected />
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        {/* Основной заголовок страницы */}
-        <MainHeaderConnected data={MainHeaderState} />
-        {/* Контейнер с виджетами */}
-        <WidgetLayout>
-          {DashboardCollection.dash_data.map((e, i) => {
-            const item: WidgetInterface = {
-              widget_name: e.widget_name,
-              device_id: e.device_id,
-              isPreview: false,
-              series: series,
-            };
-            return (
-              <Widget
-                key={i}
-                width={SelectedCheckbox}
-                margin={i + 1}
-              >
-                <DashboardWidgetConnected item={item} />
-              </Widget>
-            )
-          })}
-        </WidgetLayout>
-      </div>
-    );
-  }
+  return (
+    <div>
+      {/* Основной заголовок страницы */}
+      <MainHeaderConnected data={MainHeaderState} />
+      {
+        MainHeaderButtonWasClicked
+          ? <DashboardDragContainerConnected />
+          : <DashboardStaticContainer items={DashboardCollection} />
+      }
+    </div>
+  );
+
+  // if ( MainHeaderButtonWasClicked ) {
+  //   /* Настройка дашборда */
+  //   return (
+  //     <div>
+  //       {/* Виджет редактирования, отмены и применения параметров */}
+  //       <DashboardGridSettingsConnected />
+  //       {/* Корневой компонент перетаскиваемых виджетов */}
+  //     </div>
+  //   );
+  // } else {
+  //   return (
+  //     <div>
+  //       {/* Основной заголовок страницы */}
+  //       <MainHeaderConnected data={MainHeaderState} />
+  //       {/* Контейнер с виджетами */}
+  //       <WidgetsLayout>
+  //         {DashboardCollection.dash_data.map((e, i) => {
+            
+  //           const item: WidgetInterface = {
+  //             widget_name: e.widget_name,
+  //             device_id: e.device_id,
+  //             id: e.id,
+  //             series: series,
+  //           };
+  //           return (
+  //             <Widget
+  //               key={i}
+  //               width={SelectedCheckbox}
+  //               margin={i + 1}
+  //             >
+  //               <DashboardWidgetConnected item={item} />
+  //             </Widget>
+  //           )
+  //         })}
+  //       </WidgetsLayout>
+  //     </div>
+  //   );
+  // }
 };
 
 
@@ -185,13 +208,13 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
         //     series: series,
         //   };
         // //   return (
-        //     <WidgetLayout
+        //     <WidgetsLayout
         //       width={SelectedCheckbox}
         //       margin={i + 1}
         //       key={i}
         //     >
         //       <DashboardWidgetConnected item={item} />
-        //     </WidgetLayout>
+        //     </WidgetsLayout>
         //   );
         // })}
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import {
-  WidgetLayout,
+  WidgetsLayout,
   Widget,
   
   DevicesTable,
@@ -121,7 +121,7 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
   return (
     <div>
       <MainHeaderConnected data={MainHeaderState} />
-      <WidgetLayout>
+      <WidgetsLayout>
         <Widget>
           <FullWidthWidgetHeaderWrapper>
             <WidgetHeader>{'Все устройства'}</WidgetHeader>          
@@ -264,7 +264,7 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
             </DevicesTable>
           </FullWidthWidgetContent>
         </Widget>
-      </WidgetLayout>
+      </WidgetsLayout>
     </div>
   );
 };

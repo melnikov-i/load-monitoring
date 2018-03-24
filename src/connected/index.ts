@@ -7,6 +7,7 @@ export * from './DevicesStatusConnected';
 export * from './OverviewConnected';
 export * from './MainHeaderConnected';
 export * from './DashboardConnected';
+export * from './DashboardDragContainerConnected';
 export * from './DashboardGridSettingsConnected';
 export * from './DashboardWidgetConnected';
 

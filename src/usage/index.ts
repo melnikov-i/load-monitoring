@@ -7,6 +7,8 @@ export * from './DevicesStatusUsage';
 export * from './OverviewUsage';
 export * from './MainHeaderUsage';
 export * from './DashboardUsage';
+export * from './DashboardDragContainerUsage';
+export * from './DashboardStaticContainerUsage';
 export * from './DashboardGridSettingsUsage';
 export * from './DashboardWidgetUsage';
 

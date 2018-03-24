@@ -5,7 +5,7 @@ import {
 } from '@src/interfaces';
 
 import {
-  WidgetLayout,
+  WidgetsLayout,
   Widget,
 
   FullWidthWidgetHeaderWrapper,
@@ -22,7 +22,7 @@ import {
 } from '@src/styled';
 
 interface DashboardGridSettingsProps {
-  changeSelectedCheckbox: (payload: string) => any,
+  // changeSelectedCheckbox: (payload: string) => any,
   DraggableSelectedCheckbox: string,
   DraggableWidgetsCollection: DashboardInterface,
   mainHeaderButtonSwitch: () => any,
@@ -32,7 +32,7 @@ interface DashboardGridSettingsProps {
 
 export const DashboardGridSettings: React.SFC<DashboardGridSettingsProps> = (props) => {
   const {
-    changeSelectedCheckbox,
+    // changeSelectedCheckbox,
     DraggableSelectedCheckbox,
     DraggableWidgetsCollection,
     mainHeaderButtonSwitch,
@@ -56,7 +56,7 @@ export const DashboardGridSettings: React.SFC<DashboardGridSettingsProps> = (pro
     const attribute: string | null = 
       e.currentTarget.getAttribute('data-index');
     if ( attribute !== null ) {
-      changeSelectedCheckbox(attribute)
+      // changeSelectedCheckbox(attribute)
     }
   };
 
@@ -80,7 +80,7 @@ export const DashboardGridSettings: React.SFC<DashboardGridSettingsProps> = (pro
   };
 
   return (
-    <WidgetLayout>
+    <WidgetsLayout>
       <Widget>
 
         <FullWidthWidgetHeaderWrapper>
@@ -127,6 +127,6 @@ export const DashboardGridSettings: React.SFC<DashboardGridSettingsProps> = (pro
         </FullWidthWidgetContent>
 
       </Widget>      
-    </WidgetLayout>
+    </WidgetsLayout>
   );
 };

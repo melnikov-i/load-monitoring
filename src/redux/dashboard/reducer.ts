@@ -8,8 +8,8 @@ import {
 import {
   THIS_DASHBOARD_WAS_REQUESTED_FROM_API,
   PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION,
-  CHANGE_SELECTED_CHECKBOX,
-  SET_SELECTED_CHECKBOX,
+  // CHANGE_SELECTED_CHECKBOX,
+  // SET_SELECTED_CHECKBOX,
   CREATE_DRAGGABLE_DASHBOARD,
   REORDER_DRAGGABLE_WIDGETS_COLLECTION,
 } from '@src/redux/dashboard';
@@ -107,23 +107,23 @@ export const reducer = combineReducers({
     }
   },
   /* Количество колонок на странице отображения */
-  SelectedCheckbox: ( state = '0', action ) => {
-    switch ( action.type ) {
-      case SET_SELECTED_CHECKBOX:
-        return action.payload;
-      default:
-        return state;
-    }
-  },
+  // SelectedCheckbox: ( state = '0', action ) => {
+  //   switch ( action.type ) {
+  //     case SET_SELECTED_CHECKBOX:
+  //       return action.payload;
+  //     default:
+  //       return state;
+  //   }
+  // },
   /* Количество колонок на странице редактирования */
-  DraggableSelectedCheckbox: ( state = '0', action ) => {
-    switch ( action.type ) {
-      case CREATE_DRAGGABLE_DASHBOARD:
-        return action.payload.checkbox;
-      case CHANGE_SELECTED_CHECKBOX:
-        return action.payload;
-      default:
-        return state;
-    }
-  },
+  // DraggableSelectedCheckbox: ( state = '0', action ) => {
+  //   switch ( action.type ) {
+  //     case CREATE_DRAGGABLE_DASHBOARD:
+  //       return action.payload.checkbox;
+  //     case CHANGE_SELECTED_CHECKBOX:
+  //       return action.payload;
+  //     default:
+  //       return state;
+  //   }
+  // },
 });

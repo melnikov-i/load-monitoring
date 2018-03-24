@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import {
-  WidgetLayout,
+  WidgetsLayout,
   Widget,
 
   OverwievText,
@@ -148,7 +148,7 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
     return (
       <div>
         <MainHeaderConnected data={MainHeaderState} />
-        <WidgetLayout>
+        <WidgetsLayout>
           <Widget bg={false}>
 
             <FullWidthWidgetContent>
@@ -184,8 +184,8 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
             </FullWidthWidgetContent>
 
           </Widget>
-        </WidgetLayout>
-        <WidgetLayout>
+        </WidgetsLayout>
+        <WidgetsLayout>
           <Widget>
 
             <FullWidthWidgetHeaderWrapper>
@@ -280,7 +280,7 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
             </FullWidthWidgetContent>
 
           </Widget>
-        </WidgetLayout>
+        </WidgetsLayout>
       </div>
     );    
   } else {

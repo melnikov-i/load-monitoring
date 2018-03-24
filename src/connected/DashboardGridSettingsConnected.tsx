@@ -6,7 +6,7 @@ import { Dispatch, RootState } from '@src/redux';
 import { DashboardGridSettings } from '@src/components';
 
 import { 
-  syncActionCreators,
+  // syncActionCreators,
   asyncActionCreators
 } from '@src/redux/dashboard';
 
@@ -32,11 +32,10 @@ const mapStateToProps = createStructuredSelector<RootState, {
 });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
-  changeSelectedCheckbox: syncActionCreators.changeSelectedCheckbox,
+  // changeSelectedCheckbox: syncActionCreators.changeSelectedCheckbox,
   mainHeaderButtonSwitch: mainHeadActionCreators.mainHeaderButtonSwitch,
   sendChangedDashboardToAPI: asyncActionCreators.sendChangedDashboardToAPI,
 }, dispatch);
 
 export const DashboardGridSettingsConnected = connect(
-    mapStateToProps, mapDispatchToProps)(DashboardGridSettings
-  );
+    mapStateToProps, mapDispatchToProps)(DashboardGridSettings);
