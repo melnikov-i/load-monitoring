@@ -18,9 +18,9 @@ interface DashboardStaticContainerProps {
 
 export const DashboardStaticContainer: 
 React.SFC<DashboardStaticContainerProps> = (props) => {
-  const { items } = props;
+  // const { items } = props;
 
-  console.log('items:', items);
+  // console.log('items:', items);
 
   return (
     <div>

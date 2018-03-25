@@ -61,4 +61,5 @@ monitor: ReactDnd.DropTargetMonitor) => ({
 
 export const DashboardDragContainerConnected = DragDropContext(
   MultiBackend(HTML5toTouch))(DropTarget(
-    ItemTypes.WIDGET, containerTarget, dropTargetCollect)(DashboardDragContainer));
+    ItemTypes.WIDGET, containerTarget, dropTargetCollect
+  )(DashboardDragContainer));
