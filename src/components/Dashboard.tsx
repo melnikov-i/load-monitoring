@@ -3,8 +3,8 @@ import * as React from 'react';
 import {
   DashboardInterface,
   MainHeaderInterface,
-  // WidgetInterface,
 } from '@src/interfaces';
+
 
 /* Компонент спиннера */
 import { Spinner } from '@src/components';
@@ -17,23 +17,10 @@ import DashboardDragContainerConnected from
 /* Контейнер со статическими виджетами */
 import DashboardStaticContainer from
   '@src/usage/DashboardStaticContainerUsage';
-
-
 /* Компонент с параметрами настройки виджетов с диаграммами */
-// import DashboardGridSettingsConnected from
-//   '@src/usage/DashboardGridSettingsUsage';
+import DashboardGridSettingsConnected from
+  '@src/usage/DashboardGridSettingsUsage';
 
-
-//  Компонент статических виджетов 
-// import DashboardWidgetConnected from
-//   '@src/usage/DashboardWidgetUsage';
-
-
-
-// import {
-//   WidgetsLayout,
-//   Widget,
-// } from '@src/styled';
 
 interface DashboardProps {
   /* Идентификатор дашборда */
@@ -134,22 +121,26 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
    * т.к. в connector'е подключаются компоненты библиотеки
    * react-dnd.
    */
-        // <DashboardDragDropContextConnected />
-        // <DashboardDragContainer
-        //       item={DashboardCollection}
-        //     />
 
   return (
     <div>
       {/* Основной заголовок страницы */}
       <MainHeaderConnected data={MainHeaderState} />
-      {
-        MainHeaderButtonWasClicked
-          ? <DashboardDragContainerConnected />
-          : <DashboardStaticContainer items={DashboardCollection} />
+      {/* Панель настройки / панель выбора интервала */}
+      {MainHeaderButtonWasClicked
+        ? <DashboardGridSettingsConnected />
+        : null
+      }
+      {/* Дашборды перетаскиваемые / дашборды статические */}
+      {MainHeaderButtonWasClicked
+        ? <DashboardDragContainerConnected />
+        : <DashboardStaticContainer items={DashboardCollection} />
       }
     </div>
   );
+};
+
+
 
   // if ( MainHeaderButtonWasClicked ) {
   //   /* Настройка дашборда */
@@ -189,10 +180,6 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
   //     </div>
   //   );
   // }
-};
-
-
-
 
 
 

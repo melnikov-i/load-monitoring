@@ -88,6 +88,19 @@ export const syncActionCreators = {
   }),
 };
 
+/**
+ * Метод получения модели дашборда от бэкэнда вынесен в
+ * отдельную функцию потому, что подобное действие необходимо
+ * совершить более одного раза. Первый в методе 
+ * makeDashboardRequestFromAPI(), где происходит первичный запрос
+ * данных, второй -- в методе sendChangedDashboardToAPI(), где
+ * необходимо произвести точно такой же запрос после успешной 
+ * отправки данных в бэкэнд.
+ *
+ * @param {DashboardInterface['dash_id']['dashboard_id']} payload
+ * @param {Dispatch} dispatch
+ */
+
 const getDashboardFromAPI = (
 payload: DashboardInterface['dash_id']['dashboard_id'],
 dispatch: Dispatch) => {

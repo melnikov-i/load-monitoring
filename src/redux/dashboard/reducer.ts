@@ -24,14 +24,32 @@ import {
 
 
 export type State = {
-  readonly DashboardCollection: DashboardInterface,
-  readonly DraggableWidgetsCollection: DashboardInterface,
-  readonly isDraggableWidgetsCollection: boolean,
+  /* Модель дашборда для статического отображения */
+  readonly DasboardStaticModel: DashboardInterface,
+  /* Модель дашборда для отображение с drag&drop */
+  readonly DashboardDragModel: DashboardInterface,
+  /* Ключ, используемый в запросе модели с бэкэнда */
   readonly DashboardWasRequestedFromAPI: 
     DashboardInterface['dash_id']['dashboard_id'],
+
+  readonly DashboardCollection: DashboardInterface,
+  readonly DraggableWidgetsCollection: DashboardInterface,
+
+  readonly isDraggableWidgetsCollection: boolean,
   readonly SelectedCheckbox: string,
   readonly DraggableSelectedCheckbox: string,
 };
+
+/* Состояние модели дашборда по умолчанию */
+const DashboardModelInitialState: DashboardInterface = {
+  dash_id: {
+    dashboard_id: '',
+    dashboard_name: '',
+    dash_columns: '',
+  },
+  dash_data: [],  
+};
+
 
 const DashboardCollectionInitialState: DashboardInterface = {
   dash_id: {
@@ -55,6 +73,43 @@ items: MoveWidgetsInterface ) => {
 };
 
 export const reducer = combineReducers({
+  /* Модель дашборда для статического отображения */
+  DasboardStaticModel:
+  ( state = DashboardModelInitialState, action ) => {
+    switch ( action.type ) {
+      default:
+        return state;
+    }
+  },
+
+  /* Модель дашборда для отображение с drag&drop */
+  DashboardDragModel:
+  ( state = DashboardModelInitialState, action ) => {
+    switch ( action.type ) {
+      default:
+        return state;
+    }
+  },
+
+  /*
+   * Ключ, используемый в запросе модели с бэкэнда.
+   * В качестве ключа используется идентификатор 
+   * запрашиваемого у бэкэнда дашборда.
+   */
+
+  DashboardWasRequestedFromAPI: ( state = '', action ) => {
+    switch ( action.type ) {
+      case THIS_DASHBOARD_WAS_REQUESTED_FROM_API:
+        return action.payload;
+      case USER_WAS_LOGOUT:
+        return '';
+      default:
+        return state;
+    }
+  },
+
+
+
   /* Коллекция виджетов для отображения */
   DashboardCollection: 
   ( state = DashboardCollectionInitialState, action ) => {
@@ -80,17 +135,6 @@ export const reducer = combineReducers({
         };
       case USER_WAS_LOGOUT:
         return DashboardCollectionInitialState;
-      default:
-        return state;
-    }
-  },
-  /* Ключ для помещения данных в коллекцию виджетов для отображения */
-  DashboardWasRequestedFromAPI: ( state = '', action ) => {
-    switch ( action.type ) {
-      case THIS_DASHBOARD_WAS_REQUESTED_FROM_API:
-        return action.payload;
-      case USER_WAS_LOGOUT:
-        return '';
       default:
         return state;
     }
