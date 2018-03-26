@@ -30,6 +30,13 @@ export const isDashboardDragModelCopiedSelector =
     ( isDashboardDragModelCopied ) => isDashboardDragModelCopied,
   );
 
+/* ID целевого элемента при перемещении виджета. */
+export const currentTargetIdSelector =
+  createSelector(
+    ( state: RootState ) => state.dashboard.currentTargetId,
+    ( currentTargetId ) => currentTargetId,
+  );
+
 
 
 

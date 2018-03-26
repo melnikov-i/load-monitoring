@@ -19,9 +19,14 @@ interface DashboardDragContainerProps {
   DashboardDragModel: DashboardInterface,
   /* Ключ, по значению которого определяется актуальность модели */
   isDashboardDragModelCopied: boolean,
+  /* ID целевого элемента при перемещении виджета */
+  currentTargetId: string,
   /* Запускает в action метод, актуализирующий модель DashboardDragModel */
   copyDashboardFromDashboardStaticModel: 
   ( payload: DashboardInterface ) => any,
+  /* Запускает в action метод, обновляющий структуру DashboardDragModel */
+  reorderDashboardDragModelDataCollectionOnlyOneTime: 
+  ( payload: { model: DashboardInterface['dash_data'], id: string } ) => any,
   /* Метод библиотеки React-DnD */
   connectDropTarget?: any,
 }
@@ -33,7 +38,9 @@ React.SFC<DashboardDragContainerProps> = ( props ) => {
     DashboardStaticModel,
     DashboardDragModel,
     isDashboardDragModelCopied,
+    currentTargetId,
     copyDashboardFromDashboardStaticModel,
+    reorderDashboardDragModelDataCollectionOnlyOneTime,
     connectDropTarget,
   } = props;
 
@@ -61,9 +68,30 @@ React.SFC<DashboardDragContainerProps> = ( props ) => {
    * targetIndex - индекс целевого таргета
    */
 
-  const moveWidget = ( sourceId: string, targetId: string ) => {
-    console.log('sourceId:', sourceId);
-    console.log('targetId:', targetId);
+  // let currentTargetId: string = '';
+
+  const moveWidgets = ( sourceId: string, targetId: string ) => {
+    
+    /* Исключаем повторные срабатывания */
+    if ( currentTargetId !== targetId ) {
+      console.log('source:', sourceId);
+      console.log('target:', targetId);
+      const numberOfSourceId: number = Number(sourceId);
+      const numberOfTargetId: number = Number(targetId);
+      const result = widgets.map(( widget, i ) => {
+        switch ( i ) {
+          case numberOfSourceId: return widgets[numberOfTargetId];
+          case numberOfTargetId: return widgets[numberOfSourceId];
+          default: return widgets[i];
+        }
+      });
+      reorderDashboardDragModelDataCollectionOnlyOneTime({
+        model: result,
+        id: targetId
+      });
+      // console.log('source:', widgets);
+      // console.log('result:', result);
+    }
   };
 
   // moveItem( id: string, atIndex: string ) {
@@ -129,7 +157,7 @@ React.SFC<DashboardDragContainerProps> = ( props ) => {
         <DashboardDragItemConnected
           key={widget.device_id + widget.widget_name}
           widget_name={widget.widget_name}
-          moveWidget={moveWidget}
+          moveWidgets={moveWidgets}
           findWidget={findWidget}
           width={width}
           id={String(i)}

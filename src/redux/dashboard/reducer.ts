@@ -9,6 +9,8 @@ import {
   THIS_DASHBOARD_WAS_REQUESTED_FROM_API,
   PUT_DASHBOARD_MODEL_FROM_API_TO_STORE,
   COPY_DASHBOARD_FROM_DASHBOARD_STATIC_MODEL,
+  REORDER_DASHBOARD_DRAG_MODEL_DATA_COLLECTION,
+  CHANGE_CURRENT_TARGET_ID
   // PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION,
   // CHANGE_SELECTED_CHECKBOX,
   // SET_SELECTED_CHECKBOX,
@@ -36,16 +38,10 @@ export type State = {
     DashboardInterface['dash_id']['dashboard_id'],
   /* Ключ актуальности модели DashboardDragModel */
   readonly isDashboardDragModelCopied: boolean,
-
-
-
-  // readonly DashboardCollection: DashboardInterface,
-  // readonly DraggableWidgetsCollection: DashboardInterface,
-
-  // readonly isDraggableWidgetsCollection: boolean,
-  // readonly SelectedCheckbox: string,
-  // readonly DraggableSelectedCheckbox: string,
+  /* ID целевого элемента при перемещении виджета */
+  readonly currentTargetId: string,
 };
+
 
 /* Состояние модели дашборда по умолчанию */
 const DashboardModelInitialState: DashboardInterface = {
@@ -56,34 +52,6 @@ const DashboardModelInitialState: DashboardInterface = {
   },
   dash_data: [],  
 };
-
-
-
-
-
-// const DashboardCollectionInitialState: DashboardInterface = {
-//   dash_id: {
-//     dashboard_id: '',
-//     dashboard_name: '',
-//     dash_columns: '',
-//   },
-//   dash_data: []
-// };
-
-
-
-// const reorder = ( dash_data: DashboardInterface['dash_data'],
-// items: MoveWidgetsInterface ) => {
-//   const result = dash_data.map((e, i) => {
-//     switch ( i ) {
-//       case items.source: return dash_data[items.target];
-//       case items.target: return dash_data[items.source];
-//       default: return dash_data[i];
-//     }
-//   });
-//   return result;
-// };
-
 
 
 export const reducer = combineReducers({
@@ -116,6 +84,11 @@ export const reducer = combineReducers({
       /* Помещает сюда копию редактируемого дашборда */
       case COPY_DASHBOARD_FROM_DASHBOARD_STATIC_MODEL:
         return action.payload;
+      case REORDER_DASHBOARD_DRAG_MODEL_DATA_COLLECTION:
+        return {
+          ...state,
+          ['dash_data']: action.payload,
+        };
       /* Очищает редьюсер при logout'е */
       case USER_WAS_LOGOUT:
         return DashboardModelInitialState;
@@ -167,6 +140,62 @@ export const reducer = combineReducers({
   },
 
 
+
+  /**
+   * ID целевого элемента при перемещении виджета.
+   * Это поле необходимо для исключения повторных срабатываний перемещений
+   * виджетов.
+   */
+
+  currentTargetId: ( state = '', action ) => {
+    switch ( action.type ) {
+      case CHANGE_CURRENT_TARGET_ID:
+        return action.payload;
+      case USER_WAS_LOGOUT:
+        return '';
+      default:
+        return state;
+    }
+  }
+
+});
+
+
+
+
+
+
+// const DashboardCollectionInitialState: DashboardInterface = {
+//   dash_id: {
+//     dashboard_id: '',
+//     dashboard_name: '',
+//     dash_columns: '',
+//   },
+//   dash_data: []
+// };
+
+
+
+// const reorder = ( dash_data: DashboardInterface['dash_data'],
+// items: MoveWidgetsInterface ) => {
+//   const result = dash_data.map((e, i) => {
+//     switch ( i ) {
+//       case items.source: return dash_data[items.target];
+//       case items.target: return dash_data[items.source];
+//       default: return dash_data[i];
+//     }
+//   });
+//   return result;
+// };
+
+
+
+  // readonly DashboardCollection: DashboardInterface,
+  // readonly DraggableWidgetsCollection: DashboardInterface,
+
+  // readonly isDraggableWidgetsCollection: boolean,
+  // readonly SelectedCheckbox: string,
+  // readonly DraggableSelectedCheckbox: string,
 
 
 
@@ -234,4 +263,3 @@ export const reducer = combineReducers({
   //       return state;
   //   }
   // },
-});

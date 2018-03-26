@@ -29,10 +29,15 @@ const ItemTypes = {
 
 const widgetSource:
 ReactDnd.DragSourceSpec<DashboardDragItemProps> = {
+  
+  /**
+   * Вызывается при начале перемещения какого-либо элемента
+   */
+
   beginDrag: ( props: DashboardDragItemProps ) => {
-    console.log('props.id:', props.id);
-    console.log('props.index:',
-      props.findWidget(props.id));
+    // console.log('props.id:', props.id);
+    // console.log('props.index:',
+    //   props.findWidget(props.id));
     // console.log('findWidget:', props.findWidget);
     return {
       id: props.id, // id перемещаемого виджета
@@ -40,13 +45,17 @@ ReactDnd.DragSourceSpec<DashboardDragItemProps> = {
     }
   },
 
+  /**
+   * Вызывается по завершении перемещения какого-либо элемента
+   */
+
   endDrag: ( props: DashboardDragItemProps,
   monitor: ReactDnd.DragSourceMonitor ) => {
     const droppedId: string = monitor.getItem()['id'];
     const originalIndex: string = monitor.getItem()['originalIndex'];
     console.log('endDragId:', droppedId);
     const didDrop = monitor.didDrop();
-    if ( !didDrop ) props.moveWidget(droppedId, originalIndex);
+    if ( !didDrop ) props.moveWidgets(droppedId, originalIndex);
   }
 };
 
@@ -60,13 +69,19 @@ const widgetTarget:
 ReactDnd.DropTargetSpec<DashboardDragItemProps> = {
   canDrop: () => false,
 
+  
+  /**
+   * Вызывается при наведении перемещаемого элемента на соседний
+   * не перемещаемый в этот же момент времени элемент
+   */
+
   hover: ( props: DashboardDragItemProps,
   monitor: ReactDnd.DropTargetMonitor ) => {
     const sourceId: string = monitor.getItem()['id'];
-    const targetId: string = props.id;
-    if ( sourceId !== targetId ) {
-      // const overIndex = props.findWidget(overId);
-      props.moveWidget(sourceId, targetId);
+    const overId: string = props.id;
+    if ( sourceId !== overId ) {
+      const targetId = props.findWidget(overId);
+      props.moveWidgets(sourceId, targetId);
     }
   },
 };

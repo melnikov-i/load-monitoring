@@ -7,17 +7,17 @@ import {
 import { DashboardDragItemConnected } from '@src/connected';
 
 export default (
-  {widget_name, width, id, margin, moveWidget, findWidget}: {
+  {widget_name, width, id, margin, moveWidgets, findWidget}: {
     widget_name: WidgetInterface['widget_name'],
     width: DashboardInterface['dash_id']['dash_columns'],
     id: string,
     margin: number,
-    moveWidget: any,
+    moveWidgets: any,
     findWidget: any,
   }) => (
   <DashboardDragItemConnected 
     widget_name={widget_name}
-    moveWidget={moveWidget}
+    moveWidgets={moveWidgets}
     findWidget={findWidget}
     width={width}
     id={id}

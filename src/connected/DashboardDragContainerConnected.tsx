@@ -19,15 +19,17 @@ import {
 
 
 import {
-  DashboardDragModelSelector,
-  DashboardStaticModelSelector,
-  isDashboardDragModelCopiedSelector
-} from '@src/selectors';
+  syncActionCreators,
+  asyncActionCreators
+} from '@src/redux/dashboard';
 
 
 import {
-  syncActionCreators
-} from '@src/redux/dashboard';
+  DashboardDragModelSelector,
+  DashboardStaticModelSelector,
+  isDashboardDragModelCopiedSelector,
+  currentTargetIdSelector
+} from '@src/selectors';
 
 
 /**
@@ -45,27 +47,7 @@ const ItemTypes = {
  */
 
 const containerTarget = {
-  /*
-   * drop() вызывается, когда соответствующий элемент перемещается
-   * на текущий целевой target
-   */
-
   drop: () => {},
-
-  /**
-   * hover() вызывается, когда соответствующий элемент надвигается
-   * на текущий целевой target
-   */
-
-  // hover: () => {},
-
-  /**
-   * canDrop() вызывается для указывания, который целевой target
-   * может принимать элемент.
-   */
-
-  // canDrop: () => {},
-
 };
 
 
@@ -87,15 +69,19 @@ const mapStateToProps = createStructuredSelector<RootState, {
     DashboardStaticModel: DashboardInterface,
     DashboardDragModel: DashboardInterface,
     isDashboardDragModelCopied: boolean,
+    currentTargetId: string,
   }>({
     DashboardStaticModel: DashboardStaticModelSelector,
     DashboardDragModel: DashboardDragModelSelector,
     isDashboardDragModelCopied: isDashboardDragModelCopiedSelector,
+    currentTargetId: currentTargetIdSelector,
   });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
   copyDashboardFromDashboardStaticModel:
-    syncActionCreators.copyDashboardFromDashboardStaticModel
+    syncActionCreators.copyDashboardFromDashboardStaticModel,
+  reorderDashboardDragModelDataCollectionOnlyOneTime:
+    asyncActionCreators.reorderDashboardDragModelDataCollectionOnlyOneTime,
 }, dispatch);
 
 

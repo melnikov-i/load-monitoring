@@ -25,7 +25,7 @@ export interface DashboardDragItemProps {
   width: DashboardInterface['dash_id']['dash_columns'],
   id: string,
   margin: number,
-  moveWidget: any,
+  moveWidgets: any,
   findWidget: any,
 }
 
@@ -77,7 +77,7 @@ React.SFC<DashboardDragItemProps> = ( props ) => {
       connectDropTarget(
         <div style={{...style, opacity}}>
           {'Widget:' + widget_name}
-          <div style={{height: 400}}></div>
+          <div style={{height: 200}}></div>
         </div>
       )
     )

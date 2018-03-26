@@ -2,8 +2,8 @@ import sendRequestToAPI from '@src/ajax';
 
 import {
   DashboardInterface,
-  MoveWidgetsInterface,
-  DraggableDashboardChangerIterface,
+  // MoveWidgetsInterface,
+  // DraggableDashboardChangerIterface,
 } from '@src/interfaces';
 
 
@@ -26,7 +26,10 @@ export const PUT_DASHBOARD_MODEL_FROM_API_TO_STORE =
   'PUT_DASHBOARD_MODEL_FROM_API_TO_STORE';
 export const COPY_DASHBOARD_FROM_DASHBOARD_STATIC_MODEL =
   'COPY_DASHBOARD_FROM_DASHBOARD_STATIC_MODEL';
-
+export const REORDER_DASHBOARD_DRAG_MODEL_DATA_COLLECTION =
+  'REORDER_DASHBOARD_DRAG_MODEL_DATA_COLLECTION';
+export const CHANGE_CURRENT_TARGET_ID =
+  'CHANGE_CURRENT_TARGET_ID';
 
 // export const PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION =
 //   'PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION';
@@ -35,10 +38,10 @@ export const COPY_DASHBOARD_FROM_DASHBOARD_STATIC_MODEL =
 //   'CHANGE_SELECTED_CHECKBOX';
 // export const SET_SELECTED_CHECKBOX = 
 //   'SET_SELECTED_CHECKBOX';
-export const REORDER_DRAGGABLE_WIDGETS_COLLECTION =
-  'REORDER_DRAGGABLE_WIDGETS_COLLECTION';
-export const CREATE_DRAGGABLE_DASHBOARD =
-  'CREATE_DRAGGABLE_DASHBOARD';
+// export const REORDER_DRAGGABLE_WIDGETS_COLLECTION =
+//   'REORDER_DRAGGABLE_WIDGETS_COLLECTION';
+// export const CREATE_DRAGGABLE_DASHBOARD =
+//   'CREATE_DRAGGABLE_DASHBOARD';
 
 export type Actions = {
   THIS_DASHBOARD_WAS_REQUESTED_FROM_API: {
@@ -52,6 +55,14 @@ export type Actions = {
   COPY_DASHBOARD_FROM_DASHBOARD_STATIC_MODEL: {
     type: typeof COPY_DASHBOARD_FROM_DASHBOARD_STATIC_MODEL,
     payload: DashboardInterface,
+  },
+  REORDER_DASHBOARD_DRAG_MODEL_DATA_COLLECTION: {
+    type: typeof REORDER_DASHBOARD_DRAG_MODEL_DATA_COLLECTION,
+    payload: DashboardInterface['dash_data'],
+  },
+  CHANGE_CURRENT_TARGET_ID: {
+    type: typeof CHANGE_CURRENT_TARGET_ID,
+    payload: string,
   }
   // PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION: {
   //   type: typeof PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION,
@@ -65,14 +76,14 @@ export type Actions = {
   //   type: typeof CHANGE_SELECTED_CHECKBOX,
   //   payload: string,
   // },
-  REORDER_DRAGGABLE_WIDGETS_COLLECTION: {
-    type: typeof REORDER_DRAGGABLE_WIDGETS_COLLECTION,
-    payload: MoveWidgetsInterface,
-  },
-  CREATE_DRAGGABLE_DASHBOARD: {
-    type: typeof CREATE_DRAGGABLE_DASHBOARD,
-    payload: DraggableDashboardChangerIterface,
-  },
+  // REORDER_DRAGGABLE_WIDGETS_COLLECTION: {
+  //   type: typeof REORDER_DRAGGABLE_WIDGETS_COLLECTION,
+  //   payload: MoveWidgetsInterface,
+  // },
+  // CREATE_DRAGGABLE_DASHBOARD: {
+  //   type: typeof CREATE_DRAGGABLE_DASHBOARD,
+  //   payload: DraggableDashboardChangerIterface,
+  // },
 };
 
 // Sync Action Creators
@@ -92,6 +103,15 @@ export const syncActionCreators = {
   Actions[typeof COPY_DASHBOARD_FROM_DASHBOARD_STATIC_MODEL] => ({
     type: COPY_DASHBOARD_FROM_DASHBOARD_STATIC_MODEL, payload,
   }),
+  reorderDashboardDragModelDataCollection:
+  ( payload: DashboardInterface['dash_data'] ):
+  Actions[typeof REORDER_DASHBOARD_DRAG_MODEL_DATA_COLLECTION] => ({
+    type: REORDER_DASHBOARD_DRAG_MODEL_DATA_COLLECTION, payload,
+  }),
+  changeCurrentTargetId: ( payload: string ):
+  Actions[typeof CHANGE_CURRENT_TARGET_ID] => ({
+    type: CHANGE_CURRENT_TARGET_ID, payload,
+  }),
   // putDashboardItemsFromAPIToDashboardCollection:
   // ( payload: DashboardInterface ):
   // Actions[typeof PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION] => ({
@@ -105,16 +125,16 @@ export const syncActionCreators = {
   // Actions[typeof CHANGE_SELECTED_CHECKBOX] => ({
   //   type: CHANGE_SELECTED_CHECKBOX, payload,
   // }),
-  reorderDraggableWidgetsCollection:
-  ( payload: MoveWidgetsInterface ):
-  Actions[typeof REORDER_DRAGGABLE_WIDGETS_COLLECTION] => ({
-    type: REORDER_DRAGGABLE_WIDGETS_COLLECTION, payload,
-  }),
-  createDraggableDashboard:
-  ( payload: DraggableDashboardChangerIterface ):
-  Actions[typeof CREATE_DRAGGABLE_DASHBOARD] => ({
-    type: CREATE_DRAGGABLE_DASHBOARD, payload,
-  }),
+  // reorderDraggableWidgetsCollection:
+  // ( payload: MoveWidgetsInterface ):
+  // Actions[typeof REORDER_DRAGGABLE_WIDGETS_COLLECTION] => ({
+  //   type: REORDER_DRAGGABLE_WIDGETS_COLLECTION, payload,
+  // }),
+  // createDraggableDashboard:
+  // ( payload: DraggableDashboardChangerIterface ):
+  // Actions[typeof CREATE_DRAGGABLE_DASHBOARD] => ({
+  //   type: CREATE_DRAGGABLE_DASHBOARD, payload,
+  // }),
 };
 
 
@@ -180,6 +200,18 @@ export const asyncActionCreators = {
           console.log('[ERROR]:', error);
         }
       )
+    }
+  },
+  reorderDashboardDragModelDataCollectionOnlyOneTime:
+  ( payload: {model: DashboardInterface['dash_data'], id: string} ) => {
+    return ( dispatch: Dispatch ) => {
+      dispatch(
+        syncActionCreators.changeCurrentTargetId(payload.id)
+      );
+      dispatch(
+        syncActionCreators.
+          reorderDashboardDragModelDataCollection(payload.model)
+      );
     }
   }
 };

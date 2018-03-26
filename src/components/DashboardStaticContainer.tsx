@@ -1,7 +1,3 @@
-/**
- * Контейнер со статическими виджетами
- */
-
 import * as React from 'react';
 
 import {
