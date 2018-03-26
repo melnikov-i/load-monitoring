@@ -15,22 +15,22 @@ import {
 
 import {
   DashboardWasRequestedFromAPISelector,
-  DashboardCollectionSelector,
+  DashboardStaticModelSelector,
   MainHeaderButtonWasClickedSelector,
-  SelectedCheckboxSelector,
+  // SelectedCheckboxSelector,
 } from '@src/selectors';
 
 
 const mapStateToProps = createStructuredSelector<RootState, {
     DashboardWasRequestedFromAPI: DashboardInterface['dash_id']['dashboard_id'],
-    DashboardCollection: DashboardInterface,
+    DashboardStaticModel: DashboardInterface,
     MainHeaderButtonWasClicked: boolean,
-    SelectedCheckbox: string,
+    // SelectedCheckbox: string,
   }>({
     DashboardWasRequestedFromAPI: DashboardWasRequestedFromAPISelector,
-    DashboardCollection: DashboardCollectionSelector,
+    DashboardStaticModel: DashboardStaticModelSelector,
     MainHeaderButtonWasClicked: MainHeaderButtonWasClickedSelector,
-    SelectedCheckbox: SelectedCheckboxSelector,
+    // SelectedCheckbox: SelectedCheckboxSelector,
   });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({

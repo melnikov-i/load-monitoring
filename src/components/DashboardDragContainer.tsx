@@ -1,9 +1,8 @@
 import * as React from 'react';
-import update from 'immutability-helper';
-
 
 import {
-  WidgetInterface
+  DashboardInterface,
+  // WidgetInterface
 } from '@src/interfaces';
 
 import {
@@ -14,109 +13,163 @@ import DashboardDragItemConnected from
   '@src/usage/DashboardDragItemUsage';
 
 interface DashboardDragContainerProps {
-  /* Коллекция элементов дашборда */
-  // items: DashboardInterface,
+  /* Модель статического дашборда */
+  DashboardStaticModel: DashboardInterface,
+  /* Модель дашборда для конфигурирования */
+  DashboardDragModel: DashboardInterface,
+  /* Ключ, по значению которого определяется актуальность модели */
+  isDashboardDragModelCopied: boolean,
+  /* Запускает в action метод, актуализирующий модель DashboardDragModel */
+  copyDashboardFromDashboardStaticModel: 
+  ( payload: DashboardInterface ) => any,
   /* Метод библиотеки React-DnD */
-  connectDropTarget: any,
+  connectDropTarget?: any,
 }
 
-type DashboardDragContainerState = {
-  items: WidgetInterface[],
-}
 
-export class DashboardDragContainer 
-extends React.Component<DashboardDragContainerProps, DashboardDragContainerState> {
-  constructor( props ) {
-    super(props);
-    this.moveItem = this.moveItem.bind(this);
-    this.findItem = this.findItem.bind(this);
-    this.state = {
-      items: [
-        {
-          widget_name: 'cpu',
-          device_id: '12345',
-          id: '12345cpu',
-          series: '',
-        },
-        {
-          widget_name: 'memory',
-          device_id: '12345',
-          id: '12345memory',
-          series: '',
-        },
-        {
-          widget_name: 'hdd',
-          device_id: '12345',
-          id: '12345hdd',
-          series: '',
-        },
-        {
-          widget_name: 'lan',
-          device_id: '12345',
-          id: '12345lan',
-          series: '',
-        },
-      ],
-    };
+export const DashboardDragContainer:
+React.SFC<DashboardDragContainerProps> = ( props ) => {
+  const {
+    DashboardStaticModel,
+    DashboardDragModel,
+    isDashboardDragModelCopied,
+    copyDashboardFromDashboardStaticModel,
+    connectDropTarget,
+  } = props;
+
+
+  const { dash_data: widgets } = DashboardDragModel;
+  const { dash_columns: width } = DashboardDragModel.dash_id;
+
+  if ( !connectDropTarget ) return null;
+  console.log('DashboardDragContainer');
+
+
+  /**
+   * Если в сторе не лежит актуальная модель для редактирования
+   * запускает action, исправляющий это положение.
+   */
+
+  if ( !isDashboardDragModelCopied ) {
+    copyDashboardFromDashboardStaticModel(DashboardStaticModel);
+  } 
+
+
+  /**
+   * Передвигает виджеты.
+   * id - id перемещаемого виджета.
+   * targetIndex - индекс целевого таргета
+   */
+
+  const moveWidget = ( sourceId: string, targetId: string ) => {
+    console.log('sourceId:', sourceId);
+    console.log('targetId:', targetId);
   };
 
-  moveItem( id: string, atIndex: string ) {
-    console.log('moveItemId:', id);
-    console.log('moveItemAtIndex:', atIndex);
-    const item: WidgetInterface = this.findItem(id)['item'];
-    const index: number = this.findItem(id)['index'];
-    this.setState(
-      update(this.state, {
-        items: {
-          $splice: [[index, 1], [atIndex, 0, item]],
-        },
-      }),
-    )
+  // moveItem( id: string, atIndex: string ) {
+    // const sourceIndex: number = findWidget(id)['']
+
+    // console.log('sourceIndex:', sourceIndex);
+
+    // const item: WidgetInterface = this.findItem(id)['item'];
+    // const index: number = this.findItem(id)['index'];
+    // this.setState(
+    //   update(this.state, {
+    //     items: {
+    //       $splice: [[index, 1], [atIndex, 0, item]],
+    //     },
+    //   }),
+    // )
+
+
+  /**
+   * Возвращает id целевого таргета
+   *
+   * @param {string} id
+   * @return {Object}
+   */
+
+  const findWidget = ( id: string ) => {
+    return widgets.indexOf(widgets[id]);
   };
 
-  findItem( id: string ) {
-    const { items } = this.state;
-    const item = items.filter( i => i.id === id)[0];
-    return {
-      item,
-      index: items.indexOf(item),
-    };
-  };
+  // findItem( id: string ) {
+    // const { items } = this.state;
+    // const item = items.filter( i => i.id === id)[0];
+    // const widget =
+    //   widgets.filter( w => (w.device_id + w.widget_name ) === id )[0];
+    // return {
+    //   widget,
+    //   index: widgets.indexOf(widget)
+    // };
+    // return {
+    //   item,
+    //   index: items.indexOf(item),
+    // };
 
-  render() {
-    const { connectDropTarget } = this.props;
-    const { items } = this.state;
+  
+  /**
+   * Стиль контейнера с виджетами. Соответствует WidgetsLayout
+   */
 
-    return connectDropTarget(
-      <div style={{
-        display: 'block',
-        boxSizing: 'border-box',
-        overflow: 'hidden',
-        margin: '20px 15px 0',
-        animationName: emergence,
-        animationDuration: '1s',
-        animationTimingFunction: 'linear',
-        animationFillMode: 'both',
-      }}
-      >
-        {items.map((item, i) => {
-          const element: any = {
-            id: item.id,
-            widget_name: item.widget_name,
-            series: item.series,
-            moveItem: this.moveItem,
-            findItem: this.findItem,
-            width: '2',
-            margin: i + 1
-          };
-          return (
-            <DashboardDragItemConnected
-              key={item.id}
-              element={element}
-            />
-          );
-        })}
-      </div>
-    );
+  const WidgetsLayoutStyle = {
+    display: 'block',
+    boxSizing: 'border-box',
+    overflow: 'hidden',
+    margin: '20px 15px 0',
+    animationName: emergence,
+    animationDuration: '1s',
+    animationTimingFunction: 'linear',
+    animationFillMode: 'both',
   }
-}
+
+  return connectDropTarget(
+    <div style={{WidgetsLayoutStyle}}>
+      {widgets.map(( widget, i ) => (
+        <DashboardDragItemConnected
+          key={widget.device_id + widget.widget_name}
+          widget_name={widget.widget_name}
+          moveWidget={moveWidget}
+          findWidget={findWidget}
+          width={width}
+          id={String(i)}
+          margin={i + 1}
+        />
+      ))}
+    </div>
+  );
+};
+
+
+// type DashboardDragContainerState = {
+//   widgets: DashboardInterface['dash_data'],
+//   items: WidgetInterface[],
+// }
+
+// export class DashboardDragContainer 
+// extends React.Component<DashboardDragContainerProps, DashboardDragContainerState> {
+//   constructor( props ) {
+//     super(props);
+//     this.moveItem = this.moveItem.bind(this);
+//     this.findItem = this.findItem.bind(this);
+//     this.state = {
+//       items: [
+//         {
+//           widget_name: 'cpu',
+//           device_id: '12345',
+//         },
+//         {
+//           widget_name: 'memory',
+//           device_id: '12345',
+//         },
+//         {
+//           widget_name: 'hdd',
+//           device_id: '12345',
+//         },
+//         {
+//           widget_name: 'lan',
+//           device_id: '12345',
+//         },
+//       ],
+//     };
+//   };

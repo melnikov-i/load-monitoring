@@ -2,29 +2,56 @@ import { createSelector } from 'reselect';
 
 import { RootState } from '@src/redux';
 
-export const DashboardCollectionSelector =
+/* Модель дашборда для статического отображения */
+export const DashboardStaticModelSelector =
   createSelector(
-    ( state: RootState ) => state.dashboard.DashboardCollection,
-    ( DashboardCollection ) => DashboardCollection,
+    ( state: RootState ) => state.dashboard.DashboardStaticModel,
+    ( DashboardStaticModel ) => DashboardStaticModel,
   );
 
-export const DraggableWidgetsCollectionSelector =
+/* Модель дашборда для конфигурирования */
+export const DashboardDragModelSelector =
   createSelector(
-    ( state: RootState ) => state.dashboard.DraggableWidgetsCollection,
-    ( DraggableWidgetsCollection ) => DraggableWidgetsCollection,
+    ( state: RootState ) => state.dashboard.DashboardDragModel,
+    ( DashboardDragModel ) => DashboardDragModel,
   );
 
-export const isDraggableWidgetsCollectionSelector =
-  createSelector(
-    ( state: RootState ) => state.dashboard.isDraggableWidgetsCollection,
-    ( isDraggableWidgetsCollection ) => isDraggableWidgetsCollection,
-  );
-
+/* Идентификатор текущего дашборда для запроса */
 export const DashboardWasRequestedFromAPISelector =
   createSelector(
     ( state: RootState ) => state.dashboard.DashboardWasRequestedFromAPI,
     ( DashboardWasRequestedFromAPI ) => DashboardWasRequestedFromAPI,
   );
+
+/* Ключ актуальности дашборда при старте страницы */
+export const isDashboardDragModelCopiedSelector =
+  createSelector(
+    ( state: RootState ) => state.dashboard.isDashboardDragModelCopied,
+    ( isDashboardDragModelCopied ) => isDashboardDragModelCopied,
+  );
+
+
+
+
+
+// export const DashboardCollectionSelector =
+//   createSelector(
+//     ( state: RootState ) => state.dashboard.DashboardCollection,
+//     ( DashboardCollection ) => DashboardCollection,
+//   );
+
+// export const DraggableWidgetsCollectionSelector =
+//   createSelector(
+//     ( state: RootState ) => state.dashboard.DraggableWidgetsCollection,
+//     ( DraggableWidgetsCollection ) => DraggableWidgetsCollection,
+//   );
+
+// export const isDraggableWidgetsCollectionSelector =
+//   createSelector(
+//     ( state: RootState ) => state.dashboard.isDraggableWidgetsCollection,
+//     ( isDraggableWidgetsCollection ) => isDraggableWidgetsCollection,
+//   );
+
 
 export const MainHeaderButtonWasClickedSelector =
   createSelector(
@@ -32,14 +59,14 @@ export const MainHeaderButtonWasClickedSelector =
     ( MainHeaderButtonWasClicked ) => MainHeaderButtonWasClicked,
   );
 
-export const SelectedCheckboxSelector =
-  createSelector(
-    ( state: RootState ) => state.dashboard.SelectedCheckbox,
-    ( SelectedCheckbox ) => SelectedCheckbox,
-  );
+// export const SelectedCheckboxSelector =
+//   createSelector(
+//     ( state: RootState ) => state.dashboard.SelectedCheckbox,
+//     ( SelectedCheckbox ) => SelectedCheckbox,
+//   );
 
-export const DraggableSelectedCheckboxSelector =
-  createSelector(
-    ( state: RootState ) => state.dashboard.DraggableSelectedCheckbox,
-    ( DraggableSelectedCheckbox ) => DraggableSelectedCheckbox,
-  );
+// export const DraggableSelectedCheckboxSelector =
+//   createSelector(
+//     ( state: RootState ) => state.dashboard.DraggableSelectedCheckbox,
+//     ( DraggableSelectedCheckbox ) => DraggableSelectedCheckbox,
+//   );

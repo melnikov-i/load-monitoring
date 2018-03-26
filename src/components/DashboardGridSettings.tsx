@@ -23,8 +23,8 @@ import {
 
 interface DashboardGridSettingsProps {
   // changeSelectedCheckbox: (payload: string) => any,
-  DraggableSelectedCheckbox: string,
-  DraggableWidgetsCollection: DashboardInterface,
+  // DraggableSelectedCheckbox: string,
+  // DraggableWidgetsCollection: DashboardInterface,
   mainHeaderButtonSwitch: () => any,
   sendChangedDashboardToAPI: 
   ( payload: DashboardInterface ) => any,
@@ -33,10 +33,11 @@ interface DashboardGridSettingsProps {
 export const DashboardGridSettings: React.SFC<DashboardGridSettingsProps> = (props) => {
   const {
     // changeSelectedCheckbox,
-    DraggableSelectedCheckbox,
-    DraggableWidgetsCollection,
+    // DraggableSelectedCheckbox,
+    // DraggableWidgetsCollection,
     mainHeaderButtonSwitch,
-    sendChangedDashboardToAPI
+    
+    // sendChangedDashboardToAPI
   } = props;
 
   // console.log('DraggableWidgetsCollection:', DraggableWidgetsCollection);
@@ -69,14 +70,14 @@ export const DashboardGridSettings: React.SFC<DashboardGridSettingsProps> = (pro
   const confirmHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     e.nativeEvent.stopImmediatePropagation();
-    const item: DashboardInterface = {
-      ...DraggableWidgetsCollection,
-      ['dash_id']: {
-        ...DraggableWidgetsCollection.dash_id,
-        dash_columns: DraggableSelectedCheckbox,
-      }
-    }
-    sendChangedDashboardToAPI(item);
+    // const item: DashboardInterface = {
+    //   ...DraggableWidgetsCollection,
+    //   ['dash_id']: {
+    //     ...DraggableWidgetsCollection.dash_id,
+    //     dash_columns: '2'//DraggableSelectedCheckbox,
+    //   }
+    // }
+    // sendChangedDashboardToAPI(item);
   };
 
   return (
@@ -98,7 +99,7 @@ export const DashboardGridSettings: React.SFC<DashboardGridSettingsProps> = (pro
                 <DraggableConfigColumnsItemAnchor
                   key={i}
                   data-index={i + 1}
-                  isSelected={DraggableSelectedCheckbox === String(i + 1)}
+                  isSelected={'2' === String(i + 1)}
                   onClick={columnsHandler}
                 >
                   <DraggableConfigColumnsItemSpan>

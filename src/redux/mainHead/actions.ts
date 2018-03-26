@@ -1,6 +1,3 @@
-import {
-} from '@src/interfaces';
-
 export const MAIN_HEADER_BUTTON_SWITCH =
   'MAIN_HEADER_BUTTON_SWITCH';
 

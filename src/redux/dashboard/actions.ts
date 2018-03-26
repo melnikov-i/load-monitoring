@@ -6,20 +6,31 @@ import {
   DraggableDashboardChangerIterface,
 } from '@src/interfaces';
 
+
 import { Dispatch } from '@src/redux';
+
 
 import {
   syncActionCreators as loginActionCreators
 } from '@src/redux/login';
 
+
 import {
   syncActionCreators as mainHeadActionCreators
 } from '@src/redux/mainHead';
 
+
 export const THIS_DASHBOARD_WAS_REQUESTED_FROM_API =
   'THIS_DASHBOARD_WAS_REQUESTED_FROM_API';
-export const PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION =
-  'PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION';
+export const PUT_DASHBOARD_MODEL_FROM_API_TO_STORE =
+  'PUT_DASHBOARD_MODEL_FROM_API_TO_STORE';
+export const COPY_DASHBOARD_FROM_DASHBOARD_STATIC_MODEL =
+  'COPY_DASHBOARD_FROM_DASHBOARD_STATIC_MODEL';
+
+
+// export const PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION =
+//   'PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION';
+
 // export const CHANGE_SELECTED_CHECKBOX = 
 //   'CHANGE_SELECTED_CHECKBOX';
 // export const SET_SELECTED_CHECKBOX = 
@@ -34,10 +45,18 @@ export type Actions = {
     type: typeof THIS_DASHBOARD_WAS_REQUESTED_FROM_API,
     payload: DashboardInterface['dash_id']['dashboard_id'],
   },
-  PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION: {
-    type: typeof PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION,
+  PUT_DASHBOARD_MODEL_FROM_API_TO_STORE: {
+    type: typeof PUT_DASHBOARD_MODEL_FROM_API_TO_STORE,
     payload: DashboardInterface,
   },
+  COPY_DASHBOARD_FROM_DASHBOARD_STATIC_MODEL: {
+    type: typeof COPY_DASHBOARD_FROM_DASHBOARD_STATIC_MODEL,
+    payload: DashboardInterface,
+  }
+  // PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION: {
+  //   type: typeof PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION,
+  //   payload: DashboardInterface,
+  // },
   // SET_SELECTED_CHECKBOX: {
   //   type: typeof SET_SELECTED_CHECKBOX,
   //   payload: string,
@@ -63,11 +82,21 @@ export const syncActionCreators = {
   Actions[typeof THIS_DASHBOARD_WAS_REQUESTED_FROM_API] => ({
     type: THIS_DASHBOARD_WAS_REQUESTED_FROM_API, payload
   }),
-  putDashboardItemsFromAPIToDashboardCollection:
+  putDashboardModelFromAPIToStore:
   ( payload: DashboardInterface ):
-  Actions[typeof PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION] => ({
-    type: PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION, payload,
+  Actions[typeof PUT_DASHBOARD_MODEL_FROM_API_TO_STORE] => ({
+    type: PUT_DASHBOARD_MODEL_FROM_API_TO_STORE, payload,
   }),
+  copyDashboardFromDashboardStaticModel:
+  ( payload: DashboardInterface ):
+  Actions[typeof COPY_DASHBOARD_FROM_DASHBOARD_STATIC_MODEL] => ({
+    type: COPY_DASHBOARD_FROM_DASHBOARD_STATIC_MODEL, payload,
+  }),
+  // putDashboardItemsFromAPIToDashboardCollection:
+  // ( payload: DashboardInterface ):
+  // Actions[typeof PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION] => ({
+  //   type: PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION, payload,
+  // }),
   // setSelectedCheckbox: (payload: string):
   // Actions[typeof SET_SELECTED_CHECKBOX] => ({
   //   type: SET_SELECTED_CHECKBOX, payload,
@@ -87,6 +116,7 @@ export const syncActionCreators = {
     type: CREATE_DRAGGABLE_DASHBOARD, payload,
   }),
 };
+
 
 /**
  * Метод получения модели дашборда от бэкэнда вынесен в
@@ -113,8 +143,7 @@ dispatch: Dispatch) => {
         if ( response.data.dashboard.dash_id !== null ) {
           const items: DashboardInterface = response.data.dashboard;
           dispatch(
-            syncActionCreators
-              .putDashboardItemsFromAPIToDashboardCollection(items)
+            syncActionCreators.putDashboardModelFromAPIToStore(items)
           );              
         }
       } else {
@@ -122,25 +151,9 @@ dispatch: Dispatch) => {
           loginActionCreators.userWasLogOut()
         )
       }
-      // if ( response.data.dashboard.dash_id !== null ) {
-      //   return response.data.dashboard.dash_id.dash_columns;
-      // } else {
-      //   return '2';
-      // }
     }
   )
-  // .then(
-  //   ( checkbox ) => {
-  //     dispatch(
-  //       syncActionCreators.setSelectedCheckbox(checkbox)
-  //     );
-  //   }
-  // )
-  .catch(
-    ( error ) => {
-      console.log('[ERROR]:', error);
-    }
-  );  
+  .catch( error => console.log('[ERROR]:', error) );  
 }
 
 // Async Action Creators

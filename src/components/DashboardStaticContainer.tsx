@@ -1,50 +1,50 @@
+/**
+ * Контейнер со статическими виджетами
+ */
+
 import * as React from 'react';
 
 import {
   DashboardInterface,
-  // WidgetInterface
 } from '@src/interfaces';
 
 
 import {
-  // WidgetsLayout,
-  // Widget,
+  WidgetsLayout,
+  Widget,
 } from '@src/styled';
 
 
+import DashboardWidgetConnected from
+  '@src/usage/DashboardWidgetUsage';
+
 interface DashboardStaticContainerProps {
-  items: DashboardInterface
+  /* Коллекция элементов дашборда */
+  widgets: DashboardInterface['dash_data'],
+  /* Коэффициент ширины виджета */
+  width: DashboardInterface['dash_id']['dash_columns'],
 }
 
 export const DashboardStaticContainer: 
 React.SFC<DashboardStaticContainerProps> = (props) => {
-  // const { items } = props;
+  const { width, widgets } = props;
 
-  // console.log('items:', items);
 
   return (
-    <div>
+    <WidgetsLayout>
       {/* Контейнер с виджетами */}
-    </div>
+      {widgets.map( (widget, i) => (
+          <Widget
+            key={i}
+            width={width}
+            margin={i + 1}
+          >
+            <DashboardWidgetConnected 
+              widget_name={widget.widget_name}
+              id={widget.device_id + widget.widget_name}
+            />
+          </Widget>
+        ))}
+    </WidgetsLayout>
   );
-}
-      // <WidgetsLayout>
-      //   {items.dash_data.map((e, i) => {
-          
-      //     const item: WidgetInterface = {
-      //       widget_name: e.widget_name,
-      //       device_id: e.device_id,
-      //       id: e.id,
-      //       series: series,
-      //     };
-      //     return (
-      //       <Widget
-      //         key={i}
-      //         width={SelectedCheckbox}
-      //         margin={i + 1}
-      //       >
-      //         <DashboardWidgetConnected item={item} />
-      //       </Widget>
-      //     )
-      //   })}
-      // </WidgetsLayout>
+};

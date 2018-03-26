@@ -30,12 +30,13 @@ const ItemTypes = {
 const widgetSource:
 ReactDnd.DragSourceSpec<DashboardDragItemProps> = {
   beginDrag: ( props: DashboardDragItemProps ) => {
-    console.log('props.element.id:', props.element.id);
-    console.log('props.element.index:',
-      props.element.findItem(props.element.id).index);
+    console.log('props.id:', props.id);
+    console.log('props.index:',
+      props.findWidget(props.id));
+    // console.log('findWidget:', props.findWidget);
     return {
-      id: props.element.id,
-      originalIndex: props.element.findItem(props.element.id).index,
+      id: props.id, // id перемещаемого виджета
+      // originalIndex: props.findWidget(props.id),
     }
   },
 
@@ -45,7 +46,7 @@ ReactDnd.DragSourceSpec<DashboardDragItemProps> = {
     const originalIndex: string = monitor.getItem()['originalIndex'];
     console.log('endDragId:', droppedId);
     const didDrop = monitor.didDrop();
-    if ( !didDrop ) props.element.moveItem(droppedId, originalIndex);
+    if ( !didDrop ) props.moveWidget(droppedId, originalIndex);
   }
 };
 
@@ -61,11 +62,11 @@ ReactDnd.DropTargetSpec<DashboardDragItemProps> = {
 
   hover: ( props: DashboardDragItemProps,
   monitor: ReactDnd.DropTargetMonitor ) => {
-    const draggedId: string = monitor.getItem()['id'];
-    const { id: overId } = props.element;
-    if ( draggedId !== overId ) {
-      const { index: overIndex } = props.element.findItem(overId);
-      props.element.moveItem(draggedId, overIndex);
+    const sourceId: string = monitor.getItem()['id'];
+    const targetId: string = props.id;
+    if ( sourceId !== targetId ) {
+      // const overIndex = props.findWidget(overId);
+      props.moveWidget(sourceId, targetId);
     }
   },
 };

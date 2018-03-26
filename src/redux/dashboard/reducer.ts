@@ -2,16 +2,19 @@ import { combineReducers } from 'redux';
 
 import {
   DashboardInterface,
-  MoveWidgetsInterface,
+  // MoveWidgetsInterface,
 } from '@src/interfaces';
 
 import {
   THIS_DASHBOARD_WAS_REQUESTED_FROM_API,
-  PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION,
+  PUT_DASHBOARD_MODEL_FROM_API_TO_STORE,
+  COPY_DASHBOARD_FROM_DASHBOARD_STATIC_MODEL,
+  // PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION,
   // CHANGE_SELECTED_CHECKBOX,
   // SET_SELECTED_CHECKBOX,
-  CREATE_DRAGGABLE_DASHBOARD,
-  REORDER_DRAGGABLE_WIDGETS_COLLECTION,
+  
+  // CREATE_DRAGGABLE_DASHBOARD,
+  // REORDER_DRAGGABLE_WIDGETS_COLLECTION,
 } from '@src/redux/dashboard';
 
 import {
@@ -25,19 +28,23 @@ import {
 
 export type State = {
   /* Модель дашборда для статического отображения */
-  readonly DasboardStaticModel: DashboardInterface,
+  readonly DashboardStaticModel: DashboardInterface,
   /* Модель дашборда для отображение с drag&drop */
   readonly DashboardDragModel: DashboardInterface,
   /* Ключ, используемый в запросе модели с бэкэнда */
   readonly DashboardWasRequestedFromAPI: 
     DashboardInterface['dash_id']['dashboard_id'],
+  /* Ключ актуальности модели DashboardDragModel */
+  readonly isDashboardDragModelCopied: boolean,
 
-  readonly DashboardCollection: DashboardInterface,
-  readonly DraggableWidgetsCollection: DashboardInterface,
 
-  readonly isDraggableWidgetsCollection: boolean,
-  readonly SelectedCheckbox: string,
-  readonly DraggableSelectedCheckbox: string,
+
+  // readonly DashboardCollection: DashboardInterface,
+  // readonly DraggableWidgetsCollection: DashboardInterface,
+
+  // readonly isDraggableWidgetsCollection: boolean,
+  // readonly SelectedCheckbox: string,
+  // readonly DraggableSelectedCheckbox: string,
 };
 
 /* Состояние модели дашборда по умолчанию */
@@ -51,56 +58,46 @@ const DashboardModelInitialState: DashboardInterface = {
 };
 
 
-const DashboardCollectionInitialState: DashboardInterface = {
-  dash_id: {
-    dashboard_id: '',
-    dashboard_name: '',
-    dash_columns: '',
-  },
-  dash_data: []
-};
 
-const reorder = ( dash_data: DashboardInterface['dash_data'],
-items: MoveWidgetsInterface ) => {
-  const result = dash_data.map((e, i) => {
-    switch ( i ) {
-      case items.source: return dash_data[items.target];
-      case items.target: return dash_data[items.source];
-      default: return dash_data[i];
-    }
-  });
-  return result;
-};
+
+
+// const DashboardCollectionInitialState: DashboardInterface = {
+//   dash_id: {
+//     dashboard_id: '',
+//     dashboard_name: '',
+//     dash_columns: '',
+//   },
+//   dash_data: []
+// };
+
+
+
+// const reorder = ( dash_data: DashboardInterface['dash_data'],
+// items: MoveWidgetsInterface ) => {
+//   const result = dash_data.map((e, i) => {
+//     switch ( i ) {
+//       case items.source: return dash_data[items.target];
+//       case items.target: return dash_data[items.source];
+//       default: return dash_data[i];
+//     }
+//   });
+//   return result;
+// };
+
+
 
 export const reducer = combineReducers({
-  /* Модель дашборда для статического отображения */
-  DasboardStaticModel:
-  ( state = DashboardModelInitialState, action ) => {
-    switch ( action.type ) {
-      default:
-        return state;
-    }
-  },
-
-  /* Модель дашборда для отображение с drag&drop */
-  DashboardDragModel:
-  ( state = DashboardModelInitialState, action ) => {
-    switch ( action.type ) {
-      default:
-        return state;
-    }
-  },
-
-  /*
-   * Ключ, используемый в запросе модели с бэкэнда.
-   * В качестве ключа используется идентификатор 
-   * запрашиваемого у бэкэнда дашборда.
+  /**
+   * Модель дашборда для статического отображения 
    */
 
-  DashboardWasRequestedFromAPI: ( state = '', action ) => {
+  DashboardStaticModel:
+  ( state = DashboardModelInitialState, action ) => {
     switch ( action.type ) {
-      case THIS_DASHBOARD_WAS_REQUESTED_FROM_API:
+      /* Помещает в редьюсер данные модели, полученные от бэкэнда */
+      case PUT_DASHBOARD_MODEL_FROM_API_TO_STORE:
         return action.payload;
+      /* Очищает редьюсер при logout'е */
       case USER_WAS_LOGOUT:
         return '';
       default:
@@ -109,47 +106,114 @@ export const reducer = combineReducers({
   },
 
 
+  /**
+   * Модель дашборда для отображение с drag&drop 
+   */
 
-  /* Коллекция виджетов для отображения */
-  DashboardCollection: 
-  ( state = DashboardCollectionInitialState, action ) => {
+  DashboardDragModel:
+  ( state = DashboardModelInitialState, action ) => {
     switch ( action.type ) {
-      case PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION:
+      /* Помещает сюда копию редактируемого дашборда */
+      case COPY_DASHBOARD_FROM_DASHBOARD_STATIC_MODEL:
         return action.payload;
+      /* Очищает редьюсер при logout'е */
       case USER_WAS_LOGOUT:
-        return DashboardCollectionInitialState;
+        return DashboardModelInitialState;
       default:
         return state;
     }
   },
-  /* Коллекция виджетов для настройки */
-  DraggableWidgetsCollection: 
-  ( state = DashboardCollectionInitialState, action ) => {
+
+
+  /*
+   * Ключ, используемый в запросе модели с бэкэнда.
+   * В качестве ключа используется идентификатор 
+   * запрашиваемого у бэкэнда дашборда. Этот идентификатор
+   * сравнивается в компоненте с тем, который передан в компонент.
+   * Так сделано для того, чтобы сравнивая идентификаторы, можно
+   * было бы определить переход с одного дашборда на другой.
+   */
+
+  DashboardWasRequestedFromAPI: ( state = '', action ) => {
     switch ( action.type ) {
-      case CREATE_DRAGGABLE_DASHBOARD:
-        return action.payload.dashboard;
-      case REORDER_DRAGGABLE_WIDGETS_COLLECTION:
-        return {
-          ...state,
-          ['dash_data']: reorder(state.dash_data, action.payload),
-        };
+      /* Помещает в редьюсер идентификатор запрошенного дашборда */
+      case THIS_DASHBOARD_WAS_REQUESTED_FROM_API:
+        return action.payload;
+      /* Очищает редьюсер при logout'е */
       case USER_WAS_LOGOUT:
-        return DashboardCollectionInitialState;
+        return '';
       default:
         return state;
     }
   },
-  /* Ключ для помещения данных в коллекцию виджетов для настройки */
-  isDraggableWidgetsCollection: ( state = false, action ) => {
+
+
+  /**
+   * Ключ, по значению которого определяется актуальность
+   * модели DashboardDragModel
+   */
+
+  isDashboardDragModelCopied: ( state = false, action ) => {
     switch ( action.type ) {
-      case CREATE_DRAGGABLE_DASHBOARD:
+      /* Дашборд скопирован при загрузке страницы редактирования */
+      case COPY_DASHBOARD_FROM_DASHBOARD_STATIC_MODEL:
         return true;
+      /* Сбрасывает ключ при нажатии на кнопки "Назад" или "Отмена" */
       case MAIN_HEADER_BUTTON_SWITCH:
         return false;
       default:
         return state;
     }
   },
+
+
+
+
+
+
+  /* Коллекция виджетов для отображения */
+  // DashboardCollection: 
+  // ( state = DashboardCollectionInitialState, action ) => {
+  //   switch ( action.type ) {
+  //     case PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION:
+  //       return action.payload;
+  //     case USER_WAS_LOGOUT:
+  //       return DashboardCollectionInitialState;
+  //     default:
+  //       return state;
+  //   }
+  // },
+
+  /* Коллекция виджетов для настройки */
+  // DraggableWidgetsCollection: 
+  // ( state = DashboardCollectionInitialState, action ) => {
+  //   switch ( action.type ) {
+  //     case CREATE_DRAGGABLE_DASHBOARD:
+  //       return action.payload.dashboard;
+  //     case REORDER_DRAGGABLE_WIDGETS_COLLECTION:
+  //       return {
+  //         ...state,
+  //         ['dash_data']: reorder(state.dash_data, action.payload),
+  //       };
+  //     case USER_WAS_LOGOUT:
+  //       return DashboardCollectionInitialState;
+  //     default:
+  //       return state;
+  //   }
+  // },
+
+  /* Ключ для помещения данных в коллекцию виджетов для настройки */
+  // isDraggableWidgetsCollection: ( state = false, action ) => {
+  //   switch ( action.type ) {
+  //     case CREATE_DRAGGABLE_DASHBOARD:
+  //       return true;
+  //     case MAIN_HEADER_BUTTON_SWITCH:
+  //       return false;
+  //     default:
+  //       return state;
+  //   }
+  // },
+
   /* Количество колонок на странице отображения */
   // SelectedCheckbox: ( state = '0', action ) => {
   //   switch ( action.type ) {

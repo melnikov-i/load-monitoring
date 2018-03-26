@@ -1,16 +1,14 @@
 export interface WidgetInterface {
-  /* Получаем это поле от бэкэнда */
   widget_name: string,
-  /* Получаем это поле от бэкэнда */
   device_id: string,
+}
   /* Комбинируем это поле из двух предыдущих */
-  id: string,
+  // id: string,
   /* Полученные позднее от бэкэнда данные для диаграмм */
-  series: any, // пока any!!!
+  // series: any, // пока any!!!
   // index?: number,
   // width?: string,
   // isPreview?: boolean,
-}
 
 interface DashIdInterface {
   dashboard_id: string,

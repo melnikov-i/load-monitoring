@@ -33,23 +33,28 @@ import {
 // ];
 
 interface DashboardWidgetProps {
-  item: WidgetInterface,
+  widget_name: WidgetInterface['widget_name'],
+  id: WidgetInterface['device_id'] & WidgetInterface['widget_name'],
+
+  // item: WidgetInterface,
 }
 
 export const DashboardWidget: 
 React.SFC<DashboardWidgetProps> = (props) => {
-  const { item } = props;
+  const {
+    widget_name,
+  } = props;
 
 
 
   return (
     <DynamicWidthWidget>
       <DynamicWidthWidgetHeaderWrapper>
-        <WidgetHeader>{ item.widget_name }</WidgetHeader>
+        <WidgetHeader>{ widget_name }</WidgetHeader>
       </DynamicWidthWidgetHeaderWrapper>
       <DynamicWidthWidgetContent style={{fontSize: '14px'}}>
         <Chart
-          series={item.series}
+          series={[]}
           viewBox={'0 0 100 50'}
           style={{
             display: 'block',

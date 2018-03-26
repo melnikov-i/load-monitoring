@@ -1,3 +1,8 @@
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { Dispatch, RootState } from '@src/redux';
+
 import * as ReactDnd from 'react-dnd';
 import MultiBackend from 'react-dnd-multi-backend';
 import HTML5toTouch from 'react-dnd-multi-backend/lib/HTML5toTouch';
@@ -6,6 +11,23 @@ const DragDropContext = ReactDnd.DragDropContext;
 const DropTarget = ReactDnd.DropTarget;
 
 import { DashboardDragContainer } from '@src/components';
+
+
+import {
+  DashboardInterface,
+} from '@src/interfaces';
+
+
+import {
+  DashboardDragModelSelector,
+  DashboardStaticModelSelector,
+  isDashboardDragModelCopiedSelector
+} from '@src/selectors';
+
+
+import {
+  syncActionCreators
+} from '@src/redux/dashboard';
 
 
 /**
@@ -59,7 +81,27 @@ monitor: ReactDnd.DropTargetMonitor) => ({
 });
 
 
+
+
+const mapStateToProps = createStructuredSelector<RootState, {
+    DashboardStaticModel: DashboardInterface,
+    DashboardDragModel: DashboardInterface,
+    isDashboardDragModelCopied: boolean,
+  }>({
+    DashboardStaticModel: DashboardStaticModelSelector,
+    DashboardDragModel: DashboardDragModelSelector,
+    isDashboardDragModelCopied: isDashboardDragModelCopiedSelector,
+  });
+
+const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
+  copyDashboardFromDashboardStaticModel:
+    syncActionCreators.copyDashboardFromDashboardStaticModel
+}, dispatch);
+
+
 export const DashboardDragContainerConnected = DragDropContext(
   MultiBackend(HTML5toTouch))(DropTarget(
-    ItemTypes.WIDGET, containerTarget, dropTargetCollect
-  )(DashboardDragContainer));
+    ItemTypes.WIDGET, containerTarget, dropTargetCollect)(connect(
+        mapStateToProps, mapDispatchToProps)(DashboardDragContainer)
+      )
+    );

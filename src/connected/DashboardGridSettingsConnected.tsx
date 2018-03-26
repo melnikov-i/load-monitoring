@@ -15,20 +15,20 @@ import {
 } from '@src/redux/mainHead';
 
 import {
-  DashboardInterface,
+  // DashboardInterface,
 } from '@src/interfaces';
 
 import {
-  DraggableSelectedCheckboxSelector,
-  DraggableWidgetsCollectionSelector
+  // DraggableSelectedCheckboxSelector,
+  // DraggableWidgetsCollectionSelector
 } from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector<RootState, {
-  DraggableSelectedCheckbox: string,
-  DraggableWidgetsCollection: DashboardInterface,
+  // DraggableSelectedCheckbox: string,
+  // DraggableWidgetsCollection: DashboardInterface,
 }>({
-  DraggableWidgetsCollection: DraggableWidgetsCollectionSelector,
-  DraggableSelectedCheckbox: DraggableSelectedCheckboxSelector,
+  // DraggableWidgetsCollection: DraggableWidgetsCollectionSelector,
+  // DraggableSelectedCheckbox: DraggableSelectedCheckboxSelector,
 });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({

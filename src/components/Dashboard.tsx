@@ -27,13 +27,14 @@ interface DashboardProps {
   id: DashboardInterface['dash_id']['dashboard_id'],
   /* Ключ, указывающий, что данные о виджетах были запрошены с бэкэнда */
   DashboardWasRequestedFromAPI: DashboardInterface['dash_id']['dashboard_id'],
+  /* Коллекция виджетов дашборда */
+  DashboardStaticModel: DashboardInterface,
   /* Запускает в action метод запроса данных о виджетах */
   makeDashboardRequestFromAPI: 
   (payload: DashboardInterface['dash_id']['dashboard_id']) => any,
+  
   /* Значение активного чекбокса выбора количества колонок */
-  SelectedCheckbox: string,
-  /* Коллекция виджетов дашборда */
-  DashboardCollection: DashboardInterface,
+  // SelectedCheckbox: string,
   /* Ключ состояния отображения дашборда */
   MainHeaderButtonWasClicked: boolean,
 }
@@ -42,10 +43,10 @@ interface DashboardProps {
 export const Dashboard: React.SFC<DashboardProps> = (props) => {
   const {
     id,
+    DashboardStaticModel,
     DashboardWasRequestedFromAPI,
     makeDashboardRequestFromAPI,
     // SelectedCheckbox,
-    DashboardCollection,
     MainHeaderButtonWasClicked,
   } = props;
   
@@ -59,7 +60,7 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
   if ( DashboardWasRequestedFromAPI !== id ) {
     makeDashboardRequestFromAPI(id);
   } else {
-    if ( DashboardCollection.dash_id.dashboard_id !== id ) {
+    if ( DashboardStaticModel.dash_id.dashboard_id !== id ) {
       return (
         <Spinner
           width={3}
@@ -76,7 +77,7 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
    */
   
   const MainHeaderState: MainHeaderInterface = {
-    header: DashboardCollection.dash_id.dashboard_name,
+    header: DashboardStaticModel.dash_id.dashboard_name,
     button: true,
     breadcrumbs: [
       {
@@ -88,8 +89,8 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
         title: 'Все устройства',
       },
       {
-        href: DashboardCollection.dash_id.dashboard_name,
-        title: DashboardCollection.dash_id.dashboard_name,
+        href: DashboardStaticModel.dash_id.dashboard_name,
+        title: DashboardStaticModel.dash_id.dashboard_name,
       }
     ],
   };
@@ -119,7 +120,7 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
    *
    * Конфигурирование дашборда вынесено в отдельный компонент,
    * т.к. в connector'е подключаются компоненты библиотеки
-   * react-dnd.
+   * react-dnd (пересмотреть).
    */
 
   return (
@@ -134,7 +135,10 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
       {/* Дашборды перетаскиваемые / дашборды статические */}
       {MainHeaderButtonWasClicked
         ? <DashboardDragContainerConnected />
-        : <DashboardStaticContainer items={DashboardCollection} />
+        : <DashboardStaticContainer
+            width={DashboardStaticModel.dash_id.dash_columns}
+            widgets={DashboardStaticModel.dash_data}
+          />
       }
     </div>
   );
