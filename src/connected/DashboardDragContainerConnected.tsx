@@ -69,7 +69,7 @@ const mapStateToProps = createStructuredSelector<RootState, {
     DashboardStaticModel: DashboardInterface,
     DashboardDragModel: DashboardInterface,
     isDashboardDragModelCopied: boolean,
-    currentTargetId: string,
+    currentTargetId: number,
   }>({
     DashboardStaticModel: DashboardStaticModelSelector,
     DashboardDragModel: DashboardDragModelSelector,
@@ -82,6 +82,7 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
     syncActionCreators.copyDashboardFromDashboardStaticModel,
   reorderDashboardDragModelDataCollectionOnlyOneTime:
     asyncActionCreators.reorderDashboardDragModelDataCollectionOnlyOneTime,
+  changeCurrentTargetId: syncActionCreators.changeCurrentTargetId,
 }, dispatch);
 
 

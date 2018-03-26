@@ -62,7 +62,7 @@ export type Actions = {
   },
   CHANGE_CURRENT_TARGET_ID: {
     type: typeof CHANGE_CURRENT_TARGET_ID,
-    payload: string,
+    payload: number,
   }
   // PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION: {
   //   type: typeof PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION,
@@ -108,7 +108,7 @@ export const syncActionCreators = {
   Actions[typeof REORDER_DASHBOARD_DRAG_MODEL_DATA_COLLECTION] => ({
     type: REORDER_DASHBOARD_DRAG_MODEL_DATA_COLLECTION, payload,
   }),
-  changeCurrentTargetId: ( payload: string ):
+  changeCurrentTargetId: ( payload: number ):
   Actions[typeof CHANGE_CURRENT_TARGET_ID] => ({
     type: CHANGE_CURRENT_TARGET_ID, payload,
   }),
@@ -203,7 +203,7 @@ export const asyncActionCreators = {
     }
   },
   reorderDashboardDragModelDataCollectionOnlyOneTime:
-  ( payload: {model: DashboardInterface['dash_data'], id: string} ) => {
+  ( payload: {model: DashboardInterface['dash_data'], id: number} ) => {
     return ( dispatch: Dispatch ) => {
       dispatch(
         syncActionCreators.changeCurrentTargetId(payload.id)

@@ -1,7 +1,3 @@
-// import { bindActionCreators } from 'redux';
-// import { connect } from 'react-redux';
-// import { createStructuredSelector } from 'reselect';
-// import { Dispatch, RootState } from '@src/redux';
 import * as ReactDnd from 'react-dnd';
 
 const DragSource = ReactDnd.DragSource;
@@ -35,27 +31,18 @@ ReactDnd.DragSourceSpec<DashboardDragItemProps> = {
    */
 
   beginDrag: ( props: DashboardDragItemProps ) => {
-    // console.log('props.id:', props.id);
-    // console.log('props.index:',
-    //   props.findWidget(props.id));
-    // console.log('findWidget:', props.findWidget);
     return {
-      id: props.id, // id перемещаемого виджета
-      // originalIndex: props.findWidget(props.id),
+      /* ID перемещаемого виджета (строка) */
+      id: props.id,
     }
   },
-
-  /**
-   * Вызывается по завершении перемещения какого-либо элемента
-   */
-
-  endDrag: ( props: DashboardDragItemProps,
+  endDrag: ( props: DashboardDragItemProps, 
   monitor: ReactDnd.DragSourceMonitor ) => {
-    const droppedId: string = monitor.getItem()['id'];
-    const originalIndex: string = monitor.getItem()['originalIndex'];
-    console.log('endDragId:', droppedId);
-    const didDrop = monitor.didDrop();
-    if ( !didDrop ) props.moveWidgets(droppedId, originalIndex);
+    const didDrop = monitor.didDrop()
+
+    if (!didDrop) {
+      props.clearCurrentTargetId(-1);
+    }
   }
 };
 
@@ -77,11 +64,17 @@ ReactDnd.DropTargetSpec<DashboardDragItemProps> = {
 
   hover: ( props: DashboardDragItemProps,
   monitor: ReactDnd.DropTargetMonitor ) => {
-    const sourceId: string = monitor.getItem()['id'];
+    /* ID перемещаемого виджета */
+    const draggedId: string = monitor.getItem()['id'];
+    /* ID виджета, на который передвиули перемещаемый виджет */
     const overId: string = props.id;
-    if ( sourceId !== overId ) {
-      const targetId = props.findWidget(overId);
-      props.moveWidgets(sourceId, targetId);
+    if ( draggedId !== overId ) {
+      /* Индекс перемещаемого виджета */
+      const sourceIndex: number = Number(props.findWidget(draggedId));
+      /* Индекс целевого виджета */
+      const targetIndex: number = Number(props.findWidget(overId));
+      /* Функция перемещения виджетов */
+      props.moveWidgets(sourceIndex, targetIndex);
     }
   },
 };
@@ -95,7 +88,7 @@ ReactDnd.DropTargetSpec<DashboardDragItemProps> = {
 const dragSourceCollect = ( connect: ReactDnd.DragSourceConnector,
 monitor: ReactDnd.DragSourceMonitor ) => ({
   connectDragSource: connect.dragSource(),
-  item: monitor.getItem(),
+  // item: monitor.getItem(),
   isDragging: monitor.isDragging(),
 });
 
@@ -111,19 +104,9 @@ monitor: ReactDnd.DropTargetMonitor ) => ({
 });
 
 
-// const mapStateToProps = createStructuredSelector<RootState, {}>({});
-
-// const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
-
-// }, dispatch);
-
 export const DashboardDragItemConnected = DropTarget(
     ItemTypes.WIDGET, widgetTarget, dropTargetCollect
       )(DragSource(
         ItemTypes.WIDGET, widgetSource, dragSourceCollect
         )(DashboardDragItem)
       );
-
-  //     connect(
-  // mapStateToProps, mapDispatchToProps)(
-  //   );

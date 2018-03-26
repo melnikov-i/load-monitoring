@@ -39,7 +39,7 @@ export type State = {
   /* Ключ актуальности модели DashboardDragModel */
   readonly isDashboardDragModelCopied: boolean,
   /* ID целевого элемента при перемещении виджета */
-  readonly currentTargetId: string,
+  readonly currentTargetId: number,
 };
 
 
@@ -147,12 +147,12 @@ export const reducer = combineReducers({
    * виджетов.
    */
 
-  currentTargetId: ( state = '', action ) => {
+  currentTargetId: ( state = -1, action ) => {
     switch ( action.type ) {
       case CHANGE_CURRENT_TARGET_ID:
         return action.payload;
       case USER_WAS_LOGOUT:
-        return '';
+        return -1;
       default:
         return state;
     }

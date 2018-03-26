@@ -59,6 +59,7 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
 
   if ( DashboardWasRequestedFromAPI !== id ) {
     makeDashboardRequestFromAPI(id);
+    return null;
   } else {
     if ( DashboardStaticModel.dash_id.dashboard_id !== id ) {
       return (

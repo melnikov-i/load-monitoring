@@ -27,6 +27,7 @@ export interface DashboardDragItemProps {
   margin: number,
   moveWidgets: any,
   findWidget: any,
+  clearCurrentTargetId: any,
 }
 
 // type DashboardDragItemState = {
