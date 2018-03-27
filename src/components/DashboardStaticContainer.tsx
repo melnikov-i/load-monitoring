@@ -7,7 +7,6 @@ import {
 
 import {
   WidgetsLayout,
-  Widget,
 } from '@src/styled';
 
 
@@ -30,17 +29,13 @@ React.SFC<DashboardStaticContainerProps> = (props) => {
     <WidgetsLayout>
       {/* Контейнер с виджетами */}
       {widgets.map( (widget, i) => (
-          <Widget
-            key={i}
-            width={width}
-            margin={i + 1}
-          >
-            <DashboardWidgetConnected 
-              widget_name={widget.widget_name}
-              id={widget.device_id + widget.widget_name}
-            />
-          </Widget>
-        ))}
+        <DashboardWidgetConnected 
+          key={i}
+          widget_name={widget.widget_name}
+          width={width}
+          margin={i + 1}
+        />
+      ))}
     </WidgetsLayout>
   );
 };

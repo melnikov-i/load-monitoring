@@ -7,10 +7,9 @@ import {
 import {
   WidgetsLayout,
   Widget,
-
-  FullWidthWidgetHeaderWrapper,
-  WidgetHeader,
-  FullWidthWidgetContent,
+  WidgetContent,
+  WidgetHeaderWrapper,
+  WidgetHeader,  
   DraggableConfigColumnsWrapper,
   DraggableConfigColumnsHeaderWrapper,
   DraggableConfigColumnsHeader,
@@ -22,27 +21,32 @@ import {
 } from '@src/styled';
 
 interface DashboardGridSettingsProps {
-  // changeSelectedCheckbox: (payload: string) => any,
-  // DraggableSelectedCheckbox: string,
-  // DraggableWidgetsCollection: DashboardInterface,
+  /* Значение для конфигурирования количества колонок */
+  DashboardDragModel: DashboardInterface,
+  /* Запускает в action метод, меняющий значение DashboardDragModelCheckbox */
+  changeSelectedCheckbox: (payload: string) => any,
+  /* Запускает метод в action, меняющий ключ MainHeaderButtonWasClicked */
   mainHeaderButtonSwitch: () => any,
+  /* Запускает метод в action, отправляющий в бэкэнд измененные данные */
   sendChangedDashboardToAPI: 
   ( payload: DashboardInterface ) => any,
 }
 
 export const DashboardGridSettings: React.SFC<DashboardGridSettingsProps> = (props) => {
   const {
-    // changeSelectedCheckbox,
-    // DraggableSelectedCheckbox,
-    // DraggableWidgetsCollection,
+    DashboardDragModel,
+    changeSelectedCheckbox,
     mainHeaderButtonSwitch,
-    
-    // sendChangedDashboardToAPI
+    sendChangedDashboardToAPI,
   } = props;
 
-  // console.log('DraggableWidgetsCollection:', DraggableWidgetsCollection);
+  const checkbox = DashboardDragModel.dash_id.dash_columns;
 
-  // Поля
+  
+  /**
+   * Поля выбора количество колонок сетки дашборда
+   */
+
   const ColumnsValuesCollection: string[] = [
     '1 Колонка',
     '2 Колонки',
@@ -57,7 +61,7 @@ export const DashboardGridSettings: React.SFC<DashboardGridSettingsProps> = (pro
     const attribute: string | null = 
       e.currentTarget.getAttribute('data-index');
     if ( attribute !== null ) {
-      // changeSelectedCheckbox(attribute)
+      changeSelectedCheckbox(attribute)
     }
   };
 
@@ -70,24 +74,16 @@ export const DashboardGridSettings: React.SFC<DashboardGridSettingsProps> = (pro
   const confirmHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     e.nativeEvent.stopImmediatePropagation();
-    // const item: DashboardInterface = {
-    //   ...DraggableWidgetsCollection,
-    //   ['dash_id']: {
-    //     ...DraggableWidgetsCollection.dash_id,
-    //     dash_columns: '2'//DraggableSelectedCheckbox,
-    //   }
-    // }
-    // sendChangedDashboardToAPI(item);
+    sendChangedDashboardToAPI(DashboardDragModel);
   };
 
   return (
     <WidgetsLayout>
       <Widget>
-
-        <FullWidthWidgetHeaderWrapper>
+        <WidgetHeaderWrapper>
           <WidgetHeader>{'Настройки панели'}</WidgetHeader>
-        </FullWidthWidgetHeaderWrapper>
-        <FullWidthWidgetContent>
+        </WidgetHeaderWrapper>
+        <WidgetContent>
           <DraggableConfigColumnsWrapper>
             <DraggableConfigColumnsHeaderWrapper>
               <DraggableConfigColumnsHeader>
@@ -99,7 +95,7 @@ export const DashboardGridSettings: React.SFC<DashboardGridSettingsProps> = (pro
                 <DraggableConfigColumnsItemAnchor
                   key={i}
                   data-index={i + 1}
-                  isSelected={'2' === String(i + 1)}
+                  isSelected={checkbox === String(i + 1)}
                   onClick={columnsHandler}
                 >
                   <DraggableConfigColumnsItemSpan>
@@ -124,9 +120,8 @@ export const DashboardGridSettings: React.SFC<DashboardGridSettingsProps> = (pro
                 {'Применить'}
               </Anchor>
             </DraggableConfigAnchorsWrapper>
-          </DraggableConfigColumnsWrapper>
-        </FullWidthWidgetContent>
-
+          </DraggableConfigColumnsWrapper>        
+        </WidgetContent>
       </Widget>      
     </WidgetsLayout>
   );

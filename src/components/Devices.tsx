@@ -3,7 +3,9 @@ import * as React from 'react';
 import {
   WidgetsLayout,
   Widget,
-  
+  WidgetHeaderWrapper,
+  WidgetHeader,
+  WidgetContent,  
   DevicesTable,
   DevicesTableHeadRow,
   DevicesTableBodyRow,
@@ -25,9 +27,7 @@ import {
   DevicesTableActionMenuLayout,
   DevicesTableActionMenuItem,
   DevicesTableActionLink,
-  FullWidthWidgetContent,
-  FullWidthWidgetHeaderWrapper,
-  WidgetHeader
+
 } from '@src/styled';
 
 import {
@@ -53,6 +53,8 @@ interface DevicesProps {
   changeDroppedMenuClickedId: 
   (payload: DroppedMenuButtonClickedType) => any,
   isFirefoxInUse: boolean,
+  /* Метод в actions, изменяющий идентифкатор PageMenuItemActive */
+  switchPageMenuItemActive: ( payload: string ) => any,
 }
 
 export const Devices: React.SFC<DevicesProps> = (props) => {
@@ -60,6 +62,7 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
     DevicesItemsWasRequestedFromAPI,
     makeDevicesItemsRequestFromAPI,
     DevicesTableItemsCollection,
+    switchPageMenuItemActive
   } = props;
 
   if ( DevicesTableItemsCollection.length === 0 ) {
@@ -118,15 +121,25 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
     ],
   };
 
+  /**
+   * Очищает идентификатор PageMenuItemActive, который 
+   * подсвечивает активный пункт меню.
+   */
+
+  const tableLinkHandler = 
+  ( e: React.MouseEvent<HTMLAnchorElement> ) => {
+    switchPageMenuItemActive('');
+  }
+
   return (
     <div>
       <MainHeaderConnected data={MainHeaderState} />
       <WidgetsLayout>
         <Widget>
-          <FullWidthWidgetHeaderWrapper>
+          <WidgetHeaderWrapper>
             <WidgetHeader>{'Все устройства'}</WidgetHeader>          
-          </FullWidthWidgetHeaderWrapper>
-          <FullWidthWidgetContent>          
+          </WidgetHeaderWrapper>
+          <WidgetContent>
             <DevicesTable>
               <thead>
                 <DevicesTableHeadRow>
@@ -158,7 +171,10 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
                         <DevicesTableBodyColl
                           isFirefoxInUse={isFirefoxInUse}
                         >
-                          <DevicesTableBodyLink to={e.to}>
+                          <DevicesTableBodyLink
+                            to={e.to}
+                            onClick={tableLinkHandler}
+                          >
                             <DevicesTableBodyCompNameSpan
                               icon={e.icon}
                               title={e.comp_name}
@@ -170,7 +186,10 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
                         <DevicesTableBodyColl
                           isFirefoxInUse={isFirefoxInUse}
                         >
-                          <DevicesTableBodyLink to={e.to}>
+                          <DevicesTableBodyLink
+                            to={e.to}
+                            onClick={tableLinkHandler}
+                          >
                             <DevicesTableBodyIPSpan>
                               {e.ip}
                             </DevicesTableBodyIPSpan>
@@ -179,7 +198,10 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
                         <DevicesTableBodyColl 
                           isFirefoxInUse={isFirefoxInUse}
                         >
-                          <DevicesTableBodyInfoLink to={e.to}>
+                          <DevicesTableBodyInfoLink
+                            to={e.to}
+                            onClick={tableLinkHandler}
+                          >
                             <DevicesTableBodyInfo>
                               {e.system}
                             </DevicesTableBodyInfo>
@@ -203,14 +225,20 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
                         <DevicesTableBodyColl 
                           isFirefoxInUse={isFirefoxInUse}
                         >
-                          <DevicesTableBodyLink to={e.to}>
+                          <DevicesTableBodyLink
+                            to={e.to}
+                            onClick={tableLinkHandler}
+                          >
                             <DevicesLoadConnected id={e.to} />
                           </DevicesTableBodyLink>
                         </DevicesTableBodyColl>
                         <DevicesTableBodyColl 
                           isFirefoxInUse={isFirefoxInUse}
                         >
-                          <DevicesTableBodyLink to={e.to}>
+                          <DevicesTableBodyLink
+                            to={e.to}
+                            onClick={tableLinkHandler}
+                          >
                             <DevicesStatusConnected id={e.to} />
                           </DevicesTableBodyLink>
                         </DevicesTableBodyColl>
@@ -262,7 +290,7 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
                 }
               </tbody>
             </DevicesTable>
-          </FullWidthWidgetContent>
+          </WidgetContent>
         </Widget>
       </WidgetsLayout>
     </div>

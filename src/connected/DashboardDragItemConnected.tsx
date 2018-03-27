@@ -36,11 +36,12 @@ ReactDnd.DragSourceSpec<DashboardDragItemProps> = {
       id: props.id,
     }
   },
+
+
   endDrag: ( props: DashboardDragItemProps, 
   monitor: ReactDnd.DragSourceMonitor ) => {
-    const didDrop = monitor.didDrop()
-
-    if (!didDrop) {
+    const didDrop = monitor.didDrop();
+    if (didDrop) {
       props.clearCurrentTargetId(-1);
     }
   }
@@ -88,7 +89,6 @@ ReactDnd.DropTargetSpec<DashboardDragItemProps> = {
 const dragSourceCollect = ( connect: ReactDnd.DragSourceConnector,
 monitor: ReactDnd.DragSourceMonitor ) => ({
   connectDragSource: connect.dragSource(),
-  // item: monitor.getItem(),
   isDragging: monitor.isDragging(),
 });
 

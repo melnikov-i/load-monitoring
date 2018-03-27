@@ -3,7 +3,9 @@ import * as React from 'react';
 import {
   WidgetsLayout,
   Widget,
-
+  WidgetHeaderWrapper,
+  WidgetHeader,
+  WidgetContent,  
   OverwievText,
   OverviewIconsLayout,
   OverviewIconWrapper,
@@ -28,9 +30,6 @@ import {
   OverviewTableActionMenuItem,
   OverviewTableActionMenuAnchor,
 
-  FullWidthWidgetContent,
-  FullWidthWidgetHeaderWrapper,
-  WidgetHeader,
 } from '@src/styled';
 
 import {
@@ -150,8 +149,7 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
         <MainHeaderConnected data={MainHeaderState} />
         <WidgetsLayout>
           <Widget bg={false}>
-
-            <FullWidthWidgetContent>
+            <WidgetContent>
               <OverviewIconsLayout>
                 <OverviewIconWrapper bgcolor={'#1ab394'}>
                   <OverviewIcon icon={'f058'} />
@@ -181,17 +179,15 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
                   </OverviewIconText>
                 </OverviewIconWrapper>
               </OverviewIconsLayout>
-            </FullWidthWidgetContent>
-
+            </WidgetContent>
           </Widget>
         </WidgetsLayout>
         <WidgetsLayout>
           <Widget>
-
-            <FullWidthWidgetHeaderWrapper>
+            <WidgetHeaderWrapper>
               <WidgetHeader>{'Все события'}</WidgetHeader>              
-            </FullWidthWidgetHeaderWrapper>
-            <FullWidthWidgetContent>
+            </WidgetHeaderWrapper>
+            <WidgetContent>
               {(overviewItems.events_table.length !== 0) 
                 ? (
                   <OverviewTable>
@@ -276,9 +272,9 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
                 : (
                   <OverwievText>{'Событий не найдено'}</OverwievText>
                 )
-              }          
-            </FullWidthWidgetContent>
+              }
 
+            </WidgetContent>
           </Widget>
         </WidgetsLayout>
       </div>

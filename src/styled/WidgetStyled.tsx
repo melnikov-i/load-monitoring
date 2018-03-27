@@ -32,6 +32,12 @@ export const WidgetsLayout = styled.div`
 
 /**
  * Контейнер отдельного виджета.
+ * Поведение при передаче параметров:
+ *  + bg -> false - убирает фон, делая его прозрачным
+ *  + width       - задает коэффициент, по которому вычисляется ширина
+ *                  виджета. Коэффициент равен количеству колонок сетки.
+ *  + margin      - наряду с width нужен для формирования отступа
+ *                  виджета. Является порядковым номером виджета в сетке.
  *
  * @param {boolean} bg
  * @param {string} width
@@ -83,74 +89,7 @@ export const Widget = styled.div`
         : '0'
     )
   };
-
 `;
-
-
-  // margin-top: ${(props: WidgetProps) => (
-  //     props.margin && props.width
-  //       ? '0' : '20px'
-  //   )
-  // };
-  // margin-left: ${(props: WidgetProps) => (
-  //     props.margin && props.width
-  //       ? '0' : '15px'
-  //   )
-  // };
-
-
-
-/**
- * Виджет, способный менять свою ширину
- */
-
-// export const DynamicWidthWidgetsLayout1 = styled.div`
-//   box-sizing: border-box;
-// `;
-
-
-
-
-/**
- * Виджет на всю ширину родительского контейнера
- *
- * @return {React.Component}
- */
-
-export const FullWidthWidgetContent = styled.div`
-  box-sizing: border-box;
-  padding: 0 15px 20px;
-`;
-
-
-
-
-
-export const DynamicWidthWidget = styled.div`
-  background-color: #fff;
-  --border-top: 2px solid #e7eaec;
-  --position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-`;
-
-export const DynamicWidthWidgetContent = styled.div`
-  padding: 10px 15px 20px;
-  display: block;
-  height: calc( 100% - 50px );
-  box-sizing: border-box;
-`;
-
-
-
-
-
-
-
-
-
 
 
 /**
@@ -159,22 +98,17 @@ export const DynamicWidthWidgetContent = styled.div`
  * @return {React.Component}
  */
 
-export const FullWidthWidgetHeaderWrapper = styled.div`
+export const WidgetHeaderWrapper = styled.div`
   background-color: #fff;
   border-bottom: 1px solid #e7eaec;
   padding: 15px;
 `;
 
-// Обертка для заголовка способного менять ширину
-export const DynamicWidthWidgetHeaderWrapper = 
-FullWidthWidgetHeaderWrapper.extend`
-  width: 100%;
-  display: block;
-  height: 50px;
-  box-sizing: border-box;
-`;
 
-// заголовок любого виджета
+/**
+ * Заголовок виджета
+ */
+
 export const WidgetHeader = styled.h4`
   font-size: 14px;
   height: 20px;
@@ -184,70 +118,13 @@ export const WidgetHeader = styled.h4`
 `;
 
 
-
-// interface MainWidgetWrapperInterface {
-//   width: string,
-//   margin: number,
-// }
-
-
-
-// export const DynamicWidthWidgetWrapper1 = styled.div`
-//   width: ${(props: MainWidgetWrapperInterface) => (
-//       getWidth(props.width)
-//     )
-//   };
-//   overflow: hidden;
-//   animation-name: ${ emergence };
-//   animation-duration: 1s;
-//   animation-timing-function: linear;
-//   animation-fill-mode: both;
-
-//   display: inline-block;
-//   vertical-align: top;
-  
-//   --position: relative;
-//   margin-right: ${(props: MainWidgetWrapperInterface) => (
-//       checkPosition(Number(props.width), props.margin)
-//         ? ( props.width === '1' ) ? '0' : '2%' : '0'
-//     )
-//   };
-//   margin-bottom: ${(props: MainWidgetWrapperInterface) => (
-//       ( props.width === '1' ) ? '20px' : '2%'
-//     )
-//   };
-//   &::before{
-//     --content: "";
-//     --display: block;
-//     --padding-top: 62%;
-//   }
-// `;
-
-
 /**
- * Обертка виджета на всю ширину родительского контейнера
- * Проигрывает анимацию на старте отображения страницы.
+ * Содержимое виджета
  *
- * @param {boolean} bg
  * @return {React.Component}
  */
 
-// export const FullWidthWidgetWrapper = styled.div`
-//   box-sizing: border-box;
-//   overflow: hidden;
-//   margin: 20px 15px;
-//   background-color: ${(props: {bg: boolean}) => (
-//       props.bg ? '#fff' : 'transparent'
-//     )
-//   };
-//   border-top: ${(props: {bg: boolean}) => (
-//       props.bg ? '2px solid #e7eaec' : 'none'
-//     )
-//   };
-//   animation-name: ${ emergence };
-//   animation-duration: 1s;
-//   animation-timing-function: linear;
-//   animation-fill-mode: both;
-// `;
-
-// Происк самого правого элемента среди динамических виджетов
+export const WidgetContent = styled.div`
+  box-sizing: border-box;
+  padding: 0 15px 20px;
+`;

@@ -32,9 +32,6 @@ interface DashboardProps {
   /* Запускает в action метод запроса данных о виджетах */
   makeDashboardRequestFromAPI: 
   (payload: DashboardInterface['dash_id']['dashboard_id']) => any,
-  
-  /* Значение активного чекбокса выбора количества колонок */
-  // SelectedCheckbox: string,
   /* Ключ состояния отображения дашборда */
   MainHeaderButtonWasClicked: boolean,
 }
@@ -46,7 +43,6 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
     DashboardStaticModel,
     DashboardWasRequestedFromAPI,
     makeDashboardRequestFromAPI,
-    // SelectedCheckbox,
     MainHeaderButtonWasClicked,
   } = props;
   
@@ -69,7 +65,7 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
           bgColor={'#f3f3f4'}
         />
       );
-    }      
+    }
   }
 
 
@@ -97,22 +93,6 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
   };
 
 
-  /* Тестовые данные для диаграмм */
-
-  // const series: any = [
-  //   {
-  //     // color: '#1ab394',
-  //     data: [
-  //       45, 23, 65, 12, 67, 43, 1, 34, 88, 99, 33, 45, 45,
-  //       23, 65, 12, 67, 43, 1, 34, 88, 99, 33, 45, 45, 23,
-  //       65, 12, 67, 43, 1, 34, 88, 99, 33, 45, 45, 23, 65,
-  //       12, 67, 43, 1, 34, 88, 99, 33, 45, 45, 23, 65, 12,
-  //       67, 43, 1, 34, 88, 99, 33, 99,
-  //     ]
-  //   }
-  // ];
-
-  
   /**
    * По нажатию на кнопку 'Настройка', расположенную в компоненте 
    * заголовка страницы (MainHeader), показывается один из двух
@@ -144,124 +124,3 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
     </div>
   );
 };
-
-
-
-  // if ( MainHeaderButtonWasClicked ) {
-  //   /* Настройка дашборда */
-  //   return (
-  //     <div>
-  //       {/* Виджет редактирования, отмены и применения параметров */}
-  //       <DashboardGridSettingsConnected />
-  //       {/* Корневой компонент перетаскиваемых виджетов */}
-  //     </div>
-  //   );
-  // } else {
-  //   return (
-  //     <div>
-  //       {/* Основной заголовок страницы */}
-  //       <MainHeaderConnected data={MainHeaderState} />
-  //       {/* Контейнер с виджетами */}
-  //       <WidgetsLayout>
-  //         {DashboardCollection.dash_data.map((e, i) => {
-            
-  //           const item: WidgetInterface = {
-  //             widget_name: e.widget_name,
-  //             device_id: e.device_id,
-  //             id: e.id,
-  //             series: series,
-  //           };
-  //           return (
-  //             <Widget
-  //               key={i}
-  //               width={SelectedCheckbox}
-  //               margin={i + 1}
-  //             >
-  //               <DashboardWidgetConnected item={item} />
-  //             </Widget>
-  //           )
-  //         })}
-  //       </WidgetsLayout>
-  //     </div>
-  //   );
-  // }
-
-
-
-
-
-      // <DynamicWidthWidgetsLayout>
-      // </DynamicWidthWidgetsLayout>
-        // {DashboardCollection.dash_data.map((e, i) => {
-        //   const item: WidgetInterface = {
-        //     widget_name: e.widget_name,
-        //     device_id: e.device_id,
-        //     isPreview: false,
-        //     series: series,
-        //   };
-        // //   return (
-        //     <WidgetsLayout
-        //       width={SelectedCheckbox}
-        //       margin={i + 1}
-        //       key={i}
-        //     >
-        //       <DashboardWidgetConnected item={item} />
-        //     </WidgetsLayout>
-        //   );
-        // })}
-
-
-
-
-
-
-  
-  /**
-   * По нажатию на кнопку 'Настройка', расположенную в компоненте 
-   * заголовка страницы (MainHeader), показывается один из двух
-   * видов: Статические виджеты (по-умолчанию) и динамические с 
-   * возможностью конфигурирования их отображения.
-   */
-
-  // if ( MainHeaderButtonWasClicked ) {
-  //   /* Настройка дашборда */
-  //   return (
-  //     <div>
-  //       {/* Основной заголовок страницы */}
-  //       <MainHeaderConnected data={MainHeaderState} />
-  //       {/* Виджет редактирования, отмены и применения параметров */}
-  //       <DashboardGridSettingsConnected />
-  //       {/* Корневой компонент перетаскиваемых виджетов */}
-  //       <DashboardDragDropContextConnected />
-  //     </div>
-  //   );
-  // } else {
-  //   /* Отображение дашборда */
-  //   return (
-  //     <div>
-  //       {/* Основной заголовок страницы */}
-  //       <MainHeaderConnected data={MainHeaderState} />
-  //       {/* Конструктор виджетов с диаграммами */}
-  //       <DynamicWidthWidgetsLayout>          
-          // {DashboardCollection.dash_data.map((e, i) => {
-          //   const item: WidgetInterface = {
-          //     widget_name: e.widget_name,
-          //     device_id: e.device_id,
-          //     isPreview: false,
-          //     series: series,
-          //   }
-          //   return (
-          //     <DynamicWidthWidgetWrapper
-          //       width={SelectedCheckbox}
-          //       margin={i + 1}
-          //       key={i}
-          //     >
-          //       <DashboardWidgetConnected item={item} />
-          //     </DynamicWidthWidgetWrapper>
-
-          //   );
-          // })}
-  //       </DynamicWidthWidgetsLayout>
-  //     </div>
-  //   );
-  // }

@@ -42,6 +42,7 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
     asyncActionCreators.makeDevicesItemsRequestFromAPI,
   changeDroppedMenuClickedId: 
     mainActionCreators.changeDroppedMenuClickedId,
+  switchPageMenuItemActive: mainActionCreators.switchPageMenuItemActive,
 }, dispatch);
 
 export const DevicesConnected = 

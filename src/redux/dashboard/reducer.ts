@@ -2,7 +2,6 @@ import { combineReducers } from 'redux';
 
 import {
   DashboardInterface,
-  // MoveWidgetsInterface,
 } from '@src/interfaces';
 
 import {
@@ -10,18 +9,17 @@ import {
   PUT_DASHBOARD_MODEL_FROM_API_TO_STORE,
   COPY_DASHBOARD_FROM_DASHBOARD_STATIC_MODEL,
   REORDER_DASHBOARD_DRAG_MODEL_DATA_COLLECTION,
-  CHANGE_CURRENT_TARGET_ID
-  // PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION,
-  // CHANGE_SELECTED_CHECKBOX,
-  // SET_SELECTED_CHECKBOX,
-  
-  // CREATE_DRAGGABLE_DASHBOARD,
-  // REORDER_DRAGGABLE_WIDGETS_COLLECTION,
+  CHANGE_CURRENT_TARGET_ID,
+  CHANGE_SELECTED_CHECKBOX,
 } from '@src/redux/dashboard';
 
 import {
   USER_WAS_LOGOUT
 } from '@src/redux/login';
+
+import {
+  SWITCH_PAGE_MENU_ITEM_ACTIVE
+} from '@src/redux/main';
 
 import {
   MAIN_HEADER_BUTTON_SWITCH
@@ -67,7 +65,7 @@ export const reducer = combineReducers({
         return action.payload;
       /* Очищает редьюсер при logout'е */
       case USER_WAS_LOGOUT:
-        return '';
+        return DashboardModelInitialState;
       default:
         return state;
     }
@@ -89,6 +87,15 @@ export const reducer = combineReducers({
           ...state,
           ['dash_data']: action.payload,
         };
+      /* Изменяет поле с количеством колонок */
+      case CHANGE_SELECTED_CHECKBOX:
+        return {
+          ...state,
+          ['dash_id']: {
+            ...state.dash_id,
+            ['dash_columns']: action.payload,
+          }
+        }
       /* Очищает редьюсер при logout'е */
       case USER_WAS_LOGOUT:
         return DashboardModelInitialState;
@@ -134,11 +141,15 @@ export const reducer = combineReducers({
       /* Сбрасывает ключ при нажатии на кнопки "Назад" или "Отмена" */
       case MAIN_HEADER_BUTTON_SWITCH:
         return false;
+      /* Сброс значения ключа при выборе другого устройства в основном меню */
+      case SWITCH_PAGE_MENU_ITEM_ACTIVE:
+        return false;
+      case USER_WAS_LOGOUT:
+        return false;
       default:
         return state;
     }
   },
-
 
 
   /**
@@ -153,113 +164,10 @@ export const reducer = combineReducers({
         return action.payload;
       case USER_WAS_LOGOUT:
         return -1;
+      case USER_WAS_LOGOUT:
+        return -1;
       default:
         return state;
     }
   }
-
 });
-
-
-
-
-
-
-// const DashboardCollectionInitialState: DashboardInterface = {
-//   dash_id: {
-//     dashboard_id: '',
-//     dashboard_name: '',
-//     dash_columns: '',
-//   },
-//   dash_data: []
-// };
-
-
-
-// const reorder = ( dash_data: DashboardInterface['dash_data'],
-// items: MoveWidgetsInterface ) => {
-//   const result = dash_data.map((e, i) => {
-//     switch ( i ) {
-//       case items.source: return dash_data[items.target];
-//       case items.target: return dash_data[items.source];
-//       default: return dash_data[i];
-//     }
-//   });
-//   return result;
-// };
-
-
-
-  // readonly DashboardCollection: DashboardInterface,
-  // readonly DraggableWidgetsCollection: DashboardInterface,
-
-  // readonly isDraggableWidgetsCollection: boolean,
-  // readonly SelectedCheckbox: string,
-  // readonly DraggableSelectedCheckbox: string,
-
-
-
-
-  /* Коллекция виджетов для отображения */
-  // DashboardCollection: 
-  // ( state = DashboardCollectionInitialState, action ) => {
-  //   switch ( action.type ) {
-  //     case PUT_DASHBOARD_FROM_API_TO_DASHBOARD_COLLECTION:
-  //       return action.payload;
-  //     case USER_WAS_LOGOUT:
-  //       return DashboardCollectionInitialState;
-  //     default:
-  //       return state;
-  //   }
-  // },
-
-  /* Коллекция виджетов для настройки */
-  // DraggableWidgetsCollection: 
-  // ( state = DashboardCollectionInitialState, action ) => {
-  //   switch ( action.type ) {
-  //     case CREATE_DRAGGABLE_DASHBOARD:
-  //       return action.payload.dashboard;
-  //     case REORDER_DRAGGABLE_WIDGETS_COLLECTION:
-  //       return {
-  //         ...state,
-  //         ['dash_data']: reorder(state.dash_data, action.payload),
-  //       };
-  //     case USER_WAS_LOGOUT:
-  //       return DashboardCollectionInitialState;
-  //     default:
-  //       return state;
-  //   }
-  // },
-
-  /* Ключ для помещения данных в коллекцию виджетов для настройки */
-  // isDraggableWidgetsCollection: ( state = false, action ) => {
-  //   switch ( action.type ) {
-  //     case CREATE_DRAGGABLE_DASHBOARD:
-  //       return true;
-  //     case MAIN_HEADER_BUTTON_SWITCH:
-  //       return false;
-  //     default:
-  //       return state;
-  //   }
-  // },
-
-  /* Количество колонок на странице отображения */
-  // SelectedCheckbox: ( state = '0', action ) => {
-  //   switch ( action.type ) {
-  //     case SET_SELECTED_CHECKBOX:
-  //       return action.payload;
-  //     default:
-  //       return state;
-  //   }
-  // },
-  /* Количество колонок на странице редактирования */
-  // DraggableSelectedCheckbox: ( state = '0', action ) => {
-  //   switch ( action.type ) {
-  //     case CREATE_DRAGGABLE_DASHBOARD:
-  //       return action.payload.checkbox;
-  //     case CHANGE_SELECTED_CHECKBOX:
-  //       return action.payload;
-  //     default:
-  //       return state;
-  //   }
-  // },

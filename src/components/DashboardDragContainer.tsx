@@ -12,7 +12,7 @@ import DashboardDragItemConnected from
   '@src/usage/DashboardDragItemUsage';
 
 interface DashboardDragContainerProps {
-  /* Модель статического дашборда */
+  /* Модель статического дашборда для копирования */
   DashboardStaticModel: DashboardInterface,
   /* Модель дашборда для конфигурирования */
   DashboardDragModel: DashboardInterface,
@@ -26,7 +26,7 @@ interface DashboardDragContainerProps {
   /* Запускает в action метод, обновляющий структуру DashboardDragModel */
   reorderDashboardDragModelDataCollectionOnlyOneTime: 
   ( payload: { model: DashboardInterface['dash_data'], id: number } ) => any,
-  /*  */
+  /* Запускает в action метод, изменяющий ID целевого таргета перемещения */
   changeCurrentTargetId: ( payload: number ) => any,
   /* Метод библиотеки React-DnD */
   connectDropTarget?: any,
@@ -102,13 +102,14 @@ React.SFC<DashboardDragContainerProps> = ( props ) => {
   const findWidget = ( id: string ) => {
     const widget =
       widgets.filter( w => (w.device_id + w.widget_name) === id )[0];
-    console.log('widget:', widget);
     return widgets.indexOf(widget);
   };
 
 
   /**
    * Очищает currentTargetId
+   *
+   * @return {void}
    */
 
   const clearCurrentTargetId = () => {
@@ -117,20 +118,6 @@ React.SFC<DashboardDragContainerProps> = ( props ) => {
     }
   }
   
-  /**
-   * Стиль контейнера с виджетами. Соответствует WidgetsLayout
-   */
-
-  // const WidgetsLayoutStyle = {
-  //   display: 'block',
-  //   boxSizing: 'border-box',
-  //   overflow: 'hidden',
-  //   margin: '20px 15px 0',
-  //   animationName: emergence,
-  //   animationDuration: '1s',
-  //   animationTimingFunction: 'linear',
-  //   animationFillMode: 'both',
-  // }
 
   return connectDropTarget(
     <div style={{// WidgetsLayout
@@ -148,12 +135,12 @@ React.SFC<DashboardDragContainerProps> = ( props ) => {
       {widgets.map(( widget, i ) => (
         <DashboardDragItemConnected
           key={widget.device_id + widget.widget_name}
-          widget_name={widget.widget_name}
+          id={widget.device_id + widget.widget_name}
           moveWidgets={moveWidgets}
           findWidget={findWidget}
           clearCurrentTargetId={clearCurrentTargetId}
+          widget_name={widget.widget_name}
           width={width}
-          id={widget.device_id + widget.widget_name}
           margin={i + 1}
         />
       ))}

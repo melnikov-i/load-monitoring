@@ -6,7 +6,7 @@ import { Dispatch, RootState } from '@src/redux';
 import { DashboardGridSettings } from '@src/components';
 
 import { 
-  // syncActionCreators,
+  syncActionCreators,
   asyncActionCreators
 } from '@src/redux/dashboard';
 
@@ -15,24 +15,21 @@ import {
 } from '@src/redux/mainHead';
 
 import {
-  // DashboardInterface,
+  DashboardInterface,
 } from '@src/interfaces';
 
 import {
-  // DraggableSelectedCheckboxSelector,
-  // DraggableWidgetsCollectionSelector
+  DashboardDragModelSelector,
 } from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector<RootState, {
-  // DraggableSelectedCheckbox: string,
-  // DraggableWidgetsCollection: DashboardInterface,
+  DashboardDragModel: DashboardInterface,
 }>({
-  // DraggableWidgetsCollection: DraggableWidgetsCollectionSelector,
-  // DraggableSelectedCheckbox: DraggableSelectedCheckboxSelector,
+  DashboardDragModel: DashboardDragModelSelector,
 });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
-  // changeSelectedCheckbox: syncActionCreators.changeSelectedCheckbox,
+  changeSelectedCheckbox: syncActionCreators.changeSelectedCheckbox,
   mainHeaderButtonSwitch: mainHeadActionCreators.mainHeaderButtonSwitch,
   sendChangedDashboardToAPI: asyncActionCreators.sendChangedDashboardToAPI,
 }, dispatch);

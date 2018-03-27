@@ -10,12 +10,17 @@ import {
   syncActionCreators
 } from '@src/redux/mainHead';
 
+import {
+  syncActionCreators as mainActionCreators
+} from '@src/redux/main'
+
 import {} from '@src/selectors';
 
 const mapStateToProps = createStructuredSelector<RootState, {}>({});
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
   mainHeaderButtonSwitch: syncActionCreators.mainHeaderButtonSwitch,
+  switchPageMenuItemActive: mainActionCreators.switchPageMenuItemActive,
 }, dispatch);
 
 export const MainHeaderConnected = 

@@ -13,6 +13,11 @@ import {
   checkPosition
 } from '@src/libs';
 
+
+import DashboardWidgetConnected from
+  '@src/usage/DashboardWidgetUsage';
+
+
 export interface DashboardDragItemProps {
   /*  */
   connectDragSource?: ReactDnd.ConnectDragSource,
@@ -30,57 +35,48 @@ export interface DashboardDragItemProps {
   clearCurrentTargetId: any,
 }
 
-// type DashboardDragItemState = {
-//   element: any,
-  // id: string,
-  // widgetName: string,
-  // series: string,
-  // moveItem: any,
-  // findItem: any,
-// };
 
-
-// export class DashboardDragItem 
-// extends React.Component<DashboardDragItemProps, DashboardDragItemState> {
 export const DashboardDragItem: 
 React.SFC<DashboardDragItemProps> = ( props ) => {
-  // render() {
-    const {
-      isDragging,
-      connectDragSource,
-      connectDropTarget,
-      widget_name,
-      width,
-      margin,
-      // element
-    // } = this.props;
-    } = props;
+  const {
+    isDragging,
+    connectDragSource,
+    connectDropTarget,
+    widget_name,
+    width,
+    margin,
+  } = props;
 
-    const style = {
-      border: '1px dashed gray',
-      boxSizing: 'border-box',
-      width: getWidth(width),
-      display: 'inline-block',
-      verticalAlign: 'top',
-      marginRight: checkPosition(Number(width), margin)
-          ? ( width === '1' ) ? '0' : '2%' : '0',
-      marginBottom: ( width === '1' ) ? '20px' : '2%',
-      cursor: 'move',
-      fontSize: '14px',
-      backgroundColor: 'rgba(255, 0, 0, .4)'
-    };
-    
-    const opacity = isDragging ? 0 : 1;
+  const style = { // Widget
+    border: '1px dashed gray',
+    boxSizing: 'border-box',
+    width: getWidth(width),
+    display: 'inline-block',
+    verticalAlign: 'top',
+    marginRight: checkPosition(Number(width), margin)
+      ? ( width === '1' ) ? '0' : '2%' : '0',
+    marginBottom: ( width === '1' ) ? '20px' : '2%',
+    cursor: 'move',
+  };
+  
+  const opacity = isDragging ? 0 : 1;
+  
+  if ( !connectDragSource || !connectDropTarget ) return null;
 
-    if ( !connectDragSource || !connectDropTarget ) return null;
-
-    return connectDragSource(
-      connectDropTarget(
-        <div style={{...style, opacity}}>
-          {'Widget:' + widget_name}
-          <div style={{height: 200}}></div>
-        </div>
-      )
+  return connectDragSource(
+    connectDropTarget(
+      <div style={{...style, opacity}}>
+        <DashboardWidgetConnected
+          widget_name={widget_name}
+          width={'10'}
+          margin={0}
+        />
+      </div>
     )
-  // }
+  )
 };
+          // <div style={{height: 200}}>
+          //   <span style={{fontSize: '14px'}}>
+          //     {'Widget:' + widget_name}
+          //   </span>            
+          // </div>

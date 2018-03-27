@@ -19,12 +19,15 @@ interface MainHeaderProps {
   data: MainHeaderInterface,
   MainHeaderButtonWasClicked: boolean,
   mainHeaderButtonSwitch: () => any,
+  /* Метод в actions, изменяющий идентифкатор PageMenuItemActive */
+  switchPageMenuItemActive: ( payload: string ) => any,
 }
 
 export const MainHeader: React.SFC<MainHeaderProps> = (props) => {
   const {
     data,
     mainHeaderButtonSwitch,
+    switchPageMenuItemActive
   } = props;
   
   const handler = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -32,6 +35,16 @@ export const MainHeader: React.SFC<MainHeaderProps> = (props) => {
     e.nativeEvent.stopImmediatePropagation();
     mainHeaderButtonSwitch();
   };
+
+  /**
+   * Очищает идентификатор PageMenuItemActive, который 
+   * подсвечивает активный пункт меню.
+   */
+
+  const breadcrumbsHandler = 
+  ( e: React.MouseEvent<HTMLAnchorElement> ) => {
+    switchPageMenuItemActive('');
+  }
 
   return (
     <MainHeaderLayout>
@@ -47,6 +60,7 @@ export const MainHeader: React.SFC<MainHeaderProps> = (props) => {
                 <MainHeaderBreadCrumbsItemLink
                   to={'/' + e.href}
                   title={e.title}
+                  onClick={breadcrumbsHandler}
                 >
                   {e.title}
                 </MainHeaderBreadCrumbsItemLink>

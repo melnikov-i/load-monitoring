@@ -51,7 +51,6 @@ const containerTarget = {
 };
 
 
-
 /**
  * Функция сбора. Передает параметры из библиотеки React-DnD в 
  * компонент.
@@ -61,8 +60,6 @@ const dropTargetCollect = (connect: ReactDnd.DropTargetConnector,
 monitor: ReactDnd.DropTargetMonitor) => ({
   connectDropTarget: connect.dropTarget(),
 });
-
-
 
 
 const mapStateToProps = createStructuredSelector<RootState, {
@@ -76,6 +73,7 @@ const mapStateToProps = createStructuredSelector<RootState, {
     isDashboardDragModelCopied: isDashboardDragModelCopiedSelector,
     currentTargetId: currentTargetIdSelector,
   });
+  
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
   copyDashboardFromDashboardStaticModel:
