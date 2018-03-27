@@ -11,6 +11,7 @@ export * from './DashboardDragContainerUsage';
 export * from './DashboardDragItemUsage';
 export * from './DashboardStaticContainerUsage';
 export * from './DashboardGridSettingsUsage';
+export * from './DashboardDragLayerUsage';
 export * from './DashboardWidgetUsage';
 
 

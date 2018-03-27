@@ -83,16 +83,16 @@ injectGlobal`
     }
   }
 
-  .dashboardWidgetPreview {
-    box-sizing: border-box;
-    z-index: 1000;
-    opacity: 0.6;
-    &::before {
-      content: "";
-      display: block;
-      padding-top: 62%;
+    .dashboardWidgetPreview {
+      box-sizing: border-box;
+      z-index: 1000;
+      opacity: 0.6;
+      &::before {
+        content: "";
+        display: block;
+        padding-top: 62%;
+      }
     }
-  }
 
   @font-face {
     font-family: 'FontAwesome';

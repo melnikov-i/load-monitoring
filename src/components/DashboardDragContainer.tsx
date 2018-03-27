@@ -10,6 +10,8 @@ import {
 
 import DashboardDragItemConnected from 
   '@src/usage/DashboardDragItemUsage';
+import DashboardDragLayerConnected from 
+  '@src/usage/DashboardDragLayerUsage';
 
 interface DashboardDragContainerProps {
   /* Модель статического дашборда для копирования */
@@ -117,6 +119,12 @@ React.SFC<DashboardDragContainerProps> = ( props ) => {
       changeCurrentTargetId(-1);
     }
   }
+
+  // const getWidget = ( id: string ) => {
+  //   const widget = 
+  //     widgets.filter( w => (w.device_id + w.widget_name) === id )[0];
+  //   return widget;
+  // }
   
 
   return connectDropTarget(
@@ -131,7 +139,7 @@ React.SFC<DashboardDragContainerProps> = ( props ) => {
       animationFillMode: 'both',
     }}
     >
-
+      <DashboardDragLayerConnected />
       {widgets.map(( widget, i ) => (
         <DashboardDragItemConnected
           key={widget.device_id + widget.widget_name}

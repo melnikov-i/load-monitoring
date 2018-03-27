@@ -10,6 +10,7 @@ export * from './DashboardDragContainer';
 export * from './DashboardDragItem';
 export * from './DashboardStaticContainer';
 export * from './DashboardGridSettings';
+export * from './DashboardDragLayer';
 export * from './DashboardWidget';
 
 

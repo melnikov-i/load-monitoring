@@ -10,6 +10,7 @@ export * from './DashboardConnected';
 export * from './DashboardDragContainerConnected';
 export * from './DashboardDragItemConnected';
 export * from './DashboardGridSettingsConnected';
+export * from './DashboardDragLayerConnected';
 export * from './DashboardWidgetConnected';
 
 

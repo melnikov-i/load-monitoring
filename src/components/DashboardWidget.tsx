@@ -41,7 +41,7 @@ const series: any = [
 interface DashboardWidgetProps {
   widget_name: WidgetInterface['widget_name'],
   width: DashboardInterface['dash_id']['dash_columns'],
-  margin: number,
+  margin?: number,
 }
 
 export const DashboardWidget: 

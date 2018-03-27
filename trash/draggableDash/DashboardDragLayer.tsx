@@ -36,8 +36,9 @@ extends React.Component<DashboardDragLayerPros> {
     if ( isDragging ) {
       return (
         <div
-          className={'dashboardWidgetPreview'}
           style={{
+            boxSizing: 'border-box',
+            opacity: 0.6,
             position: 'fixed',
             top: 0,
             left: 0,

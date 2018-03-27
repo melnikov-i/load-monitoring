@@ -10,7 +10,7 @@ export default (
   { widget_name, width, margin }: {
     widget_name: WidgetInterface['widget_name'],
     width: DashboardInterface['dash_id']['dash_columns'],
-    margin: number,
+    margin: number | undefined,
   }) => (
   <DashboardWidgetConnected
     widget_name={widget_name}

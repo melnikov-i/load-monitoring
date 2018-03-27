@@ -48,7 +48,8 @@ React.SFC<DashboardDragItemProps> = ( props ) => {
   } = props;
 
   const style = { // Widget
-    border: '1px dashed gray',
+    border: isDragging ? '1px dashed gray' : 'none',
+    backgroundColor: isDragging ? 'lightgray' : 'transparent',
     boxSizing: 'border-box',
     width: getWidth(width),
     display: 'inline-block',
@@ -56,27 +57,46 @@ React.SFC<DashboardDragItemProps> = ( props ) => {
     marginRight: checkPosition(Number(width), margin)
       ? ( width === '1' ) ? '0' : '2%' : '0',
     marginBottom: ( width === '1' ) ? '20px' : '2%',
-    cursor: 'move',
   };
   
-  const opacity = isDragging ? 0 : 1;
+  // const opacity = isDragging ? 0 : 1;
+  // const position = 'relative';
   
   if ( !connectDragSource || !connectDropTarget ) return null;
-
-  return connectDragSource(
-    connectDropTarget(
-      <div style={{...style, opacity}}>
-        <DashboardWidgetConnected
-          widget_name={widget_name}
-          width={'10'}
-          margin={0}
-        />
-      </div>
-    )
-  )
+  
+  return (
+    <div
+      style={{
+        display: 'block',
+        position: 'relative',
+        ...style
+      }}
+    >
+      {connectDragSource(
+        connectDropTarget(
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+            zIndex: 100,
+            cursor: 'move',
+            // backgroundColor: 'rgba(0, 0, 255, .2)',
+          }}></div>
+        )
+      )}
+        <div style={{
+          opacity: isDragging ? 0 : 1,
+        }}>
+          <DashboardWidgetConnected
+            widget_name={widget_name}
+            width={'100'}
+            margin={undefined}
+          />
+        </div>
+      }
+      
+    </div>
+  );
 };
-          // <div style={{height: 200}}>
-          //   <span style={{fontSize: '14px'}}>
-          //     {'Widget:' + widget_name}
-          //   </span>            
-          // </div>
