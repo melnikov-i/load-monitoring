@@ -8,16 +8,17 @@ import {
 import DashboardWidgetConnected from
   '@src/usage/DashboardWidgetUsage';
 
-// import {
-//   MENU_LAYOUT_BIG_WIDTH,
-//   MENU_LAYOUT_MIDDLE_WIDTH,
-//   MIDDLE_SCREEN_MAX,
-// } from '@src/styled';
+import {
+  MENU_LAYOUT_BIG_WIDTH,
+  MENU_LAYOUT_MIDDLE_WIDTH,
+  MIDDLE_SCREEN_MAX,
+  SMALL_SCREEN_MAX
+} from '@src/styled';
 
-// import {
-//   getPreviewWidth,
-//   trottler
-// } from '@src/libs';
+import {
+  getPreviewWidth,
+  // trottler
+} from '@src/libs';
 
 
 /**
@@ -25,34 +26,73 @@ import DashboardWidgetConnected from
  * Чтобы корректно посчитать ширину виджета.
  */
 
-// const menuWidth = () => {
-//   if ( parseInt(MIDDLE_SCREEN_MAX) > window.innerWidth )
-//     return MENU_LAYOUT_MIDDLE_WIDTH;
-//   return MENU_LAYOUT_BIG_WIDTH
-// };
 
 
 export interface DashboardDragLayerPros {
+  /*  */
+  item?: string,
+  /*  */
   isDragging?: boolean,
+  /*  */
   currentOffset?: any,
-  /* Заголовок виджета */
-  // widget_name: WidgetInterface['widget_name'],
-  /* Коэффициент ширины виджета */
+  /* Модель перетаскиваемых виджетов */
   DashboardDragModel: DashboardInterface,
   /* Ключ, задающий поведение ширины основного меню на различных экранах */
-  // isMenuOpenedOnSmallScreen: boolean,
+  isMenuOpenedOnSmallScreen: boolean,
 }
 
 export class DashboardDragLayer
 extends React.Component<DashboardDragLayerPros> {
   render() {
     const {
+      item,
       isDragging,
       currentOffset,
-      // widget_name,
-      // width,
+      DashboardDragModel,
+      isMenuOpenedOnSmallScreen
     } = this.props;
+
+    if ( item === undefined ) return null;
+
+    const width = DashboardDragModel.dash_id.dash_columns;
+    const widgets = DashboardDragModel.dash_data;
+
+    const getWidgetName = ( item: any ) => {
+      if ( item !== null ) {
+        const currentItem: any = item;
+        const widget =
+          widgets.filter( 
+            w => (w.device_id + w.widget_name) === currentItem.id )[0];
+        return widget.widget_name;
+      } else {
+        return '';
+      }
+    };
+
+    const widget_name = getWidgetName(item);
     
+    const menuWidth = () => {
+      if ( window.innerWidth > parseInt(MIDDLE_SCREEN_MAX) ) {
+        /* Ширина окна > BIG_SCREEN */
+        return MENU_LAYOUT_BIG_WIDTH;        
+      } else {
+        /* Ширина она < BIG_SCREEN */
+        if ( window.innerWidth > parseInt(SMALL_SCREEN_MAX) ) {
+          /* Ширина окна > SMALL_SCREEN */
+          return MENU_LAYOUT_MIDDLE_WIDTH;
+        } else {
+          if ( isMenuOpenedOnSmallScreen ) {
+            /* Меню открыто */
+            return MENU_LAYOUT_MIDDLE_WIDTH;
+          } else {
+            /* Меню спрятано */
+            return '0px';
+          }          
+        }
+      }
+    };
+    
+
     if ( isDragging ) {
       return (
         <div
@@ -65,12 +105,12 @@ extends React.Component<DashboardDragLayerPros> {
             pointerEvents: 'none',
             zIndex: 100,
             transform: `translate(${currentOffset.x}px, ${currentOffset.y}px)`,
-            // width: `calc((100% - ${ menuWidth() } - 30px) 
-            //   * ${getPreviewWidth(item.width)})`,
+            width: `calc((100% - ${ menuWidth() } - 30px) 
+              * ${getPreviewWidth(width)})`,
           }}
         >
           <DashboardWidgetConnected
-            widget_name={'widget_name'}
+            widget_name={widget_name}
             width={'100'}
             margin={undefined}
           />

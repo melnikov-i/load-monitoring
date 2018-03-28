@@ -126,5 +126,5 @@ export const WidgetHeader = styled.h4`
 
 export const WidgetContent = styled.div`
   box-sizing: border-box;
-  padding: 0 15px 20px;
+  padding: 0 15px 10px;
 `;

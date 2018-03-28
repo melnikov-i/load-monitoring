@@ -120,38 +120,36 @@ React.SFC<DashboardDragContainerProps> = ( props ) => {
     }
   }
 
-  // const getWidget = ( id: string ) => {
-  //   const widget = 
-  //     widgets.filter( w => (w.device_id + w.widget_name) === id )[0];
-  //   return widget;
-  // }
-  
 
-  return connectDropTarget(
-    <div style={{// WidgetsLayout
-      display: 'block',
-      boxSizing: 'border-box',
-      overflow: 'hidden',
-      margin: '20px 15px 0',
-      animationName: emergence,
-      animationDuration: '1s',
-      animationTimingFunction: 'linear',
-      animationFillMode: 'both',
-    }}
-    >
+  return (
+    <div>
       <DashboardDragLayerConnected />
-      {widgets.map(( widget, i ) => (
-        <DashboardDragItemConnected
-          key={widget.device_id + widget.widget_name}
-          id={widget.device_id + widget.widget_name}
-          moveWidgets={moveWidgets}
-          findWidget={findWidget}
-          clearCurrentTargetId={clearCurrentTargetId}
-          widget_name={widget.widget_name}
-          width={width}
-          margin={i + 1}
-        />
-      ))}
+      {connectDropTarget(
+        <div style={{// WidgetsLayout
+          display: 'block',
+          boxSizing: 'border-box',
+          overflow: 'hidden',
+          margin: '20px 15px 0',
+          animationName: emergence,
+          animationDuration: '1s',
+          animationTimingFunction: 'linear',
+          animationFillMode: 'both',
+        }}
+        >
+          {widgets.map(( widget, i ) => (
+            <DashboardDragItemConnected
+              key={widget.device_id + widget.widget_name}
+              id={widget.device_id + widget.widget_name}
+              moveWidgets={moveWidgets}
+              findWidget={findWidget}
+              clearCurrentTargetId={clearCurrentTargetId}
+              widget_name={widget.widget_name}
+              width={width}
+              margin={i + 1}
+            />
+          ))}
+        </div>
+      )}      
     </div>
   );
 };

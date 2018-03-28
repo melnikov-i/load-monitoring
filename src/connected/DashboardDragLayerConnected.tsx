@@ -12,14 +12,19 @@ import {
   trottler
 } from '@src/libs';
 
-import { DashboardDragModelSelector } from '@src/selectors';
+import {
+  DashboardDragModelSelector,
+  isMenuOpenedOnSmallScreenSelector,
+} from '@src/selectors';
 
 import { DashboardInterface } from '@src/interfaces';
 
 const mapStateToProps = createStructuredSelector<RootState, {
     DashboardDragModel: DashboardInterface,
+    isMenuOpenedOnSmallScreen: boolean,
   }>({
     DashboardDragModel: DashboardDragModelSelector,
+    isMenuOpenedOnSmallScreen: isMenuOpenedOnSmallScreenSelector,
   });
   
 
@@ -29,4 +34,5 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
 export const DashboardDragLayerConnected = DragLayer((monitor) => ({
   isDragging: monitor.isDragging(),
   currentOffset: trottler(monitor.getSourceClientOffset()),
+  item: monitor.getItem(),
 }))(connect(mapStateToProps, mapDispatchToProps)(DashboardDragLayer));
