@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
   Chart,
   Layer,
-  // Labels,
+  Labels,
   // Lines,
   // Dots,
   Bars,
@@ -30,6 +30,23 @@ import {
 
 /* Тестовые данные для диаграмм */
 
+
+
+interface DashboardWidgetProps {
+  widget_name: WidgetInterface['widget_name'],
+  width: DashboardInterface['dash_id']['dash_columns'],
+  margin?: number,
+}
+
+export const DashboardWidget: 
+React.SFC<DashboardWidgetProps> = (props) => {
+  const {
+    widget_name,
+    width,
+    margin,
+  } = props;
+
+
 const getColor = ( y: number ) => {
   if ( y >= 90 ) {
     return '#ec4758'; // red    
@@ -40,11 +57,11 @@ const getColor = ( y: number ) => {
       return '#1ab394'; // green
     }
   }
-
-}
+};
 
 const series: any = [
   {
+    widget_name: widget_name,
     data: [
       {y:90, x:0, color: getColor(90)},
       {y:2, x:1, color: getColor(2)},
@@ -110,31 +127,17 @@ const series: any = [
   },
 ];
 
-
-
-interface DashboardWidgetProps {
-  widget_name: WidgetInterface['widget_name'],
-  width: DashboardInterface['dash_id']['dash_columns'],
-  margin?: number,
-}
-
-export const DashboardWidget: 
-React.SFC<DashboardWidgetProps> = (props) => {
-  const {
-    widget_name,
-    width,
-    margin,
-  } = props;
-
   const handleMouseMove = ( e: any ) => {
-    const pathElement = e.originalEvent.target;
-    const gElement = pathElement.parentNode;
+    // const pathElement = e.originalEvent.target;
+    // const gElement = pathElement.parentNode;
+
 
     // console.log('e:', e);
     // const element = e.originalEvent.target;
     // if ( e.originalEvent.target.style.fill !== 'transparent' ) {
-    console.log('pathElement:', pathElement);
-    console.log('gElement:', gElement);
+
+    // console.log('pathElement:', pathElement);
+    // console.log('gElement:', gElement);
       // console.log('fill:', e.originalEvent.target.style.fill);
     // }
     
@@ -214,19 +217,60 @@ React.SFC<DashboardWidgetProps> = (props) => {
                   onMouseLeave: e => e.target.style.fillOpacity = .5,
                 }}
               />
-              <Title position={'left top'} style={{
-                textAnchor: 'middle',
-                fontSize: 2.5,
-              }}>
-                {'test'}
-              </Title>
+              <Labels
+                id={widget_name} 
+                label={({point}) => ('y=' + point.y)}
+                dotStyle={{
+                  fillOpacity: 0.5,
+                  transition: 'all 250ms',
+                  textAnchor: 'middle',
+                  dominantBaseline: 'text-after-edge',
+                  fontFamily: 'sans-serif',
+                  fontSize: 2.5
+                }}
+                labelAttributes={{
+                  y: -4,
+                  onMouseMove: e => e.target.style.fillOpacity = 1,
+                  onMouseLeave: e => e.target.style.fillOpacity = 0.5,
+                }}
+              />
             </Handlers>
+          </Layer>
+          <Layer width={'100%'} height={'100%'}>
+            <Title>
+              <g id={widget_name}>
+                <rect 
+                  x={0} y={0}
+                  width={20}
+                  height={6}
+                  fill={'#676a6c'}
+                  fillOpacity={.5}
+                  rx={1} ry={1}
+                >
+                </rect>
+                  <text 
+                    fill={"lightgray"}
+                    x={1}
+                    y={3.5}
+                    style={{
+                      fillOpacity: 0.5,
+                      transition: 'all 250ms',
+                      // textAnchor: 'start',
+                      // dominantBaseline: 'text-after-edge',
+                      // alignmentBaseline: 'middle',
+                      fontFamily: 'sans-serif',
+                      fontSize: 2.5,
+                    }}>{widget_name + ':'}</text>
+              </g>
+            </Title>        
           </Layer>
         </Chart>
       </WidgetContent>
     </Widget>
   );
-}
+};
+                
+              // </rect>
           // <Layer width={'100%'} height={'100%'}>
           //   <rect x={0} y={0} width={20} height={10} rx={1} ry={1}></rect>
           // </Layer>
