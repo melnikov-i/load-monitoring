@@ -82,7 +82,6 @@ React.SFC<DashboardDragItemProps> = ( props ) => {
             left: 0,
             zIndex: 100,
             cursor: 'move',
-            // backgroundColor: 'rgba(0, 0, 255, .2)',
           }}></div>
         )
       )}
@@ -95,8 +94,6 @@ React.SFC<DashboardDragItemProps> = ( props ) => {
             margin={undefined}
           />
         </div>
-      }
-      
     </div>
   );
 };

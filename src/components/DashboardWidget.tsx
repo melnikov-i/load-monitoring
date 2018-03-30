@@ -14,8 +14,10 @@ import {
 } from '@src/interfaces';
 
 import {
+  WidgetWrapperForSVG,
   Widget,
   WidgetContent,
+  WidgetContentInForSVG,
   WidgetHeaderWrapper,
   WidgetHeader,
 } from '@src/styled';
@@ -158,6 +160,8 @@ React.SFC<DashboardWidgetProps> = (props) => {
         <WidgetHeader>{ widget_name }</WidgetHeader>
       </WidgetHeaderWrapper>
       <WidgetContent>
+    <WidgetWrapperForSVG>
+        <WidgetContentInForSVG>
         <Chart
           series={series}
           viewBox={'0 0 100 50'}
@@ -199,13 +203,13 @@ React.SFC<DashboardWidgetProps> = (props) => {
                 data-id={widget_name} 
                 barWidth={.013}
                 barStyle={{
-                  fillOpacity: .5,
+                  fillOpacity: .7,
                   transition: 'all 250ms',
                   cursor: 'pointer',
                 }}
                 barAttributes={{
                   onMouseMove: e => e.target.style.fillOpacity = 1,
-                  onMouseLeave: e => e.target.style.fillOpacity = .5,
+                  onMouseLeave: e => e.target.style.fillOpacity = .7,
                 }}
               />
             </Handlers>
@@ -242,6 +246,8 @@ React.SFC<DashboardWidgetProps> = (props) => {
             </Title>
           </Layer>
         </Chart>
+        </WidgetContentInForSVG>
+    </WidgetWrapperForSVG>
       </WidgetContent>
     </Widget>
   );

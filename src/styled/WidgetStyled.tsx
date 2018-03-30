@@ -128,3 +128,27 @@ export const WidgetContent = styled.div`
   box-sizing: border-box;
   padding: 0 15px 10px;
 `;
+
+
+/**
+ *
+ */
+
+export const WidgetWrapperForSVG = styled.div`
+  position: relative;
+  display: block;
+  &::before {
+    content: "";
+    display: block;
+    padding-top: 50%;
+  }
+`;
+
+
+export const WidgetContentInForSVG = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+`;
