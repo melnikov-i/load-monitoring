@@ -2,15 +2,10 @@ import * as React from 'react';
 import {
   Chart,
   Layer,
-  Labels,
-  // Lines,
-  // Dots,
   Bars,
   Ticks,
   Handlers,
   Title,
-  // Transform,
-  // Dots,
 } from 'rumble-charts';
 
 import {
@@ -23,13 +18,7 @@ import {
   WidgetContent,
   WidgetHeaderWrapper,
   WidgetHeader,
-
-  // DynamicWidthWidget,
-  // DynamicWidthWidgetContent,
 } from '@src/styled';
-
-/* Тестовые данные для диаграмм */
-
 
 
 interface DashboardWidgetProps {
@@ -47,119 +36,117 @@ React.SFC<DashboardWidgetProps> = (props) => {
   } = props;
 
 
-const getColor = ( y: number ) => {
-  if ( y >= 90 ) {
-    return '#ec4758'; // red    
-  } else {
-    if ( y >= 50 ) {
-      return '#f8ac59'; // orange
+  const getColor = ( y: number ) => {
+    if ( y >= 90 ) {
+      return '#ec4758'; // red    
     } else {
-      return '#1ab394'; // green
+      if ( y >= 50 ) {
+        return '#f8ac59'; // orange
+      } else {
+        return '#1ab394'; // green
+      }
     }
-  }
-};
+  };
 
-const series: any = [
-  {
-    widget_name: widget_name,
-    data: [
-      {y:90, x:0, color: getColor(90)},
-      {y:2, x:1, color: getColor(2)},
-      {y:4, x:2, color: getColor(4)},
-      {y:6, x:3, color: getColor(6)},
-      {y:8, x:4, color: getColor(8)},
-      {y:10, x:5, color: getColor(10)},
-      {y:12, x:6, color: getColor(12)},
-      {y:14, x:7, color: getColor(14)},
-      {y:16, x:8, color: getColor(16)},
-      {y:18, x:9, color: getColor(18)},
-      {y:20, x:10, color: getColor(20)},
-      {y:22, x:11, color: getColor(22)},
-      {y:24, x:12, color: getColor(24)},
-      {y:26, x:13, color: getColor(26)},
-      {y:28, x:14, color: getColor(28)},
-      {y:30, x:15, color: getColor(30)},
-      {y:32, x:16, color: getColor(32)},
-      {y:34, x:17, color: getColor(34)},
-      {y:36, x:18, color: getColor(36)},
-      {y:38, x:19, color: getColor(38)},
-      {y:40, x:20, color: getColor(40)},
-      {y:42, x:21, color: getColor(42)},
-      {y:44, x:22, color: getColor(44)},
-      {y:46, x:23, color: getColor(46)},
-      {y:48, x:24, color: getColor(48)},
-      {y:50, x:25, color: getColor(50)},
-      {y:52, x:26, color: getColor(52)},
-      {y:54, x:27, color: getColor(54)},
-      {y:56, x:28, color: getColor(56)},
-      {y:58, x:29, color: getColor(58)},
-      {y:60, x:30, color: getColor(60)},
-      {y:62, x:31, color: getColor(62)},
-      {y:64, x:32, color: getColor(64)},
-      {y:66, x:33, color: getColor(66)},
-      {y:68, x:34, color: getColor(68)},
-      {y:70, x:35, color: getColor(70)},
-      {y:72, x:36, color: getColor(72)},
-      {y:74, x:37, color: getColor(74)},
-      {y:76, x:38, color: getColor(76)},
-      {y:78, x:39, color: getColor(78)},
-      {y:80, x:40, color: getColor(80)},
-      {y:82, x:41, color: getColor(82)},
-      {y:84, x:42, color: getColor(84)},
-      {y:86, x:43, color: getColor(86)},
-      {y:88, x:44, color: getColor(88)},
-      {y:90, x:45, color: getColor(90)},
-      {y:92, x:46, color: getColor(92)},
-      {y:94, x:47, color: getColor(94)},
-      {y:96, x:48, color: getColor(96)},
-      {y:98, x:49, color: getColor(98)},
-      {y:96, x:50, color: getColor(96)},
-      {y:94, x:51, color: getColor(94)},
-      {y:92, x:52, color: getColor(92)},
-      {y:90, x:53, color: getColor(90)},
-      {y:88, x:54, color: getColor(88)},
-      {y:86, x:55, color: getColor(86)},
-      {y:84, x:56, color: getColor(84)},
-      {y:82, x:57, color: getColor(82)},
-      {y:80, x:58, color: getColor(80)},
-      {y:78, x:59, color: getColor(78)},
-    ],
-  },
-];
+  const series: any = [
+    {
+      widget_name: widget_name,
+      data: [
+        {y:90, x:0, color: getColor(90)},
+        {y:2, x:1, color: getColor(2)},
+        {y:4, x:2, color: getColor(4)},
+        {y:6, x:3, color: getColor(6)},
+        {y:8, x:4, color: getColor(8)},
+        {y:10, x:5, color: getColor(10)},
+        {y:12, x:6, color: getColor(12)},
+        {y:14, x:7, color: getColor(14)},
+        {y:16, x:8, color: getColor(16)},
+        {y:18, x:9, color: getColor(18)},
+        {y:20, x:10, color: getColor(20)},
+        {y:22, x:11, color: getColor(22)},
+        {y:24, x:12, color: getColor(24)},
+        {y:26, x:13, color: getColor(26)},
+        {y:28, x:14, color: getColor(28)},
+        {y:30, x:15, color: getColor(30)},
+        {y:32, x:16, color: getColor(32)},
+        {y:34, x:17, color: getColor(34)},
+        {y:36, x:18, color: getColor(36)},
+        {y:38, x:19, color: getColor(38)},
+        {y:40, x:20, color: getColor(40)},
+        {y:42, x:21, color: getColor(42)},
+        {y:44, x:22, color: getColor(44)},
+        {y:46, x:23, color: getColor(46)},
+        {y:48, x:24, color: getColor(48)},
+        {y:50, x:25, color: getColor(50)},
+        {y:52, x:26, color: getColor(52)},
+        {y:54, x:27, color: getColor(54)},
+        {y:56, x:28, color: getColor(56)},
+        {y:58, x:29, color: getColor(58)},
+        {y:60, x:30, color: getColor(60)},
+        {y:62, x:31, color: getColor(62)},
+        {y:64, x:32, color: getColor(64)},
+        {y:66, x:33, color: getColor(66)},
+        {y:68, x:34, color: getColor(68)},
+        {y:70, x:35, color: getColor(70)},
+        {y:72, x:36, color: getColor(72)},
+        {y:74, x:37, color: getColor(74)},
+        {y:76, x:38, color: getColor(76)},
+        {y:78, x:39, color: getColor(78)},
+        {y:80, x:40, color: getColor(80)},
+        {y:82, x:41, color: getColor(82)},
+        {y:84, x:42, color: getColor(84)},
+        {y:86, x:43, color: getColor(86)},
+        {y:88, x:44, color: getColor(88)},
+        {y:90, x:45, color: getColor(90)},
+        {y:92, x:46, color: getColor(92)},
+        {y:94, x:47, color: getColor(94)},
+        {y:96, x:48, color: getColor(96)},
+        {y:98, x:49, color: getColor(98)},
+        {y:96, x:50, color: getColor(96)},
+        {y:94, x:51, color: getColor(94)},
+        {y:92, x:52, color: getColor(92)},
+        {y:90, x:53, color: getColor(90)},
+        {y:88, x:54, color: getColor(88)},
+        {y:86, x:55, color: getColor(86)},
+        {y:84, x:56, color: getColor(84)},
+        {y:82, x:57, color: getColor(82)},
+        {y:80, x:58, color: getColor(80)},
+        {y:78, x:59, color: getColor(78)},
+      ],
+    },
+  ];
 
-  const handleMouseMove = ( e: any ) => {
-    // const pathElement = e.originalEvent.target;
-    // const gElement = pathElement.parentNode;
-
-
+  const handleMouseMove = ( e: any, name: string ) => {
     // console.log('e:', e);
-    // const element = e.originalEvent.target;
-    // if ( e.originalEvent.target.style.fill !== 'transparent' ) {
 
-    // console.log('pathElement:', pathElement);
-    // console.log('gElement:', gElement);
-      // console.log('fill:', e.originalEvent.target.style.fill);
-    // }
-    
+    const title = document.getElementById(name);
+    console.log('title:', title);
 
-    // console.log('e.scaleX', e.scaleX());
-    // const hint = document.createElement('div');
-    // const element = e.originalEvent.target;
-    // hint.style.width = '100px';
-    // hint.style.height = '50px';
-    // hint.style.backgroundColor = 'orange';
-    // e.originalEvent.target.style.fillOpacity = 1;
-    // element.appendChild(hint);
+    const clientX = () => {
+      const x = e.clientX;
+      if ( x >= 65 ) return x - 31;
+      return x + 1;
+    };
+
+    const clientY = () => {
+      const y = e.clientY;
+      if ( y >= 10 ) return y - 9;
+      return y + 1;
+    };
+
+    if ( !title ) return;
+    title.setAttribute(
+      'transform', `translate(${clientX()} ${clientY()})`);
+    title.style.opacity = '1';
   };
 
-  const handleMouseLeave = ( e: any ) => {
-    // const element = e.originalEvent.target;
-    // element.removeChild('div');
-  };
 
-  // const handleBarMove = ( target ) => {
-  //   console.log('bar:', target);
-  // }
+
+  const handleMouseLeave = ( e: any, name: string ) => {
+    const title = document.getElementById(name);
+    if ( !title ) return;
+    title.style.opacity = '0';
+  };
 
 
   return (
@@ -200,13 +187,17 @@ const series: any = [
           </Layer>
           <Layer width={'94%'} height={'100%'} position={'left bottom'}>
             <Handlers
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
+              onMouseMove={
+                (e) => handleMouseMove(e, widget_name)
+              }
+              onMouseLeave={
+                (e) => handleMouseLeave(e, widget_name)
+              }
               optimized={false}
             >
               <Bars
-                barWidth={.015}
-                innerPadding={.01}
+                data-id={widget_name} 
+                barWidth={.013}
                 barStyle={{
                   fillOpacity: .5,
                   transition: 'all 250ms',
@@ -217,198 +208,41 @@ const series: any = [
                   onMouseLeave: e => e.target.style.fillOpacity = .5,
                 }}
               />
-              <Labels
-                id={widget_name} 
-                label={({point}) => ('y=' + point.y)}
-                dotStyle={{
-                  fillOpacity: 0.5,
-                  transition: 'all 250ms',
-                  textAnchor: 'middle',
-                  dominantBaseline: 'text-after-edge',
-                  fontFamily: 'sans-serif',
-                  fontSize: 2.5
-                }}
-                labelAttributes={{
-                  y: -4,
-                  onMouseMove: e => e.target.style.fillOpacity = 1,
-                  onMouseLeave: e => e.target.style.fillOpacity = 0.5,
-                }}
-              />
             </Handlers>
           </Layer>
           <Layer width={'100%'} height={'100%'}>
-            <Title>
-              <g id={widget_name}>
+            <Title position={'top left'}>
+              <g id={widget_name} style={{
+                opacity: 0,
+              }}>
                 <rect 
                   x={0} y={0}
-                  width={20}
-                  height={6}
+                  width={30}
+                  height={8}
                   fill={'#676a6c'}
-                  fillOpacity={.5}
+                  fillOpacity={.8}
                   rx={1} ry={1}
                 >
                 </rect>
-                  <text 
-                    fill={"lightgray"}
-                    x={1}
-                    y={3.5}
-                    style={{
-                      fillOpacity: 0.5,
-                      transition: 'all 250ms',
-                      // textAnchor: 'start',
-                      // dominantBaseline: 'text-after-edge',
-                      // alignmentBaseline: 'middle',
-                      fontFamily: 'sans-serif',
-                      fontSize: 2.5,
-                    }}>{widget_name + ':'}</text>
+                <text 
+                  fill={"lightgray"}
+                  x={2}
+                  y={5}
+                  style={{
+                    fillOpacity: 1,
+                    transition: 'all 250ms',
+                    fontFamily: 'sans-serif',
+                    fontSize: 3,
+                    textRendering: 'geometricprecision',
+                  }}
+                >
+                  {`${widget_name}: `}
+                </text>
               </g>
-            </Title>        
+            </Title>
           </Layer>
         </Chart>
       </WidgetContent>
     </Widget>
   );
 };
-                
-              // </rect>
-          // <Layer width={'100%'} height={'100%'}>
-          //   <rect x={0} y={0} width={20} height={10} rx={1} ry={1}></rect>
-          // </Layer>
-
-
-              // <Labels 
-              //   label={({point}) => (point.y)}
-              //   dotStyle={{
-              //     textAnchor: 'top',
-              //     dominantBaseline: 'text-after-edge',
-              //     fontFamily: 'sans-serif',
-              //     fontSize: 2.5,
-              //     transition: 'all 250ms',
-              //     fillOpacity: 0,
-              //   }}
-              //   labelAttributes={{
-              //     y: 0,
-              //     x: -1,
-              //     onMouseMove: e => e.target.style.fillOpacity = 1,
-              //     onMouseLeave: e => e.target.style.fillOpacity = 0,
-              //   }}
-              // />
-
-              // <Ticks
-              //   axis={'x'}
-              //   label={({index, props}) => props.series[index].time}
-              //   labelStyle={{
-              //     textAnchor: 'start',
-              //     dominantBaseline: 'text-before-edge',
-              //     fill: 'lightgray',
-              //     fontSize: 2,
-              //   }}
-              //   labelAtributes={{y: 3}}
-              //   liteVisible={true}
-              //   lineStyle={{
-              //     stroke: 'lightgray'
-              //   }}
-              //   lineLength={1}
-              // />
-
-// <Transform method={'sort'}>
-//               <Layer width={'100%'} height={'100%'}>
-//               </Layer>
-//               <Layer width={'100%'} height={'100%'}>
-//                 <Lines
-//                   // asAreas={true}
-//                   colors={['yellow']}
-//                   opacity={.6}
-//                   // barWidth={'1.5%'}
-//                 />
-//               </Layer>
-//               <Layer width={'100%'} height={'100%'}>
-                // <Ticks 
-                //   axis={'y'}
-                //   lineLength={'100%'}
-                //   lineVisible={true}
-                //   lineStyle={{
-                //     stroke: 'lightgray',
-                //     strokeWidth: '0.2',
-                //   }}
-                //   // labelStyle={{
-                //   //   textAnchor:'end',
-                //   //   // dominantBaseline:'small',
-                //   //   // fill:'lightgray'
-                //   // }}
-                //   // labelVisible={true}
-                //   // labelAttributes={{x: -5}}
-                // />
-//               </Layer>
-//               <Layer width={'100%'} height={'100%'}>
-//                 <Ticks 
-//                   axis={'x'}
-//                   // lineLength={'100%'}
-
-//                   // lineVisible={true}
-//                   // lineStyle={{
-//                   //   stroke: 'lightgray',
-//                   //   strokeWidth: '0.2',
-//                   // }}
-//                   labelStyle={{
-//                     textAnchor:'end',
-//                     dominantBaseline:'small',
-//                     fill:'lightgray'
-//                   }}
-//                   labelVisible={true}
-//                   labelAttributes={{x: -5}}
-//                 />
-//               </Layer>
-//             </Transform>
-
-
-
-
-
-// const handleMouseMove = ( { closestPoints } ) => {
-
-// }
-
-// interface DashboardWidgetProps {
-//   item: WidgetInterface,
-// }
-
-// export const DashboardWidget: 
-// React.SFC<DashboardWidgetProps> = (props) => {
-//   const { item } = props;
-//   return (
-//     <DynamicWidthWidget>
-//       <DynamicWidthWidgetHeaderWrapper>
-//         <WidgetHeader>{ item.widget_name }</WidgetHeader>
-//       </DynamicWidthWidgetHeaderWrapper>
-//       <DynamicWidthWidgetContent>
-//         <Chart
-//           series={series}
-//           viewBox={'0 0 100 50'}
-//           style={{
-//             display: 'block',
-//             width: '100%',
-//             height: '100%',
-//             // backgroundColor: 'rgba(255, 0, 0, .4)',
-//           }}
-//           minY={0}
-//           scaleX={{paddingStart: 0, paddingEnd: 0}}
-//           scaleY={{paddingTop: 2}}
-//         >
-//           <Layer width={'100%'} height={'100%'} position={'top left'}>
-//             <Transform method={'sort'}>
-//               <Lines
-//                 asAreas={true}
-//                 colors={['#1ab394']}
-//               />
-//               <Dots
-//                 // className='dots'
-//                 dotStyle={{transition: 'all 250ms', fillOpacity:0}}
-//               />
-//             </Transform>
-//           </Layer>
-//         </Chart>
-//       </DynamicWidthWidgetContent>
-//     </DynamicWidthWidget>
-//   );
-// }
