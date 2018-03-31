@@ -118,11 +118,9 @@ React.SFC<DashboardWidgetProps> = (props) => {
     },
   ];
 
-  const handleMouseMove = ( e: any, name: string ) => {
-    // console.log('e:', e);
+  const handleMouseMove = ( e: any ) => {
 
-    const title = document.getElementById(name);
-    console.log('title:', title);
+
 
     const clientX = () => {
       const x = e.clientX;
@@ -136,16 +134,54 @@ React.SFC<DashboardWidgetProps> = (props) => {
       return y + 1;
     };
 
+    const title = document.getElementById(props.widget_name);
     if ( !title ) return;
+
+    if ( e.originalEvent.target.nodeName === 'rect' ) {
+      title.style.opacity = '0';
+      return;
+    }
+    
+    /* Смещение столбика диаграммы по оси Х */
+    const pathClientX = Number(e.originalEvent.target.parentNode
+      .getAttribute('transform').substring(10,27));
+
+    /* Поиск величины h в строке параметров path */
+    const getPathWidth = ( string: string ) => {
+      const start = string.indexOf('h') + 1;
+      const end = start + string.substring(string.indexOf('h')).indexOf(' ');
+      return Number(string.substring(start, end));
+    };
+    const pathWidth: number = getPathWidth(e.originalEvent.target.getAttribute('d'));
+
+    const min = pathClientX + ( pathWidth / 2 );
+    const max = min + pathWidth;
+
+    console.log(min + ' : ' + max);
+
+
+
+
+    console.log(getPathWidth(e.originalEvent.target.getAttribute('d')));
+    
+    console.log(e.originalEvent.target.getAttribute('d'));
+    console.log(e);
+    
+    const value = e.closestPoints[0];
     title.setAttribute(
       'transform', `translate(${clientX()} ${clientY()})`);
     title.style.opacity = '1';
+    title.innerHTML = '<rect x="0" y="0" width="30" height="8" fill="#676a6c"'
+      + 'fillOpacity=".8" rx="1" ry="1"></rect><text fill="lightgray" x="2" y="5"' 
+      + 'style="fillOpacity: 1; transition: all 250ms; font-family: sans-serif;'
+      + 'font-size: 3px; text-renderint: geometricprecision;">' + widget_name + ':'
+      + value.point.y + '%</text>';
   };
 
 
 
-  const handleMouseLeave = ( e: any, name: string ) => {
-    const title = document.getElementById(name);
+  const handleMouseLeave = ( e: any ) => {
+    const title = document.getElementById(props.widget_name);
     if ( !title ) return;
     title.style.opacity = '0';
   };
@@ -160,94 +196,63 @@ React.SFC<DashboardWidgetProps> = (props) => {
         <WidgetHeader>{ widget_name }</WidgetHeader>
       </WidgetHeaderWrapper>
       <WidgetContent>
-    <WidgetWrapperForSVG>
-        <WidgetContentInForSVG>
-        <Chart
-          series={series}
-          viewBox={'0 0 100 50'}
-          minY={0}
-          scaleX={{paddingStart: 1, paddingEnd: 0}}
-          scaleY={{paddingTop: 4, paddingBottom: .05}}
-        >
-          <Layer width={'100%'} height={'100%'}>
-            <Ticks 
-              axis={'y'}
-              position={'right'}
-              lineLength={.95}
-              lineOffset={-1}
-              lineVisible={true}
-              lineStyle={{
-                stroke: 'lightgray',
-                strokeWidth: 0.2,
-              }}
-              labelStyle={{
-                textAnchor: 'start',
-                dominantBaseline: 'middle',
-                fill: 'lightgray',
-                fontSize: 2.5,
-              }}
-              labelAttributes={{x: -4}}
-            />
-          </Layer>
-          <Layer width={'94%'} height={'100%'} position={'left bottom'}>
-            <Handlers
-              onMouseMove={
-                (e) => handleMouseMove(e, widget_name)
-              }
-              onMouseLeave={
-                (e) => handleMouseLeave(e, widget_name)
-              }
-              optimized={false}
+        <WidgetWrapperForSVG>
+          <WidgetContentInForSVG>
+            <Chart
+              series={series}
+              viewBox={'0 0 100 50'}
+              minY={0}
+              scaleX={{paddingStart: 1, paddingEnd: 0}}
+              scaleY={{paddingTop: 4, paddingBottom: .05}}
             >
-              <Bars
-                data-id={widget_name} 
-                barWidth={.013}
-                barStyle={{
-                  fillOpacity: .7,
-                  transition: 'all 250ms',
-                  cursor: 'pointer',
-                }}
-                barAttributes={{
-                  onMouseMove: e => e.target.style.fillOpacity = 1,
-                  onMouseLeave: e => e.target.style.fillOpacity = .7,
-                }}
-              />
-            </Handlers>
-          </Layer>
-          <Layer width={'100%'} height={'100%'}>
-            <Title position={'top left'}>
-              <g id={widget_name} style={{
-                opacity: 0,
-              }}>
-                <rect 
-                  x={0} y={0}
-                  width={30}
-                  height={8}
-                  fill={'#676a6c'}
-                  fillOpacity={.8}
-                  rx={1} ry={1}
-                >
-                </rect>
-                <text 
-                  fill={"lightgray"}
-                  x={2}
-                  y={5}
-                  style={{
-                    fillOpacity: 1,
-                    transition: 'all 250ms',
-                    fontFamily: 'sans-serif',
-                    fontSize: 3,
-                    textRendering: 'geometricprecision',
+              <Layer width={'100%'} height={'100%'}>
+                <Ticks 
+                  axis={'y'}
+                  position={'right'}
+                  lineLength={.95}
+                  lineOffset={-1}
+                  lineVisible={true}
+                  lineStyle={{
+                    stroke: 'lightgray',
+                    strokeWidth: 0.2,
                   }}
+                  labelStyle={{
+                    textAnchor: 'start',
+                    dominantBaseline: 'middle',
+                    fill: 'lightgray',
+                    fontSize: 2.5,
+                  }}
+                  labelAttributes={{x: -4}}
+                />
+              </Layer>
+              <Layer width={'94%'} height={'100%'} position={'left bottom'}>
+                <Handlers
+                  onMouseMove={handleMouseMove}
+                  onMouseLeave={handleMouseLeave}
+                  optimized={false}
                 >
-                  {`${widget_name}: `}
-                </text>
-              </g>
-            </Title>
-          </Layer>
-        </Chart>
-        </WidgetContentInForSVG>
-    </WidgetWrapperForSVG>
+                  <Bars
+                    barWidth={.013}
+                    barStyle={{
+                      fillOpacity: .7,
+                      transition: 'all 250ms',
+                      cursor: 'pointer',
+                    }}
+                    barAttributes={{
+                      onMouseMove: e => e.target.style.fillOpacity = 1,
+                      onMouseLeave: e => e.target.style.fillOpacity = .7,
+                    }}
+                  />
+                </Handlers>
+              </Layer>
+              <Layer width={'100%'} height={'100%'}>
+                <Title position={'top left'}>
+                  <g id={widget_name} style={{opacity: 0,}}></g>
+                </Title>
+              </Layer>
+            </Chart>
+          </WidgetContentInForSVG>
+        </WidgetWrapperForSVG>
       </WidgetContent>
     </Widget>
   );
