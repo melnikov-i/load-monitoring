@@ -21,7 +21,7 @@ const mapStateToProps = createStructuredSelector<RootState, {
   });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
-  
+
 }, dispatch);
 
 export const DashboardWidgetConnected = 

@@ -33,6 +33,8 @@ const mapStateToProps = createStructuredSelector<RootState, {
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
   makeDashboardRequestFromAPI: 
     asyncActionCreators.makeDashboardRequestFromAPI,
+  makeSeriesDataRequestFromAPI:
+    asyncActionCreators.makeSeriesDataRequestFromAPI,
 }, dispatch);
 
 export const DashboardConnected = 

@@ -31,9 +31,13 @@ interface DashboardProps {
   DashboardStaticModel: DashboardInterface,
   /* Запускает в action метод запроса данных о виджетах */
   makeDashboardRequestFromAPI: 
-  (payload: DashboardInterface['dash_id']['dashboard_id']) => any,
+  ( payload: DashboardInterface['dash_id']['dashboard_id'] ) => any,
   /* Ключ состояния отображения дашборда */
   MainHeaderButtonWasClicked: boolean,
+  /* Запускает в action метод запроса данных для диаграмм */
+  makeSeriesDataRequestFromAPI: 
+  ( payload: DashboardInterface ) => any,
+
 }
 
 
@@ -44,6 +48,7 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
     DashboardWasRequestedFromAPI,
     makeDashboardRequestFromAPI,
     MainHeaderButtonWasClicked,
+    makeSeriesDataRequestFromAPI
   } = props;
   
 
@@ -58,13 +63,43 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
     return null;
   } else {
     if ( DashboardStaticModel.dash_id.dashboard_id !== id ) {
-      return (
-        <Spinner
-          width={3}
-          color={'#2f4050'}
-          bgColor={'#f3f3f4'}
-        />
-      );
+      /* ID приходит от родителя, dashboard_id из стора */
+      if ( DashboardStaticModel.dash_id.dashboard_id === '' ) {
+        /* Ожидание первых данных при загрузке страницы */
+        return (
+          <Spinner
+            width={3}
+            color={'#2f4050'}
+            bgColor={'#f3f3f4'}
+          />
+        );        
+      } else {
+        /* Пришли первые данные и они неверные */
+        return (
+          <div
+            style={{
+              padding: '20px 15px',
+            }}
+          >
+            <p
+              style={{
+                fontSize: '12px',
+                color: '#ec4758',
+              }}
+              >
+                {'На сервере отсутствует информация об этом устройстве'}
+              </p>
+          </div>
+        );
+      }
+    } else {
+      /*
+       * Если id и dashboard_id равны, значит данные с сервера пришли
+       * корректные. Запускается процедура подргузки данных для 
+       * графиков
+       */
+       
+      makeSeriesDataRequestFromAPI(DashboardStaticModel);
     }
   }
 

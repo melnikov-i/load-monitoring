@@ -2,6 +2,7 @@ import sendRequestToAPI from '@src/ajax';
 
 import {
   DashboardInterface,
+  SeriesInterface
 } from '@src/interfaces';
 
 
@@ -112,14 +113,30 @@ dispatch: Dispatch) => {
   dispatch(
     syncActionCreators.dashboardWasRequestedFromAPI(payload)
   );
+  console.log('request:', payload);
   sendRequestToAPI.get('/dash_data2.php?dashboard_id=' + payload).then(
     ( response ) => {
       if ( response.data.dashboard !== null ) {
         if ( response.data.dashboard.dash_id !== null ) {
+          /* В ответе от сервера пришли корректные данныеы */
           const items: DashboardInterface = response.data.dashboard;
           dispatch(
             syncActionCreators.putDashboardModelFromAPIToStore(items)
           );              
+        } else {
+          /* Информации о дашборде не существует на сервере */
+          const DashboardWrongModel: DashboardInterface = {
+            dash_id: {
+              dashboard_id: 'wrong',
+              dashboard_name: '',
+              dash_columns: '',
+            },
+            dash_data: [],  
+          };
+          dispatch(
+            syncActionCreators
+              .putDashboardModelFromAPIToStore(DashboardWrongModel)
+          );         
         }
       } else {
         dispatch(
@@ -168,6 +185,31 @@ export const asyncActionCreators = {
         syncActionCreators.
           reorderDashboardDragModelDataCollection(payload.model)
       );
+    }
+  },
+  
+  /* Получение данных для отображение в диаграммах */
+  makeSeriesDataRequestFromAPI:
+  ( payload: DashboardInterface ) => {
+    return ( dispatch: Dispatch ) => {
+      setTimeout(() => {
+        const request: SeriesInterface = {
+          dashboard_id: payload.dash_id.dashboard_id,
+          limit: '60',
+          dash_data: payload.dash_data,
+        };
+        sendRequestToAPI.post('/get_charts_data.php', request).then(
+          ( response ) => {
+            console.log('response', response.data);
+          }
+        )
+        .catch(
+          ( error ) => {
+            console.log('[ERROR]:', error);
+          }
+        )
+        console.log('request:', request);
+      }, 5000);
     }
   }
 };

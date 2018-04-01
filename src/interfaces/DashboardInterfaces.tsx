@@ -2,13 +2,6 @@ export interface WidgetInterface {
   widget_name: string,
   device_id: string,
 }
-  /* Комбинируем это поле из двух предыдущих */
-  // id: string,
-  /* Полученные позднее от бэкэнда данные для диаграмм */
-  // series: any, // пока any!!!
-  // index?: number,
-  // width?: string,
-  // isPreview?: boolean,
 
 interface DashIdInterface {
   dashboard_id: string,
@@ -18,6 +11,12 @@ interface DashIdInterface {
 
 export interface DashboardInterface {
   dash_id: DashIdInterface,
+  dash_data: WidgetInterface[],
+}
+
+export interface SeriesInterface {
+  dashboard_id: string,
+  limit: string,
   dash_data: WidgetInterface[],
 }
 

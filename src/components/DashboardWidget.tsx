@@ -38,6 +38,13 @@ React.SFC<DashboardWidgetProps> = (props) => {
   } = props;
 
 
+  /**
+   * Возвращает цвет столбца. 
+   *
+   * @param {number} y
+   * @return {string}
+   */
+
   const getColor = ( y: number ) => {
     if ( y >= 90 ) {
       return '#ec4758'; // red    
@@ -117,9 +124,13 @@ React.SFC<DashboardWidgetProps> = (props) => {
     },
   ];
 
+
+  /**
+   * Обрабатывает движения мыши по диаграмме.
+   * 
+   */
+
   const handleMouseMove = ( e: any ) => {
-
-
 
     const clientX = () => {
       const x = e.clientX;
