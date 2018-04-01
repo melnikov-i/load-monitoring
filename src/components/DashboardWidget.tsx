@@ -52,7 +52,6 @@ React.SFC<DashboardWidgetProps> = (props) => {
 
   const series: any = [
     {
-      widget_name: widget_name,
       data: [
         {y:90, x:0, color: getColor(90)},
         {y:2, x:1, color: getColor(2)},
@@ -137,45 +136,33 @@ React.SFC<DashboardWidgetProps> = (props) => {
     const title = document.getElementById(props.widget_name);
     if ( !title ) return;
 
-    if ( e.originalEvent.target.nodeName === 'rect' ) {
+    const curent = e.originalEvent.target;
+    
+    if ( curent.nodeName === 'rect' ) {
       title.style.opacity = '0';
       return;
     }
-    
-    /* Смещение столбика диаграммы по оси Х */
-    const pathClientX = Number(e.originalEvent.target.parentNode
-      .getAttribute('transform').substring(10,27));
 
-    /* Поиск величины h в строке параметров path */
-    const getPathWidth = ( string: string ) => {
-      const start = string.indexOf('h') + 1;
-      const end = start + string.substring(string.indexOf('h')).indexOf(' ');
-      return Number(string.substring(start, end));
-    };
-    const pathWidth: number = getPathWidth(e.originalEvent.target.getAttribute('d'));
+    const parent = curent.parentNode;
+    const root = parent.parentNode;
 
-    const min = pathClientX + ( pathWidth / 2 );
-    const max = min + pathWidth;
+    let index = -1;
 
-    console.log(min + ' : ' + max);
+    root.childNodes.forEach((node, i) => {
+      if ( node === parent ) index = i
+    });
 
+    if ( index === -1 ) return;
 
-
-
-    console.log(getPathWidth(e.originalEvent.target.getAttribute('d')));
-    
-    console.log(e.originalEvent.target.getAttribute('d'));
-    console.log(e);
-    
-    const value = e.closestPoints[0];
     title.setAttribute(
       'transform', `translate(${clientX()} ${clientY()})`);
     title.style.opacity = '1';
-    title.innerHTML = '<rect x="0" y="0" width="30" height="8" fill="#676a6c"'
-      + 'fillOpacity=".8" rx="1" ry="1"></rect><text fill="lightgray" x="2" y="5"' 
-      + 'style="fillOpacity: 1; transition: all 250ms; font-family: sans-serif;'
-      + 'font-size: 3px; text-renderint: geometricprecision;">' + widget_name + ':'
-      + value.point.y + '%</text>';
+    title.innerHTML = '<rect x="0" y="0" width="30" height="8"'
+      + ' fill="#676a6c" fillOpacity=".8" rx="1" ry="1"></rect>'
+      + '<text fill="lightgray" x="2" y="5" style="fillOpacity: 1;'
+      + ' transition: all 250ms; font-family: sans-serif;'
+      + 'font-size: 3px; text-renderint: geometricprecision;">'
+      + widget_name + ': ' + series[0].data[index].y + '%</text>';
   };
 
 
@@ -225,7 +212,11 @@ React.SFC<DashboardWidgetProps> = (props) => {
                   labelAttributes={{x: -4}}
                 />
               </Layer>
-              <Layer width={'94%'} height={'100%'} position={'left bottom'}>
+              <Layer
+                width={'94%'}
+                height={'100%'}
+                position={'left bottom'}
+              >
                 <Handlers
                   onMouseMove={handleMouseMove}
                   onMouseLeave={handleMouseLeave}
