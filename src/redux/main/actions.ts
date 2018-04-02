@@ -15,6 +15,8 @@ import {
 
 export const MAIN_MENU_WAS_REQUESTED_FROM_API =
   'MAIN_MENU_WAS_REQUESTED_FROM_API';
+export const ALL_MENUS_WAS_RESPONSED_FROM_API =
+  'ALL_MENUS_WAS_RESPONSED_FROM_API';
 export const PUT_MAIN_MENU_FROM_API_TO_COLLECTION =
   'PUT_MAIN_MENU_FROM_API_TO_COLLECTION';
 export const PUT_USER_MENU_FROM_API_TO_COLLECTION =
@@ -38,6 +40,9 @@ export const SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE =
 export type Actions = {
   MAIN_MENU_WAS_REQUESTED_FROM_API: {
     type: typeof MAIN_MENU_WAS_REQUESTED_FROM_API,
+  },
+  ALL_MENUS_WAS_RESPONSED_FROM_API: {
+    type: typeof ALL_MENUS_WAS_RESPONSED_FROM_API,
   },
   PUT_MAIN_MENU_FROM_API_TO_COLLECTION: {
     type: typeof PUT_MAIN_MENU_FROM_API_TO_COLLECTION,
@@ -79,6 +84,10 @@ export const syncActionCreators = {
   mainMenuWasRequestedFromAPI: ():
   Actions[typeof MAIN_MENU_WAS_REQUESTED_FROM_API] => ({
     type: MAIN_MENU_WAS_REQUESTED_FROM_API,
+  }),
+  allMenusWasResponsedFromAPI: ():
+  Actions[typeof ALL_MENUS_WAS_RESPONSED_FROM_API] => ({
+    type: ALL_MENUS_WAS_RESPONSED_FROM_API,
   }),
   putMainMenuFromAPIToCollection:
   ( payload: MainMenuLinksInterface[] ):
@@ -181,6 +190,9 @@ export const asyncActionCreators = {
               response.data.devices_list;
             dispatch(
               syncActionCreators.putDevicesMenuFromAPIToCollection(devices)
+            );
+            dispatch(
+              syncActionCreators.allMenusWasResponsedFromAPI()
             );
           } else {
             dispatch(

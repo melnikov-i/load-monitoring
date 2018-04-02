@@ -26,12 +26,6 @@ export interface DashboardDragWidgetInterface {
   moveWidget: ( id: string, atIndex: string ) => any,
 }
 
-// export interface DashboardWidgetWrapperInterface {
-//   widget_name: WidgetInterface['widget_name'],
-//   device_id: WidgetInterface['device_id'],
-//   series: any,
-// }
-
 export interface MoveWidgetsInterface {
   source: number,
   target: number,

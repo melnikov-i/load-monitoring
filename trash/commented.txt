@@ -1,6 +1,8 @@
 ajax - перенести в libs
 components:
-  [-] App
+  [+] App
+  [+] Login
+  [+] Main
   [-] Dashboard
   [-] DashboardDragDropContext
   [-] DashboardDragLayer
@@ -10,8 +12,6 @@ components:
   [-] Devices
   [-] DevicesLoad
   [-] DevicesStatus
-  [-] Login
-  [+] Main
   [-] MainHeader
   [-] Overview
   [-] Spinner
@@ -75,16 +75,16 @@ selectors:
   [-] MainSelector
   [-] OverviewSelector
 styled:
-  [-] AnchorStyled
   [+] Constants
+  [+] LoginStyled
+  [+] MainStyled
+  [+] WidgetStyled
+  [-] AnchorStyled
   [-] DashboardStyled
   [-] DevicesLoadStyled
   [-] DevicesStyled
-  [-] LoginStyled
   [-] MainHeaderStyled
-  [+] MainStyled
   [-] OverviewStyled
   [-] SpinnerStyled
   [-] TableStyled
-  [-] WidgetStyled
 usage:

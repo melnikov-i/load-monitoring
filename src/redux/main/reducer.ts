@@ -9,6 +9,7 @@ import {
 
 import {
   MAIN_MENU_WAS_REQUESTED_FROM_API,
+  ALL_MENUS_WAS_RESPONSED_FROM_API,
   PUT_MAIN_MENU_FROM_API_TO_COLLECTION,
   PUT_USER_MENU_FROM_API_TO_COLLECTION,
   DEVICES_MENU_WAS_REQUESTED_FROM_API,
@@ -26,6 +27,7 @@ import {
 
 export type State = {
   readonly MainMenuWasRequestedFromAPI: boolean,
+  readonly AllMenusWasResponsedFromAPI: boolean,
   readonly MainMenuItemsCollection: MainMenuLinksInterface[],
   readonly UserMenuItemsCollection: UserMenuInterface,
   readonly DevicesMenuWasRequestedFromAPI: boolean,
@@ -68,6 +70,18 @@ export const reducer = combineReducers({
         return state;
     }
   },
+  
+  AllMenusWasResponsedFromAPI: ( state = false, action ) => {
+    switch ( action.type ) {
+      case ALL_MENUS_WAS_RESPONSED_FROM_API:
+        return true;
+      case USER_WAS_LOGOUT:
+        return false;
+      default:
+        return state;
+    }
+  },
+
   MainMenuItemsCollection: ( state = [], action ) => {
     switch ( action.type ) {
       case PUT_MAIN_MENU_FROM_API_TO_COLLECTION:

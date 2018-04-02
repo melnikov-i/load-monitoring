@@ -131,7 +131,9 @@ export const WidgetContent = styled.div`
 
 
 /**
+ * Обертка для формирования высоты виджета
  *
+ * @return {React.Component}
  */
 
 export const WidgetWrapperForSVG = styled.div`
@@ -144,6 +146,11 @@ export const WidgetWrapperForSVG = styled.div`
   }
 `;
 
+/**
+ * Формирует высоту виджета
+ *
+ * @return {React.Component}
+ */
 
 export const WidgetContentInForSVG = styled.div`
   position: absolute;

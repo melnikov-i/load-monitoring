@@ -42,7 +42,7 @@ export const CircularSpinner = styled.div`
     left: ${ props => String(Math.imul(props.width, -1))}px;
     transform-origin: 100% 50%;
     animation-name: ${ rotateBefore };
-    animation-dutation: 2s;
+    animation-duration: 2s;
     animation-timing-function: linear;
     animation-delay: 2s;
     animation-iteration-count: infinite;
@@ -60,7 +60,7 @@ export const CircularSpinner = styled.div`
     left: ${ props => String(Math.imul(props.width, 8))}px;
     transform-origin: 0% 50%;
     animation-name: ${ rotateAfter };
-    animation-dutation: 2s;
+    animation-duration: 2s;
     animation-timing-function: linear;
     animation-delay: 2s;
     animation-iteration-count: infinite;

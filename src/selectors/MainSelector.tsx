@@ -8,6 +8,12 @@ export const MainMenuWasRequestedFromAPISelector =
     ( MainMenuWasRequestedFromAPI ) => MainMenuWasRequestedFromAPI,
   );
 
+export const AllMenusWasResponsedFromAPISelector =
+  createSelector(
+    ( state: RootState ) => state.main.AllMenusWasResponsedFromAPI,
+    ( AllMenusWasResponsedFromAPI ) => AllMenusWasResponsedFromAPI,
+  );
+
 export const MainMenuItemsCollectionSelector = createSelector(
     ( state: { main: any } ) => state.main.MainMenuItemsCollection,
     ( MainMenuItemsCollection ) => MainMenuItemsCollection,

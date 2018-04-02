@@ -11,19 +11,17 @@ import { Main } from '@src/components';
 
 import {
   MainMenuLinksInterface,
-  // IsOpenedInterface,
   UserMenuInterface,
   DroppedMenuButtonClickedType,
 } from '@src/interfaces';
 
 import {
   MainMenuWasRequestedFromAPISelector,
+  AllMenusWasResponsedFromAPISelector,
   MainMenuItemsCollectionSelector,
   UserMenuItemsCollectionSelector,
   DevicesMenuWasRequestedFromAPISelector,
   DevicesMenuItemsCollectionSelector,
-  // isDevicesMenuOpenedSelector,
-  // isMainMenuOpenedSelector,
   DroppedMenuButtonClickedIdSelector,
   isMenuOpenedOnSmallScreenSelector,
   PageMenuItemActiveSelector,
@@ -32,24 +30,22 @@ import {
 
 const mapStateToProps = createStructuredSelector<RootState, {
     MainMenuWasRequestedFromAPI: boolean,
+    AllMenusWasResponsedFromAPI: boolean,
     MainMenuItemsCollection: MainMenuLinksInterface[],
     UserMenuItemsCollection: UserMenuInterface,
     DevicesMenuWasRequestedFromAPI: boolean,
     DevicesMenuItemsCollection: MainMenuLinksInterface[],
-    // isDevicesMenuOpened: IsOpenedInterface,
-    // isMainMenuOpened: IsOpenedInterface,
     DroppedMenuButtonClickedId: DroppedMenuButtonClickedType,
     isMenuOpenedOnSmallScreen: boolean,
     PageMenuItemActive: string,
     PageMenuItemMultiActive: string,
   }>({
     MainMenuWasRequestedFromAPI: MainMenuWasRequestedFromAPISelector,
+    AllMenusWasResponsedFromAPI: AllMenusWasResponsedFromAPISelector,
     MainMenuItemsCollection: MainMenuItemsCollectionSelector,
     UserMenuItemsCollection: UserMenuItemsCollectionSelector,
     DevicesMenuWasRequestedFromAPI: DevicesMenuWasRequestedFromAPISelector,
     DevicesMenuItemsCollection: DevicesMenuItemsCollectionSelector,
-    // isDevicesMenuOpened: isDevicesMenuOpenedSelector,
-    // isMainMenuOpened: isMainMenuOpenedSelector,
     DroppedMenuButtonClickedId: DroppedMenuButtonClickedIdSelector,
     isMenuOpenedOnSmallScreen: isMenuOpenedOnSmallScreenSelector,
     PageMenuItemActive: PageMenuItemActiveSelector,
@@ -61,16 +57,6 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
     asyncActionCreators.makeMainMenuRequestToAPI,
   makeDevicesMenuRequestToAPI: 
     asyncActionCreators.makeDevicesMenuRequestToAPI,
-  // doMainMenuOnSmallScreenSwitch: 
-    // syncActionCreators.doMainMenuOnSmallScreenSwitch,  
-  // doDevicesMenuOnBigScreenSwitch: 
-  //   syncActionCreators.doDevicesMenuOnBigScreenSwitch,
-  // doDevicesMenuOnMiddleScreenSwitch: 
-  //   syncActionCreators.doDevicesMenuOnMiddleScreenSwitch,
-  // doDevicesMenuOnSmallScreenSwitch:
-  //   syncActionCreators.doDevicesMenuOnSmallScreenSwitch,
-  // doBothMenuOnSmallScreenOff: 
-  //   syncActionCreators.doBothMenuOnSmallScreenOff,
   sendLogOutToAPI: loginActionCreators.sendLogOutToAPI,
   changeDroppedMenuClickedId:
     syncActionCreators.changeDroppedMenuClickedId,

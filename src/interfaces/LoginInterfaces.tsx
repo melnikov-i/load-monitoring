@@ -7,12 +7,8 @@ export interface LogOunInterface {
   step: string,
 }
 
-export interface LoginFormStateIndexType {
-  loginFormStateIndex: number,
-}
-
 export interface LoginFormStateInterface {
-  loginFormStateIndex: LoginFormStateIndexType['loginFormStateIndex'];
+  loginFormStateIndex: number,
   header: string[],
 }
 

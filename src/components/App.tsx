@@ -1,3 +1,11 @@
+/**
+ * Корневой компонент приложения.
+ * В нем подключаются глобальные шрифты, стили и выполняется
+ * проверка авторизации. В зависимости от полученной информации
+ * с бэкэнда, подгружается либо основная страница, либо страница
+ * авторизации.
+ */
+
 import * as React from 'react';
 import { injectGlobal } from 'styled-components';
 import {
@@ -6,23 +14,25 @@ import {
   Redirect,
 } from 'react-router-dom';
 
+
+/* импорт шрифтов FontAwesome */
+
 const FontAwesomeEOT = require('@src/fonts/fontawesome-webfont.eot');
 const FontAwesomeWOFF2 = require('@src/fonts/fontawesome-webfont.woff2');
 const FontAwesomeWOFF = require('@src/fonts/fontawesome-webfont.woff');
 const FontAwesomeTTF = require('@src/fonts/fontawesome-webfont.ttf');
 const FontAwesomeSVG = require('@src/fonts/fontawesome-webfont.svg');
 
+
+/*
+ * Компоненты, подгружаемые в процессе проверки авторизации 
+ */
+
 import MainConnected from '@src/usage/MainUsage';
 import LoginConnected from '@src/usage/LoginUsage';
 
-import {
-  FOOTER_HEIGHT,
-  emergence,
-} from '@src/styled';
 
-interface AppProps {
-  isAuthorized: boolean,
-}
+/* Глобальные стили */
 
 injectGlobal`
   * {
@@ -44,56 +54,9 @@ injectGlobal`
     min-width: 700px;
     min-height: 100%;
     box-sizing: border-box;
-    --padding-bottom: ${ FOOTER_HEIGHT };
     height: auto;
     background-color: #f3f3f4;
   }
-
-    .pageMenuItemLink {
-      border-left: 4px solid #19aa8d;
-      background-color: #293846;
-      color: #fff;
-    }
-  
-    .activeMainMenuItem {
-      background-color: #293846;
-      color: #fff;
-      &::before {
-        background-color: #19aa8d;
-      }
-    }
-
-  .activeDevicesMenuItem {
-    color: #19aa8d;
-    background-color: #293846;
-  }
-
-  .dashboardWidgetWrapper {
-    overflow: hidden;
-    animation-name: ${ emergence};
-    animation-duration: 1s;
-    animation-timing-function: linear;
-    animation-fill-mode: both;
-    display: inline-block;
-    vertical-align: top;
-    position: relative;    
-    &::before {
-      --content: "";
-      --display: block;
-      --padding-top: 62%;
-    }
-  }
-
-    .dashboardWidgetPreview {
-      box-sizing: border-box;
-      z-index: 1000;
-      opacity: 0.6;
-      &::before {
-        content: "";
-        display: block;
-        padding-top: 62%;
-      }
-    }
 
   @font-face {
     font-family: 'FontAwesome';
@@ -107,6 +70,11 @@ injectGlobal`
     font-style: normal;
   }
 `;
+
+
+interface AppProps {
+  isAuthorized: boolean,
+}
 
 export const App: React.SFC<AppProps> = (props) => {
   const { isAuthorized } = props;
