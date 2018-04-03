@@ -17,7 +17,9 @@ export interface DashboardInterface {
 export interface SeriesInterface {
   dashboard_id: string,
   limit: string,
-  dash_data: WidgetInterface[],
+  dash_data: {
+    widget_name: string,
+  }[],
 }
 
 export interface DashboardDragWidgetInterface {

@@ -128,21 +128,35 @@ dispatch: Dispatch) => {
   //   syncActionCreators.dashboardWasRequestedFromAPI(payload)
   // );
   // console.log('request:', payload);
+  
   sendRequestToAPI.get('/dash_data2.php?dashboard_id=' + payload).then(
-    ( response ) => {      
+    ( response ) => {
+      
+      /**
+       * Обработка ответа от сервера. Если сервер возвращает
+       * {"dashboard": null}, значит сессия либо не существует,
+       * либо ее срок действия истек.
+       */
+      
       if ( response.data.dashboard !== null ) {
-        /* Сессия на бэкэнде еще существует */
+
+        /**
+         * Также необходимо выполнить проверку содержимого ответа на
+         * корректность. Если dash_id = null, значит информации о
+         * виджетах этого дашборда нет на бэкэнде. (Это проблема бэкэнда,
+         * о которой необходимо сообщить пользователю).
+         */
+
         if ( response.data.dashboard.dash_id !== null ) {
-          /* В ответе от сервера пришли корректные данныеы */
           const items: DashboardInterface = response.data.dashboard;
+          
           /* Помещение данных от бэкэнда в store */
           dispatch(
             syncActionCreators.putDashboardModelFromAPIToStore(items)
           );
-          /* Данные корректно получены. Смена состояния Вида на 3 */
-          dispatch(
-            syncActionCreators.switchDashboardStateKeyValue('11')
-          );
+          
+          /* Передаем запрос далее по цепочке */
+          return items;          
         } else {
           
           /*
@@ -174,6 +188,54 @@ dispatch: Dispatch) => {
         dispatch(
           loginActionCreators.userWasLogOut()
         )
+      }
+
+      /* Запрос завершился неудачей, поэтому дальнейшие дествия прерываются */
+      return {
+        dash_id: {
+          dashboard_id: '',
+          dashboard_name: '',
+          dash_columns: '',
+        },
+        dash_data: [],  
+      };
+    }
+  )
+  .then(
+    ( correct ) => {
+      
+      /**
+       * В случае, когда в этот метод передается true, обработка
+       * предыдущего запроса считается завершенной удачно. 
+       * В таком случае в этом методе выполняется запрос первичных
+       * данных для отрисовки графиков в виджетах.
+       */
+      
+      if ( correct.dash_id.dashboard_id !== '' ) {
+        const requestDashData: {widget_name: string}[] = correct.dash_data.map((e) => {
+          console.log('e:', e);
+          return {widget_name: e.widget_name};
+        });
+        const request: SeriesInterface = {
+          dashboard_id: correct.dash_id.dashboard_id,
+          limit: '60',
+          dash_data: requestDashData,
+        }
+        sendRequestToAPI.post('/get_charts_data.php', request).then(
+          ( response ) => {
+            console.log('response', response.data);
+          }
+        )
+        .catch(
+          ( error ) => {
+            /* Смена состояния Вида на 0 ( Запрос завершился ошибкой ) */
+            dispatch(
+              syncActionCreators.switchDashboardStateKeyValue('0')
+            );
+            console.log('[ERROR]:', error);
+          }
+        )
+        console.log('request:', request);
       }
     }
   )

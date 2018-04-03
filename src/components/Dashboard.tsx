@@ -148,7 +148,7 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
    * (31) Вид, отображаемый, если от бэкэнда пришли некорректные данные.
    */
 
-  const viewState31 = (): JSX.Element | null => {
+  const viewState31 = (): JSX.Element => {
     return (
       <div
         style={{
@@ -167,9 +167,30 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
     );
   };
 
+  const viewState0 = (): JSX.Element => {
+    return (
+      <div
+        style={{
+          padding: '20px 15px',
+        }}
+      >
+        <p
+          style={{
+            fontSize: '12px',
+            color: '#ec4758',
+          }}
+          >
+            {'Запрос на сервер завершился ошибкой. Пожалуйста обновите страницу.'}
+          </p>
+      </div>
+    );
+  };
+  
+  console.log('DashboardStateKey:', DashboardStateKey);
   
   switch ( DashboardStateKey ) {
     case '1': return viewState1();
+    case '0': return viewState0();
     case '2': return viewState2();
     case '3':  return viewState30();
     case '31': return viewState31();
