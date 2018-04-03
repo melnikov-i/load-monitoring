@@ -17,10 +17,17 @@ export const DashboardDragModelSelector =
   );
 
 /* Идентификатор текущего дашборда для запроса */
-export const DashboardWasRequestedFromAPISelector =
+// export const DashboardWasRequestedFromAPISelector =
+//   createSelector(
+//     ( state: RootState ) => state.dashboard.DashboardWasRequestedFromAPI,
+//     ( DashboardWasRequestedFromAPI ) => DashboardWasRequestedFromAPI,
+//   );
+
+/* Ключ состояния компонента, используемый для выбора Вида */
+export const DashboardStateKeySelector =
   createSelector(
-    ( state: RootState ) => state.dashboard.DashboardWasRequestedFromAPI,
-    ( DashboardWasRequestedFromAPI ) => DashboardWasRequestedFromAPI,
+    ( state: RootState ) => state.dashboard.DashboardStateKey,
+    ( DashboardStateKey ) => DashboardStateKey,
   );
 
 /* Ключ актуальности дашборда при старте страницы */

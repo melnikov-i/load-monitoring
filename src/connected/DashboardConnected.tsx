@@ -4,6 +4,7 @@ import { createStructuredSelector } from 'reselect';
 import { Dispatch, RootState } from '@src/redux';
 
 import {
+  syncActionCreators,
   asyncActionCreators,
 } from '@src/redux/dashboard';
 
@@ -14,18 +15,21 @@ import {
 } from '@src/interfaces';
 
 import {
-  DashboardWasRequestedFromAPISelector,
+  DashboardStateKeySelector,
+  // DashboardWasRequestedFromAPISelector,
   DashboardStaticModelSelector,
   MainHeaderButtonWasClickedSelector,
 } from '@src/selectors';
 
 
 const mapStateToProps = createStructuredSelector<RootState, {
-    DashboardWasRequestedFromAPI: DashboardInterface['dash_id']['dashboard_id'],
+    DashboardStateKey: string,
+    // DashboardWasRequestedFromAPI: DashboardInterface['dash_id']['dashboard_id'],
     DashboardStaticModel: DashboardInterface,
     MainHeaderButtonWasClicked: boolean,
   }>({
-    DashboardWasRequestedFromAPI: DashboardWasRequestedFromAPISelector,
+    DashboardStateKey: DashboardStateKeySelector,
+    // DashboardWasRequestedFromAPI: DashboardWasRequestedFromAPISelector,
     DashboardStaticModel: DashboardStaticModelSelector,
     MainHeaderButtonWasClicked: MainHeaderButtonWasClickedSelector,
   });
@@ -35,6 +39,8 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
     asyncActionCreators.makeDashboardRequestFromAPI,
   makeSeriesDataRequestFromAPI:
     asyncActionCreators.makeSeriesDataRequestFromAPI,
+  switchDashboardStateKeyValue:
+    syncActionCreators.switchDashboardStateKeyValue,
 }, dispatch);
 
 export const DashboardConnected = 

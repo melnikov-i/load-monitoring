@@ -5,7 +5,8 @@ import {
 } from '@src/interfaces';
 
 import {
-  THIS_DASHBOARD_WAS_REQUESTED_FROM_API,
+  SWITCH_DASHBOARD_STATE_KEY_VALUE,
+  // THIS_DASHBOARD_WAS_REQUESTED_FROM_API,
   PUT_DASHBOARD_MODEL_FROM_API_TO_STORE,
   COPY_DASHBOARD_FROM_DASHBOARD_STATIC_MODEL,
   REORDER_DASHBOARD_DRAG_MODEL_DATA_COLLECTION,
@@ -27,13 +28,15 @@ import {
 
 
 export type State = {
+  /* Ключ состояния компонента, используемый для выбора Вида */
+  readonly DashboardStateKey: string,
   /* Модель дашборда для статического отображения */
   readonly DashboardStaticModel: DashboardInterface,
   /* Модель дашборда для отображение с drag&drop */
   readonly DashboardDragModel: DashboardInterface,
   /* Ключ, используемый в запросе модели с бэкэнда */
-  readonly DashboardWasRequestedFromAPI: 
-    DashboardInterface['dash_id']['dashboard_id'],
+  // readonly DashboardWasRequestedFromAPI: 
+  //   DashboardInterface['dash_id']['dashboard_id'],
   /* Ключ актуальности модели DashboardDragModel */
   readonly isDashboardDragModelCopied: boolean,
   /* ID целевого элемента при перемещении виджета */
@@ -53,6 +56,22 @@ const DashboardModelInitialState: DashboardInterface = {
 
 
 export const reducer = combineReducers({
+  /**
+   * Ключ состояния компонента, используемый для выбора Вида
+   */
+
+  DashboardStateKey: ( state = '1', action ) => {
+    switch ( action.type ) {
+      case SWITCH_DASHBOARD_STATE_KEY_VALUE:
+        return action.payload;
+      case SWITCH_PAGE_MENU_ITEM_ACTIVE:
+        return '1';
+      default:
+        return state;
+    }
+  },
+
+
   /**
    * Модель дашборда для статического отображения 
    */
@@ -114,18 +133,18 @@ export const reducer = combineReducers({
    * было бы определить переход с одного дашборда на другой.
    */
 
-  DashboardWasRequestedFromAPI: ( state = '', action ) => {
-    switch ( action.type ) {
+  // DashboardWasRequestedFromAPI: ( state = '', action ) => {
+  //   switch ( action.type ) {
       /* Помещает в редьюсер идентификатор запрошенного дашборда */
-      case THIS_DASHBOARD_WAS_REQUESTED_FROM_API:
-        return action.payload;
+      // case THIS_DASHBOARD_WAS_REQUESTED_FROM_API:
+      //   return action.payload;
       /* Очищает редьюсер при logout'е */
-      case USER_WAS_LOGOUT:
-        return '';
-      default:
-        return state;
-    }
-  },
+  //     case USER_WAS_LOGOUT:
+  //       return '';
+  //     default:
+  //       return state;
+  //   }
+  // },
 
 
   /**

@@ -18,9 +18,10 @@ import {
   syncActionCreators as mainHeadActionCreators
 } from '@src/redux/mainHead';
 
-
-export const THIS_DASHBOARD_WAS_REQUESTED_FROM_API =
-  'THIS_DASHBOARD_WAS_REQUESTED_FROM_API';
+export const SWITCH_DASHBOARD_STATE_KEY_VALUE =
+  'SWITCH_DASHBOARD_STATE_KEY_VALUE';
+// export const THIS_DASHBOARD_WAS_REQUESTED_FROM_API =
+//   'THIS_DASHBOARD_WAS_REQUESTED_FROM_API';
 export const PUT_DASHBOARD_MODEL_FROM_API_TO_STORE =
   'PUT_DASHBOARD_MODEL_FROM_API_TO_STORE';
 export const COPY_DASHBOARD_FROM_DASHBOARD_STATIC_MODEL =
@@ -34,10 +35,14 @@ export const CHANGE_SELECTED_CHECKBOX =
 
 
 export type Actions = {
-  THIS_DASHBOARD_WAS_REQUESTED_FROM_API: {
-    type: typeof THIS_DASHBOARD_WAS_REQUESTED_FROM_API,
-    payload: DashboardInterface['dash_id']['dashboard_id'],
+  SWITCH_DASHBOARD_STATE_KEY_VALUE: {
+    type: typeof SWITCH_DASHBOARD_STATE_KEY_VALUE,
+    payload: string,
   },
+  // THIS_DASHBOARD_WAS_REQUESTED_FROM_API: {
+  //   type: typeof THIS_DASHBOARD_WAS_REQUESTED_FROM_API,
+  //   payload: DashboardInterface['dash_id']['dashboard_id'],
+  // },
   PUT_DASHBOARD_MODEL_FROM_API_TO_STORE: {
     type: typeof PUT_DASHBOARD_MODEL_FROM_API_TO_STORE,
     payload: DashboardInterface,
@@ -63,11 +68,15 @@ export type Actions = {
 
 // Sync Action Creators
 export const syncActionCreators = {
-  dashboardWasRequestedFromAPI: 
-  ( payload: DashboardInterface['dash_id']['dashboard_id'] ):
-  Actions[typeof THIS_DASHBOARD_WAS_REQUESTED_FROM_API] => ({
-    type: THIS_DASHBOARD_WAS_REQUESTED_FROM_API, payload
+  switchDashboardStateKeyValue: ( payload: string ):
+  Actions[typeof SWITCH_DASHBOARD_STATE_KEY_VALUE] => ({
+    type: SWITCH_DASHBOARD_STATE_KEY_VALUE, payload,
   }),
+  // dashboardWasRequestedFromAPI: 
+  // ( payload: DashboardInterface['dash_id']['dashboard_id'] ):
+  // Actions[typeof THIS_DASHBOARD_WAS_REQUESTED_FROM_API] => ({
+  //   type: THIS_DASHBOARD_WAS_REQUESTED_FROM_API, payload
+  // }),
   putDashboardModelFromAPIToStore:
   ( payload: DashboardInterface ):
   Actions[typeof PUT_DASHBOARD_MODEL_FROM_API_TO_STORE] => ({
@@ -105,52 +114,79 @@ export const syncActionCreators = {
  *
  * @param {DashboardInterface['dash_id']['dashboard_id']} payload
  * @param {Dispatch} dispatch
+ * @return {void}
  */
 
 const getDashboardFromAPI = (
 payload: DashboardInterface['dash_id']['dashboard_id'],
 dispatch: Dispatch) => {
+  /* Запрос данных у бэкэнда в процессе. Смена состояния Вида на 2. */
   dispatch(
-    syncActionCreators.dashboardWasRequestedFromAPI(payload)
+    syncActionCreators.switchDashboardStateKeyValue('2')
   );
-  console.log('request:', payload);
+  // dispatch(
+  //   syncActionCreators.dashboardWasRequestedFromAPI(payload)
+  // );
+  // console.log('request:', payload);
   sendRequestToAPI.get('/dash_data2.php?dashboard_id=' + payload).then(
-    ( response ) => {
+    ( response ) => {      
       if ( response.data.dashboard !== null ) {
+        /* Сессия на бэкэнде еще существует */
         if ( response.data.dashboard.dash_id !== null ) {
           /* В ответе от сервера пришли корректные данныеы */
           const items: DashboardInterface = response.data.dashboard;
+          /* Помещение данных от бэкэнда в store */
           dispatch(
             syncActionCreators.putDashboardModelFromAPIToStore(items)
-          );              
+          );
+          /* Данные корректно получены. Смена состояния Вида на 3 */
+          dispatch(
+            syncActionCreators.switchDashboardStateKeyValue('11')
+          );
         } else {
-          /* Информации о дашборде не существует на сервере */
+          
+          /*
+           * Информации о дашборде не существует на сервере.
+           * Смена состояния вида на 31 (ошибочные данные).
+           */
+
           const DashboardWrongModel: DashboardInterface = {
             dash_id: {
-              dashboard_id: 'wrong',
+              dashboard_id: payload,
               dashboard_name: '',
               dash_columns: '',
             },
             dash_data: [],  
           };
+          
           dispatch(
             syncActionCreators
               .putDashboardModelFromAPIToStore(DashboardWrongModel)
           );         
+          
+          /* Смена состояния Вида на 31 */
+          dispatch(
+            syncActionCreators.switchDashboardStateKeyValue('31')
+          );
         }
       } else {
+        /* Сессия на бэкэнде либо истекла, либо не существует */
         dispatch(
           loginActionCreators.userWasLogOut()
         )
       }
     }
   )
-  .catch( error => console.log('[ERROR]:', error) );  
+  .catch( error => console.log('[ERROR]:', error) );
 }
 
 
 // Async Action Creators
 export const asyncActionCreators = {
+  /**
+   * Выполнение запроса данных у бэкэнда.
+   */
+
   makeDashboardRequestFromAPI: 
   ( payload: DashboardInterface['dash_id']['dashboard_id'] ) => {
     return ( dispatch: Dispatch ) => {
@@ -192,6 +228,10 @@ export const asyncActionCreators = {
   makeSeriesDataRequestFromAPI:
   ( payload: DashboardInterface ) => {
     return ( dispatch: Dispatch ) => {
+      /* Запрос данных у бэкэнда в процессе. Смена состояния Вида на 2. */
+      dispatch(
+        syncActionCreators.switchDashboardStateKeyValue('2')
+      );
       setTimeout(() => {
         const request: SeriesInterface = {
           dashboard_id: payload.dash_id.dashboard_id,
