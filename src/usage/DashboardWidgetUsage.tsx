@@ -13,6 +13,7 @@ export default (
     margin: number | undefined,
   }) => (
   <DashboardWidgetConnected
+    SeriesDataCollection={undefined}
     widget_name={widget_name}
     width={width}
     margin={margin}

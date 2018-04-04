@@ -14,12 +14,18 @@ export interface DashboardInterface {
   dash_data: WidgetInterface[],
 }
 
-export interface SeriesInterface {
+export interface SeriesRequestInterface {
   dashboard_id: string,
   limit: string,
   dash_data: {
     widget_name: string,
   }[],
+}
+
+export interface SeriesInterface {
+  y: number,
+  x: number,
+  color: string,
 }
 
 export interface DashboardDragWidgetInterface {

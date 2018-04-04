@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 
 import { RootState } from '@src/redux';
+import { DashboardWidgetProps } from '@src/components';
 
 /* Модель дашборда для статического отображения */
 export const DashboardStaticModelSelector =
@@ -15,6 +16,13 @@ export const DashboardDragModelSelector =
     ( state: RootState ) => state.dashboard.DashboardDragModel,
     ( DashboardDragModel ) => DashboardDragModel,
   );
+
+export const SeriesDataCollectionSelector = createSelector(
+    ( state: RootState, props: DashboardWidgetProps ) => 
+      state.dashboard.SeriesDataCollection[props.widget_name],
+    ( SeriesDataCollectionItem ) => SeriesDataCollectionItem
+  );
+
 
 /* Идентификатор текущего дашборда для запроса */
 // export const DashboardWasRequestedFromAPISelector =

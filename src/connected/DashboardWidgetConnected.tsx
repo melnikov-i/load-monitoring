@@ -7,17 +7,27 @@ import {
   // asyncActionCreators,
 } from '@src/redux/dashboard';
 
-import { DashboardWidget } from '@src/components';
+import {
+  DashboardWidget,
+  DashboardWidgetProps
+} from '@src/components';
 
-import {} from '@src/interfaces';
+import {
+  // SeriesInterface
+} from '@src/interfaces';
 
-import {} from '@src/selectors';
+import {
+  SeriesDataCollectionSelector,
+  // DashboardDragModelSelector
+} from '@src/selectors';
 
 
-const mapStateToProps = createStructuredSelector<RootState, {
-    
+const mapStateToProps = createStructuredSelector<RootState,
+DashboardWidgetProps, {
+    SeriesDataCollection: any,
   }>({
     
+    SeriesDataCollection: SeriesDataCollectionSelector,
   });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({

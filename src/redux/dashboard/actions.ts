@@ -2,7 +2,7 @@ import sendRequestToAPI from '@src/ajax';
 
 import {
   DashboardInterface,
-  SeriesInterface
+  SeriesRequestInterface,
 } from '@src/interfaces';
 
 
@@ -32,6 +32,8 @@ export const CHANGE_CURRENT_TARGET_ID =
   'CHANGE_CURRENT_TARGET_ID';
 export const CHANGE_SELECTED_CHECKBOX = 
   'CHANGE_SELECTED_CHECKBOX';
+export const PUT_SERIES_DATA_FROM_API_TO_STORE = 
+  'PUT_SERIES_DATA_FROM_API_TO_STORE';
 
 
 export type Actions = {
@@ -63,6 +65,10 @@ export type Actions = {
     type: typeof CHANGE_SELECTED_CHECKBOX,
     payload: string,
   },
+  PUT_SERIES_DATA_FROM_API_TO_STORE: {
+    type: typeof PUT_SERIES_DATA_FROM_API_TO_STORE,
+    payload: any,
+  }
 };
 
 
@@ -100,7 +106,31 @@ export const syncActionCreators = {
   Actions[typeof CHANGE_SELECTED_CHECKBOX] => ({
     type: CHANGE_SELECTED_CHECKBOX, payload,
   }),
+  putSeriesDataFromAPIToStore: ( payload: any ):
+  Actions[typeof PUT_SERIES_DATA_FROM_API_TO_STORE] => ({
+    type: PUT_SERIES_DATA_FROM_API_TO_STORE, payload,
+  }),
 };
+
+
+  /**
+   * Возвращает цвет столбца. 
+   *
+   * @param {number} y
+   * @return {string}
+   */
+
+  const getColor = ( y: number ) => {
+    if ( y >= 90 ) {
+      return '#ec4758'; // red    
+    } else {
+      if ( y >= 50 ) {
+        return '#f8ac59'; // orange
+      } else {
+        return '#1ab394'; // green
+      }
+    }
+  };
 
 
 /**
@@ -124,10 +154,6 @@ dispatch: Dispatch) => {
   dispatch(
     syncActionCreators.switchDashboardStateKeyValue('2')
   );
-  // dispatch(
-  //   syncActionCreators.dashboardWasRequestedFromAPI(payload)
-  // );
-  // console.log('request:', payload);
   
   sendRequestToAPI.get('/dash_data2.php?dashboard_id=' + payload).then(
     ( response ) => {
@@ -212,18 +238,48 @@ dispatch: Dispatch) => {
        */
       
       if ( correct.dash_id.dashboard_id !== '' ) {
-        const requestDashData: {widget_name: string}[] = correct.dash_data.map((e) => {
-          console.log('e:', e);
-          return {widget_name: e.widget_name};
-        });
-        const request: SeriesInterface = {
+        /* Массив с полями, данные которых нужно получить для графиков */
+        const requestDashData: {widget_name: string}[] = 
+          correct.dash_data.map((e) => (
+           {widget_name: e.widget_name}
+          ));
+        
+        /* Формирование объекта для запроса данных */
+        const request: SeriesRequestInterface = {
           dashboard_id: correct.dash_id.dashboard_id,
           limit: '60',
           dash_data: requestDashData,
         }
+
         sendRequestToAPI.post('/get_charts_data.php', request).then(
           ( response ) => {
-            console.log('response', response.data);
+            /* Результирующий объект с данными графиков */
+            let SeriesData: any = {};
+            
+            /* Обработка принятых данных и наполнение объекта SeriesData */
+            correct.dash_data.forEach(( node ) => (
+              SeriesData = {
+                ...SeriesData,
+                [node.widget_name]:
+                  response.data.map((e) => (
+                    {
+                      y: (node.widget_name.substring(0, 3) !== 'net') ?
+                        Number(e[node.widget_name]) : 0,
+                      x: Number(e.data_add),
+                      color: getColor(Number(e[node.widget_name])),
+                    }
+                  )).reverse()
+              }
+            ));
+
+            /* Отправка полученных данных в Sore */
+            dispatch(
+              syncActionCreators.putSeriesDataFromAPIToStore(SeriesData)
+            );
+            /* Смена состояния Вида на 3 ( Запрос завершился успешно ) */
+            dispatch(
+              syncActionCreators.switchDashboardStateKeyValue('3')
+            );
           }
         )
         .catch(
@@ -235,7 +291,6 @@ dispatch: Dispatch) => {
             console.log('[ERROR]:', error);
           }
         )
-        console.log('request:', request);
       }
     }
   )
@@ -295,7 +350,7 @@ export const asyncActionCreators = {
         syncActionCreators.switchDashboardStateKeyValue('2')
       );
       setTimeout(() => {
-        const request: SeriesInterface = {
+        const request: SeriesRequestInterface = {
           dashboard_id: payload.dash_id.dashboard_id,
           limit: '60',
           dash_data: payload.dash_data,

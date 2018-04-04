@@ -2,12 +2,13 @@ import { combineReducers } from 'redux';
 
 import {
   DashboardInterface,
+  // SeriesInterface,
 } from '@src/interfaces';
 
 import {
   SWITCH_DASHBOARD_STATE_KEY_VALUE,
-  // THIS_DASHBOARD_WAS_REQUESTED_FROM_API,
   PUT_DASHBOARD_MODEL_FROM_API_TO_STORE,
+  PUT_SERIES_DATA_FROM_API_TO_STORE,
   COPY_DASHBOARD_FROM_DASHBOARD_STATIC_MODEL,
   REORDER_DASHBOARD_DRAG_MODEL_DATA_COLLECTION,
   CHANGE_CURRENT_TARGET_ID,
@@ -34,13 +35,12 @@ export type State = {
   readonly DashboardStaticModel: DashboardInterface,
   /* Модель дашборда для отображение с drag&drop */
   readonly DashboardDragModel: DashboardInterface,
-  /* Ключ, используемый в запросе модели с бэкэнда */
-  // readonly DashboardWasRequestedFromAPI: 
-  //   DashboardInterface['dash_id']['dashboard_id'],
   /* Ключ актуальности модели DashboardDragModel */
   readonly isDashboardDragModelCopied: boolean,
   /* ID целевого элемента при перемещении виджета */
   readonly currentTargetId: number,
+  /* Коллекция данных для графиков */
+  readonly SeriesDataCollection: any,
 };
 
 
@@ -124,27 +124,22 @@ export const reducer = combineReducers({
   },
 
 
-  /*
-   * Ключ, используемый в запросе модели с бэкэнда.
-   * В качестве ключа используется идентификатор 
-   * запрашиваемого у бэкэнда дашборда. Этот идентификатор
-   * сравнивается в компоненте с тем, который передан в компонент.
-   * Так сделано для того, чтобы сравнивая идентификаторы, можно
-   * было бы определить переход с одного дашборда на другой.
+  /**
+   * Коллекция данных для графиков
    */
 
-  // DashboardWasRequestedFromAPI: ( state = '', action ) => {
-  //   switch ( action.type ) {
-      /* Помещает в редьюсер идентификатор запрошенного дашборда */
-      // case THIS_DASHBOARD_WAS_REQUESTED_FROM_API:
-      //   return action.payload;
+  SeriesDataCollection: ( state = {}, action ) => {
+    switch ( action.type ) {
+      case PUT_SERIES_DATA_FROM_API_TO_STORE:
+      console.log('action.payload:', action.payload);
+        return action.payload;
       /* Очищает редьюсер при logout'е */
-  //     case USER_WAS_LOGOUT:
-  //       return '';
-  //     default:
-  //       return state;
-  //   }
-  // },
+      case USER_WAS_LOGOUT:
+        return {};
+      default:
+        return state;
+    }
+  },
 
 
   /**
@@ -190,3 +185,32 @@ export const reducer = combineReducers({
     }
   }
 });
+
+// THIS_DASHBOARD_WAS_REQUESTED_FROM_API,
+  
+
+  /* Ключ, используемый в запросе модели с бэкэнда */
+  // readonly DashboardWasRequestedFromAPI: 
+  //   DashboardInterface['dash_id']['dashboard_id'],
+
+  /*
+   * Ключ, используемый в запросе модели с бэкэнда.
+   * В качестве ключа используется идентификатор 
+   * запрашиваемого у бэкэнда дашборда. Этот идентификатор
+   * сравнивается в компоненте с тем, который передан в компонент.
+   * Так сделано для того, чтобы сравнивая идентификаторы, можно
+   * было бы определить переход с одного дашборда на другой.
+   */
+
+  // DashboardWasRequestedFromAPI: ( state = '', action ) => {
+  //   switch ( action.type ) {
+      /* Помещает в редьюсер идентификатор запрошенного дашборда */
+      // case THIS_DASHBOARD_WAS_REQUESTED_FROM_API:
+      //   return action.payload;
+      /* Очищает редьюсер при logout'е */
+  //     case USER_WAS_LOGOUT:
+  //       return '';
+  //     default:
+  //       return state;
+  //   }
+  // },
