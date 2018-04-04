@@ -20,8 +20,6 @@ import {
 
 export const SWITCH_DASHBOARD_STATE_KEY_VALUE =
   'SWITCH_DASHBOARD_STATE_KEY_VALUE';
-// export const THIS_DASHBOARD_WAS_REQUESTED_FROM_API =
-//   'THIS_DASHBOARD_WAS_REQUESTED_FROM_API';
 export const PUT_DASHBOARD_MODEL_FROM_API_TO_STORE =
   'PUT_DASHBOARD_MODEL_FROM_API_TO_STORE';
 export const COPY_DASHBOARD_FROM_DASHBOARD_STATIC_MODEL =
@@ -41,10 +39,6 @@ export type Actions = {
     type: typeof SWITCH_DASHBOARD_STATE_KEY_VALUE,
     payload: string,
   },
-  // THIS_DASHBOARD_WAS_REQUESTED_FROM_API: {
-  //   type: typeof THIS_DASHBOARD_WAS_REQUESTED_FROM_API,
-  //   payload: DashboardInterface['dash_id']['dashboard_id'],
-  // },
   PUT_DASHBOARD_MODEL_FROM_API_TO_STORE: {
     type: typeof PUT_DASHBOARD_MODEL_FROM_API_TO_STORE,
     payload: DashboardInterface,
@@ -78,11 +72,6 @@ export const syncActionCreators = {
   Actions[typeof SWITCH_DASHBOARD_STATE_KEY_VALUE] => ({
     type: SWITCH_DASHBOARD_STATE_KEY_VALUE, payload,
   }),
-  // dashboardWasRequestedFromAPI: 
-  // ( payload: DashboardInterface['dash_id']['dashboard_id'] ):
-  // Actions[typeof THIS_DASHBOARD_WAS_REQUESTED_FROM_API] => ({
-  //   type: THIS_DASHBOARD_WAS_REQUESTED_FROM_API, payload
-  // }),
   putDashboardModelFromAPIToStore:
   ( payload: DashboardInterface ):
   Actions[typeof PUT_DASHBOARD_MODEL_FROM_API_TO_STORE] => ({
@@ -228,7 +217,7 @@ dispatch: Dispatch) => {
     }
   )
   .then(
-    ( correct ) => {
+    ( dashboard ) => {
       
       /**
        * В случае, когда в этот метод передается true, обработка
@@ -237,16 +226,16 @@ dispatch: Dispatch) => {
        * данных для отрисовки графиков в виджетах.
        */
       
-      if ( correct.dash_id.dashboard_id !== '' ) {
+      if ( dashboard.dash_id.dashboard_id !== '' ) {
         /* Массив с полями, данные которых нужно получить для графиков */
         const requestDashData: {widget_name: string}[] = 
-          correct.dash_data.map((e) => (
+          dashboard.dash_data.map((e) => (
            {widget_name: e.widget_name}
           ));
         
         /* Формирование объекта для запроса данных */
         const request: SeriesRequestInterface = {
-          dashboard_id: correct.dash_id.dashboard_id,
+          dashboard_id: dashboard.dash_id.dashboard_id,
           limit: '60',
           dash_data: requestDashData,
         }
@@ -257,7 +246,7 @@ dispatch: Dispatch) => {
             let SeriesData: any = {};
             
             /* Обработка принятых данных и наполнение объекта SeriesData */
-            correct.dash_data.forEach(( node ) => (
+            dashboard.dash_data.forEach(( node ) => (
               SeriesData = {
                 ...SeriesData,
                 [node.widget_name]:
@@ -310,6 +299,13 @@ export const asyncActionCreators = {
       getDashboardFromAPI(payload, dispatch);
     }
   },
+
+  
+  /**
+   * Отправляет пользовательские изменения в настройке отображения
+   * дашборда.
+   */
+
   sendChangedDashboardToAPI:
   ( payload: DashboardInterface ) => {
     return ( dispatch: Dispatch ) => {
@@ -328,6 +324,12 @@ export const asyncActionCreators = {
       )
     }
   },
+
+
+  /**
+   * 
+   */
+
   reorderDashboardDragModelDataCollectionOnlyOneTime:
   ( payload: {model: DashboardInterface['dash_data'], id: number} ) => {
     return ( dispatch: Dispatch ) => {
@@ -341,31 +343,65 @@ export const asyncActionCreators = {
     }
   },
   
-  /* Получение данных для отображение в диаграммах */
+  
+  /**
+   * Получение данных для отображение в диаграммах 
+   */
+  
   makeSeriesDataRequestFromAPI:
   ( payload: DashboardInterface ) => {
     return ( dispatch: Dispatch ) => {
-      /* Запрос данных у бэкэнда в процессе. Смена состояния Вида на 2. */
-      dispatch(
-        syncActionCreators.switchDashboardStateKeyValue('2')
-      );
       setTimeout(() => {
+        /* Массив с полями, данные которых нужно получить для графиков */
+        const requestDashData: {widget_name: string}[] = 
+          payload.dash_data.map((e) => (
+           {widget_name: e.widget_name}
+          ));
+        
+        /* Формирование объекта для запроса данных */
         const request: SeriesRequestInterface = {
           dashboard_id: payload.dash_id.dashboard_id,
-          limit: '60',
-          dash_data: payload.dash_data,
-        };
+          limit: '1',
+          dash_data: requestDashData,
+        }
+
         sendRequestToAPI.post('/get_charts_data.php', request).then(
           ( response ) => {
-            console.log('response', response.data);
+            /* Результирующий объект с данными графиков */
+            let SeriesData: any = {};
+            
+            /* Обработка принятых данных и наполнение объекта SeriesData */
+            payload.dash_data.forEach(( node ) => (
+              SeriesData = {
+                ...SeriesData,
+                [node.widget_name]: {
+                  y: (node.widget_name.substring(0, 3) !== 'net') ?
+                    Number(response.data[node.widget_name]) : 0,
+                  x: Number(response.data.data_add),
+                  color: getColor(Number(response.data[node.widget_name])),
+                }
+              }
+            ));
+
+            /* Отправка полученных данных в Sore */
+            dispatch(
+              syncActionCreators.putSeriesDataFromAPIToStore(SeriesData)
+            );
+            /* Смена состояния Вида на 3 ( Запрос завершился успешно ) */
+            dispatch(
+              syncActionCreators.switchDashboardStateKeyValue('3')
+            );
           }
         )
         .catch(
           ( error ) => {
+            /* Смена состояния Вида на 0 ( Запрос завершился ошибкой ) */
+            dispatch(
+              syncActionCreators.switchDashboardStateKeyValue('0')
+            );
             console.log('[ERROR]:', error);
           }
         )
-        console.log('request:', request);
       }, 5000);
     }
   }
