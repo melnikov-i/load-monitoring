@@ -3,6 +3,7 @@ import sendRequestToAPI from '@src/ajax';
 import {
   DashboardInterface,
   SeriesRequestInterface,
+  ElementsOfDashboardCollectionInterface
 } from '@src/interfaces';
 
 
@@ -32,6 +33,10 @@ export const CHANGE_SELECTED_CHECKBOX =
   'CHANGE_SELECTED_CHECKBOX';
 export const PUT_SERIES_DATA_FROM_API_TO_STORE = 
   'PUT_SERIES_DATA_FROM_API_TO_STORE';
+export const PUT_ELEMENTS_OF_DASHBOARD_COLLECTION_IN_STORE =
+  'PUT_ELEMENTS_OF_DASHBOARD_COLLECTION_IN_STORE';
+export const PUT_SERIES_ITEM_FROM_API_TO_STORE =
+  'PUT_SERIES_ITEM_FROM_API_TO_STORE';
 
 
 export type Actions = {
@@ -61,6 +66,14 @@ export type Actions = {
   },
   PUT_SERIES_DATA_FROM_API_TO_STORE: {
     type: typeof PUT_SERIES_DATA_FROM_API_TO_STORE,
+    payload: any,
+  },
+  PUT_SERIES_ITEM_FROM_API_TO_STORE: {
+    type: typeof PUT_SERIES_ITEM_FROM_API_TO_STORE,
+    payload: any,
+  },
+  PUT_ELEMENTS_OF_DASHBOARD_COLLECTION_IN_STORE: {
+    type: typeof PUT_ELEMENTS_OF_DASHBOARD_COLLECTION_IN_STORE,
     payload: any,
   }
 };
@@ -98,6 +111,16 @@ export const syncActionCreators = {
   putSeriesDataFromAPIToStore: ( payload: any ):
   Actions[typeof PUT_SERIES_DATA_FROM_API_TO_STORE] => ({
     type: PUT_SERIES_DATA_FROM_API_TO_STORE, payload,
+  }),
+  putSeriesItemFromAPIToStore: 
+  ( payload: any ):
+  Actions[typeof PUT_SERIES_ITEM_FROM_API_TO_STORE] => ({
+    type: PUT_SERIES_ITEM_FROM_API_TO_STORE, payload,
+  }),
+  putElementsOfDashboardCollectionInStore: 
+  ( payload: any ):
+  Actions[typeof PUT_ELEMENTS_OF_DASHBOARD_COLLECTION_IN_STORE] => ({
+    type: PUT_ELEMENTS_OF_DASHBOARD_COLLECTION_IN_STORE, payload,
   }),
 };
 
@@ -228,11 +251,27 @@ dispatch: Dispatch) => {
       
       if ( dashboard.dash_id.dashboard_id !== '' ) {
         /* Массив с полями, данные которых нужно получить для графиков */
-        const requestDashData: {widget_name: string}[] = 
+        const requestDashData: 
+        ElementsOfDashboardCollectionInterface['collection'] = 
           dashboard.dash_data.map((e) => (
            {widget_name: e.widget_name}
           ));
-        
+
+        const ElementsOfDashboardCollection:
+        ElementsOfDashboardCollectionInterface = {
+          dashboard_id: dashboard.dash_id.dashboard_id,
+          element: requestDashData[0].widget_name,
+          collection: requestDashData,
+        }
+
+        console.log('dashboard_id:', dashboard.dash_id.dashboard_id);
+
+        dispatch(
+          syncActionCreators.putElementsOfDashboardCollectionInStore(
+            ElementsOfDashboardCollection
+          )
+        );
+
         /* Формирование объекта для запроса данных */
         const request: SeriesRequestInterface = {
           dashboard_id: dashboard.dash_id.dashboard_id,
@@ -250,8 +289,7 @@ dispatch: Dispatch) => {
               SeriesData = {
                 ...SeriesData,
                 [node.widget_name]:
-                  response.data.map((e) => (
-                    {
+                  response.data.map((e) => ({
                       y: (node.widget_name.substring(0, 3) !== 'net') ?
                         Number(e[node.widget_name]) : 0,
                       x: Number(e.data_add),
@@ -260,6 +298,7 @@ dispatch: Dispatch) => {
                   )).reverse()
               }
             ));
+
 
             /* Отправка полученных данных в Sore */
             dispatch(
@@ -345,24 +384,19 @@ export const asyncActionCreators = {
   
   
   /**
-   * Получение данных для отображение в диаграммах 
+   * Запрос последнего состояния узла у бэкэенда для отображения
+   * в графике.
    */
   
   makeSeriesDataRequestFromAPI:
-  ( payload: DashboardInterface ) => {
+  ( payload: ElementsOfDashboardCollectionInterface ) => {
     return ( dispatch: Dispatch ) => {
       setTimeout(() => {
-        /* Массив с полями, данные которых нужно получить для графиков */
-        const requestDashData: {widget_name: string}[] = 
-          payload.dash_data.map((e) => (
-           {widget_name: e.widget_name}
-          ));
-        
         /* Формирование объекта для запроса данных */
         const request: SeriesRequestInterface = {
-          dashboard_id: payload.dash_id.dashboard_id,
+          dashboard_id: payload.dashboard_id,
           limit: '1',
-          dash_data: requestDashData,
+          dash_data: payload.collection,
         }
 
         sendRequestToAPI.post('/get_charts_data.php', request).then(
@@ -371,25 +405,21 @@ export const asyncActionCreators = {
             let SeriesData: any = {};
             
             /* Обработка принятых данных и наполнение объекта SeriesData */
-            payload.dash_data.forEach(( node ) => (
+            payload.collection.forEach(( node ) => (
               SeriesData = {
                 ...SeriesData,
                 [node.widget_name]: {
                   y: (node.widget_name.substring(0, 3) !== 'net') ?
-                    Number(response.data[node.widget_name]) : 0,
-                  x: Number(response.data.data_add),
-                  color: getColor(Number(response.data[node.widget_name])),
+                    Number(response.data[0][node.widget_name]) : 0,
+                  x: Number(response.data[0].data_add),
+                  color: getColor(Number(response.data[0][node.widget_name])),
                 }
               }
             ));
 
             /* Отправка полученных данных в Sore */
             dispatch(
-              syncActionCreators.putSeriesDataFromAPIToStore(SeriesData)
-            );
-            /* Смена состояния Вида на 3 ( Запрос завершился успешно ) */
-            dispatch(
-              syncActionCreators.switchDashboardStateKeyValue('3')
+              syncActionCreators.putSeriesItemFromAPIToStore(SeriesData)
             );
           }
         )

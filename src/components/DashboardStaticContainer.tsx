@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import {
   DashboardInterface,
+  ElementsOfDashboardCollectionInterface
 } from '@src/interfaces';
 
 
@@ -18,11 +19,13 @@ interface DashboardStaticContainerProps {
   widgets: DashboardInterface['dash_data'],
   /* Коэффициент ширины виджета */
   width: DashboardInterface['dash_id']['dash_columns'],
+  /*  */
+  elements: ElementsOfDashboardCollectionInterface,
 }
 
 export const DashboardStaticContainer: 
 React.SFC<DashboardStaticContainerProps> = (props) => {
-  const { width, widgets } = props;
+  const { width, widgets, elements } = props;
 
 
   return (
@@ -34,6 +37,8 @@ React.SFC<DashboardStaticContainerProps> = (props) => {
           widget_name={widget.widget_name}
           width={width}
           margin={i + 1}
+          elements={elements}
+          makeSeriesDataRequestFromAPI={undefined}
         />
       ))}
     </WidgetsLayout>

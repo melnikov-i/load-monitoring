@@ -17,6 +17,7 @@ export const DashboardDragModelSelector =
     ( DashboardDragModel ) => DashboardDragModel,
   );
 
+
 export const SeriesDataCollectionSelector = createSelector(
     ( state: RootState, props: DashboardWidgetProps ) => 
       state.dashboard.SeriesDataCollection[props.widget_name],
@@ -24,12 +25,13 @@ export const SeriesDataCollectionSelector = createSelector(
   );
 
 
-/* Идентификатор текущего дашборда для запроса */
-// export const DashboardWasRequestedFromAPISelector =
-//   createSelector(
-//     ( state: RootState ) => state.dashboard.DashboardWasRequestedFromAPI,
-//     ( DashboardWasRequestedFromAPI ) => DashboardWasRequestedFromAPI,
-//   );
+/* имя узла, к которому привязан action makeSeriesDataRequestFromAPI */
+export const ElementsOfDashboardCollectionSelector =
+  createSelector(
+    ( state: RootState ) => 
+      state.dashboard.ElementsOfDashboardCollection,
+    ( ElementsOfDashboardCollection ) => ElementsOfDashboardCollection,
+  );
 
 /* Ключ состояния компонента, используемый для выбора Вида */
 export const DashboardStateKeySelector =

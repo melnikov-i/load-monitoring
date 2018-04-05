@@ -58,9 +58,7 @@ React.SFC<DashboardDragItemProps> = ( props ) => {
       ? ( width === '1' ) ? '0' : '2%' : '0',
     marginBottom: ( width === '1' ) ? '20px' : '2%',
   };
-  
-  // const opacity = isDragging ? 0 : 1;
-  // const position = 'relative';
+
   
   if ( !connectDragSource || !connectDropTarget ) return null;
   
@@ -92,6 +90,12 @@ React.SFC<DashboardDragItemProps> = ( props ) => {
             widget_name={widget_name}
             width={'100'}
             margin={undefined}
+            elements={{
+              dashboard_id: '',
+              element: '',
+              collection: [],
+            }}
+            makeSeriesDataRequestFromAPI={undefined}
           />
         </div>
     </div>

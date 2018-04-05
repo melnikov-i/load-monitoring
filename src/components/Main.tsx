@@ -150,7 +150,7 @@ export const Main: React.SFC<MainProps> = (props) => {
     );
   }
 
-  console.log('AllMenusWasResponsedFromAPI:', AllMenusWasResponsedFromAPI);
+  // console.log('AllMenusWasResponsedFromAPI:', AllMenusWasResponsedFromAPI);
 
 
   /**

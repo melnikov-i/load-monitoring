@@ -4,8 +4,8 @@ import { createStructuredSelector } from 'reselect';
 import { Dispatch, RootState } from '@src/redux';
 
 import {
-  // asyncActionCreators,
-} from '@src/redux/dashboard';
+  asyncActionCreators,
+} from '@src/redux/dashboard'
 
 import {
   DashboardWidget,
@@ -13,12 +13,7 @@ import {
 } from '@src/components';
 
 import {
-  // SeriesInterface
-} from '@src/interfaces';
-
-import {
   SeriesDataCollectionSelector,
-  // DashboardDragModelSelector
 } from '@src/selectors';
 
 
@@ -26,12 +21,12 @@ const mapStateToProps = createStructuredSelector<RootState,
 DashboardWidgetProps, {
     SeriesDataCollection: any,
   }>({
-    
     SeriesDataCollection: SeriesDataCollectionSelector,
   });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
-
+  makeSeriesDataRequestFromAPI: 
+    asyncActionCreators.makeSeriesDataRequestFromAPI
 }, dispatch);
 
 export const DashboardWidgetConnected = 

@@ -2,17 +2,19 @@ import { combineReducers } from 'redux';
 
 import {
   DashboardInterface,
-  // SeriesInterface,
+  ElementsOfDashboardCollectionInterface
 } from '@src/interfaces';
 
 import {
   SWITCH_DASHBOARD_STATE_KEY_VALUE,
   PUT_DASHBOARD_MODEL_FROM_API_TO_STORE,
   PUT_SERIES_DATA_FROM_API_TO_STORE,
+  PUT_SERIES_ITEM_FROM_API_TO_STORE,
   COPY_DASHBOARD_FROM_DASHBOARD_STATIC_MODEL,
   REORDER_DASHBOARD_DRAG_MODEL_DATA_COLLECTION,
   CHANGE_CURRENT_TARGET_ID,
   CHANGE_SELECTED_CHECKBOX,
+  PUT_ELEMENTS_OF_DASHBOARD_COLLECTION_IN_STORE
 } from '@src/redux/dashboard';
 
 import {
@@ -41,6 +43,9 @@ export type State = {
   readonly currentTargetId: number,
   /* Коллекция данных для графиков */
   readonly SeriesDataCollection: any,
+  /* имя узла, к которому привязан action makeSeriesDataRequestFromAPI */
+  readonly ElementsOfDashboardCollection: 
+    ElementsOfDashboardCollectionInterface,
 };
 
 
@@ -53,6 +58,13 @@ const DashboardModelInitialState: DashboardInterface = {
   },
   dash_data: [],  
 };
+
+const ElementsOfDashboardCollectionInitialState:
+ElementsOfDashboardCollectionInterface = {
+  dashboard_id: '',
+  element: '',
+  collection: [],
+}
 
 
 export const reducer = combineReducers({
@@ -130,12 +142,49 @@ export const reducer = combineReducers({
 
   SeriesDataCollection: ( state = {}, action ) => {
     switch ( action.type ) {
+      /* Добавляет элементы для отображения графика */
       case PUT_SERIES_DATA_FROM_API_TO_STORE:
-      console.log('action.payload:', action.payload);
         return action.payload;
+      /* Удаляет начальный элемент, и добавляет последний */
+      case PUT_SERIES_ITEM_FROM_API_TO_STORE:
+        let newState = {};
+        for ( let node in state ) {
+          newState = {
+            ...newState,
+            [node]: state[node].slice(1),
+          };
+          newState = {
+            ...newState,
+            [node]: [
+              ...newState[node],
+              action.payload[node]
+            ],
+          };
+        }
+        // console.log('newState:', newState);
+        return newState;
       /* Очищает редьюсер при logout'е */
       case USER_WAS_LOGOUT:
         return {};
+      default:
+        return state;
+    }
+  },
+
+
+  /**
+   * Имя первого узла в коллекции узлов, чьи данные отображаются
+   * в графиках
+   */
+
+  ElementsOfDashboardCollection: 
+  ( state = ElementsOfDashboardCollectionInitialState, action ) => {
+    switch ( action.type ) {
+      case PUT_ELEMENTS_OF_DASHBOARD_COLLECTION_IN_STORE:
+        return action.payload;
+      /* Очищает редьюсер при logout'е */
+      case USER_WAS_LOGOUT:
+        return ElementsOfDashboardCollectionInitialState;
       default:
         return state;
     }
@@ -185,32 +234,3 @@ export const reducer = combineReducers({
     }
   }
 });
-
-// THIS_DASHBOARD_WAS_REQUESTED_FROM_API,
-  
-
-  /* Ключ, используемый в запросе модели с бэкэнда */
-  // readonly DashboardWasRequestedFromAPI: 
-  //   DashboardInterface['dash_id']['dashboard_id'],
-
-  /*
-   * Ключ, используемый в запросе модели с бэкэнда.
-   * В качестве ключа используется идентификатор 
-   * запрашиваемого у бэкэнда дашборда. Этот идентификатор
-   * сравнивается в компоненте с тем, который передан в компонент.
-   * Так сделано для того, чтобы сравнивая идентификаторы, можно
-   * было бы определить переход с одного дашборда на другой.
-   */
-
-  // DashboardWasRequestedFromAPI: ( state = '', action ) => {
-  //   switch ( action.type ) {
-      /* Помещает в редьюсер идентификатор запрошенного дашборда */
-      // case THIS_DASHBOARD_WAS_REQUESTED_FROM_API:
-      //   return action.payload;
-      /* Очищает редьюсер при logout'е */
-  //     case USER_WAS_LOGOUT:
-  //       return '';
-  //     default:
-  //       return state;
-  //   }
-  // },

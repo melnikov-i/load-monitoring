@@ -28,6 +28,14 @@ export interface SeriesInterface {
   color: string,
 }
 
+export interface ElementsOfDashboardCollectionInterface {
+  dashboard_id: string,
+  element: string,
+  collection: {
+    widget_name: string,
+  }[],
+}
+
 export interface DashboardDragWidgetInterface {
   id: string,
   findWidget: ( id: string ) => any,

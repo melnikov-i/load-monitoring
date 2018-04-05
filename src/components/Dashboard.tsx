@@ -3,6 +3,7 @@ import * as React from 'react';
 import {
   DashboardInterface,
   MainHeaderInterface,
+  ElementsOfDashboardCollectionInterface
 } from '@src/interfaces';
 
 
@@ -27,8 +28,6 @@ interface DashboardProps {
   id: DashboardInterface['dash_id']['dashboard_id'],
   /* Ключ состояния компонента, используемый для выбора Вида */
   DashboardStateKey: string,
-  /* Ключ, указывающий, что данные о виджетах были запрошены с бэкэнда */
-  // DashboardWasRequestedFromAPI: DashboardInterface['dash_id']['dashboard_id'],
   /* Коллекция виджетов дашборда */
   DashboardStaticModel: DashboardInterface,
   /* Запускает в action метод запроса данных о виджетах */
@@ -36,10 +35,8 @@ interface DashboardProps {
   ( payload: DashboardInterface['dash_id']['dashboard_id'] ) => any,
   /* Ключ состояния отображения дашборда */
   MainHeaderButtonWasClicked: boolean,
-  /* Запускает в action метод запроса данных для диаграмм */
-  makeSeriesDataRequestFromAPI: 
-  ( payload: DashboardInterface ) => any,
-  switchDashboardStateKeyValue: ( payload: string ) => any,
+  /* Имя виджета, выполняющего запрос данных для графиков */
+  ElementsOfDashboardCollection: ElementsOfDashboardCollectionInterface,
 }
 
 
@@ -48,11 +45,9 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
     id,
     DashboardStateKey,
     DashboardStaticModel,
-    // DashboardWasRequestedFromAPI,
+    ElementsOfDashboardCollection,
     makeDashboardRequestFromAPI,
     MainHeaderButtonWasClicked,
-    // makeSeriesDataRequestFromAPI,
-    // switchDashboardStateKeyValue
   } = props;
 
 
@@ -101,6 +96,7 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
    */
 
   const viewState30 = (): JSX.Element | null => {
+    // makeSeriesDataRequestFromAPI(DashboardStaticModel);
     /* Данные для заголовка страницы */
     const MainHeaderState: MainHeaderInterface = {
       header: DashboardStaticModel.dash_id.dashboard_name,
@@ -137,6 +133,7 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
           : <DashboardStaticContainer
               width={DashboardStaticModel.dash_id.dash_columns}
               widgets={DashboardStaticModel.dash_data}
+              elements={ElementsOfDashboardCollection}
             />
         }
       </div>
@@ -186,7 +183,7 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
     );
   };
   
-  console.log('DashboardStateKey:', DashboardStateKey);
+  // console.log('DashboardStateKey:', DashboardStateKey);
   
   switch ( DashboardStateKey ) {
     case '1': return viewState1();

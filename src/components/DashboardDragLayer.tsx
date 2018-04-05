@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import {
-  // WidgetInterface,
   DashboardInterface
 } from '@src/interfaces';
 
@@ -17,15 +16,7 @@ import {
 
 import {
   getPreviewWidth,
-  // trottler
 } from '@src/libs';
-
-
-/**
- * Ширина меню, которую надо отнять от общей ширины,
- * Чтобы корректно посчитать ширину виджета.
- */
-
 
 
 export interface DashboardDragLayerPros {
@@ -113,6 +104,12 @@ extends React.Component<DashboardDragLayerPros> {
             widget_name={widget_name}
             width={'100'}
             margin={undefined}
+            elements={{
+              dashboard_id: '',
+              element: '',
+              collection: [],
+            }}
+            makeSeriesDataRequestFromAPI={undefined}
           />
         </div>
       );
