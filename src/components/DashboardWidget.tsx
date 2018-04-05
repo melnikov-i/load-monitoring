@@ -70,7 +70,7 @@ React.SFC<DashboardWidgetProps> = (props) => {
     }
   ];
 
-  console.log('series:', series[0].data);
+  console.log('series:', series[0].data.length);
 
 
   /**

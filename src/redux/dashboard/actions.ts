@@ -288,14 +288,13 @@ dispatch: Dispatch) => {
             dashboard.dash_data.forEach(( node ) => (
               SeriesData = {
                 ...SeriesData,
-                [node.widget_name]:
-                  response.data.map((e) => ({
-                      y: (node.widget_name.substring(0, 3) !== 'net') ?
-                        Number(e[node.widget_name]) : 0,
-                      x: Number(e.data_add),
-                      color: getColor(Number(e[node.widget_name])),
-                    }
-                  )).reverse()
+                [node.widget_name]: response.data.map((e) => ({
+                    y: (node.widget_name.substring(0, 3) !== 'net') ?
+                      Number(e[node.widget_name]) : 0,
+                    x: Number(e.data_add),
+                    color: getColor(Number(e[node.widget_name])),
+                  }
+                )).reverse()
               }
             ));
 
@@ -395,7 +394,7 @@ export const asyncActionCreators = {
         /* Формирование объекта для запроса данных */
         const request: SeriesRequestInterface = {
           dashboard_id: payload.dashboard_id,
-          limit: '1',
+          limit: '3',
           dash_data: payload.collection,
         }
 
@@ -408,14 +407,17 @@ export const asyncActionCreators = {
             payload.collection.forEach(( node ) => (
               SeriesData = {
                 ...SeriesData,
-                [node.widget_name]: {
-                  y: (node.widget_name.substring(0, 3) !== 'net') ?
-                    Number(response.data[0][node.widget_name]) : 0,
-                  x: Number(response.data[0].data_add),
-                  color: getColor(Number(response.data[0][node.widget_name])),
-                }
+                [node.widget_name]: response.data.map((e) => ({
+                    y: (node.widget_name.substring(0, 3) !== 'net') ?
+                      Number(e[node.widget_name]) : 0,
+                    x: Number(e.data_add),
+                    color: getColor(Number(e[node.widget_name])),
+                  }
+                )).reverse()                
               }
             ));
+
+            console.log('SeriesResponse:', SeriesData);
 
             /* Отправка полученных данных в Sore */
             dispatch(

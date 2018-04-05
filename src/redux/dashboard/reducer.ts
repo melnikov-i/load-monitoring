@@ -145,21 +145,29 @@ export const reducer = combineReducers({
       /* Добавляет элементы для отображения графика */
       case PUT_SERIES_DATA_FROM_API_TO_STORE:
         return action.payload;
-      /* Удаляет начальный элемент, и добавляет последний */
+      /* Удаляет начальные элементы, и добавляет последние */
       case PUT_SERIES_ITEM_FROM_API_TO_STORE:
         let newState = {};
+        /* В state объект массивов, разбираем этот объект */
         for ( let node in state ) {
+          /* последний элемент в стэйте для сравнения */
+          const lastElementTimeStamp = state[node][59].x;
+
+          console.log('lastElementTimeStamp:', lastElementTimeStamp);
+
+          
+
           newState = {
             ...newState,
-            [node]: state[node].slice(1),
+            [node]: state[node]//.slice(1),
           };
-          newState = {
-            ...newState,
-            [node]: [
-              ...newState[node],
-              action.payload[node]
-            ],
-          };
+          // newState = {
+          //   ...newState,
+          //   [node]: [
+          //     ...newState[node],
+          //     action.payload[node].map(e => e),
+          //   ],
+          // };
         }
         // console.log('newState:', newState);
         return newState;
