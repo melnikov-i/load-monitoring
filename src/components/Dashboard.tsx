@@ -183,7 +183,7 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
     );
   };
   
-  // console.log('DashboardStateKey:', DashboardStateKey);
+  console.log('DashboardStateKey:', DashboardStateKey);
   
   switch ( DashboardStateKey ) {
     case '1': return viewState1();

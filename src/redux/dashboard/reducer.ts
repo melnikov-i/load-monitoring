@@ -150,26 +150,34 @@ export const reducer = combineReducers({
         let newState = {};
         /* В state объект массивов, разбираем этот объект */
         for ( let node in state ) {
-          /* последний элемент в стэйте для сравнения */
-          const lastElementTimeStamp = state[node][59].x;
-
-          console.log('lastElementTimeStamp:', lastElementTimeStamp);
-
           
+          /**
+           * Производит сборку массива данных.
+           * Первый элемент массива имеет значение х = 59, и добавляется
+           * в начало массива. Это так, потому что мы при получении
+           * массива от бэкэнда его переворачиваем (arr.reverce()).
+           * В свою очередь это надо для достижения нужного направления
+           * отображения графика. Далее мы добавляем остальные элементы
+           * массива, убирая последний, и попутно изменяя у каждого из них
+           * поле х (по которому ориентируется библиотека rumble-charts при
+           * построении графика), меняя ее значение на x -1.
+           */
 
           newState = {
             ...newState,
-            [node]: state[node]//.slice(1),
+            [node]: [
+              action.payload[node],
+              ...state[node].slice(0, 59).map(e => ({
+                y: e.y,
+                x: e.x - 1,
+                color: e.color,
+                timestamp: e.timestamp,
+              })),
+            ]
           };
-          // newState = {
-          //   ...newState,
-          //   [node]: [
-          //     ...newState[node],
-          //     action.payload[node].map(e => e),
-          //   ],
-          // };
+
         }
-        // console.log('newState:', newState);
+        console.log('newState:', newState);
         return newState;
       /* Очищает редьюсер при logout'е */
       case USER_WAS_LOGOUT:
@@ -242,3 +250,25 @@ export const reducer = combineReducers({
     }
   }
 });
+
+          // console.log('state[node]:', state[node]);
+          // console.log('state[node].slice(0, 59):', state[node].slice(0,59));
+          // console.log('action.payload:', action.payload);
+          // const lastElementTimeStamp = state[node][59].x;
+
+          // console.log('lastElementTimeStamp:', lastElementTimeStamp);
+
+          
+          // newState = {
+          //   ...newState,
+          //   [node]: [ action.payload[node],
+          //     // ...newState[node],
+          //     // ...action.payload[node],
+          //     // .map(e => ({
+          //     //   y: e.y,
+          //     //   x: e.x - 1,
+          //     //   color: e.color,
+          //     // })),
+          //     // action.payload[node]//.map(e => e),
+          //   ],
+          // };

@@ -156,7 +156,7 @@ React.SFC<DashboardWidgetProps> = (props) => {
      */
 
     const date = 
-      new Date(series[0].data[index].x * 1000);
+      new Date(series[0].data[index].timestamp * 1000);
     
     const time = ((date.getHours() > 9) ? '' : '0') + date.getHours()
     + ((date.getMinutes() > 9) ? ':' : ':0') + date.getMinutes()    
@@ -189,6 +189,7 @@ React.SFC<DashboardWidgetProps> = (props) => {
 
   return (
     <Widget
+      id={widget_name + '_widget'}
       width={width}
       margin={margin}
     >
@@ -240,7 +241,7 @@ React.SFC<DashboardWidgetProps> = (props) => {
                     barWidth={.011}
                     barStyle={{
                       fillOpacity: .7,
-                      transition: 'all 250ms',
+                      transition: 'fillOpacity 250ms',
                       cursor: 'pointer',
                     }}
                     barAttributes={{

@@ -166,6 +166,17 @@ dispatch: Dispatch) => {
   dispatch(
     syncActionCreators.switchDashboardStateKeyValue('2')
   );
+
+  
+  /**
+   * Очистка таймаутов для исключения повторного запроса одного, последнего
+   * элемента сразу после запроса элементов для вновь выбранного дашборда.
+   */
+
+  let maxId = setTimeout(() => {});
+  while ( maxId-- ) {
+    clearTimeout(maxId);
+  }
   
   sendRequestToAPI.get('/dash_data2.php?dashboard_id=' + payload).then(
     ( response ) => {
@@ -288,15 +299,19 @@ dispatch: Dispatch) => {
             dashboard.dash_data.forEach(( node ) => (
               SeriesData = {
                 ...SeriesData,
-                [node.widget_name]: response.data.map((e) => ({
+                [node.widget_name]: response.data.map((e, i) => ({
                     y: (node.widget_name.substring(0, 3) !== 'net') ?
                       Number(e[node.widget_name]) : 0,
-                    x: Number(e.data_add),
+                    x: i,
                     color: getColor(Number(e[node.widget_name])),
+                    timestamp: Number(e.data_add),
                   }
                 )).reverse()
               }
             ));
+
+            //  Очистка стора от предыдущих данных 
+            // const CleanSeriesData
 
 
             /* Отправка полученных данных в Sore */
@@ -321,7 +336,14 @@ dispatch: Dispatch) => {
       }
     }
   )
-  .catch( error => console.log('[ERROR]:', error) );
+  .catch( error => {
+      /* Смена состояния Вида на 0 ( Запрос завершился ошибкой ) */
+      dispatch(
+        syncActionCreators.switchDashboardStateKeyValue('0')
+      );
+      console.log('[ERROR]:', error)
+    }
+  );
 }
 
 
@@ -394,7 +416,7 @@ export const asyncActionCreators = {
         /* Формирование объекта для запроса данных */
         const request: SeriesRequestInterface = {
           dashboard_id: payload.dashboard_id,
-          limit: '3',
+          limit: '1',
           dash_data: payload.collection,
         }
 
@@ -407,13 +429,14 @@ export const asyncActionCreators = {
             payload.collection.forEach(( node ) => (
               SeriesData = {
                 ...SeriesData,
-                [node.widget_name]: response.data.map((e) => ({
-                    y: (node.widget_name.substring(0, 3) !== 'net') ?
-                      Number(e[node.widget_name]) : 0,
-                    x: Number(e.data_add),
-                    color: getColor(Number(e[node.widget_name])),
-                  }
-                )).reverse()                
+                [node.widget_name]: {
+                  y: (node.widget_name.substring(0, 3) !== 'net') ?
+                    Number(response.data[0][node.widget_name]) : 0,
+                  x: 59,
+                  color: getColor(Number(response.data[0][node.widget_name])),
+                  timestamp: Number(response.data[0].data_add),
+                }
+
               }
             ));
 
@@ -434,7 +457,15 @@ export const asyncActionCreators = {
             console.log('[ERROR]:', error);
           }
         )
-      }, 5000);
+      }, 5050);
     }
   }
 };
+
+                // [node.widget_name]: response.data.map((e) => ({
+                //     y: (node.widget_name.substring(0, 3) !== 'net') ?
+                //       Number(e[node.widget_name]) : 0,
+                //     x: Number(e.data_add),
+                //     color: getColor(Number(e[node.widget_name])),
+                //   }
+                // )).reverse(),
