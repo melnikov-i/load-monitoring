@@ -1,4 +1,6 @@
 import * as React from 'react';
+import domtoimage from 'dom-to-image';
+
 import {
   Chart,
   Layer,
@@ -70,7 +72,7 @@ React.SFC<DashboardWidgetProps> = (props) => {
     }
   ];
 
-  console.log('series:', series[0].data.length);
+  // console.log('series:', series[0].data.length);
 
 
   /**
@@ -187,8 +189,29 @@ React.SFC<DashboardWidgetProps> = (props) => {
   };
 
 
+  const handleDomToImage =
+  ( e: React.MouseEvent<HTMLDivElement> ) => {
+    e.preventDefault();
+    e.nativeEvent.stopImmediatePropagation();
+    const node = document.getElementById(widget_name + '_widget');
+    console.log('node:', node);
+
+    domtoimage.toPng(node)
+        .then(function (dataUrl) {
+            var img = new Image();
+            img.src = dataUrl;
+            document.body.appendChild(img);
+        })
+        .catch(function (error) {
+            console.error('oops, something went wrong!', error);
+        });
+  };
+
+
+
   return (
     <Widget
+      onClick={handleDomToImage}
       id={widget_name + '_widget'}
       width={width}
       margin={margin}

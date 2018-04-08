@@ -177,7 +177,7 @@ export const reducer = combineReducers({
           };
 
         }
-        console.log('newState:', newState);
+        // console.log('newState:', newState);
         return newState;
       /* Очищает редьюсер при logout'е */
       case USER_WAS_LOGOUT:

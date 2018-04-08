@@ -440,7 +440,7 @@ export const asyncActionCreators = {
               }
             ));
 
-            console.log('SeriesResponse:', SeriesData);
+            // console.log('SeriesResponse:', SeriesData);
 
             /* Отправка полученных данных в Sore */
             dispatch(
