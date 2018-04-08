@@ -49,7 +49,7 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
     makeDashboardRequestFromAPI,
     MainHeaderButtonWasClicked,
   } = props;
-
+  
 
   /**
    * (1) Первичный вид. Технически Видом не совсем является.
@@ -96,7 +96,6 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
    */
 
   const viewState30 = (): JSX.Element | null => {
-    // makeSeriesDataRequestFromAPI(DashboardStaticModel);
     /* Данные для заголовка страницы */
     const MainHeaderState: MainHeaderInterface = {
       header: DashboardStaticModel.dash_id.dashboard_name,

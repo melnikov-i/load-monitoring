@@ -275,8 +275,6 @@ dispatch: Dispatch) => {
           collection: requestDashData,
         }
 
-        console.log('dashboard_id:', dashboard.dash_id.dashboard_id);
-
         dispatch(
           syncActionCreators.putElementsOfDashboardCollectionInStore(
             ElementsOfDashboardCollection
@@ -310,14 +308,11 @@ dispatch: Dispatch) => {
               }
             ));
 
-            //  Очистка стора от предыдущих данных 
-            // const CleanSeriesData
-
-
             /* Отправка полученных данных в Sore */
             dispatch(
               syncActionCreators.putSeriesDataFromAPIToStore(SeriesData)
             );
+
             /* Смена состояния Вида на 3 ( Запрос завершился успешно ) */
             dispatch(
               syncActionCreators.switchDashboardStateKeyValue('3')
@@ -440,8 +435,6 @@ export const asyncActionCreators = {
               }
             ));
 
-            // console.log('SeriesResponse:', SeriesData);
-
             /* Отправка полученных данных в Sore */
             dispatch(
               syncActionCreators.putSeriesItemFromAPIToStore(SeriesData)
@@ -461,11 +454,3 @@ export const asyncActionCreators = {
     }
   }
 };
-
-                // [node.widget_name]: response.data.map((e) => ({
-                //     y: (node.widget_name.substring(0, 3) !== 'net') ?
-                //       Number(e[node.widget_name]) : 0,
-                //     x: Number(e.data_add),
-                //     color: getColor(Number(e[node.widget_name])),
-                //   }
-                // )).reverse(),

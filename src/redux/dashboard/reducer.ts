@@ -177,7 +177,6 @@ export const reducer = combineReducers({
           };
 
         }
-        // console.log('newState:', newState);
         return newState;
       /* Очищает редьюсер при logout'е */
       case USER_WAS_LOGOUT:
@@ -250,25 +249,3 @@ export const reducer = combineReducers({
     }
   }
 });
-
-          // console.log('state[node]:', state[node]);
-          // console.log('state[node].slice(0, 59):', state[node].slice(0,59));
-          // console.log('action.payload:', action.payload);
-          // const lastElementTimeStamp = state[node][59].x;
-
-          // console.log('lastElementTimeStamp:', lastElementTimeStamp);
-
-          
-          // newState = {
-          //   ...newState,
-          //   [node]: [ action.payload[node],
-          //     // ...newState[node],
-          //     // ...action.payload[node],
-          //     // .map(e => ({
-          //     //   y: e.y,
-          //     //   x: e.x - 1,
-          //     //   color: e.color,
-          //     // })),
-          //     // action.payload[node]//.map(e => e),
-          //   ],
-          // };

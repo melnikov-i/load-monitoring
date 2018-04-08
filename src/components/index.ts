@@ -12,6 +12,7 @@ export * from './DashboardStaticContainer';
 export * from './DashboardGridSettings';
 export * from './DashboardDragLayer';
 export * from './DashboardWidget';
+export * from './DashboardDragWidget';
 
 
 

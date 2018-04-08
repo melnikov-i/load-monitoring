@@ -12,6 +12,7 @@ export * from './DashboardDragItemConnected';
 export * from './DashboardGridSettingsConnected';
 export * from './DashboardDragLayerConnected';
 export * from './DashboardWidgetConnected';
+export * from './DashboardDragWidgetConnected';
 
 
 
