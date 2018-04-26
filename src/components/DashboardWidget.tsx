@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import {
   Chart,
   Layer,
@@ -23,10 +24,6 @@ import {
   WidgetHeader,
 } from '@src/styled';
 
-export interface DashboardWidgetSelectorInterface {
-  SeriesDataCollection: any,
-  widget_name: WidgetInterface['widget_name'],
-}
 
 export interface DashboardWidgetProps {
   SeriesDataCollection: any,
@@ -69,8 +66,6 @@ React.SFC<DashboardWidgetProps> = (props) => {
       data: SeriesDataCollection,
     }
   ];
-
-  console.log('series:', series[0].data.length);
 
 
   /**

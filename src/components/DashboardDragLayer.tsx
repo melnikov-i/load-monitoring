@@ -4,8 +4,8 @@ import {
   DashboardInterface
 } from '@src/interfaces';
 
-import DashboardWidgetConnected from
-  '@src/usage/DashboardWidgetUsage';
+import DashboardDragWidgetConnected from
+  '@src/usage/DashboardDragWidgetUsage';
 
 import {
   MENU_LAYOUT_BIG_WIDTH,
@@ -100,16 +100,10 @@ extends React.Component<DashboardDragLayerPros> {
               * ${getPreviewWidth(width)})`,
           }}
         >
-          <DashboardWidgetConnected
+          <DashboardDragWidgetConnected
             widget_name={widget_name}
             width={'100'}
             margin={undefined}
-            elements={{
-              dashboard_id: '',
-              element: '',
-              collection: [],
-            }}
-            makeSeriesDataRequestFromAPI={undefined}
           />
         </div>
       );

@@ -27,7 +27,7 @@ export const DashboardStaticContainer:
 React.SFC<DashboardStaticContainerProps> = (props) => {
   const { width, widgets, elements } = props;
 
-
+  
   return (
     <WidgetsLayout>
       {/* Контейнер с виджетами */}

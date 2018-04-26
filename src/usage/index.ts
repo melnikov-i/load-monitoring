@@ -13,6 +13,7 @@ export * from './DashboardStaticContainerUsage';
 export * from './DashboardGridSettingsUsage';
 export * from './DashboardDragLayerUsage';
 export * from './DashboardWidgetUsage';
+export * from './DashboardDragWidgetUsage';
 
 
 

@@ -15,8 +15,8 @@ import {
 } from '@src/libs';
 
 
-// import DashboardWidgetConnected from
-//   '@src/usage/DashboardWidgetUsage';
+import DashboardDragWidgetConnected from
+  '@src/usage/DashboardDragWidgetUsage';
 
 
 export interface DashboardDragItemProps {
@@ -43,13 +43,10 @@ React.SFC<DashboardDragItemProps> = ( props ) => {
     isDragging,
     connectDragSource,
     connectDropTarget,
-    // widget_name,
+    widget_name,
     width,
     margin,
-    // id
   } = props;
-
-  
 
 
   const style = { // Widget
@@ -66,10 +63,10 @@ React.SFC<DashboardDragItemProps> = ( props ) => {
 
   
   if ( !connectDragSource || !connectDropTarget ) return null;
+
   
   return (
     <div
-      id={''} // ID
       style={{
         display: 'block',
         position: 'relative',
@@ -90,23 +87,17 @@ React.SFC<DashboardDragItemProps> = ( props ) => {
         )
       )}
         <div
+          id={''} // ID
           style={{
             opacity: isDragging ? 0 : 1,
           }}
         >
-
+          <DashboardDragWidgetConnected
+            widget_name={widget_name}
+            width={'100'}
+            margin={undefined}
+          />        
         </div>
     </div>
   );
 };
-          // <DashboardWidgetConnected
-          //   widget_name={widget_name}
-          //   width={'100'}
-          //   margin={undefined}
-          //   elements={{
-          //     dashboard_id: '',
-          //     element: '',
-          //     collection: [],
-          //   }}
-          //   makeSeriesDataRequestFromAPI={undefined}
-          // />
