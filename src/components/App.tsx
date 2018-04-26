@@ -5,7 +5,6 @@
  * с бэкэнда, подгружается либо основная страница, либо страница
  * авторизации.
  */
-
 import * as React from 'react';
 import { injectGlobal } from 'styled-components';
 import {
@@ -14,26 +13,22 @@ import {
   Redirect,
 } from 'react-router-dom';
 
-
 /* импорт шрифтов FontAwesome */
-
 const FontAwesomeEOT = require('@src/fonts/fontawesome-webfont.eot');
 const FontAwesomeWOFF2 = require('@src/fonts/fontawesome-webfont.woff2');
 const FontAwesomeWOFF = require('@src/fonts/fontawesome-webfont.woff');
 const FontAwesomeTTF = require('@src/fonts/fontawesome-webfont.ttf');
 const FontAwesomeSVG = require('@src/fonts/fontawesome-webfont.svg');
 
-
-/*
+/**
  * Компоненты, подгружаемые в процессе проверки авторизации 
  */
-
 import MainConnected from '@src/usage/MainUsage';
 import LoginConnected from '@src/usage/LoginUsage';
 
-
-/* Глобальные стили */
-
+/**
+ *  Глобальные стили 
+ */
 injectGlobal`
   * {
     margin: 0;
@@ -70,7 +65,6 @@ injectGlobal`
     font-style: normal;
   }
 `;
-
 
 interface AppProps {
   isAuthorized: boolean,
