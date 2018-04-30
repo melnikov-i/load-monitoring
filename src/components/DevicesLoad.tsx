@@ -1,19 +1,19 @@
 import * as React from 'react';
 
 import {
-  DevicesLoadLayout,
-  DevicesLoadInfo,
-  DevicesLoadInfoSpan,
+  // DevicesLoadLayout,
+  // DevicesLoadInfo,
+  // DevicesLoadInfoSpan,
 } from '@src/styled';
 
 import {
   DevicesTableInterface,
-  LoadParamsInterface
+  // LoadParamsInterface
 } from '@src/interfaces';
 
 interface DevicesLoadProps {
   id: DevicesTableInterface['to'],
-  DevicesLoadCurrentItem: LoadParamsInterface,
+  // DevicesLoadCurrentItem: LoadParamsInterface,
   makeDevicesLoadItemRequestFromAPI:
   ( payload: DevicesTableInterface['to'] ) => any,
 }
@@ -21,32 +21,32 @@ interface DevicesLoadProps {
 export const DevicesLoad: React.SFC<DevicesLoadProps> = (props) => {
   const {
     id,
-    DevicesLoadCurrentItem,
+    // DevicesLoadCurrentItem,
     makeDevicesLoadItemRequestFromAPI,
   } = props;
 
   makeDevicesLoadItemRequestFromAPI(id);
 
-  if ( DevicesLoadCurrentItem !== undefined ) {
-    return (
-      <DevicesLoadLayout>
-        {(DevicesLoadCurrentItem.loading.cpu === '')
-          ? <DevicesLoadInfo>{'Нет связи'}</DevicesLoadInfo>
-          : <DevicesLoadInfo>
-              <DevicesLoadInfoSpan>{ 'CPU:' }</DevicesLoadInfoSpan>
-              { DevicesLoadCurrentItem.loading.cpu + '%' }
-            </DevicesLoadInfo>
-        }
-        {(DevicesLoadCurrentItem.loading.cpu !== '')
-          ? <DevicesLoadInfo>
-              <DevicesLoadInfoSpan>{ 'RAM:' }</DevicesLoadInfoSpan>
-              { DevicesLoadCurrentItem.loading.ram + '%' }
-            </DevicesLoadInfo>
-          : null
-        }
-      </DevicesLoadLayout>
-    );    
-  } else {
+  // if ( DevicesLoadCurrentItem !== undefined ) {
+  //   return (
+  //     <DevicesLoadLayout>
+  //       {(DevicesLoadCurrentItem.loading.cpu === '')
+  //         ? <DevicesLoadInfo>{'Нет связи'}</DevicesLoadInfo>
+  //         : <DevicesLoadInfo>
+  //             <DevicesLoadInfoSpan>{ 'CPU:' }</DevicesLoadInfoSpan>
+  //             { DevicesLoadCurrentItem.loading.cpu + '%' }
+  //           </DevicesLoadInfo>
+  //       }
+  //       {(DevicesLoadCurrentItem.loading.cpu !== '')
+  //         ? <DevicesLoadInfo>
+  //             <DevicesLoadInfoSpan>{ 'RAM:' }</DevicesLoadInfoSpan>
+  //             { DevicesLoadCurrentItem.loading.ram + '%' }
+  //           </DevicesLoadInfo>
+  //         : null
+  //       }
+  //     </DevicesLoadLayout>
+  //   );    
+  // } else {
     return null;
-  }
+  // }
 };

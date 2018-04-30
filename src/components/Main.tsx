@@ -227,6 +227,7 @@ export const Main: React.SFC<MainProps> = (props) => {
   const smallScreenMenuOpenedHandler = 
   (e: React.MouseEvent<HTMLAnchorElement>) => {
     switchMenuOnSmallScreens();
+    console.log('e:', e);
   };
 
 

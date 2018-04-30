@@ -10,20 +10,20 @@ import {
 import { DevicesLoad } from '@src/components';
 
 import {
-  LoadParamsInterface,
+  // LoadParamsInterface,
   DevicesLoadCurrentItemInterface
 } from '@src/interfaces';
 
 import {
-  DevicesLoadCurrentItemSelector,
+  // DevicesLoadCurrentItemSelector,
 } from '@src/selectors';
 
 
 const mapStateToProps = createStructuredSelector<RootState, 
 DevicesLoadCurrentItemInterface, {
-    DevicesLoadCurrentItem: LoadParamsInterface,
+    // DevicesLoadCurrentItem: LoadParamsInterface,
   }>({
-    DevicesLoadCurrentItem: DevicesLoadCurrentItemSelector,
+    // DevicesLoadCurrentItem: DevicesLoadCurrentItemSelector,
   });
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({

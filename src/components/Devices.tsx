@@ -40,8 +40,8 @@ import { Spinner } from '@src/components';
 import { DroppedMenu } from '@src/libs';
 import DevicesLoadConnected from 
   '@src/usage/DevicesLoadUsage';
-import DevicesStatusConnected from 
-  '@src/usage/DevicesStatusUsage';
+// import DevicesStatusConnected from 
+//   '@src/usage/DevicesStatusUsage';
 import MainHeaderConnected from
   '@src/usage/MainHeaderUsage';
 
@@ -239,7 +239,7 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
                             to={e.to}
                             onClick={tableLinkHandler}
                           >
-                            <DevicesStatusConnected id={e.to} />
+                            {/* <DevicesStatusConnected id={e.to} /> */}
                           </DevicesTableBodyLink>
                         </DevicesTableBodyColl>
                         <DevicesTableBodyColl 

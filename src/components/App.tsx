@@ -23,7 +23,7 @@ const FontAwesomeSVG = require('@src/fonts/fontawesome-webfont.svg');
 /**
  * Компоненты, подгружаемые в процессе проверки авторизации 
  */
-// import MainConnected from '@src/usage/MainUsage';
+import MainConnected from '@src/usage/MainUsage';
 import LoginConnected from '@src/usage/LoginUsage';
 
 /**
@@ -83,7 +83,7 @@ export const App: React.SFC<AppProps> = (props) => {
       )} />
       <Route path={'/'} render={() => (
         isAuthorized ? (
-          null// <MainConnected />
+          <MainConnected />
         ) : (
           <Redirect to={'/login'} />
         )

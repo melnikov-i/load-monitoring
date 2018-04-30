@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { Dispatch, RootState } from '@src/redux';
+// import { createStructuredSelector, Selector } from 'reselect';
+import { Dispatch } from '@src/redux';
 import { withRouter } from 'react-router-dom';
 
 import { MainHeader } from '@src/components';
@@ -16,7 +16,22 @@ import {
 
 import {} from '@src/selectors';
 
-const mapStateToProps = createStructuredSelector<RootState, {}>({});
+import {
+  MainHeaderInterface,
+} from '@src/interfaces';
+
+type StateProps = {};
+
+interface DispatchProps {
+  mainHeaderButtonSwitch: () => any,
+  switchPageMenuItemActive: ( payload: string ) => any
+}
+
+interface OwnProps {
+  data: MainHeaderInterface,
+}
+
+// const mapStateToProps = createStructuredSelector<RootState, {}>({});
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
   mainHeaderButtonSwitch: syncActionCreators.mainHeaderButtonSwitch,
@@ -25,5 +40,5 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
 
 export const MainHeaderConnected = 
   withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(MainHeader) as any
+    connect<StateProps, DispatchProps, OwnProps>(null, mapDispatchToProps)(MainHeader)
   );

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 
 import {
   MainHeaderLayout,
@@ -15,7 +16,7 @@ import {
   MainHeaderInterface
 } from '@src/interfaces';
 
-interface MainHeaderProps {
+interface MainHeaderProps extends RouteComponentProps<void> {
   data: MainHeaderInterface,
   MainHeaderButtonWasClicked: boolean,
   mainHeaderButtonSwitch: () => any,
