@@ -2,7 +2,6 @@
  * Компонент страницы авторизации. Отображает форму авторизации.
  * 
  */
-
 import * as React from 'react';
 
 import {
@@ -24,9 +23,7 @@ import {
   LoginFormStateInterface
 } from '@src/interfaces';
 
-
 /* Импорт компонента спиннера для отображения процесса загрузки */
-
 import { Spinner } from '@src/components';
 
 
@@ -50,19 +47,15 @@ export const Login: React.SFC<LoginProps> = (props) => {
     LoginFormState,
     sendUserCredentialToAPI,
   } = props;
-
   
   /* При вводе символа в поле, отправляет этот символ в store */
-
   const updateLoginValue = 
   (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     changeLoginValue(e.currentTarget.value);
   };
 
-
   /* При вводе символа в поле, отправляет этот символ в store */
-
   const updatePasswordValue = 
   (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();

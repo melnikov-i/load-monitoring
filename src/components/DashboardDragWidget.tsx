@@ -103,8 +103,8 @@ React.SFC<DashboardDragWidgetProps> = (props) => {
                       cursor: 'pointer',
                     }}
                     barAttributes={{
-                      onMouseMove: e => e.target.style.fillOpacity = 1,
-                      onMouseLeave: e => e.target.style.fillOpacity = .7,
+                      onMouseMove: (e: any) => e.target.style.fillOpacity = 1,
+                      onMouseLeave: (e: any) => e.target.style.fillOpacity = .7,
                     }}
                   />
               </Layer>

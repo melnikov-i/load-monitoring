@@ -47,5 +47,5 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
 
 export const DevicesConnected = 
   withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(Devices)
+    connect(mapStateToProps, mapDispatchToProps)(Devices) as any
   );

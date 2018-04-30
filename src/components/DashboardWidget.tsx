@@ -139,7 +139,7 @@ React.SFC<DashboardWidgetProps> = (props) => {
      */
 
     let index = -1;
-    root.childNodes.forEach((node, i) => {
+    root.childNodes.forEach((node: any, i: number) => {
       if ( node === parent ) index = i
     });
 
@@ -240,8 +240,8 @@ React.SFC<DashboardWidgetProps> = (props) => {
                       cursor: 'pointer',
                     }}
                     barAttributes={{
-                      onMouseMove: e => e.target.style.fillOpacity = 1,
-                      onMouseLeave: e => e.target.style.fillOpacity = .7,
+                      onMouseMove: (e: any) => e.target.style.fillOpacity = 1,
+                      onMouseLeave: (e: any) => e.target.style.fillOpacity = .7,
                     }}
                   />
                 </Handlers>

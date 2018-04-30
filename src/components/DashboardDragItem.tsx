@@ -52,23 +52,22 @@ React.SFC<DashboardDragItemProps> = ( props ) => {
   const style = { // Widget
     border: isDragging ? '1px dashed gray' : 'none',
     backgroundColor: isDragging ? 'lightgray' : 'transparent',
-    boxSizing: 'border-box',
     width: getWidth(width),
     display: 'inline-block',
     verticalAlign: 'top',
     marginRight: checkPosition(Number(width), margin)
-      ? ( width === '1' ) ? '0' : '2%' : '0',
+    ? ( width === '1' ) ? '0' : '2%' : '0',
     marginBottom: ( width === '1' ) ? '20px' : '2%',
   };
-
+  
   
   if ( !connectDragSource || !connectDropTarget ) return null;
-
+  
   
   return (
     <div
-      style={{
-        display: 'block',
+    style={{
+        boxSizing: 'border-box',
         position: 'relative',
         ...style
       }}

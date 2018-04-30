@@ -6,14 +6,11 @@ import {
   ElementsOfDashboardCollectionInterface
 } from '@src/interfaces';
 
-
 import { Dispatch } from '@src/redux';
-
 
 import {
   syncActionCreators as loginActionCreators
 } from '@src/redux/login';
-
 
 import {
   syncActionCreators as mainHeadActionCreators
@@ -37,7 +34,6 @@ export const PUT_ELEMENTS_OF_DASHBOARD_COLLECTION_IN_STORE =
   'PUT_ELEMENTS_OF_DASHBOARD_COLLECTION_IN_STORE';
 export const PUT_SERIES_ITEM_FROM_API_TO_STORE =
   'PUT_SERIES_ITEM_FROM_API_TO_STORE';
-
 
 export type Actions = {
   SWITCH_DASHBOARD_STATE_KEY_VALUE: {
@@ -78,8 +74,9 @@ export type Actions = {
   }
 };
 
-
-// Sync Action Creators
+/**
+ * Sync Action Creators
+ */
 export const syncActionCreators = {
   switchDashboardStateKeyValue: ( payload: string ):
   Actions[typeof SWITCH_DASHBOARD_STATE_KEY_VALUE] => ({
@@ -124,25 +121,24 @@ export const syncActionCreators = {
   }),
 };
 
+/**
+ * Возвращает цвет столбца. 
+ *
+ * @param {number} y
+ * @return {string}
+ */
 
-  /**
-   * Возвращает цвет столбца. 
-   *
-   * @param {number} y
-   * @return {string}
-   */
-
-  const getColor = ( y: number ) => {
-    if ( y >= 90 ) {
-      return '#ec4758'; // red    
+const getColor = ( y: number ) => {
+  if ( y >= 90 ) {
+    return '#ec4758'; // red    
+  } else {
+    if ( y >= 50 ) {
+      return '#f8ac59'; // orange
     } else {
-      if ( y >= 50 ) {
-        return '#f8ac59'; // orange
-      } else {
-        return '#1ab394'; // green
-      }
+      return '#1ab394'; // green
     }
-  };
+  }
+};
 
 
 /**
@@ -297,7 +293,8 @@ dispatch: Dispatch) => {
             dashboard.dash_data.forEach(( node ) => (
               SeriesData = {
                 ...SeriesData,
-                [node.widget_name]: response.data.map((e, i) => ({
+                [node.widget_name]: response.data.map(
+                  (e: any, i: number) => ({
                     y: (node.widget_name.substring(0, 3) !== 'net') ?
                       Number(e[node.widget_name]) : 0,
                     x: i,

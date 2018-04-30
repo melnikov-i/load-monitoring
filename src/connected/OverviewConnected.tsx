@@ -47,5 +47,5 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
 
 export const OverviewConnected = 
   withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(Overview)
+    connect(mapStateToProps, mapDispatchToProps)(Overview) as any
   );

@@ -16,9 +16,9 @@ export const DevicesItemsWasRequestedFromAPISelector =
     ( DevicesItemsWasRequestedFromAPI ) => DevicesItemsWasRequestedFromAPI,
   );
 
-export const DevicesLoadCurrentItemSelector =
-  createSelector(
-    ( state: RootState, ownProps: DevicesLoadCurrentItemInterface ) => 
+export const DevicesLoadCurrentItemSelector = createSelector(
+    ( state: RootState, 
+      ownProps: DevicesLoadCurrentItemInterface ) => 
       state.devices.DevicesLoadCollection[ownProps.id],
     ( DevicesLoadCollection ) => DevicesLoadCollection,
   );

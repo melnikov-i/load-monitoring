@@ -16,4 +16,4 @@ const mapStateToProps = createStructuredSelector<RootState, {
   });
 
 export const AppConnected =
-  withRouter(connect(mapStateToProps, {})(App));
+  withRouter(connect(mapStateToProps, {})(App) as any);

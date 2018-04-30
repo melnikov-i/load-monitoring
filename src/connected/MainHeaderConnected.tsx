@@ -25,5 +25,5 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
 
 export const MainHeaderConnected = 
   withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(MainHeader)
+    connect(mapStateToProps, mapDispatchToProps)(MainHeader) as any
   );

@@ -374,7 +374,7 @@ export const Main: React.SFC<MainProps> = (props) => {
                     to={'/' + e.to}
                     title={e.value}
                     onClick={(e.to === 'exit')
-                      ? pageHeaderExitLinkHandler : null
+                      ? pageHeaderExitLinkHandler : undefined
                     }
                   >
                     { e.value }

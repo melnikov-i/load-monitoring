@@ -167,7 +167,7 @@ export const reducer = combineReducers({
             ...newState,
             [node]: [
               action.payload[node],
-              ...state[node].slice(0, 59).map(e => ({
+              ...state[node].slice(0, 59).map((e: any) => ({
                 y: e.y,
                 x: e.x - 1,
                 color: e.color,

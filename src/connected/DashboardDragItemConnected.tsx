@@ -66,12 +66,12 @@ ReactDnd.DropTargetSpec<DashboardDragItemProps> = {
   hover: ( props: DashboardDragItemProps,
   monitor: ReactDnd.DropTargetMonitor ) => {
     /* ID перемещаемого виджета */
-    const draggedId: string = monitor.getItem()['id'];
+    const draggedId: any = monitor.getItem(); // monitor.getItem()['id']
     /* ID виджета, на который передвиули перемещаемый виджет */
     const overId: string = props.id;
     if ( draggedId !== overId ) {
       /* Индекс перемещаемого виджета */
-      const sourceIndex: number = Number(props.findWidget(draggedId));
+      const sourceIndex: number = Number(props.findWidget(draggedId['id']));
       /* Индекс целевого виджета */
       const targetIndex: number = Number(props.findWidget(overId));
       /* Функция перемещения виджетов */
