@@ -22,7 +22,6 @@ export type Actions = {
   USER_IS_AUTHORIZED: {
     type: typeof USER_IS_AUTHORIZED,
   },
-
   USER_WAS_LOGOUT: {
     type: typeof USER_WAS_LOGOUT,
   },

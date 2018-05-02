@@ -81,57 +81,103 @@ export type Actions = {
 
 // Sync Action Creators
 export const syncActionCreators = {
+  /**
+   * Ключ. Сообщает приложению о том, что запрос основного меню
+   * в прцоессе. Ожидается ответ от сервера.
+   */
   mainMenuWasRequestedFromAPI: ():
-    Actions[typeof MAIN_MENU_WAS_REQUESTED_FROM_API] => ({
-      type: MAIN_MENU_WAS_REQUESTED_FROM_API,
-    }),
-  allMenusWasResponsedFromAPI: ():
-    Actions[typeof ALL_MENUS_WAS_RESPONSED_FROM_API] => ({
-      type: ALL_MENUS_WAS_RESPONSED_FROM_API,
-    }),
-  putMainMenuFromAPIToCollection:
-    (payload: MainMenuLinksInterface[]):
-      Actions[typeof PUT_MAIN_MENU_FROM_API_TO_COLLECTION] => ({
-        type: PUT_MAIN_MENU_FROM_API_TO_COLLECTION, payload
-      }),
-  putUserMenuFromAPIToCollection:
-    (payload: UserInterface):
-      Actions[typeof PUT_USER_MENU_FROM_API_TO_COLLECTION] => ({
-        type: PUT_USER_MENU_FROM_API_TO_COLLECTION, payload,
-      }),
+  Actions[typeof MAIN_MENU_WAS_REQUESTED_FROM_API] => ({
+    type: MAIN_MENU_WAS_REQUESTED_FROM_API,
+  }),
+  
+  /**
+   * Ключ. Сообщает приложению о том, что запрос меню устройств
+   * в прцоессе. Ожидается ответ от сервера.
+   */
   devicesMenuWasRequestedFromAPI: ():
-    Actions[typeof DEVICES_MENU_WAS_REQUESTED_FROM_API] => ({
-      type: DEVICES_MENU_WAS_REQUESTED_FROM_API,
-    }),
-  putDevicesMenuFromAPIToCollection:
-    (payload: MainMenuLinksInterface[]):
-      Actions[typeof PUT_DEVICES_MENU_FROM_API_TO_COLLECTION] => ({
-        type: PUT_DEVICES_MENU_FROM_API_TO_COLLECTION, payload,
-      }),
-  changeDroppedMenuClickedId:
-    (payload: DroppedMenuButtonClickedType):
-      Actions[typeof CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID] => ({
-        type: CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID, payload,
-      }),
-  changeUserAgent: (): Actions[typeof CHANGE_USER_AGENT] => ({
+  Actions[typeof DEVICES_MENU_WAS_REQUESTED_FROM_API] => ({
+    type: DEVICES_MENU_WAS_REQUESTED_FROM_API,
+  }),
+  
+  /**
+   * Ключ. Сообщает приложению о том, что все меню загружены
+   */
+  allMenusWasResponsedFromAPI: ():
+  Actions[typeof ALL_MENUS_WAS_RESPONSED_FROM_API] => ({
+    type: ALL_MENUS_WAS_RESPONSED_FROM_API,
+  }),
+  
+  /**
+   * Помещает полученное от сервера основное меню в редьюсер
+   */
+  putMainMenuFromAPIToCollection: (payload: MainMenuLinksInterface[]):
+  Actions[typeof PUT_MAIN_MENU_FROM_API_TO_COLLECTION] => ({
+    type: PUT_MAIN_MENU_FROM_API_TO_COLLECTION, payload
+  }),
+  
+  /**
+   * Помещает полученное от сервера пользовательское меню в редьюсер
+   */
+  putUserMenuFromAPIToCollection: (payload: UserInterface):
+  Actions[typeof PUT_USER_MENU_FROM_API_TO_COLLECTION] => ({
+    type: PUT_USER_MENU_FROM_API_TO_COLLECTION, payload,
+  }),
+  
+  /**
+   * Помещает полученное от сервера меню устройств в редьюсер
+   */
+  putDevicesMenuFromAPIToCollection: (payload: MainMenuLinksInterface[]):
+  Actions[typeof PUT_DEVICES_MENU_FROM_API_TO_COLLECTION] => ({
+    type: PUT_DEVICES_MENU_FROM_API_TO_COLLECTION, payload,
+  }),
+  
+  /**
+   * Меняет в редьюсере ИД выбранного выпадающего меню на только что выбранное
+   */
+  changeDroppedMenuClickedId: (payload: DroppedMenuButtonClickedType):
+  Actions[typeof CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID] => ({
+    type: CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID, payload,
+  }),
+  
+  /**
+   * Ключ. По нему определяется, используется ли пользователем
+   * браузер Firefox. Нужен для кроссбраузерной верстки таблицы устройств
+   */
+  changeUserAgent:  (): Actions[typeof CHANGE_USER_AGENT] => ({
     type: CHANGE_USER_AGENT,
   }),
+  
+  /**
+   * Ключ. Срабатывает при нажатии на кнопку "Меню", которая 
+   * отображается на экранах малого размера.
+   */
   switchMenuOnSmallScreens: ():
-    Actions[typeof SWITCH_MENU_ON_SMALL_SCREENS] => ({
-      type: SWITCH_MENU_ON_SMALL_SCREENS,
-    }),
+  Actions[typeof SWITCH_MENU_ON_SMALL_SCREENS] => ({
+    type: SWITCH_MENU_ON_SMALL_SCREENS,
+  }),
+  
+  /**
+   * Изменяет ИД активного простого пункта основного меню
+   */
   switchPageMenuItemActive: (payload: string):
-    Actions[typeof SWITCH_PAGE_MENU_ITEM_ACTIVE] => ({
-      type: SWITCH_PAGE_MENU_ITEM_ACTIVE, payload,
-    }),
+  Actions[typeof SWITCH_PAGE_MENU_ITEM_ACTIVE] => ({
+    type: SWITCH_PAGE_MENU_ITEM_ACTIVE, payload,
+  }),
+  
+  /**
+   * Изменяет ИД активного составного пункта меню
+   */
   switchPageMenuItemMultiActive: (payload: string):
-    Actions[typeof SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE] => ({
-      type: SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE, payload,
-    }),
+  Actions[typeof SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE] => ({
+    type: SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE, payload,
+  }),
 };
 
 // Async Action Creators
 export const asyncActionCreators = {
+  /**
+   * Запрашивает у сервера основное меню.
+   */
   makeMainMenuRequestToAPI: () => {
     return ( dispatch: Dispatch ) => {
       dispatch(
@@ -178,6 +224,10 @@ export const asyncActionCreators = {
         );
     }
   },
+
+  /**
+   * Запрашивает у сервера меню устройств
+   */
   makeDevicesMenuRequestToAPI: () => {
     return ( dispatch: Dispatch ) => {
       dispatch(

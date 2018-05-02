@@ -2,7 +2,6 @@
  * Компонент, в котором реализовано основное меню и роутинг между
  * остальными компонентами.
  */
-
 import * as React from 'react';
 import {
   Route,
@@ -48,7 +47,9 @@ import {
   PageSubMenuCloseAnchor,
 } from '@src/styled';
 
-/* Компоненты для подгрузки с помощью роутера */
+/**
+ *  Компоненты для подгрузки с помощью роутера 
+ */
 // import DashboardConnected from '@src/usage/DashboardUsage';
 // import DevicesConnected from '@src/usage/DevicesUsage';
 // import OverviewConnected from '@src/usage/OverviewUsage';
@@ -101,16 +102,13 @@ export const Main: React.SFC<MainProps> = (props) => {
     makeDevicesMenuRequestToAPI,
   } = props;
 
-  
   /**
    * Выполняет проверку наличия основного меню в Store.
    * при отсутствии запускает action makeMainMenuRequestToAPI(),
    * который выполняет запрос меню в actions. Возвращает коллекцию
    * элементов основного меню.
-   *
    * @return {MainMenuLinksInterface[]}
    */
-
   const getMainMenu = (): MainMenuLinksInterface[] => {
     if ( !MainMenuWasRequestedFromAPI ) {
       makeMainMenuRequestToAPI();
@@ -127,10 +125,8 @@ export const Main: React.SFC<MainProps> = (props) => {
    * при отсутствии запускает action makeDevicesMenuRequestToAPI(),
    * который выполняет запрос меню в actions. Возвращает коллекцию
    * элементов меню устройств.
-   *
    * @return {MainMenuLinksInterface[]}
    */
-
   const getDevicesMenu = (): MainMenuLinksInterface[] => {
     if ( !DevicesMenuWasRequestedFromAPI ) {
       makeDevicesMenuRequestToAPI();
@@ -151,14 +147,10 @@ export const Main: React.SFC<MainProps> = (props) => {
     );
   }
 
-  // console.log('AllMenusWasResponsedFromAPI:', AllMenusWasResponsedFromAPI);
-
-
   /**
    * Покажет компонент после загрузки меню устройств 
    * (грузится последним) 
    */  
-  
   const {
     UserMenuItemsCollection,
     DroppedMenuButtonClickedId,
@@ -172,19 +164,15 @@ export const Main: React.SFC<MainProps> = (props) => {
     switchPageMenuItemMultiActive
   } = props;
 
-
   /* Вспомогательные функции */
 
   /**
    * Проверяет, содержит ли пункт меню вложенное подменю.
-   * 
    * Содержит в себе коллекцию элементов основного меню, 
    * у которых есть вложенные подменю.
-   *
    * @param {string} to
    * @return {boolean}
    */
-
   const isMultiplePageMenuItem = (to: string): boolean => {
     const items: string[] = [
       'devices',
@@ -199,15 +187,12 @@ export const Main: React.SFC<MainProps> = (props) => {
     return key;
   };
 
-
   /* Обработчики событий */
 
   /**
    * Отправляет в бекэнд команду на завершение сессии
-   *
    * @return {undefined}
    */
-
   const pageHeaderExitLinkHandler = () => {
     const payload: LogOunInterface = {
       step: 'exit',
@@ -215,31 +200,23 @@ export const Main: React.SFC<MainProps> = (props) => {
     sendLogOutToAPI(payload);
   };
 
-
   /**
    * Отправляет в Store команду на смену значения ключа,
    * который используется для формирования ширины элементов
    * страницы с помощью isMenuOpenedOnSmallScreen.
-   *
    * @param {React.MouseEvent<T>} e
    * @return {undefined}
    */
-
-  const smallScreenMenuOpenedHandler = 
-  (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const smallScreenMenuOpenedHandler = () => {
     switchMenuOnSmallScreens();
-    console.log('e:', e);
   };
-
 
   /**
    * Отправляет в Store идентификатор активного простого элемента
    * основного меню.
-   *
    * @param {React.MouseEvent<T>} e
    * @return {undefined}
    */
-
   type MouseEventGenericType = 
     | HTMLLIElement
     | HTMLUListElement
@@ -252,15 +229,12 @@ export const Main: React.SFC<MainProps> = (props) => {
     switchPageMenuItemActive(current);
   };
 
-
   /**
    * Отправляет в Store идентификатор активного составного элемента
    * основного меню.
-   *
    * @param {React.MouseEvent<T>} e
    * @return {undefined}
    */
-
   const PageMenuItemMultiActiveHandler =
   ( e: React.MouseEvent<MouseEventGenericType> ) => {
     const current: string = 
@@ -276,10 +250,8 @@ export const Main: React.SFC<MainProps> = (props) => {
    * Возвращает стиль активного меню для NavLink. Необходим для показа
    * активного элемента меню согласно react-router до того, как будет нажат
    * какой-нибудь пункт меню (сразу после загрузки страницы).
-   *
    * @return {Object}
    */
-
   const PageMenuItemActiveStyle = () => {
     if ( PageMenuItemActive !== '') 
       return {};
@@ -291,15 +263,12 @@ export const Main: React.SFC<MainProps> = (props) => {
     };
   };
 
-
   /**
    * Возвращает коллекцию с элементами подменю для текущего элемента
    * основного меню.
-   *
    * @param {string} to
    * @return {Array}
    */
-
   const getSubMenu = (to: string) => {
     switch ( to ) {
       case 'devices': return devicesMenu;
@@ -310,11 +279,9 @@ export const Main: React.SFC<MainProps> = (props) => {
   /**
    * Возвращает значение пункта подменю, не входящего в
    * коллекцию элементов подменю.
-   *
    * @param {string} to
    * @return {string}
    */
-
   const getSubMenuTitle = ( to: string ) => {
     switch ( to ) {
       case 'devices': return 'Все устройства';
@@ -326,11 +293,9 @@ export const Main: React.SFC<MainProps> = (props) => {
   /**
    * Возвращает индекс активного подменю на основе поля e.to
    * в цикле перебора элементов подменю
-   *
    * @param {string} to
    * @return {string}
    */
-
   const getSubMenuIndex = ( to: string ) => {
     switch ( to ) {
       case 'devices': return '4';
@@ -338,7 +303,6 @@ export const Main: React.SFC<MainProps> = (props) => {
       default: return '4'
     }
   }
-
 
   return (
     <PageLayout>
@@ -387,13 +351,11 @@ export const Main: React.SFC<MainProps> = (props) => {
           </PageLogo>
         </PageLogoWrapper>
         <PageMenuLayout>
-          {
-            mainMenu.map((e, i) => {
+          {mainMenu.map((e, i) => {
               /**
                * Построение основного меню страницы на основе коллекции 
                * элементов основного меню.
                */
-
               if ( isMultiplePageMenuItem(e.to) ) {
                 /* Пункт меню содержит подменю */
                 
@@ -403,7 +365,6 @@ export const Main: React.SFC<MainProps> = (props) => {
                 const subMenuHeight: string = 
                   ( subMenu.length !== 0 )
                     ? String(subMenu.length * 32 + 42) : '42';
-
                 return (
                   <PageMenuItem
                     key={i}
@@ -533,15 +494,12 @@ export const Main: React.SFC<MainProps> = (props) => {
               );
             })}
             <Route exact path={'/'} render={() => (
-                
                 /**
                  * При обращении к строго корню сайта, запрос 
                  * перенаправляется на /overview 
                  */
-                
                 <Redirect to={'/overview'} />
-              )
-            }
+              )}
             />
           </Switch>
         </PageContent>

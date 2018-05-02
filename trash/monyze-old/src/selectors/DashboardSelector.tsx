@@ -7,11 +7,11 @@ import {
 } from '@src/components';
 
 /* Модель дашборда для статического отображения */
-export const DashboardStaticModelSelector =
-  createSelector(
-    ( state: RootState ) => state.dashboard.DashboardStaticModel,
-    ( DashboardStaticModel ) => DashboardStaticModel,
-  );
+// export const DashboardStaticModelSelector =
+//   createSelector(
+//     ( state: RootState ) => state.dashboard.DashboardStaticModel,
+//     ( DashboardStaticModel ) => DashboardStaticModel,
+//   );
 
 /* Модель дашборда для конфигурирования */
 export const DashboardDragModelSelector =
@@ -30,19 +30,18 @@ export const SeriesDataCollectionSelector = createSelector(
 
 
 /* имя узла, к которому привязан action makeSeriesDataRequestFromAPI */
-export const ElementsOfDashboardCollectionSelector =
-  createSelector(
-    ( state: RootState ) => 
-      state.dashboard.ElementsOfDashboardCollection,
-    ( ElementsOfDashboardCollection ) => ElementsOfDashboardCollection,
-  );
+// export const ElementsOfDashboardCollectionSelector =
+//   createSelector(
+//     ( state: RootState ) => state.dashboard.ElementsOfDashboardCollection,
+//     ( ElementsOfDashboardCollection ) => ElementsOfDashboardCollection,
+//   );
 
 /* Ключ состояния компонента, используемый для выбора Вида */
-export const DashboardStateKeySelector =
-  createSelector(
-    ( state: RootState ) => state.dashboard.DashboardStateKey,
-    ( DashboardStateKey ) => DashboardStateKey,
-  );
+// export const DashboardStateKeySelector =
+//   createSelector(
+//     ( state: RootState ) => state.dashboard.DashboardStateKey,
+//     ( DashboardStateKey ) => DashboardStateKey,
+//   );
 
 /* Ключ актуальности дашборда при старте страницы */
 export const isDashboardDragModelCopiedSelector =
@@ -59,8 +58,8 @@ export const currentTargetIdSelector =
   );
 
 
-export const MainHeaderButtonWasClickedSelector =
-  createSelector(
-    ( state: RootState ) => state.mainHead.MainHeaderButtonWasClicked,
-    ( MainHeaderButtonWasClicked ) => MainHeaderButtonWasClicked,
-  );
+// export const MainHeaderButtonWasClickedSelector =
+//   createSelector(
+//     ( state: RootState ) => state.mainHead.MainHeaderButtonWasClicked,
+//     ( MainHeaderButtonWasClicked ) => MainHeaderButtonWasClicked,
+//   );

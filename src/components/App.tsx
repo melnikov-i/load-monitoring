@@ -75,7 +75,6 @@ interface AppProps extends RouteComponentProps<void> {
 
 export const App: React.SFC<AppProps> = (props) => {
   const { isAuthorized } = props;
-  console.log(isAuthorized);
   /**
    * Компонент содержит два дочерних. При этом реализован механизм,
    * при котором отобразится только один из них.

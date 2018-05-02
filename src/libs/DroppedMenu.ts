@@ -7,7 +7,6 @@ type EventType =
  * Задает алгоритм поведения открытия и закрытия меню,
  * при котором меню автоматически закрывается при нажатии куда-либо
  * кроме меню.
- *
  * @param {React.MouseEvent<T>} e
  * @param {string} buttonClickedId
  * @param {() => any} action
