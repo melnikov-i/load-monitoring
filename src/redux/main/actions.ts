@@ -1,4 +1,4 @@
-import sendRequestToAPI from '@src/ajax';
+import { sendRequestToAPI } from '@src/libs';
 
 import {
   MainMenuLinksInterface,
@@ -82,52 +82,52 @@ export type Actions = {
 // Sync Action Creators
 export const syncActionCreators = {
   mainMenuWasRequestedFromAPI: ():
-  Actions[typeof MAIN_MENU_WAS_REQUESTED_FROM_API] => ({
-    type: MAIN_MENU_WAS_REQUESTED_FROM_API,
-  }),
+    Actions[typeof MAIN_MENU_WAS_REQUESTED_FROM_API] => ({
+      type: MAIN_MENU_WAS_REQUESTED_FROM_API,
+    }),
   allMenusWasResponsedFromAPI: ():
-  Actions[typeof ALL_MENUS_WAS_RESPONSED_FROM_API] => ({
-    type: ALL_MENUS_WAS_RESPONSED_FROM_API,
-  }),
+    Actions[typeof ALL_MENUS_WAS_RESPONSED_FROM_API] => ({
+      type: ALL_MENUS_WAS_RESPONSED_FROM_API,
+    }),
   putMainMenuFromAPIToCollection:
-  ( payload: MainMenuLinksInterface[] ):
-  Actions[typeof PUT_MAIN_MENU_FROM_API_TO_COLLECTION] => ({
-    type: PUT_MAIN_MENU_FROM_API_TO_COLLECTION, payload
-  }),
+    (payload: MainMenuLinksInterface[]):
+      Actions[typeof PUT_MAIN_MENU_FROM_API_TO_COLLECTION] => ({
+        type: PUT_MAIN_MENU_FROM_API_TO_COLLECTION, payload
+      }),
   putUserMenuFromAPIToCollection:
-  ( payload: UserInterface ):
-  Actions[typeof PUT_USER_MENU_FROM_API_TO_COLLECTION] => ({
-    type: PUT_USER_MENU_FROM_API_TO_COLLECTION, payload,
-  }),
+    (payload: UserInterface):
+      Actions[typeof PUT_USER_MENU_FROM_API_TO_COLLECTION] => ({
+        type: PUT_USER_MENU_FROM_API_TO_COLLECTION, payload,
+      }),
   devicesMenuWasRequestedFromAPI: ():
-  Actions[typeof DEVICES_MENU_WAS_REQUESTED_FROM_API] => ({
-    type: DEVICES_MENU_WAS_REQUESTED_FROM_API,
-  }),
+    Actions[typeof DEVICES_MENU_WAS_REQUESTED_FROM_API] => ({
+      type: DEVICES_MENU_WAS_REQUESTED_FROM_API,
+    }),
   putDevicesMenuFromAPIToCollection:
-  ( payload: MainMenuLinksInterface[] ):
-  Actions[typeof PUT_DEVICES_MENU_FROM_API_TO_COLLECTION] => ({
-    type: PUT_DEVICES_MENU_FROM_API_TO_COLLECTION, payload,
-  }),
+    (payload: MainMenuLinksInterface[]):
+      Actions[typeof PUT_DEVICES_MENU_FROM_API_TO_COLLECTION] => ({
+        type: PUT_DEVICES_MENU_FROM_API_TO_COLLECTION, payload,
+      }),
   changeDroppedMenuClickedId:
-  ( payload: DroppedMenuButtonClickedType ):
-  Actions[typeof CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID] => ({
-    type: CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID, payload,
-  }),
+    (payload: DroppedMenuButtonClickedType):
+      Actions[typeof CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID] => ({
+        type: CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID, payload,
+      }),
   changeUserAgent: (): Actions[typeof CHANGE_USER_AGENT] => ({
     type: CHANGE_USER_AGENT,
   }),
-  switchMenuOnSmallScreens: (): 
-  Actions[typeof SWITCH_MENU_ON_SMALL_SCREENS] => ({
-    type: SWITCH_MENU_ON_SMALL_SCREENS,
-  }),
-  switchPageMenuItemActive: ( payload: string ):
-  Actions[typeof SWITCH_PAGE_MENU_ITEM_ACTIVE] => ({
-    type: SWITCH_PAGE_MENU_ITEM_ACTIVE, payload,
-  }),
-  switchPageMenuItemMultiActive: ( payload: string ):
-  Actions[typeof SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE] => ({
-    type: SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE, payload,
-  }),
+  switchMenuOnSmallScreens: ():
+    Actions[typeof SWITCH_MENU_ON_SMALL_SCREENS] => ({
+      type: SWITCH_MENU_ON_SMALL_SCREENS,
+    }),
+  switchPageMenuItemActive: (payload: string):
+    Actions[typeof SWITCH_PAGE_MENU_ITEM_ACTIVE] => ({
+      type: SWITCH_PAGE_MENU_ITEM_ACTIVE, payload,
+    }),
+  switchPageMenuItemMultiActive: (payload: string):
+    Actions[typeof SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE] => ({
+      type: SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE, payload,
+    }),
 };
 
 // Async Action Creators
@@ -138,8 +138,8 @@ export const asyncActionCreators = {
         syncActionCreators.mainMenuWasRequestedFromAPI()
       );
       sendRequestToAPI.post('/menu_data.php').then(
-        ( response ) => {
-          if ( response.data.menu !== null ) {
+        ( response: any ) => {
+          if (response.data.menu !== null) {
             const menu: MainMenuLinksInterface[] = response.data.menu;
             dispatch(
               syncActionCreators.putMainMenuFromAPIToCollection(menu)
@@ -150,32 +150,32 @@ export const asyncActionCreators = {
             dispatch(
               loginActionCreators.userWasLogOut()
             );
-            const user: UserInterface = {login: ''};
+            const user: UserInterface = { login: '' };
             return user;
           }
         }
       )
-      .then(
-        ( user ) => {
-          dispatch(
-            syncActionCreators.putUserMenuFromAPIToCollection(user)
-          );
-        }
-      )
-      .then(
-        () => {
-          if ( window.navigator.userAgent.indexOf('Firefox') !== -1 ) {
+        .then(
+          ( user: UserInterface ) => {
             dispatch(
-              syncActionCreators.changeUserAgent()
-            )
+              syncActionCreators.putUserMenuFromAPIToCollection(user)
+            );
           }
-        }
-      )
-      .catch(
-        ( error ) => {
-          console.log('[ERROR]:', error);
-        }
-      );
+        )
+        .then(
+          () => {
+            if (window.navigator.userAgent.indexOf('Firefox') !== -1) {
+              dispatch(
+                syncActionCreators.changeUserAgent()
+              )
+            }
+          }
+        )
+        .catch(
+          ( error: any ) => {
+            console.log('[ERROR]:', error);
+          }
+        );
     }
   },
   makeDevicesMenuRequestToAPI: () => {
@@ -184,9 +184,9 @@ export const asyncActionCreators = {
         syncActionCreators.devicesMenuWasRequestedFromAPI()
       );
       sendRequestToAPI.post('/menu_devices.php').then(
-        ( response ) => {
-          if ( response.data.devices_list !== null ) {
-            const devices: MainMenuLinksInterface[] = 
+        ( response: any ) => {
+          if (response.data.devices_list !== null) {
+            const devices: MainMenuLinksInterface[] =
               response.data.devices_list;
             dispatch(
               syncActionCreators.putDevicesMenuFromAPIToCollection(devices)
@@ -201,11 +201,11 @@ export const asyncActionCreators = {
           }
         }
       )
-      .catch(
-        ( error ) => {
-          console.log('[ERROR]:', error);
-        }
-      );
+        .catch(
+          ( error: any ) => {
+            console.log('[ERROR]:', error);
+          }
+        );
     }
   }
 };

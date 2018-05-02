@@ -1,5 +1,9 @@
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import {
+  connect,
+  MapStateToPropsParam,
+  MapDispatchToPropsParam,
+} from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Dispatch, RootState } from '@src/redux';
 import { withRouter } from 'react-router-dom';
@@ -13,46 +17,63 @@ import {
   MainMenuLinksInterface,
   UserMenuInterface,
   DroppedMenuButtonClickedType,
+  LogOunInterface
 } from '@src/interfaces';
 
-import {
-  MainMenuWasRequestedFromAPISelector,
-  AllMenusWasResponsedFromAPISelector,
-  MainMenuItemsCollectionSelector,
-  UserMenuItemsCollectionSelector,
-  DevicesMenuWasRequestedFromAPISelector,
-  DevicesMenuItemsCollectionSelector,
-  DroppedMenuButtonClickedIdSelector,
-  isMenuOpenedOnSmallScreenSelector,
-  PageMenuItemActiveSelector,
-  PageMenuItemMultiActiveSelector,
-} from '@src/selectors';
+interface StateProps {
+  MainMenuWasRequestedFromAPI: boolean,
+  AllMenusWasResponsedFromAPI: boolean,
+  MainMenuItemsCollection: MainMenuLinksInterface[],
+  UserMenuItemsCollection: UserMenuInterface,
+  DevicesMenuWasRequestedFromAPI: boolean,
+  DevicesMenuItemsCollection: MainMenuLinksInterface[],
+  DroppedMenuButtonClickedId: DroppedMenuButtonClickedType,
+  isMenuOpenedOnSmallScreen: boolean,
+  PageMenuItemActive: string,
+  PageMenuItemMultiActive: string,
+}
 
-const mapStateToProps = createStructuredSelector<RootState, {
-    MainMenuWasRequestedFromAPI: boolean,
-    AllMenusWasResponsedFromAPI: boolean,
-    MainMenuItemsCollection: MainMenuLinksInterface[],
-    UserMenuItemsCollection: UserMenuInterface,
-    DevicesMenuWasRequestedFromAPI: boolean,
-    DevicesMenuItemsCollection: MainMenuLinksInterface[],
-    DroppedMenuButtonClickedId: DroppedMenuButtonClickedType,
-    isMenuOpenedOnSmallScreen: boolean,
-    PageMenuItemActive: string,
-    PageMenuItemMultiActive: string,
-  }>({
-    MainMenuWasRequestedFromAPI: MainMenuWasRequestedFromAPISelector,
-    AllMenusWasResponsedFromAPI: AllMenusWasResponsedFromAPISelector,
-    MainMenuItemsCollection: MainMenuItemsCollectionSelector,
-    UserMenuItemsCollection: UserMenuItemsCollectionSelector,
-    DevicesMenuWasRequestedFromAPI: DevicesMenuWasRequestedFromAPISelector,
-    DevicesMenuItemsCollection: DevicesMenuItemsCollectionSelector,
-    DroppedMenuButtonClickedId: DroppedMenuButtonClickedIdSelector,
-    isMenuOpenedOnSmallScreen: isMenuOpenedOnSmallScreenSelector,
-    PageMenuItemActive: PageMenuItemActiveSelector,
-    PageMenuItemMultiActive: PageMenuItemMultiActiveSelector,
+interface DispatchProps {
+  makeMainMenuRequestToAPI: () => any,
+  makeDevicesMenuRequestToAPI: () => any,
+  sendLogOutToAPI: ( payload: LogOunInterface ) => any,
+  changeDroppedMenuClickedId: 
+    ( payload: DroppedMenuButtonClickedType ) => any,
+  switchMenuOnSmallScreens: () => any,
+  switchPageMenuItemActive: ( payload: string ) => any,
+  switchPageMenuItemMultiActive: ( payload: string ) => any,
+}
+
+interface OwnProps {}
+
+const mapStateToProps: 
+MapStateToPropsParam<StateProps, OwnProps, RootState> =
+  createStructuredSelector<RootState, StateProps>({
+    MainMenuWasRequestedFromAPI: 
+      ( state: RootState ) => state.main.MainMenuWasRequestedFromAPI,
+    AllMenusWasResponsedFromAPI: 
+      ( state: RootState ) => state.main.AllMenusWasResponsedFromAPI,
+    MainMenuItemsCollection: 
+      ( state: RootState ) => state.main.MainMenuItemsCollection,
+    UserMenuItemsCollection: 
+      ( state: RootState ) => state.main.UserMenuItemsCollection,
+    DevicesMenuWasRequestedFromAPI: 
+      ( state: RootState ) => state.main.DevicesMenuWasRequestedFromAPI,
+    DevicesMenuItemsCollection: 
+      ( state: RootState ) => state.main.DevicesMenuItemsCollection,
+    DroppedMenuButtonClickedId: 
+      ( state: RootState ) => state.main.DroppedMenuButtonClickedId,
+    isMenuOpenedOnSmallScreen: 
+      ( state: RootState ) => state.main.isMenuOpenedOnSmallScreen,
+    PageMenuItemActive: 
+      ( state: RootState ) => state.main.PageMenuItemActive,
+    PageMenuItemMultiActive: 
+      ( state: RootState ) => state.main.PageMenuItemMultiActive,
   });
 
-const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
+const mapDispatchToProps:
+MapDispatchToPropsParam<DispatchProps, OwnProps> =
+( dispatch: Dispatch ) => bindActionCreators({
   makeMainMenuRequestToAPI: 
     asyncActionCreators.makeMainMenuRequestToAPI,
   makeDevicesMenuRequestToAPI: 
@@ -69,6 +90,6 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
 }, dispatch);
 
 export const MainConnected = 
-  withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(Main) as any
+  withRouter(connect<StateProps, DispatchProps, OwnProps, RootState>(
+    mapStateToProps, mapDispatchToProps)(Main)
   );

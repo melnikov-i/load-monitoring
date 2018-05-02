@@ -12,7 +12,7 @@ export interface LoginFormStateInterface {
   header: string[],
 }
 
-export type LSendingInProgressProps =
-  LoginFormStateInterface['loginFormStateIndex'] 
-  & React.HTMLProps<HTMLButtonElement> 
-  & React.MouseEvent<HTMLButtonElement>;
+// export type LSendingInProgressProps =
+//   LoginFormStateInterface['loginFormStateIndex'] 
+//   & React.HTMLProps<HTMLButtonElement> 
+//   & React.MouseEvent<HTMLButtonElement>;

@@ -7,7 +7,8 @@ import * as React from 'react';
 import {
   Route,
   Switch,
-  Redirect
+  Redirect,
+  RouteComponentProps,
 } from 'react-router-dom';
 
 import {
@@ -48,11 +49,11 @@ import {
 } from '@src/styled';
 
 /* Компоненты для подгрузки с помощью роутера */
-import DashboardConnected from '@src/usage/DashboardUsage';
-import DevicesConnected from '@src/usage/DevicesUsage';
-import OverviewConnected from '@src/usage/OverviewUsage';
+// import DashboardConnected from '@src/usage/DashboardUsage';
+// import DevicesConnected from '@src/usage/DevicesUsage';
+// import OverviewConnected from '@src/usage/OverviewUsage';
 
-interface MainProps {
+interface MainProps extends RouteComponentProps<void> {
   /* Ключ, указывающий, что основное меню было запрошено с бэкэнда */
   MainMenuWasRequestedFromAPI: boolean,
   AllMenusWasResponsedFromAPI: boolean,
@@ -510,14 +511,14 @@ export const Main: React.SFC<MainProps> = (props) => {
               exact path="/overview"
               render={() => {
                 return (
-                  <OverviewConnected />
+                  null // <OverviewConnected />
                 );
               }} 
             />
             <Route
               exact path={'/devices'}
               render={()=> (
-                <DevicesConnected />
+                null // <DevicesConnected />
               )} 
             />
             {devicesMenu.map((e, i) => {
@@ -526,7 +527,7 @@ export const Main: React.SFC<MainProps> = (props) => {
                   key={i}
                   exact path={'/' + e.to}
                   render={() => (
-                    <DashboardConnected id={e.to} />
+                    null // <DashboardConnected id={e.to} />
                   )}
                 />
               );

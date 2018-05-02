@@ -11,24 +11,27 @@ import {
   Route,
   Switch,
   Redirect,
+  RouteComponentProps,
 } from 'react-router-dom';
 
-/* импорт шрифтов FontAwesome */
-const FontAwesomeEOT = require('@src/fonts/fontawesome-webfont.eot');
-const FontAwesomeWOFF2 = require('@src/fonts/fontawesome-webfont.woff2');
-const FontAwesomeWOFF = require('@src/fonts/fontawesome-webfont.woff');
-const FontAwesomeTTF = require('@src/fonts/fontawesome-webfont.ttf');
-const FontAwesomeSVG = require('@src/fonts/fontawesome-webfont.svg');
+/**
+ * импорт шрифтов FontAwesome 
+ */
+const fontAwesomeEOT = require('@src/fonts/fontawesome-webfont.eot');
+const fontAwesomeWOFF2 = require('@src/fonts/fontawesome-webfont.woff2');
+const fontAwesomeWOFF = require('@src/fonts/fontawesome-webfont.woff');
+const fontAwesomeTTF = require('@src/fonts/fontawesome-webfont.ttf');
+const fontAwesomeSVG = require('@src/fonts/fontawesome-webfont.svg');
 
 /**
  * Компоненты, подгружаемые в процессе проверки авторизации 
  */
-import MainConnected from '@src/usage/MainUsage';
 import LoginConnected from '@src/usage/LoginUsage';
+import MainConnected from '@src/usage/MainUsage';
 
 /**
  *  Глобальные стили 
- */
+*/
 injectGlobal`
   * {
     margin: 0;
@@ -55,25 +58,36 @@ injectGlobal`
 
   @font-face {
     font-family: 'FontAwesome';
-    src: url('${FontAwesomeEOT}?v=4.7.0');
-    src: url('${FontAwesomeEOT}?#iefix&v=4.7.0') format('embedded-opentype'), 
-         url('${FontAwesomeWOFF2}?v=4.7.0') format('woff2'), 
-         url('${FontAwesomeTTF}?v=4.7.0') format('truetype'), 
-         url('${FontAwesomeWOFF}?v=4.7.0') format('woff'), 
-         url('${FontAwesomeSVG}?v=4.7.0#fontawesomeregular') format('svg');
+    src: url('${fontAwesomeEOT}?v=4.7.0');
+    src: url('${fontAwesomeEOT}?#iefix&v=4.7.0') format('embedded-opentype'), 
+         url('${fontAwesomeWOFF2}?v=4.7.0') format('woff2'), 
+         url('${fontAwesomeTTF}?v=4.7.0') format('truetype'), 
+         url('${fontAwesomeWOFF}?v=4.7.0') format('woff'), 
+         url('${fontAwesomeSVG}?v=4.7.0#fontawesomeregular') format('svg');
     font-weight: normal;
     font-style: normal;
   }
 `;
 
-interface AppProps {
+interface AppProps extends RouteComponentProps<void> {
   isAuthorized: boolean,
 }
 
 export const App: React.SFC<AppProps> = (props) => {
   const { isAuthorized } = props;
+  console.log(isAuthorized);
+  /**
+   * Компонент содержит два дочерних. При этом реализован механизм,
+   * при котором отобразится только один из них.
+   * Первый компонент - страница авторизации, второй - основной компонент
+   * админ-панели. Алгоритм выбора компонента для отображения состоит
+   * из двух основных вещей. С одной стороны (и во-первых) -- это адресная
+   * строка браузера пользователя. С другой -- значение переменной 
+   * isAutorized. 
+   */
   return (
     <Switch>
+      {/* Если в адресной строке строго /login  */}
       <Route exact path={'/login'} render={() => (
         !isAuthorized ? (
           <LoginConnected />
@@ -81,6 +95,7 @@ export const App: React.SFC<AppProps> = (props) => {
           <Redirect to={'/'} />
         )
       )} />
+      {/* Любой другой путь */}
       <Route path={'/'} render={() => (
         isAuthorized ? (
           <MainConnected />

@@ -1,9 +1,5 @@
 import styled, { keyframes } from 'styled-components';
 
-import { CircularSpinnerProps } from '@src/interfaces';
-
-
-
 const rotateBefore = keyframes`
   20% { transform: rotateZ(0deg); }
   35% { transform: rotateZ(180deg); }
@@ -17,6 +13,12 @@ const rotateAfter = keyframes`
   75% { transform: rotateZ(540deg); }
   100% { transform: rotateZ(720deg); }
 `;
+
+interface CircularSpinnerProps {
+  width: number,
+  color: string,
+  bgColor: string,
+}
 
 export const CircularSpinner = styled.div`
   display: block;

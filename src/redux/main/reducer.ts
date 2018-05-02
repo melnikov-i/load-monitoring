@@ -60,8 +60,8 @@ const UserMenuInitialState: UserMenuInterface = {
 }
 
 export const reducer = combineReducers({
-  MainMenuWasRequestedFromAPI: ( state = false, action ) => {
-    switch ( action.type ) {
+  MainMenuWasRequestedFromAPI: (state = false, action) => {
+    switch (action.type) {
       case MAIN_MENU_WAS_REQUESTED_FROM_API:
         return true;
       case USER_WAS_LOGOUT:
@@ -70,9 +70,9 @@ export const reducer = combineReducers({
         return state;
     }
   },
-  
-  AllMenusWasResponsedFromAPI: ( state = false, action ) => {
-    switch ( action.type ) {
+
+  AllMenusWasResponsedFromAPI: (state = false, action) => {
+    switch (action.type) {
       case ALL_MENUS_WAS_RESPONSED_FROM_API:
         return true;
       case USER_WAS_LOGOUT:
@@ -82,8 +82,8 @@ export const reducer = combineReducers({
     }
   },
 
-  MainMenuItemsCollection: ( state = [], action ) => {
-    switch ( action.type ) {
+  MainMenuItemsCollection: (state = [], action) => {
+    switch (action.type) {
       case PUT_MAIN_MENU_FROM_API_TO_COLLECTION:
         return [...action.payload];
       case USER_WAS_LOGOUT:
@@ -92,8 +92,8 @@ export const reducer = combineReducers({
         return state;
     }
   },
-  UserMenuItemsCollection: ( state = UserMenuInitialState, action ) => {
-    switch ( action.type ) {
+  UserMenuItemsCollection: (state = UserMenuInitialState, action) => {
+    switch (action.type) {
       case PUT_USER_MENU_FROM_API_TO_COLLECTION:
         return {
           ...state,
@@ -109,8 +109,8 @@ export const reducer = combineReducers({
         return state;
     }
   },
-  DevicesMenuWasRequestedFromAPI: ( state = false, action ) => {
-    switch ( action.type ) {
+  DevicesMenuWasRequestedFromAPI: (state = false, action) => {
+    switch (action.type) {
       case DEVICES_MENU_WAS_REQUESTED_FROM_API:
         return true;
       case USER_WAS_LOGOUT:
@@ -119,27 +119,27 @@ export const reducer = combineReducers({
         return state;
     }
   },
-  DevicesMenuItemsCollection: ( state = [], action ) => {
-    switch ( action.type ) {
+  DevicesMenuItemsCollection: (state = [], action) => {
+    switch (action.type) {
       case PUT_DEVICES_MENU_FROM_API_TO_COLLECTION:
         return [...action.payload];
       case USER_WAS_LOGOUT:
-        return [];        
+        return [];
       default:
         return state;
     }
   },
-  DroppedMenuButtonClickedId: ( state = '', action ) => {
-    switch ( action.type ) {
+  DroppedMenuButtonClickedId: (state = '', action) => {
+    switch (action.type) {
       case CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID:
         return action.payload;
       default:
         return state;
     }
   },
-  
-  isFirefoxInUse: ( state = false, action ) => {
-    switch ( action.type ) {
+
+  isFirefoxInUse: (state = false, action) => {
+    switch (action.type) {
       case CHANGE_USER_AGENT:
         return true;
       default:
@@ -147,18 +147,18 @@ export const reducer = combineReducers({
     }
   },
 
-  isMenuOpenedOnSmallScreen: ( state = false, action ) => {
-    switch ( action.type ) {
+  isMenuOpenedOnSmallScreen: (state = false, action) => {
+    switch (action.type) {
       case SWITCH_MENU_ON_SMALL_SCREENS:
         return !state;
       default:
         return state;
     }
   },
-  
+
   /* Идентификатор активного простого пункта основного меню */
-  PageMenuItemActive: ( state = '', action ) => {
-    switch ( action.type ) {
+  PageMenuItemActive: (state = '', action) => {
+    switch (action.type) {
       case SWITCH_PAGE_MENU_ITEM_ACTIVE:
         return action.payload;
       case USER_WAS_LOGOUT:
@@ -169,8 +169,8 @@ export const reducer = combineReducers({
   },
 
   /* Идентификатор активного составного пункта основного меню */
-  PageMenuItemMultiActive: ( state = '', action ) => {
-    switch ( action.type ) {
+  PageMenuItemMultiActive: (state = '', action) => {
+    switch (action.type) {
       case SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE:
         return action.payload;
       case USER_WAS_LOGOUT:

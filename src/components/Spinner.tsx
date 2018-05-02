@@ -1,16 +1,11 @@
 import * as React from 'react';
 
-import {
-  // SpinnerLayout,
-  CircularSpinner
-} from '@src/styled';
-
-import { CircularSpinnerProps } from '@src/interfaces';
+import { CircularSpinner } from '@src/styled';
 
 interface SpinnerProps {
-  width: CircularSpinnerProps['width'],
-  color: CircularSpinnerProps['color'],
-  bgColor: CircularSpinnerProps['bgColor'],
+  width: number,
+  color: string,
+  bgColor: string,
 }
 
 export const Spinner: React.SFC<SpinnerProps> = (props) => {

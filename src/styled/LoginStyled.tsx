@@ -4,40 +4,36 @@ import {
   emergence
 } from '@src/styled';
 
-
-/* Импорт логотипа страницы */
-
+/**
+ *  Импорт логотипа страницы 
+ */
 const Logo = require('@src/images/LogoBig');
 
-
+/**
+ * Импорт констант
+ */
 import {
   LOGIN_LAYOUT_BIG_WIDTH,
   LOGIN_LAYOUT_BIG_HEIGHT,
   LOGIN_FORM_INPUT_BIG_HEIGHT
 } from '@src/styled';
 
-
 /**
  * Обертка основного блока каркаса страницы.
  * Необходима для анимации страницы.
- *
  * @return {React.Component}
  */
-
 export const LoginLayoutWrapper = styled.div`
   width: 100%;
   overflow: hidden;
 `;
 
-
 /**
  * Основной блок каркаса страницы. Задает ширину,
  * высоту, положение на странице и анимацию формы
  * авторизации.
- *
  * @return {React.Component}
  */
-
 export const LoginLayout = styled.div`
   width: ${ LOGIN_LAYOUT_BIG_WIDTH };
   height: ${ LOGIN_LAYOUT_BIG_HEIGHT };
@@ -49,25 +45,19 @@ export const LoginLayout = styled.div`
   animation-fill-mode: both;
 `;
 
-
 /**
  * Оборачивает ключевые части формы
- *
  * @return {React.Component}
  */
-
 export const LoginWrapper = styled.div`
   width: ${ LOGIN_LAYOUT_BIG_WIDTH };
   height: ${ LOGIN_LAYOUT_BIG_HEIGHT };
 `;
 
-
 /**
  * Ключевая часть формы
- *
  * @return {React.Component}
  */
-
 export const LoginInnerPart = styled.div`
   display: inline-block;
   vertical-align: top;
@@ -75,13 +65,10 @@ export const LoginInnerPart = styled.div`
   height: ${ LOGIN_LAYOUT_BIG_HEIGHT };
 `;
 
-
 /**
  * Логотип слева от формы ввода
- *
  * @return {React.Component}
  */
-
 export const LoginLogotype = styled.div`
   box-sizing: border-box;
   width: calc(100% - 10px);
@@ -93,13 +80,10 @@ export const LoginLogotype = styled.div`
   padding-top: calc(${ LOGIN_LAYOUT_BIG_HEIGHT } - 80px);
 `;
 
-
 /**
  * Заголовок под логотипом
- *
  * @return {React.Component}
  */
-
 export const LoginHeader = styled.h2`
   font-size: 24px;
   font-weight: 600;
@@ -107,13 +91,10 @@ export const LoginHeader = styled.h2`
   color: #676a6c;
 `;
 
-
 /**
  * Каркас формы ввода логина и пароля
- *
  * @return {React.Component}
  */
-
 export const LoginFormLayout = styled.form`
   box-sizing: border-box;
   width: calc(100% - 10px);
@@ -126,14 +107,11 @@ export const LoginFormLayout = styled.form`
   position: relative;
 `;
 
-
 /**
  * Заголовок внутри формы ввода логина и пароля
- *
  * @param {number} loginFormStateIndex
  * @return {React.Component}
  */
-
 export const LoginFormHeader = styled.h4`
   font-size: 13px;
   font-weight: normal;
@@ -146,15 +124,12 @@ export const LoginFormHeader = styled.h4`
   line-height: 50px;
 `;
 
-
 /**
  * Поле ввода логина или пароля
  * При вводе некорректных данных меняет цвет фона и рамки
- *
  * @param {number} loginFormStateIndex
  * @return {React.Component}
  */
-
 export const LoginFormInput = styled.input`
   box-sizing: border-box;
   width: 100%;
@@ -175,15 +150,12 @@ export const LoginFormInput = styled.input`
   border-radius: 2px;
 `;
 
-
 /**
  * Кнопка авторизации. В процессе проверки введенных данных
  * меняет цвет
- *
  * @param {number} loginFormStateIndex
  * @return {React.Component}
  */
-
 export const LoginFormButton = styled.button`
   width: 100%;
   height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT };
@@ -198,13 +170,10 @@ export const LoginFormButton = styled.button`
   cursor: pointer;
 `;
 
-
 /**
  * Контейнер, в который помещается спиннер
- *
  * @return {React.Component}
  */
-
 export const LoginFormSpinner = styled.div`
   width: 100%;
   height: 108px;

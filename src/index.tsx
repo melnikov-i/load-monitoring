@@ -4,12 +4,12 @@ import { Provider } from 'react-redux';
 import { HashRouter as Router } from 'react-router-dom';
 
 import store from './store';
-import { AppContainer } from '@src/containers';
+import AppConnected from '@src/usage/AppUsage';
 
 const Root: JSX.Element = (
   <Provider store={ store }>
     <Router hashType={'slash'} basename={'/'}>
-      <AppContainer />
+      <AppConnected />
     </Router>
   </Provider>
 );

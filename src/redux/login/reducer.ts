@@ -6,17 +6,17 @@ import {
 } from '@src/interfaces';
 
 import {
+  USER_IS_AUTHORIZED,
+  USER_WAS_LOGOUT,
   CHANGE_LOGIN_VALUE,
   CHANGE_PASSWORD_VALUE,
   SENDING_USER_CREDENTIAL_IN_PROGRESS,
-  USER_IS_AUTHORIZED,
-  USER_WAS_LOGOUT,
 } from '@src/redux/login';
 
 export type State = {
+  readonly isAuthorized: boolean,
   readonly LoginValue: LoginFormInterface['login'],
   readonly PasswordValue: LoginFormInterface['password'],
-  readonly isAuthorized: boolean,
   readonly LoginFormState: LoginFormStateInterface,
 };
 
@@ -30,6 +30,24 @@ const loginFormStateInitialState: LoginFormStateInterface = {
 }
 
 export const reducer = combineReducers({
+  /**
+   * Содержит ключ состояния авторизации. На него ориентируются:
+   *   - App: в зависимости от значения подключает либо Login либо Main
+  */
+  isAuthorized: ( state = true, action ) => {
+    switch ( action.type ) {
+      case USER_IS_AUTHORIZED:
+        return true;
+      case USER_WAS_LOGOUT:
+        return false;
+      default:
+        return state;
+    }
+  },
+
+  /**
+   * Содержит значение поля ввода логина.
+  */
   LoginValue: ( state = '', action ) => {
     switch ( action.type ) {
       case CHANGE_LOGIN_VALUE:
@@ -42,6 +60,10 @@ export const reducer = combineReducers({
         return state;
     }
   },
+
+  /**
+   * Содержит значение поля ввода пароля.
+  */
   PasswordValue: ( state = '', action ) => {
     switch ( action.type ) {
       case CHANGE_PASSWORD_VALUE:
@@ -54,16 +76,10 @@ export const reducer = combineReducers({
         return state;
     }
   },
-  isAuthorized: ( state = true, action ) => {
-    switch ( action.type ) {
-      case USER_IS_AUTHORIZED:
-        return true;
-      case USER_WAS_LOGOUT:
-        return false;
-      default:
-        return state;
-    }
-  },
+
+  /**
+   * Содержит состояние формы авторизации
+  */
   LoginFormState: ( state = loginFormStateInitialState, action ) => {
     switch ( action.type ) {
       case SENDING_USER_CREDENTIAL_IN_PROGRESS:

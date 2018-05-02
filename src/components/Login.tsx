@@ -1,7 +1,7 @@
 /**
- * Компонент страницы авторизации. Отображает форму авторизации.
- * 
- */
+ * Компонент страницы авторизации. Отображает форму
+ * авторизации.
+*/
 import * as React from 'react';
 
 import {
@@ -26,7 +26,6 @@ import {
 /* Импорт компонента спиннера для отображения процесса загрузки */
 import { Spinner } from '@src/components';
 
-
 interface LoginProps {
   LoginValue: LoginFormInterface['login'],
   changeLoginValue: (payload: LoginFormInterface['login']) => any,
@@ -36,7 +35,6 @@ interface LoginProps {
   LoginFormState: LoginFormStateInterface,
   sendUserCredentialToAPI: ( payload: LoginFormInterface ) => any,
 }
-
 
 export const Login: React.SFC<LoginProps> = (props) => {
   const {
@@ -48,6 +46,9 @@ export const Login: React.SFC<LoginProps> = (props) => {
     sendUserCredentialToAPI,
   } = props;
   
+  /**
+   * Обработчики событий
+   */
   /* При вводе символа в поле, отправляет этот символ в store */
   const updateLoginValue = 
   (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,19 +63,15 @@ export const Login: React.SFC<LoginProps> = (props) => {
     changePasswordValue(e.currentTarget.value);
   };
 
-
   /* По нажатии на кнопку, отправляет введенные данные на бэкэнд */
-
-  const buttonHandler = 
-  (e: React.MouseEvent<HTMLButtonElement>) => {
+  const buttonHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const UserCredential: LoginFormInterface = {
       login: LoginValue,
       password: PasswordValue,
     };
     sendUserCredentialToAPI(UserCredential);
-  }
-  
+  }  
 
   return (
     <LoginLayoutWrapper>
@@ -88,9 +85,7 @@ export const Login: React.SFC<LoginProps> = (props) => {
           <LoginInnerPart>
             <LoginFormLayout>
               <LoginFormHeader
-                loginFormStateIndex={
-                  LoginFormState.loginFormStateIndex
-                }
+                loginFormStateIndex={LoginFormState.loginFormStateIndex}
               >
                 {/* Заголовок формы. Зависит от результата проверки */}
                 {LoginFormState.header[
