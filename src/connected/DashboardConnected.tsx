@@ -59,5 +59,6 @@ MapDispatchToPropsParam<DispatchProps, OwnProps> =
       asyncActionCreators.makeDashboardRequestFromAPI,
   }, dispatch);
 
-export const DashboardConnected = connect<StateProps, DispatchProps, OwnProps, RootState>(
-  mapStateToProps, mapDispatchToProps)(Dashboard);
+export const DashboardConnected = 
+  connect<StateProps, DispatchProps, OwnProps, RootState>(
+    mapStateToProps, mapDispatchToProps)(Dashboard);

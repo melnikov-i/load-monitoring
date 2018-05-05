@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import {
   DashboardInterface,
-  // MainHeaderInterface,
+  MainHeaderInterface,
   ElementsOfDashboardCollectionInterface
 } from '@src/interfaces';
 
@@ -13,8 +13,8 @@ import {
 /* Компонент спиннера */
 import { Spinner } from '@src/components';
 /* Компонент заголовка страницы */
-// import MainHeaderConnected from
-//   '@src/usage/MainHeaderUsage';  
+import MainHeaderConnected from
+  '@src/usage/MainHeaderUsage';
 /* Контейнер с перемещаемыми виджетами */
 // import DashboardDragContainerConnected from
 //   '@src/usage/DashboardDragContainerUsage';
@@ -47,7 +47,7 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
   const {
     id,
     DashboardStateKey,
-    // DashboardStaticModel,
+    DashboardStaticModel,
     // ElementsOfDashboardCollection,
     makeDashboardRequestFromAPI,
     MainHeaderButtonWasClicked,
@@ -90,29 +90,29 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
    */
   const viewState30 = (): JSX.Element | null => {
     /* Данные для заголовка страницы */
-    // const MainHeaderState: MainHeaderInterface = {
-    //   header: DashboardStaticModel.dash_id.dashboard_name,
-    //   button: true,
-    //   breadcrumbs: [
-    //     {
-    //       href: '',
-    //       title: 'Главная',
-    //     },
-    //     {
-    //       href: 'devices',
-    //       title: 'Все устройства',
-    //     },
-    //     {
-    //       href: DashboardStaticModel.dash_id.dashboard_name,
-    //       title: DashboardStaticModel.dash_id.dashboard_name,
-    //     }
-    //   ],
-    // };
+    const MainHeaderState: MainHeaderInterface = {
+      header: DashboardStaticModel.dash_id.dashboard_name,
+      button: true,
+      breadcrumbs: [
+        {
+          href: '',
+          title: 'Главная',
+        },
+        {
+          href: 'devices',
+          title: 'Все устройства',
+        },
+        {
+          href: DashboardStaticModel.dash_id.dashboard_name,
+          title: DashboardStaticModel.dash_id.dashboard_name,
+        }
+      ],
+    };
     
     return (
       <div>
         {/* Основной заголовок страницы */}
-        {/* <MainHeaderConnected data={MainHeaderState} /> */}
+        <MainHeaderConnected data={MainHeaderState} />
         {/* Панель настройки / панель выбора интервала */}
         {MainHeaderButtonWasClicked
           ? null// ? <DashboardGridSettingsConnected />

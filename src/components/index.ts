@@ -3,3 +3,7 @@ export * from './Login';
 export * from './Spinner';
 export * from './Main';
 export * from './Dashboard';
+export * from './MainHeader';
+export * from './MainHeader';
+export * from './DashboardStaticContainer';
+export * from './DashboardWidget';

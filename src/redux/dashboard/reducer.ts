@@ -29,7 +29,6 @@ import {
   MAIN_HEADER_BUTTON_SWITCH
 } from '@src/redux/mainHead';
 
-
 export type State = {
   /* Ключ состояния компонента, используемый для выбора Вида */
   readonly DashboardStateKey: string,
@@ -48,7 +47,6 @@ export type State = {
     ElementsOfDashboardCollectionInterface,
 };
 
-
 /* Состояние модели дашборда по умолчанию */
 const DashboardModelInitialState: DashboardInterface = {
   dash_id: {
@@ -66,12 +64,10 @@ ElementsOfDashboardCollectionInterface = {
   collection: [],
 }
 
-
 export const reducer = combineReducers({
   /**
    * Ключ состояния компонента, используемый для выбора Вида
    */
-
   DashboardStateKey: ( state = '1', action ) => {
     switch ( action.type ) {
       case SWITCH_DASHBOARD_STATE_KEY_VALUE:
@@ -83,11 +79,9 @@ export const reducer = combineReducers({
     }
   },
 
-
   /**
    * Модель дашборда для статического отображения 
    */
-
   DashboardStaticModel:
   ( state = DashboardModelInitialState, action ) => {
     switch ( action.type ) {
@@ -102,11 +96,9 @@ export const reducer = combineReducers({
     }
   },
 
-
   /**
    * Модель дашборда для отображение с drag&drop 
    */
-
   DashboardDragModel:
   ( state = DashboardModelInitialState, action ) => {
     switch ( action.type ) {
@@ -135,11 +127,9 @@ export const reducer = combineReducers({
     }
   },
 
-
   /**
    * Коллекция данных для графиков
    */
-
   SeriesDataCollection: ( state = {}, action ) => {
     switch ( action.type ) {
       /* Добавляет элементы для отображения графика */
@@ -162,7 +152,6 @@ export const reducer = combineReducers({
            * поле х (по которому ориентируется библиотека rumble-charts при
            * построении графика), меняя ее значение на x -1.
            */
-
           newState = {
             ...newState,
             [node]: [
@@ -175,7 +164,6 @@ export const reducer = combineReducers({
               })),
             ]
           };
-
         }
         return newState;
       /* Очищает редьюсер при logout'е */
@@ -186,12 +174,10 @@ export const reducer = combineReducers({
     }
   },
 
-
   /**
    * Имя первого узла в коллекции узлов, чьи данные отображаются
    * в графиках
    */
-
   ElementsOfDashboardCollection: 
   ( state = ElementsOfDashboardCollectionInitialState, action ) => {
     switch ( action.type ) {
@@ -205,12 +191,10 @@ export const reducer = combineReducers({
     }
   },
 
-
   /**
    * Ключ, по значению которого определяется актуальность
    * модели DashboardDragModel
    */
-
   isDashboardDragModelCopied: ( state = false, action ) => {
     switch ( action.type ) {
       /* Дашборд скопирован при загрузке страницы редактирования */
@@ -229,13 +213,11 @@ export const reducer = combineReducers({
     }
   },
 
-
   /**
    * ID целевого элемента при перемещении виджета.
    * Это поле необходимо для исключения повторных срабатываний перемещений
    * виджетов.
    */
-
   currentTargetId: ( state = -1, action ) => {
     switch ( action.type ) {
       case CHANGE_CURRENT_TARGET_ID:

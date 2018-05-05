@@ -25,3 +25,8 @@ export interface SeriesRequestInterface {
     widget_name: string,
   }[],
 }
+
+export interface WidgetInterface {
+  widget_name: string,
+  device_id: string,
+}

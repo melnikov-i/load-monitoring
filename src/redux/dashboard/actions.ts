@@ -79,7 +79,8 @@ export type Actions = {
  */
 export const syncActionCreators = {
   /**
-   * 
+   * Помещает в редьюсер ключ состояния компонента,
+   * который используется для выбора Вида.
    */
   switchDashboardStateKeyValue: ( payload: string ):
   Actions[typeof SWITCH_DASHBOARD_STATE_KEY_VALUE] => ({
@@ -87,7 +88,7 @@ export const syncActionCreators = {
   }),
 
   /**
-   * 
+   * Помещает в редьюсер модель для статического дашборда.
    */
   putDashboardModelFromAPIToStore: ( payload: DashboardInterface ):
   Actions[typeof PUT_DASHBOARD_MODEL_FROM_API_TO_STORE] => ({
@@ -95,7 +96,9 @@ export const syncActionCreators = {
   }),
   
   /**
-   * 
+   * Помещает в редьюсер модель дашборда для отображения с drag&drop.
+   * Модель берется не от API, а копируется текущая выбранная для
+   * статического отображения.
    */
   copyDashboardFromDashboardStaticModel: ( payload: DashboardInterface ):
   Actions[typeof COPY_DASHBOARD_FROM_DASHBOARD_STATIC_MODEL] => ({
@@ -103,7 +106,8 @@ export const syncActionCreators = {
   }),
   
   /**
-   * 
+   * Обновляет коллекцию элементов дашборда в модели для drag&drop
+   * после изменений пользователя.
    */
   reorderDashboardDragModelDataCollection: ( payload: DashboardInterface['dash_data'] ):
   Actions[typeof REORDER_DASHBOARD_DRAG_MODEL_DATA_COLLECTION] => ({
@@ -111,7 +115,8 @@ export const syncActionCreators = {
   }),
   
   /**
-   * 
+   * Помещает в редьюсер ID целевого элемента (таргета) при
+   * перемещении виджета. 
    */
   changeCurrentTargetId: ( payload: number ):
   Actions[typeof CHANGE_CURRENT_TARGET_ID] => ({
@@ -119,7 +124,8 @@ export const syncActionCreators = {
   }),
 
   /**
-   * 
+   * Изменяет значение, которое отвечает за количество колонок в
+   * дашборде.
    */
   changeSelectedCheckbox: (payload: string):
   Actions[typeof CHANGE_SELECTED_CHECKBOX] => ({
@@ -127,7 +133,7 @@ export const syncActionCreators = {
   }),
 
   /**
-   * 
+   * Помещает в редьюсер данные для отображения в графиках
    */
   putSeriesDataFromAPIToStore: ( payload: any ):
   Actions[typeof PUT_SERIES_DATA_FROM_API_TO_STORE] => ({
@@ -135,7 +141,8 @@ export const syncActionCreators = {
   }),
 
   /**
-   * 
+   * Переопределяет массив при обновлении данных, отображаемых
+   * в графиках.
    */
   putSeriesItemFromAPIToStore: ( payload: any ):
   Actions[typeof PUT_SERIES_ITEM_FROM_API_TO_STORE] => ({
@@ -143,7 +150,8 @@ export const syncActionCreators = {
   }),
   
   /**
-   * 
+   * Помещает в редьюсер имя певрого узла в коллекции узлов, чьи
+   * данные отображаются в графиках.
    */
   putElementsOfDashboardCollectionInStore: ( payload: any ):
   Actions[typeof PUT_ELEMENTS_OF_DASHBOARD_COLLECTION_IN_STORE] => ({
@@ -153,11 +161,9 @@ export const syncActionCreators = {
 
 /**
  * Возвращает цвет столбца. 
- *
  * @param {number} y
  * @return {string}
  */
-
 const getColor = ( y: number ) => {
   if ( y >= 90 ) {
     return '#ec4758'; // red    
@@ -182,7 +188,6 @@ const getColor = ( y: number ) => {
  * @param {Dispatch} dispatch
  * @return {void}
  */
-
 const getDashboardFromAPI = (
 payload: DashboardInterface['dash_id']['dashboard_id'],
 dispatch: Dispatch) => {
@@ -267,8 +272,7 @@ dispatch: Dispatch) => {
     }
   )
   .then(
-    ( dashboard ) => {
-      
+    ( dashboard ) => {      
       /**
        * В случае, когда в этот метод передается true, обработка
        * предыдущего запроса считается завершенной удачно. 
@@ -356,28 +360,25 @@ dispatch: Dispatch) => {
 
 // Async Action Creators
 export const asyncActionCreators = {
+
   /**
    * Выполнение запроса данных у бэкэнда.
    */
-
   makeDashboardRequestFromAPI: 
   ( payload: DashboardInterface['dash_id']['dashboard_id'] ) => {
     return ( dispatch: Dispatch ) => {
       getDashboardFromAPI(payload, dispatch);
     }
   },
-
   
   /**
    * Отправляет пользовательские изменения в настройке отображения
    * дашборда.
    */
-
-  sendChangedDashboardToAPI:
-  ( payload: DashboardInterface ) => {
+  sendChangedDashboardToAPI: ( payload: DashboardInterface ) => {
     return ( dispatch: Dispatch ) => {
       sendRequestToAPI.post('/dash_data2.php', payload).then(
-        ( response ) => {
+        () => {
           getDashboardFromAPI(payload.dash_id.dashboard_id, dispatch);
           dispatch(
             mainHeadActionCreators.mainHeaderButtonSwitch()
@@ -392,11 +393,9 @@ export const asyncActionCreators = {
     }
   },
 
-
   /**
    * 
    */
-
   reorderDashboardDragModelDataCollectionOnlyOneTime:
   ( payload: {model: DashboardInterface['dash_data'], id: number} ) => {
     return ( dispatch: Dispatch ) => {
@@ -409,13 +408,11 @@ export const asyncActionCreators = {
       );
     }
   },
-  
-  
+    
   /**
    * Запрос последнего состояния узла у бэкэенда для отображения
    * в графике.
-   */
-  
+   */  
   makeSeriesDataRequestFromAPI:
   ( payload: ElementsOfDashboardCollectionInterface ) => {
     return ( dispatch: Dispatch ) => {
