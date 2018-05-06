@@ -41,7 +41,6 @@ export const MainHeader: React.SFC<MainHeaderProps> = (props) => {
    * Очищает идентификатор PageMenuItemActive, который 
    * подсвечивает активный пункт меню.
    */
-
   const breadcrumbsHandler = 
   ( e: React.MouseEvent<HTMLAnchorElement> ) => {
     e.preventDefault();

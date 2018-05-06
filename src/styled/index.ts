@@ -5,3 +5,6 @@ export * from './MainStyled';
 export * from './MainHeaderStyled';
 export * from './AnchorStyled';
 export * from './WidgetStyled';
+export * from './DashboardStyled';
+export * from './DevicesStyled';
+export * from './OverviewStyled';

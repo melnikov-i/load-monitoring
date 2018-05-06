@@ -14,19 +14,19 @@ import {
 //   );
 
 /* Модель дашборда для конфигурирования */
-export const DashboardDragModelSelector =
-  createSelector(
-    ( state: RootState ) => state.dashboard.DashboardDragModel,
-    ( DashboardDragModel ) => DashboardDragModel,
-  );
+// export const DashboardDragModelSelector =
+//   createSelector(
+//     ( state: RootState ) => state.dashboard.DashboardDragModel,
+//     ( DashboardDragModel ) => DashboardDragModel,
+//   );
 
 
-export const SeriesDataCollectionSelector = createSelector(
-    ( state: RootState,
-      props: DashboardWidgetProps | DashboardDragWidgetProps ) => 
-      state.dashboard.SeriesDataCollection[props.widget_name],
-    ( SeriesDataCollectionItem ) => SeriesDataCollectionItem
-  );
+// export const SeriesDataCollectionSelector = createSelector(
+//     ( state: RootState,
+//       props: DashboardWidgetProps | DashboardDragWidgetProps ) => 
+//       state.dashboard.SeriesDataCollection[props.widget_name],
+//     ( SeriesDataCollectionItem ) => SeriesDataCollectionItem
+//   );
 
 
 /* имя узла, к которому привязан action makeSeriesDataRequestFromAPI */
@@ -44,18 +44,18 @@ export const SeriesDataCollectionSelector = createSelector(
 //   );
 
 /* Ключ актуальности дашборда при старте страницы */
-export const isDashboardDragModelCopiedSelector =
-  createSelector(
-    ( state: RootState ) => state.dashboard.isDashboardDragModelCopied,
-    ( isDashboardDragModelCopied ) => isDashboardDragModelCopied,
-  );
+// export const isDashboardDragModelCopiedSelector =
+//   createSelector(
+//     ( state: RootState ) => state.dashboard.isDashboardDragModelCopied,
+//     ( isDashboardDragModelCopied ) => isDashboardDragModelCopied,
+//   );
 
 /* ID целевого элемента при перемещении виджета. */
-export const currentTargetIdSelector =
-  createSelector(
-    ( state: RootState ) => state.dashboard.currentTargetId,
-    ( currentTargetId ) => currentTargetId,
-  );
+// export const currentTargetIdSelector =
+//   createSelector(
+//     ( state: RootState ) => state.dashboard.currentTargetId,
+//     ( currentTargetId ) => currentTargetId,
+//   );
 
 
 // export const MainHeaderButtonWasClickedSelector =

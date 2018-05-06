@@ -46,7 +46,7 @@ interface DispatchProps {
 
 interface OwnProps {}
 
-const mapStateToProps: 
+const mapStateToProps:
 MapStateToPropsParam<StateProps, OwnProps, RootState> =
   createStructuredSelector<RootState, StateProps>({
     MainMenuWasRequestedFromAPI: 

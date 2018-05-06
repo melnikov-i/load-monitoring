@@ -24,12 +24,11 @@ import {
   WidgetHeader,
 } from '@src/styled';
 
-
 interface DashboardWidgetProps {
   SeriesDataCollection: any,
   widget_name: WidgetInterface['widget_name'],
   width: DashboardInterface['dash_id']['dash_columns'],
-  margin?: number,
+  margin: number,
   elements: ElementsOfDashboardCollectionInterface,
   makeSeriesDataRequestFromAPI: ( payload: any ) => any
 }
@@ -149,6 +148,7 @@ React.SFC<DashboardWidgetProps> = (props) => {
   };
 
   const handleMouseLeave = ( e: any ) => {
+    e.preventDefault();
     const title = document.getElementById(props.widget_name);
     if ( !title ) return;
     title.style.opacity = '0';

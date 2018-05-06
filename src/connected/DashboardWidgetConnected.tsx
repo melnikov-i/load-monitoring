@@ -22,10 +22,6 @@ import {
 
 import { DashboardWidget } from '@src/components';
 
-// import {
-//   SeriesDataCollectionSelector,
-// } from '@src/selectors';
-
 interface StateProps {
   SeriesDataCollection: any,
 }
@@ -39,24 +35,23 @@ interface OwnProps {
   width: DashboardInterface['dash_id']['dash_columns'],
   margin: number | undefined,
   elements: ElementsOfDashboardCollectionInterface,
-  makeSeriesDataRequestFromAPI: any,
 }
 
-type Selector<TInput, TProps, TOutput> = 
-( state: TInput, props?: TProps ) => TOutput;
+type Selector<TInput, TOutput> = (state: TInput, props?: any) => TOutput;
+
+const getSeriesDataCollectionItem: Selector<RootState, any> = 
+  (state: RootState, props: OwnProps) => 
+    state.dashboard.SeriesDataCollection[props.widget_name];
 
 const mapStateToProps:
 MapStateToPropsParam<StateProps, OwnProps, RootState> = 
-  createStructuredSelector<RootState, StateProps>({
-    SeriesDataCollection:
-      createSelector<StateProps, OwnProps, TOutput, T1>(
-        selector: Selector<TInput, TProps, T1>,
-      ),
+createStructuredSelector<RootState, StateProps>({
+  SeriesDataCollection:
+      createSelector(
+        getSeriesDataCollectionItem,
+        ( SeriesDataCollectionItem ) => SeriesDataCollectionItem,
+      )
     });
-    
-    // ( state: RootState, ownProps: OwnProps ) =>
-    //   state.dashboard.SeriesDataCollection[ownProps.widget_name],
-    //   ( SeriesDataCollectionItem ) => SeriesDataCollectionItem,
 
 const mapDispatchToProps:
 MapDispatchToPropsParam<DispatchProps, OwnProps> = 

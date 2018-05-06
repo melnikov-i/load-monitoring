@@ -16,14 +16,14 @@ import { Spinner } from '@src/components';
 import MainHeaderConnected from
   '@src/usage/MainHeaderUsage';
 /* Контейнер с перемещаемыми виджетами */
-// import DashboardDragContainerConnected from
-//   '@src/usage/DashboardDragContainerUsage';
+import DashboardDragContainerConnected from
+  '@src/usage/DashboardDragContainerUsage';
 /* Контейнер со статическими виджетами */
-// import DashboardStaticContainer from
-//   '@src/usage/DashboardStaticContainerUsage';
+import DashboardStaticContainer from
+  '@src/usage/DashboardStaticContainerUsage';
 /* Компонент с параметрами настройки виджетов с диаграммами */
-// import DashboardGridSettingsConnected from
-//   '@src/usage/DashboardGridSettingsUsage';
+import DashboardGridSettingsConnected from
+  '@src/usage/DashboardGridSettingsUsage';
 
 
 interface DashboardProps {
@@ -48,7 +48,7 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
     id,
     DashboardStateKey,
     DashboardStaticModel,
-    // ElementsOfDashboardCollection,
+    ElementsOfDashboardCollection,
     makeDashboardRequestFromAPI,
     MainHeaderButtonWasClicked,
   } = props;  
@@ -61,6 +61,7 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
    */
   const viewState1 = (): null => {
     makeDashboardRequestFromAPI(id);
+    console.log('1');
     return null;
   }
 
@@ -68,13 +69,16 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
    * (2) Вид, отображаемый в процессе получения данных от бэкэнда.
    * @return {JSX.Element}
    */
-  const viewState2 = (): JSX.Element => (
-    <Spinner
-      width={3}
-      color={'#2f4050'}
-      bgColor={'#f3f3f4'}
-    />
-  );
+  const viewState2 = (): JSX.Element => {
+    console.log('2');
+    return (
+      <Spinner
+        width={3}
+        color={'#2f4050'}
+        bgColor={'#f3f3f4'}
+      />
+    )
+  };
 
   /**
    * (30) Вид, отображаемый после получения данных от бэкэнда.
@@ -108,6 +112,8 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
         }
       ],
     };
+
+    console.log('30');
     
     return (
       <div>
@@ -115,17 +121,17 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
         <MainHeaderConnected data={MainHeaderState} />
         {/* Панель настройки / панель выбора интервала */}
         {MainHeaderButtonWasClicked
-          ? null// ? <DashboardGridSettingsConnected />
+          ? <DashboardGridSettingsConnected />
           : null
         }
         {/* Дашборды перетаскиваемые / дашборды статические */}
-        {MainHeaderButtonWasClicked ? null : null
-          // ? <DashboardDragContainerConnected />
-          // : <DashboardStaticContainer
-          //     width={DashboardStaticModel.dash_id.dash_columns}
-          //     widgets={DashboardStaticModel.dash_data}
-          //     elements={ElementsOfDashboardCollection}
-          //   />
+        {MainHeaderButtonWasClicked
+          ? <DashboardDragContainerConnected />
+          : <DashboardStaticContainer
+              width={DashboardStaticModel.dash_id.dash_columns}
+              widgets={DashboardStaticModel.dash_data}
+              elements={ElementsOfDashboardCollection}
+            />
         }
       </div>
     );
@@ -135,6 +141,7 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
    * (31) Вид, отображаемый, если от бэкэнда пришли некорректные данные.
    */
   const viewState31 = (): JSX.Element => {
+    console.log('31');
     return (
       <div
         style={{
@@ -154,6 +161,7 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
   };
 
   const viewState0 = (): JSX.Element => {
+    console.log('0');
     return (
       <div
         style={{

@@ -1,6 +1,6 @@
-interface DeviceTableIconInterface {
-  icon: string,
-}
+// interface DeviceTableIconInterface {
+//   icon: string,
+// }
 
 export interface LoadParamsInterface {
   state: string,
@@ -34,5 +34,5 @@ export interface DevicesLoadCurrentItemInterface {
   id: DevicesTableInterface['to']
 }
 
-export type DTSpanIconProps =
-  DeviceTableIconInterface & React.HTMLProps<HTMLSpanElement>;
+// export type DTSpanIconProps =
+//   DeviceTableIconInterface & React.HTMLProps<HTMLSpanElement>;

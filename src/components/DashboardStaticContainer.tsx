@@ -5,11 +5,9 @@ import {
   ElementsOfDashboardCollectionInterface
 } from '@src/interfaces';
 
-
 import {
   WidgetsLayout,
 } from '@src/styled';
-
 
 import DashboardWidgetConnected from
   '@src/usage/DashboardWidgetUsage';
@@ -26,7 +24,6 @@ interface DashboardStaticContainerProps {
 export const DashboardStaticContainer: 
 React.SFC<DashboardStaticContainerProps> = (props) => {
   const { width, widgets, elements } = props;
-
   
   return (
     <WidgetsLayout>
@@ -38,7 +35,6 @@ React.SFC<DashboardStaticContainerProps> = (props) => {
           width={width}
           margin={i + 1}
           elements={elements}
-          makeSeriesDataRequestFromAPI={undefined}
         />
       ))}
     </WidgetsLayout>

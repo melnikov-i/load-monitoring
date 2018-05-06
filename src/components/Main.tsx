@@ -50,7 +50,7 @@ import {
 /**
  *  Компоненты для подгрузки с помощью роутера 
  */
-// import DashboardConnected from '@src/usage/DashboardUsage';
+import DashboardConnected from '@src/usage/DashboardUsage';
 // import DevicesConnected from '@src/usage/DevicesUsage';
 // import OverviewConnected from '@src/usage/OverviewUsage';
 
@@ -488,7 +488,7 @@ export const Main: React.SFC<MainProps> = (props) => {
                   key={i}
                   exact path={'/' + e.to}
                   render={() => (
-                    null // <DashboardConnected id={e.to} />
+                    <DashboardConnected id={e.to} />
                   )}
                 />
               );
