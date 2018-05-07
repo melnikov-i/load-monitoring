@@ -15,7 +15,8 @@ const Logo = require('@src/images/LogoBig');
 import {
   LOGIN_LAYOUT_BIG_WIDTH,
   LOGIN_LAYOUT_BIG_HEIGHT,
-  LOGIN_FORM_INPUT_BIG_HEIGHT
+  LOGIN_FORM_INPUT_BIG_HEIGHT,
+  MIDDLE_SCREEN_MAX,
 } from '@src/styled';
 
 /**
@@ -43,6 +44,12 @@ export const LoginLayout = styled.div`
   animation-duration: 1s;
   animation-timing-function: linear;
   animation-fill-mode: both;
+  @media screen and (max-width: ${ MIDDLE_SCREEN_MAX }){
+    padding: 20px 20px 0;
+    box-sizing: border-box;
+    width: 100%;
+    height: calc(${ LOGIN_LAYOUT_BIG_HEIGHT } * 2);
+  }
 `;
 
 /**
@@ -52,6 +59,10 @@ export const LoginLayout = styled.div`
 export const LoginWrapper = styled.div`
   width: ${ LOGIN_LAYOUT_BIG_WIDTH };
   height: ${ LOGIN_LAYOUT_BIG_HEIGHT };
+  @media screen and (max-width: ${ MIDDLE_SCREEN_MAX}){
+    height: calc(${ LOGIN_LAYOUT_BIG_HEIGHT } * 2);
+    width: 100%;
+  }
 `;
 
 /**
@@ -63,6 +74,10 @@ export const LoginInnerPart = styled.div`
   vertical-align: top;
   width: calc(${ LOGIN_LAYOUT_BIG_WIDTH } / 2);
   height: ${ LOGIN_LAYOUT_BIG_HEIGHT };
+  @media screen and (max-width: ${ MIDDLE_SCREEN_MAX }){
+    display: block;
+    width: 100%;
+  }
 `;
 
 /**
@@ -78,6 +93,11 @@ export const LoginLogotype = styled.div`
   background-repeat: no-repeat;
   background-size: contain;
   padding-top: calc(${ LOGIN_LAYOUT_BIG_HEIGHT } - 80px);
+  @media screen and (max-width: ${ MIDDLE_SCREEN_MAX }){
+    width: calc(50% - 10px);
+    height: calc(${ LOGIN_LAYOUT_BIG_HEIGHT } / 2);
+    margin: 0 auto;
+  }
 `;
 
 /**

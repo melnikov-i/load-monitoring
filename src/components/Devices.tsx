@@ -133,6 +133,8 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
     switchPageMenuItemActive('');
   }
 
+  console.log('devices');
+  
   return (
     <div>
       <MainHeaderConnected data={MainHeaderState} />

@@ -51,8 +51,8 @@ import {
  *  Компоненты для подгрузки с помощью роутера 
  */
 import DashboardConnected from '@src/usage/DashboardUsage';
-// import DevicesConnected from '@src/usage/DevicesUsage';
-// import OverviewConnected from '@src/usage/OverviewUsage';
+import DevicesConnected from '@src/usage/DevicesUsage';
+import OverviewConnected from '@src/usage/OverviewUsage';
 
 interface MainProps extends RouteComponentProps<void> {
   /* Ключ, указывающий, что основное меню было запрошено с бэкэнда */
@@ -118,7 +118,7 @@ export const Main: React.SFC<MainProps> = (props) => {
   };
 
   /* Получает и хранит коллекцию элементов основного меню */
-  const mainMenu = getMainMenu();
+  const mainMenu: MainMenuLinksInterface[] = getMainMenu();
 
   /**
    * Выполняет проверку наличия меню устройств в Store.
@@ -135,7 +135,7 @@ export const Main: React.SFC<MainProps> = (props) => {
   };
 
   /* Получает и хранит коллекцию элементов меню устройств */
-  const devicesMenu = getDevicesMenu(); 
+  const devicesMenu: MainMenuLinksInterface[] = getDevicesMenu(); 
 
   if ( !AllMenusWasResponsedFromAPI ) {
     return (
@@ -191,9 +191,9 @@ export const Main: React.SFC<MainProps> = (props) => {
 
   /**
    * Отправляет в бекэнд команду на завершение сессии
-   * @return {undefined}
+   * @return {void}
    */
-  const pageHeaderExitLinkHandler = () => {
+  const pageHeaderExitLinkHandler = (): void => {
     const payload: LogOunInterface = {
       step: 'exit',
     };
@@ -205,9 +205,9 @@ export const Main: React.SFC<MainProps> = (props) => {
    * который используется для формирования ширины элементов
    * страницы с помощью isMenuOpenedOnSmallScreen.
    * @param {React.MouseEvent<T>} e
-   * @return {undefined}
+   * @return {void}
    */
-  const smallScreenMenuOpenedHandler = () => {
+  const smallScreenMenuOpenedHandler = (): void => {
     switchMenuOnSmallScreens();
   };
 
@@ -215,7 +215,7 @@ export const Main: React.SFC<MainProps> = (props) => {
    * Отправляет в Store идентификатор активного простого элемента
    * основного меню.
    * @param {React.MouseEvent<T>} e
-   * @return {undefined}
+   * @return {void}
    */
   type MouseEventGenericType = 
     | HTMLLIElement
@@ -223,7 +223,7 @@ export const Main: React.SFC<MainProps> = (props) => {
     | HTMLAnchorElement;
 
   const PageMenuItemActiveHandler =
-  ( e: React.MouseEvent<MouseEventGenericType> ) => {
+  ( e: React.MouseEvent<MouseEventGenericType> ): void => {
     const current: string = 
       String(e.currentTarget.getAttribute('data-item-id'));
     switchPageMenuItemActive(current);
@@ -233,10 +233,10 @@ export const Main: React.SFC<MainProps> = (props) => {
    * Отправляет в Store идентификатор активного составного элемента
    * основного меню.
    * @param {React.MouseEvent<T>} e
-   * @return {undefined}
+   * @return {void}
    */
   const PageMenuItemMultiActiveHandler =
-  ( e: React.MouseEvent<MouseEventGenericType> ) => {
+  ( e: React.MouseEvent<MouseEventGenericType> ): void => {
     const current: string = 
       String(e.currentTarget.getAttribute('data-item-id'));
     if ( PageMenuItemMultiActive === current ) {
@@ -252,7 +252,7 @@ export const Main: React.SFC<MainProps> = (props) => {
    * какой-нибудь пункт меню (сразу после загрузки страницы).
    * @return {Object}
    */
-  const PageMenuItemActiveStyle = () => {
+  const PageMenuItemActiveStyle = (): object => {
     if ( PageMenuItemActive !== '') 
       return {};
     return {
@@ -269,7 +269,7 @@ export const Main: React.SFC<MainProps> = (props) => {
    * @param {string} to
    * @return {Array}
    */
-  const getSubMenu = (to: string) => {
+  const getSubMenu = (to: string): Array<any> => {
     switch ( to ) {
       case 'devices': return devicesMenu;
       default: return [];
@@ -282,7 +282,7 @@ export const Main: React.SFC<MainProps> = (props) => {
    * @param {string} to
    * @return {string}
    */
-  const getSubMenuTitle = ( to: string ) => {
+  const getSubMenuTitle = ( to: string ): string => {
     switch ( to ) {
       case 'devices': return 'Все устройства';
       case 'dashboards': return 'Все дашборды';
@@ -296,13 +296,15 @@ export const Main: React.SFC<MainProps> = (props) => {
    * @param {string} to
    * @return {string}
    */
-  const getSubMenuIndex = ( to: string ) => {
+  const getSubMenuIndex = ( to: string ): string => {
     switch ( to ) {
       case 'devices': return '4';
       case 'dashboards': return '5';
       default: return '4'
     }
   }
+
+  console.log('main');
 
   return (
     <PageLayout>
@@ -472,14 +474,14 @@ export const Main: React.SFC<MainProps> = (props) => {
               exact path="/overview"
               render={() => {
                 return (
-                  null // <OverviewConnected />
+                  <OverviewConnected />
                 );
               }} 
             />
             <Route
               exact path={'/devices'}
               render={()=> (
-                null // <DevicesConnected />
+                <DevicesConnected />
               )} 
             />
             {devicesMenu.map((e, i) => {

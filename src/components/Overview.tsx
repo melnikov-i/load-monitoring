@@ -144,6 +144,7 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
       ],
     }
 
+    console.log('overview');
 
     return (
       <div>
