@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 
 import {
   WidgetsLayout,
@@ -43,7 +44,7 @@ import { Spinner } from '@src/components';
 import MainHeaderConnected from
   '@src/usage/MainHeaderUsage';
 
-interface OverviewProps {
+interface OverviewProps extends RouteComponentProps<void> {
   OverviewItemsWasRequestedFromAPI: boolean,
   makeOverviewItemsRequestFromAPI: () => any,
   remakeOverviewItemsRequestFromAPI: () => any,

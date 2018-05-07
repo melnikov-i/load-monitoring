@@ -1,8 +1,8 @@
-import sendRequestToAPI from '@src/ajax';
+import { sendRequestToAPI } from '@src/libs';
 
 import {
   DevicesTableInterface,
-  DevicesLoadInterface
+  DevicesLoadInterface,
 } from '@src/interfaces';
 
 import { Dispatch } from '@src/redux';

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 
 import {
   WidgetsLayout,
@@ -45,7 +46,7 @@ import { DroppedMenu } from '@src/libs';
 import MainHeaderConnected from
   '@src/usage/MainHeaderUsage';
 
-interface DevicesProps {
+interface DevicesProps extends RouteComponentProps<void> {
   DevicesItemsWasRequestedFromAPI: boolean,
   makeDevicesItemsRequestFromAPI: () => any,
   DevicesTableItemsCollection: DevicesTableInterface[],
@@ -128,6 +129,7 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
 
   const tableLinkHandler = 
   ( e: React.MouseEvent<HTMLAnchorElement> ) => {
+    e.preventDefault();
     switchPageMenuItemActive('');
   }
 

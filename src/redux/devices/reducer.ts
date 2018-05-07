@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 import {
   DevicesTableInterface,
-  LoadParamsInterface,
+  DevicesLoadInterface,
 } from '@src/interfaces';
 
 import {
@@ -18,7 +18,7 @@ import {
 export type State = {
   readonly DevicesTableItemsCollection: DevicesTableInterface[],
   readonly DevicesItemsWasRequestedFromAPI: boolean,
-  readonly DevicesLoadCollection: LoadParamsInterface,
+  readonly DevicesLoadCollection: DevicesLoadInterface['params'],
 };
 
 export const reducer = combineReducers({

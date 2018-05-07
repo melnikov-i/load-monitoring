@@ -3,3 +3,4 @@ export * from './MainInterfaces';
 export * from './DashboardInterface';
 export * from './MainHeaderInterface';
 export * from './DevicesInterfaces';
+export * from './OverviewInterfaces';

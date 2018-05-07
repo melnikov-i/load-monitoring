@@ -7,3 +7,15 @@ export interface DevicesTableInterface {
   memory: string;
   to: string,
 }
+
+export interface DevicesLoadInterface {
+  id: string,
+  params: {
+    state: string,
+    lastconn: number,
+    loading: {
+      cpu: string,
+      ram: string,
+    }
+  }
+}

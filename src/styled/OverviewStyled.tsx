@@ -5,10 +5,6 @@ import {
   DROPPED_MENU_ITEM_HEIGHT
 } from '@src/styled';
 
-import {
-  DActionAnchorClickedInterface
-} from '@src/interfaces';
-
 export const OverviewIconsLayout = styled.div`
   width: 100%;
   max-width: 800px;
@@ -146,11 +142,11 @@ export const OverviewTableActionAnchor = styled.a`
   cursor: pointer;
   font-size: 12px;
 
-  border: 1px solid ${( props: DActionAnchorClickedInterface ) => (
+  border: 1px solid ${( props: {isClicked: boolean}) => (
       ( props.isClicked ) ? '#8c8c8c' : '#e7eaec'
     )
   };
-  background-color: ${( props: DActionAnchorClickedInterface ) => (
+  background-color: ${( props: {isClicked: boolean}) => (
       ( props.isClicked ) ? '#d4d4d4' : '#fff'
     )
   };
@@ -158,11 +154,11 @@ export const OverviewTableActionAnchor = styled.a`
     outline: 0 solid transparent;
   };
   &:hover {
-    background-color: ${( props: DActionAnchorClickedInterface ) => (
+    background-color: ${( props: {isClicked: boolean}) => (
         ( props.isClicked ) ? '#d4d4d4' : '#e6e6e6'
       )
     };
-    border: 1px solid ${( props: DActionAnchorClickedInterface ) => (
+    border: 1px solid ${( props: {isClicked: boolean}) => (
         ( props.isClicked ) ? '#8c8c8c' : '#d2d2d2'
       )
     };
@@ -170,7 +166,7 @@ export const OverviewTableActionAnchor = styled.a`
 `;
 
 export const OverviewTableActionMenuLayout = styled.ul`
-  display: ${(props: DActionAnchorClickedInterface) => (
+  display: ${(props: {isClicked: boolean}) => (
       ( props.isClicked ) ? 'block' : 'none'
     )
   };

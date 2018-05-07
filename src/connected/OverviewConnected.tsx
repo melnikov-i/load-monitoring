@@ -1,5 +1,9 @@
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import {
+  connect,
+  MapStateToPropsParam,
+  MapDispatchToPropsParam,
+} from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Dispatch, RootState } from '@src/redux';
 import { withRouter } from 'react-router-dom';
@@ -15,26 +19,41 @@ import { Overview } from '@src/components';
 
 import {
   OverviewInterface,
-  DroppedMenuButtonClickedType
+  DroppedMenuButtonClickedType,
+  OverviewEventsTableInterface,
 } from '@src/interfaces';
 
-import {
-  OverviewItemsWasRequestedFromAPISelector,
-  OverviewItemsCollectionSelector,
-  DroppedMenuButtonClickedIdSelector,
-} from '@src/selectors';
+interface StateProps {
+  OverviewItemsWasRequestedFromAPI: boolean,
+  OverviewItemsCollection: OverviewInterface,
+  DroppedMenuButtonClickedId: DroppedMenuButtonClickedType,
+}
 
-const mapStateToProps = createStructuredSelector<RootState, {
-    OverviewItemsWasRequestedFromAPI: boolean,
-    OverviewItemsCollection: OverviewInterface,
-    DroppedMenuButtonClickedId: DroppedMenuButtonClickedType,
-  }>({
-    OverviewItemsWasRequestedFromAPI: OverviewItemsWasRequestedFromAPISelector,
-    OverviewItemsCollection: OverviewItemsCollectionSelector,
-    DroppedMenuButtonClickedId: DroppedMenuButtonClickedIdSelector,
+interface DispatchProps {
+  makeOverviewItemsRequestFromAPI: () => any,
+  remakeOverviewItemsRequestFromAPI: () => any,
+  makeOverviewDeleteItemsRequestFromAPI:
+  (payload: OverviewEventsTableInterface['id']) => any,
+  changeDroppedMenuClickedId:
+  (payload: DroppedMenuButtonClickedType) => any,
+}
+
+interface OwnProps {}
+
+const mapStateToProps:
+MapStateToPropsParam<StateProps, OwnProps, RootState> =
+  createStructuredSelector<RootState, StateProps>({
+    OverviewItemsWasRequestedFromAPI:
+      ( state: RootState ) => state.overview.OverviewItemsWasRequestedFromAPI,
+    OverviewItemsCollection:
+      ( state: RootState ) => state.overview.OverviewItemsCollection,
+    DroppedMenuButtonClickedId:
+      ( state: RootState ) => state.main.DroppedMenuButtonClickedId,
   });
 
-const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
+const mapDispatchToProps:
+MapDispatchToPropsParam<DispatchProps, OwnProps> =
+(dispatch: Dispatch) => bindActionCreators({
   makeOverviewItemsRequestFromAPI:
     asyncActionCreators.makeOverviewItemsRequestFromAPI,
   remakeOverviewItemsRequestFromAPI:
@@ -46,6 +65,6 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => bindActionCreators({
 }, dispatch);
 
 export const OverviewConnected = 
-  withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(Overview) as any
+  withRouter(connect<StateProps, DispatchProps, OwnProps, RootState>(
+    mapStateToProps, mapDispatchToProps)(Overview)
   );
