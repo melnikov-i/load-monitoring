@@ -3,6 +3,10 @@ export interface LoginFormInterface {
   password: string
 };
 
+export interface IRegistrationForm {
+  email: string,
+}
+
 export interface LogOunInterface {
   step: string,
 }

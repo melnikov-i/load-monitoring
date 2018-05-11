@@ -66,6 +66,19 @@ export const LoginWrapper = styled.div`
 `;
 
 /**
+ * Оборачивает ключевые части формы регистрации
+ * @returns {React.Component}
+ */
+export const RegistrationWrapper = styled.div`
+  width: calc(${ LOGIN_LAYOUT_BIG_WIDTH } / 2);
+  height: calc(${ LOGIN_LAYOUT_BIG_HEIGHT } / 2);
+  margin: 0 auto;
+  @media screen and (max-width: ${ MIDDLE_SCREEN_MAX}){
+    width: 100%;
+  }
+`;
+
+/**
  * Ключевая часть формы
  * @return {React.Component}
  */
@@ -145,6 +158,19 @@ export const LoginFormHeader = styled.h4`
 `;
 
 /**
+ * Заголовок внутри формы регистрации
+ * @returns {React.Component}
+ */
+export const RegistrationFormHeader = styled.div`
+  font-size: 13px;
+  font-weight: normal;
+  color: '#f52440';
+  text-align: center;
+  height: 50px;
+  line-height: 50px;
+`;
+
+/**
  * Поле ввода логина или пароля
  * При вводе некорректных данных меняет цвет фона и рамки
  * @param {number} loginFormStateIndex
@@ -153,7 +179,7 @@ export const LoginFormHeader = styled.h4`
 export const LoginFormInput = styled.input`
   box-sizing: border-box;
   width: 100%;
-  font-size: 13px;
+  font-size: 18px;
   font-weight: normal;
   height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT };
   margin-bottom: 20px;
@@ -171,6 +197,51 @@ export const LoginFormInput = styled.input`
 `;
 
 /**
+ * Поле ввода на странице регистрации
+ * В зависимости от состояния меняет цвет:
+ *  - в процессе ввода данных - становитса ораньжевой
+ *  - при вводе корректных данных становится зеленой
+ *  - при вводе некорректных данных становится красной.
+ * @param {string} registrationFormStateType
+ */
+export const RegistrationFormInput = styled.input`
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 18px;
+  font-weight: normal;
+  height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT};
+  line-height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT};
+  margin-bottom: 20px;
+  padding-left: 12px;
+  border: 1px solid ${ (props: { registrationFormStateType: string }) => {
+    switch ( props.registrationFormStateType ) {
+      case 'notValid': return '#b84252';
+      case 'valid': return 'green';
+      case 'inProgress': return '#ff8500';
+      default: return '#e5e6e7';
+    }}
+  };
+  background-color: ${(props: { registrationFormStateType: string }) => {
+    switch ( props.registrationFormStateType ) {
+      case 'notValid': return '#fa8595';
+      case 'valid': return 'green';
+      case 'inProgress': return '#f8ac59';
+      default: return '#fff';
+    }}
+  };
+  color: ${(props: { registrationFormStateType: string }) => {
+    switch (props.registrationFormStateType) {
+      case 'notValid': return '#b84252';
+      case 'valid':
+      case 'inProgress': return '#fff';
+      default: return '#676a6c';
+    }
+  }
+  };
+  border-radius: 2px;
+`;
+
+/**
  * Кнопка авторизации. В процессе проверки введенных данных
  * меняет цвет
  * @param {number} loginFormStateIndex
@@ -179,7 +250,7 @@ export const LoginFormInput = styled.input`
 export const LoginFormButton = styled.button`
   width: 100%;
   height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT };
-  font-size: 14px;
+  font-size: 18px;
   color: #fff;
   text-align: center;
   background-color: ${( props: {loginFormStateIndex: number} ) => (

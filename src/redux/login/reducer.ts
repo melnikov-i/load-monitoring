@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import {
   LoginFormInterface,
   LoginFormStateInterface,
+  IRegistrationForm,
 } from '@src/interfaces';
 
 import {
@@ -11,6 +12,8 @@ import {
   CHANGE_LOGIN_VALUE,
   CHANGE_PASSWORD_VALUE,
   SENDING_USER_CREDENTIAL_IN_PROGRESS,
+  SWITCH_REGISTRATION_FORM_STATE_TYPE,
+  CHANGE_EMAIL_VALUE,
 } from '@src/redux/login';
 
 export type State = {
@@ -18,6 +21,9 @@ export type State = {
   readonly LoginValue: LoginFormInterface['login'],
   readonly PasswordValue: LoginFormInterface['password'],
   readonly LoginFormState: LoginFormStateInterface,
+  readonly registrationFormStateType: string,
+  readonly EMailValue: IRegistrationForm['email'],
+  
 };
 
 const loginFormStateInitialState: LoginFormStateInterface = {
@@ -27,7 +33,9 @@ const loginFormStateInitialState: LoginFormStateInterface = {
     'Проверка учетных данных',
     'Учетные данные некорректны'
   ],
-}
+};
+
+// const registrationFormInit: 
 
 export const reducer = combineReducers({
   /**
@@ -95,6 +103,30 @@ export const reducer = combineReducers({
         return loginFormStateInitialState;
       case USER_WAS_LOGOUT:
         return loginFormStateInitialState;
+      default:
+        return state;
+    }
+  },
+
+  /**
+   * Содержит тип состояния поля ввода E-Mail на странице регистрации
+   */
+  registrationFormStateType: ( state = '', action ) => {
+    switch ( action.type ) {
+      case SWITCH_REGISTRATION_FORM_STATE_TYPE:
+        return action.payload;
+      default: 
+        return state;
+    }
+  },
+
+  /**
+   * Содержит значение поля ввода E-Mail в форме авторизации
+   */
+  EMailValue: ( state = '', action ) => {
+    switch ( action.type ) {
+      case CHANGE_EMAIL_VALUE:
+        return action.payload;
       default:
         return state;
     }

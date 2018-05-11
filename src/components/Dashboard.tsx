@@ -181,8 +181,8 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
   };
 
   switch ( DashboardStateKey ) {
-    case '1': return viewState1();
     case '0': return viewState0();
+    case '1': return viewState1();
     case '2': return viewState2();
     case '3':  return viewState30();
     case '31': return viewState31();

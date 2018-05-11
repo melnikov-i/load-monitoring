@@ -4,7 +4,8 @@ import { Dispatch } from '@src/redux';
 import {
   LoginFormInterface,
   LoginFormStateInterface,
-  LogOunInterface
+  LogOunInterface,
+  IRegistrationForm
 } from '@src/interfaces';
 
 export const CHANGE_LOGIN_VALUE = 
@@ -17,6 +18,10 @@ export const USER_IS_AUTHORIZED =
   'USER_IS_AUTHORIZED';
 export const USER_WAS_LOGOUT = 
   'USER_WAS_LOGOUT';
+export const SWITCH_REGISTRATION_FORM_STATE_TYPE =
+  'SWITCH_REGISTRATION_FORM_STATE_TYPE';
+export const CHANGE_EMAIL_VALUE =
+  'CHANGE_EMAIL_VALUE';
 
 export type Actions = {
   USER_IS_AUTHORIZED: {
@@ -37,6 +42,14 @@ export type Actions = {
     type: typeof SENDING_USER_CREDENTIAL_IN_PROGRESS,
     payload: LoginFormStateInterface['loginFormStateIndex'],
   },
+  SWITCH_REGISTRATION_FORM_STATE_TYPE: {
+    type: typeof SWITCH_REGISTRATION_FORM_STATE_TYPE,
+    payload: string,
+  },
+  CHANGE_EMAIL_VALUE: {
+    type: typeof CHANGE_EMAIL_VALUE,
+    payload: IRegistrationForm['email'],
+  }
 };
 
 export const syncActionCreators = {
@@ -80,8 +93,27 @@ export const syncActionCreators = {
   sendingUserCredentialInProgress: 
   ( payload: LoginFormStateInterface['loginFormStateIndex'] ):
   Actions[typeof SENDING_USER_CREDENTIAL_IN_PROGRESS] => ({
-    type: SENDING_USER_CREDENTIAL_IN_PROGRESS, payload
+    type: SENDING_USER_CREDENTIAL_IN_PROGRESS, payload,
   }),
+
+  /**
+   * При вводе E-Mail в форму авторизации, ее визуальное оформление
+   * меняется в зависимости от действий пользователя. Визуальное
+   * оформление переключает этот ключ.
+   */
+  switchRegistrationFormStateType: ( payload: string ):
+  Actions[typeof SWITCH_REGISTRATION_FORM_STATE_TYPE] => ({
+      type: SWITCH_REGISTRATION_FORM_STATE_TYPE, payload,
+  }),
+
+  /**
+   * По мере ввода текста с клавиатуры в поле ввода E-Mail, меняет
+   * значение этого поля.
+  */
+  changeEMailValue: (payload: IRegistrationForm['email']):
+    Actions[typeof CHANGE_EMAIL_VALUE] => ({
+      type: CHANGE_EMAIL_VALUE, payload
+    }),
 };
 
 
@@ -131,4 +163,21 @@ export const asyncActionCreators = {
       )
     }
   },
+  
+  handleInputEmailEvent: ( payload: IRegistrationForm['email'] ) => {
+    return ( dispatch: Dispatch ) => {
+      dispatch(
+        syncActionCreators.changeEMailValue(payload)
+      );
+      if ( payload !== '' ) {
+        dispatch(
+          syncActionCreators.switchRegistrationFormStateType('inProgress')
+        );
+      } else {
+        dispatch(
+          syncActionCreators.switchRegistrationFormStateType('default')
+        );
+      }
+    }
+  }
 }
