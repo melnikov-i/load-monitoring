@@ -3,6 +3,7 @@
  * авторизации.
 */
 import * as React from 'react';
+import Recaptcha from 'react-recaptcha';
 
 import {
   LoginLayout,
@@ -93,8 +94,13 @@ export const Login: React.SFC<LoginProps> = (props) => {
     sendUserCredentialToAPI(UserCredential);
   };
 
+  const handlerVerify = ( response: any ) => {
+    console.log('reCAPTCHA:', response);
+  }
+
   const handlerRegistration = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    console.log('reCAPTCHA:')
   }
 
   const loginPage = (): JSX.Element => (
@@ -175,12 +181,11 @@ export const Login: React.SFC<LoginProps> = (props) => {
             placeholder={'E-Mail'}
             value={EMailValue}
           />
-          <div
-            className="g-recaptcha"
-            style={{
-              marginBottom: '20px',
-            }}
-            data-sitekey="6Ld2mlgUAAAAAJW72kNFehX6Jz9I468FVOiiPce7"></div>
+          <Recaptcha
+            sitekey="6Ld2mlgUAAAAAJW72kNFehX6Jz9I468FVOiiPce7"
+            render="explicit"
+            verifyCallback={handlerVerify}
+          />
           <LoginFormButton
             loginFormStateIndex={
               LoginFormState.loginFormStateIndex
