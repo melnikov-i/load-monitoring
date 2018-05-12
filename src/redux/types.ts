@@ -1,5 +1,5 @@
-import { Dispatch as ReduxDispatch } from 'redux';
+import { Dispatch as ReduxDispatch, Action as ReduxAction } from 'redux';
 
-import { RootState } from '@src/redux';
+// import { RootState } from '@src/redux';
 
-export type Dispatch = ReduxDispatch<RootState>;
+export type Dispatch = ReduxDispatch<ReduxAction<any>>;

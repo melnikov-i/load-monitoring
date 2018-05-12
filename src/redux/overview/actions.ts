@@ -64,23 +64,23 @@ export const asyncActionCreators = {
     }
   },
   remakeOverviewItemsRequestFromAPI: () => {
-    return ( dispatch: Dispatch ) => {
+    return ( /*dispatch: Dispatch*/ ) => {
       setTimeout(() => {
-        dispatch(
+        // dispatch(
           asyncActionCreators.makeOverviewItemsRequestFromAPI()
-        );
+        // );
       }, 60000);
     }
   },
   makeOverviewDeleteItemsRequestFromAPI:
   ( payload: OverviewEventsTableInterface['id'] ) => {
-    return ( dispatch: Dispatch ) => {
+    return (/* dispatch: Dispatch*/ ) => {
       sendRequestToAPI.post('/overview.php', {event: payload}).then(
         ( response ) => {
           console.log(response.data);
-          dispatch(
+          // dispatch(
             asyncActionCreators.makeOverviewItemsRequestFromAPI()
-          );
+          // );
         }
       )
       .catch(

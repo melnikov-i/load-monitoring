@@ -59,7 +59,7 @@ const UserMenuInitialState: UserMenuInterface = {
   ]
 }
 
-export const reducer = combineReducers({
+export const reducer = combineReducers<State>({
   MainMenuWasRequestedFromAPI: (state = false, action) => {
     switch (action.type) {
       case MAIN_MENU_WAS_REQUESTED_FROM_API:
@@ -92,6 +92,7 @@ export const reducer = combineReducers({
         return state;
     }
   },
+
   UserMenuItemsCollection: (state = UserMenuInitialState, action) => {
     switch (action.type) {
       case PUT_USER_MENU_FROM_API_TO_COLLECTION:
@@ -109,6 +110,7 @@ export const reducer = combineReducers({
         return state;
     }
   },
+
   DevicesMenuWasRequestedFromAPI: (state = false, action) => {
     switch (action.type) {
       case DEVICES_MENU_WAS_REQUESTED_FROM_API:
@@ -119,6 +121,7 @@ export const reducer = combineReducers({
         return state;
     }
   },
+
   DevicesMenuItemsCollection: (state = [], action) => {
     switch (action.type) {
       case PUT_DEVICES_MENU_FROM_API_TO_COLLECTION:
@@ -129,6 +132,7 @@ export const reducer = combineReducers({
         return state;
     }
   },
+
   DroppedMenuButtonClickedId: (state = '', action) => {
     switch (action.type) {
       case CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID:

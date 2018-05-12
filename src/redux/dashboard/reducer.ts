@@ -64,7 +64,7 @@ ElementsOfDashboardCollectionInterface = {
   collection: [],
 }
 
-export const reducer = combineReducers({
+export const reducer = combineReducers<State>({
   /**
    * Ключ состояния компонента, используемый для выбора Вида
    */

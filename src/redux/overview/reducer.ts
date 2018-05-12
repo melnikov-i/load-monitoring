@@ -27,7 +27,7 @@ const OverviewItemsInitialState: OverviewInterface = {
   events_table: []
 }
 
-export const reducer = combineReducers({
+export const reducer = combineReducers<State>({
   OverviewItemsWasRequestedFromAPI: ( state = false, action ) => {
     switch ( action.type ) {
       case OVERVIEW_ITEMS_WAS_REQUESTED_FROM_API:

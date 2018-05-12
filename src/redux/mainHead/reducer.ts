@@ -18,7 +18,7 @@ export type State = {
   MainHeaderButtonWasClicked: boolean,
 };
 
-export const reducer = combineReducers({
+export const reducer = combineReducers<State>({
   MainHeaderButtonWasClicked: ( state = false, action ) => {
     switch ( action.type ) {
       case MAIN_HEADER_BUTTON_SWITCH:

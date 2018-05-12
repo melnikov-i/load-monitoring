@@ -21,7 +21,16 @@ export type State = {
   readonly DevicesLoadCollection: DevicesLoadInterface['params'],
 };
 
-export const reducer = combineReducers({
+const devicesLoadInitState: DevicesLoadInterface['params'] = {
+  state: '',
+  lastconn: 0,
+  loading: {
+    cpu: '',
+    ram: '',
+  }
+}
+
+export const reducer = combineReducers<State>({
   DevicesTableItemsCollection: ( state = [], action ) => {
     switch ( action.type ) {
       case PUT_DEVICES_ITEMS_FROM_API_TO_TABLE_COLLECTION:
@@ -42,7 +51,7 @@ export const reducer = combineReducers({
         return state;
     }
   },
-  DevicesLoadCollection: ( state = {}, action ) => {
+  DevicesLoadCollection: ( state = devicesLoadInitState, action ) => {
     switch ( action.type ) {
       case ADD_DEVICE_IN_DEVICES_LOAD_COLLECTION:
         return {
@@ -50,7 +59,7 @@ export const reducer = combineReducers({
           [action.payload.id]: action.payload.params
         };
       case USER_WAS_LOGOUT:
-        return {};
+        return devicesLoadInitState;
       default:
         return state;
     }

@@ -37,7 +37,7 @@ const loginFormStateInitialState: LoginFormStateInterface = {
 
 // const registrationFormInit: 
 
-export const reducer = combineReducers({
+export const reducer = combineReducers<State>({
   /**
    * Содержит ключ состояния авторизации. На него ориентируются:
    *   - App: в зависимости от значения подключает либо Login либо Main

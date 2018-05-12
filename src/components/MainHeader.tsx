@@ -18,7 +18,7 @@ import {
 
 interface MainHeaderProps extends RouteComponentProps<void> {
   data: MainHeaderInterface,
-  MainHeaderButtonWasClicked: boolean,
+  // MainHeaderButtonWasClicked: boolean,
   mainHeaderButtonSwitch: () => any,
   /* Метод в actions, изменяющий идентифкатор PageMenuItemActive */
   switchPageMenuItemActive: ( payload: string ) => any,

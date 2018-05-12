@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 
-import { reducer as main, State as MainState } from '@src/redux/main';
-import { reducer as login, State as LoginState } from '@src/redux/login';
-import { reducer as devices, State as DevicesState } from '@src/redux/devices';
-import { reducer as overview, State as OverviewState } from '@src/redux/overview';
-import { reducer as dashboard, State as DashboardState } from '@src/redux/dashboard';
-import { reducer as mainHead, State as MainHeadState } from '@src/redux/mainHead';
+import { reducer as main, State as MainState, Actions as MainActions } from '@src/redux/main';
+import { reducer as login, State as LoginState, Actions as LoginActions } from '@src/redux/login';
+import { reducer as devices, State as DevicesState, Actions as DevicesActions } from '@src/redux/devices';
+import { reducer as overview, State as OverviewState, Actions as OverviewActions } from '@src/redux/overview';
+import { reducer as dashboard, State as DashboardState, Actions as DashboardActions } from '@src/redux/dashboard';
+import { reducer as mainHead, State as MainHeadState, Actions as MainHeadActions } from '@src/redux/mainHead';
 
 export interface RootState {
   main: MainState,
@@ -14,6 +14,15 @@ export interface RootState {
   overview: OverviewState,
   dashboard: DashboardState,
   mainHead: MainHeadState,
+}
+
+export interface RootActions {
+  main: MainActions,
+  login: LoginActions,
+  devices: DevicesActions,
+  overview: OverviewActions,
+  dashboard: DashboardActions,
+  mainHead: MainHeadActions,
 }
 
 export const rootReducer = combineReducers<RootState>({
