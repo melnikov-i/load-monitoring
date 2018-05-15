@@ -8,20 +8,26 @@ import {
   IRegistrationForm
 } from '@src/interfaces';
 
-export const CHANGE_LOGIN_VALUE = 
-  'CHANGE_LOGIN_VALUE';
-export const CHANGE_PASSWORD_VALUE = 
-  'CHANGE_PASSWORD_VALUE';
-export const SENDING_USER_CREDENTIAL_IN_PROGRESS =
-  'SENDING_USER_CREDENTIAL_IN_PROGRESS';
 export const USER_IS_AUTHORIZED = 
   'USER_IS_AUTHORIZED';
 export const USER_WAS_LOGOUT = 
-  'USER_WAS_LOGOUT';
-export const SWITCH_REGISTRATION_FORM_STATE_TYPE =
-  'SWITCH_REGISTRATION_FORM_STATE_TYPE';
-export const CHANGE_EMAIL_VALUE =
-  'CHANGE_EMAIL_VALUE';
+    'USER_WAS_LOGOUT';
+export const CHANGE_LOGIN_VALUE = 
+  'CHANGE_LOGIN_VALUE';
+export const CHANGE_PASSWORD_VALUE =
+  'CHANGE_PASSWORD_VALUE';
+export const SENDING_USER_CREDENTIAL_IN_PROGRESS =
+    'SENDING_USER_CREDENTIAL_IN_PROGRESS';
+export const CHANGE_R_PASSWORD_VALUE =
+  'CHANGE_R_PASSWORD_VALUE';
+export const CHANGE_R_CONFIRM_PASSWORD_VALUE =
+  'CHANGE_R_CONFIRM_PASSWORD_VALUE';
+export const CHANGE_R_EMAIL_VALUE =
+  'CHANGE_R_EMAIL_VALUE';
+export const UPDATE_RECAPTCHA_VALUE =
+  'UPDATE_RECAPTCHA_VALUE';
+export const SWITCH_R_AGREEMENT_CHECKBOX_VALUE =
+  'SWITCH_R_AGREEMENT_CHECKBOX_VALUE';
 
 export type Actions = {
   USER_IS_AUTHORIZED: {
@@ -36,19 +42,30 @@ export type Actions = {
   },
   CHANGE_PASSWORD_VALUE: {
     type: typeof CHANGE_PASSWORD_VALUE,
-    payload: LoginFormInterface['login'],
+    payload: LoginFormInterface['password'],
   },
   SENDING_USER_CREDENTIAL_IN_PROGRESS: {
     type: typeof SENDING_USER_CREDENTIAL_IN_PROGRESS,
     payload: LoginFormStateInterface['loginFormStateIndex'],
   },
-  SWITCH_REGISTRATION_FORM_STATE_TYPE: {
-    type: typeof SWITCH_REGISTRATION_FORM_STATE_TYPE,
-    payload: string,
+  CHANGE_R_PASSWORD_VALUE: {
+    type: typeof CHANGE_R_PASSWORD_VALUE,
+    payload: IRegistrationForm['password'],
   },
-  CHANGE_EMAIL_VALUE: {
-    type: typeof CHANGE_EMAIL_VALUE,
+  CHANGE_R_CONFIRM_PASSWORD_VALUE: {
+    type: typeof CHANGE_R_CONFIRM_PASSWORD_VALUE,
+    payload: IRegistrationForm['password'],
+  },
+  CHANGE_R_EMAIL_VALUE: {
+    type: typeof CHANGE_R_EMAIL_VALUE,
     payload: IRegistrationForm['email'],
+  },
+  UPDATE_RECAPTCHA_VALUE: {
+    type: typeof UPDATE_RECAPTCHA_VALUE,
+    payload: string,
+  }
+  SWITCH_R_AGREEMENT_CHECKBOX_VALUE: {
+    type: typeof SWITCH_R_AGREEMENT_CHECKBOX_VALUE,
   }
 };
 
@@ -58,61 +75,89 @@ export const syncActionCreators = {
    * Происходит при успешной авторизации пользователя.
   */
   userIsAuthorized: (): Actions[typeof USER_IS_AUTHORIZED] => ({
-    type: USER_IS_AUTHORIZED,
-  }),
+      type: USER_IS_AUTHORIZED,
+    }),
 
   /**
    * Меняет значение ключа isAuthorized на false.
    * Происходит при выходе пользователя из системы.
   */
   userWasLogOut: (): Actions[typeof USER_WAS_LOGOUT] => ({
-    type: USER_WAS_LOGOUT,
-  }),
+      type: USER_WAS_LOGOUT,
+    }),
 
   /**
    * По мере ввода текста с клавиатуры в поле ввода логина, меняет
    * значение этого поля.
   */
   changeLoginValue: (payload: LoginFormInterface['login']): 
-  Actions[typeof CHANGE_LOGIN_VALUE] => ({
-    type: CHANGE_LOGIN_VALUE, payload
-  }),
+    Actions[typeof CHANGE_LOGIN_VALUE] => ({
+      type: CHANGE_LOGIN_VALUE, payload
+    }),
 
   /**
    * По мере ввода текста с клавиатуры в поле ввода пароля, меняет
    * значение этого поля.
   */
-  changePasswordValue: (payload: LoginFormInterface['password']): 
-  Actions[typeof CHANGE_PASSWORD_VALUE] => ({
-    type: CHANGE_PASSWORD_VALUE, payload
-  }),
+  changePasswordValue: (payload: LoginFormInterface['password']):
+    Actions[typeof CHANGE_PASSWORD_VALUE] => ({
+      type: CHANGE_PASSWORD_VALUE, payload
+    }),
 
   /**
    *  Помещает в reducer индекс статуса авторизации 
   */
   sendingUserCredentialInProgress: 
   ( payload: LoginFormStateInterface['loginFormStateIndex'] ):
-  Actions[typeof SENDING_USER_CREDENTIAL_IN_PROGRESS] => ({
-    type: SENDING_USER_CREDENTIAL_IN_PROGRESS, payload,
-  }),
+    Actions[typeof SENDING_USER_CREDENTIAL_IN_PROGRESS] => ({
+      type: SENDING_USER_CREDENTIAL_IN_PROGRESS, payload,
+    }),
+
 
   /**
-   * При вводе E-Mail в форму авторизации, ее визуальное оформление
-   * меняется в зависимости от действий пользователя. Визуальное
-   * оформление переключает этот ключ.
+   * По мере ввода текста с клавиатуры в поле ввода пароля, меняет
+   * значение этого поля.
+  */
+  changeReristrationPasswordValue:
+  (payload: IRegistrationForm['password']):
+    Actions[typeof CHANGE_R_PASSWORD_VALUE] => ({
+      type: CHANGE_R_PASSWORD_VALUE, payload
+    }),
+
+  /**
+   * По мере ввода текста с клавиатуры в поле ввода подтверждения
+   * пароля, меняет значение этого поля.
    */
-  switchRegistrationFormStateType: ( payload: string ):
-  Actions[typeof SWITCH_REGISTRATION_FORM_STATE_TYPE] => ({
-      type: SWITCH_REGISTRATION_FORM_STATE_TYPE, payload,
-  }),
+  changeConfirmPasswordValue: (payload: IRegistrationForm['password']):
+    Actions[typeof CHANGE_R_CONFIRM_PASSWORD_VALUE] => ({
+      type: CHANGE_R_CONFIRM_PASSWORD_VALUE, payload,
+    }),
+
 
   /**
    * По мере ввода текста с клавиатуры в поле ввода E-Mail, меняет
    * значение этого поля.
   */
-  changeEMailValue: (payload: IRegistrationForm['email']):
-    Actions[typeof CHANGE_EMAIL_VALUE] => ({
-      type: CHANGE_EMAIL_VALUE, payload
+  changeEmailValue: (payload: IRegistrationForm['email']):
+    Actions[typeof CHANGE_R_EMAIL_VALUE] => ({
+      type: CHANGE_R_EMAIL_VALUE, payload
+    }),
+  
+  /**
+   * Передает а редьюсер значение, полученное от сервиса reCAPTCHA
+   */
+  updateRecaptchaValue: (payload: string):
+    Actions[typeof UPDATE_RECAPTCHA_VALUE] => ({
+      type: UPDATE_RECAPTCHA_VALUE, payload
+    }),
+
+  /**
+   * Меняет значение чекбокса лицензионного соглашения в форме
+   * регистрации
+   */
+  switchAgreementCheckboxValue: ():
+    Actions[typeof SWITCH_R_AGREEMENT_CHECKBOX_VALUE] => ({
+      type: SWITCH_R_AGREEMENT_CHECKBOX_VALUE,
     }),
 };
 
@@ -167,17 +212,8 @@ export const asyncActionCreators = {
   handleInputEmailEvent: ( payload: IRegistrationForm['email'] ) => {
     return ( dispatch: Dispatch ) => {
       dispatch(
-        syncActionCreators.changeEMailValue(payload)
+        syncActionCreators.changeEmailValue(payload)
       );
-      if ( payload !== '' ) {
-        dispatch(
-          syncActionCreators.switchRegistrationFormStateType('inProgress')
-        );
-      } else {
-        dispatch(
-          syncActionCreators.switchRegistrationFormStateType('default')
-        );
-      }
     }
   }
 }

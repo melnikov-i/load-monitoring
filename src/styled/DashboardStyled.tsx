@@ -42,17 +42,13 @@ export const DraggableConfigColumnsItemAnchor = styled.a`
     background-image: url(${ Checkboxes });
     background-size: 240px 24px;
     background-position: ${(props: {isSelected: boolean}) => (
-        props.isSelected
-          ? '-168px 0' : '-120px 0'
-      )
-    };
+      props.isSelected ? '-168px 0' : '-120px 0'
+    )};
   }
   &:hover:before {
     background-position: ${(props: {isSelected: boolean}) => (
-        props.isSelected
-          ? '-168px 0' : '-144px 0'
-      )
-    };
+      props.isSelected ? '-168px 0' : '-144px 0'
+    )};
   }
 `;
 

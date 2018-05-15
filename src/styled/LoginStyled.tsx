@@ -5,9 +5,10 @@ import {
 } from '@src/styled';
 
 /**
- *  Импорт логотипа страницы 
+ *  Импорт логотипа страницы и шаблона для чекбоксов
  */
 const Logo = require('@src/images/LogoBig');
+const Checkboxes = require('@src/images/checkboxes');
 
 /**
  * Импорт констант
@@ -35,9 +36,9 @@ export const LoginLayoutWrapper = styled.div`
  * авторизации.
  * @return {React.Component}
  */
+// height: ${ LOGIN_LAYOUT_BIG_HEIGHT };
 export const LoginLayout = styled.div`
   width: ${ LOGIN_LAYOUT_BIG_WIDTH };
-  height: ${ LOGIN_LAYOUT_BIG_HEIGHT };
   padding-top: 100px;
   margin: 0 auto;
   animation-name: ${ emergence };
@@ -48,10 +49,10 @@ export const LoginLayout = styled.div`
     padding: 20px 20px 0;
     box-sizing: border-box;
     width: 100%;
-    height: calc(${ LOGIN_LAYOUT_BIG_HEIGHT } * 2);
   }
 `;
-
+  // height: calc(${ LOGIN_LAYOUT_BIG_HEIGHT } * 2);
+  
 /**
  * Оборачивает ключевые части формы
  * @return {React.Component}
@@ -60,8 +61,8 @@ export const LoginWrapper = styled.div`
   width: ${ LOGIN_LAYOUT_BIG_WIDTH };
   height: ${ LOGIN_LAYOUT_BIG_HEIGHT };
   @media screen and (max-width: ${ MIDDLE_SCREEN_MAX}){
-    height: calc(${ LOGIN_LAYOUT_BIG_HEIGHT } * 2);
     width: 100%;
+    height: calc(${ LOGIN_LAYOUT_BIG_HEIGHT } * 2);
   }
 `;
 
@@ -71,7 +72,6 @@ export const LoginWrapper = styled.div`
  */
 export const RegistrationWrapper = styled.div`
   width: calc(${ LOGIN_LAYOUT_BIG_WIDTH } / 2);
-  height: calc(${ LOGIN_LAYOUT_BIG_HEIGHT } / 2);
   margin: 0 auto;
   @media screen and (max-width: ${ MIDDLE_SCREEN_MAX}){
     width: 100%;
@@ -162,12 +162,12 @@ export const LoginFormHeader = styled.h4`
  * @returns {React.Component}
  */
 export const RegistrationFormHeader = styled.div`
-  font-size: 13px;
-  font-weight: normal;
-  color: '#f52440';
-  text-align: center;
   height: 50px;
   line-height: 50px;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  color: #676a6c;
 `;
 
 /**
@@ -179,7 +179,7 @@ export const RegistrationFormHeader = styled.div`
 export const LoginFormInput = styled.input`
   box-sizing: border-box;
   width: 100%;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: normal;
   height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT };
   margin-bottom: 20px;
@@ -198,46 +198,20 @@ export const LoginFormInput = styled.input`
 
 /**
  * Поле ввода на странице регистрации
- * В зависимости от состояния меняет цвет:
- *  - в процессе ввода данных - становитса ораньжевой
- *  - при вводе корректных данных становится зеленой
- *  - при вводе некорректных данных становится красной.
  * @param {string} registrationFormStateType
  */
 export const RegistrationFormInput = styled.input`
   box-sizing: border-box;
   width: 100%;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: normal;
   height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT};
   line-height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT};
   margin-bottom: 20px;
   padding-left: 12px;
-  border: 1px solid ${ (props: { registrationFormStateType: string }) => {
-    switch ( props.registrationFormStateType ) {
-      case 'notValid': return '#b84252';
-      case 'valid': return 'green';
-      case 'inProgress': return '#ff8500';
-      default: return '#e5e6e7';
-    }}
-  };
-  background-color: ${(props: { registrationFormStateType: string }) => {
-    switch ( props.registrationFormStateType ) {
-      case 'notValid': return '#fa8595';
-      case 'valid': return 'green';
-      case 'inProgress': return '#f8ac59';
-      default: return '#fff';
-    }}
-  };
-  color: ${(props: { registrationFormStateType: string }) => {
-    switch (props.registrationFormStateType) {
-      case 'notValid': return '#b84252';
-      case 'valid':
-      case 'inProgress': return '#fff';
-      default: return '#676a6c';
-    }
-  }
-  };
+  border: 1px solid #e5e6e7;
+  background-color: #fff;
+  color: #676a6c;
   border-radius: 2px;
 `;
 
@@ -249,16 +223,67 @@ export const RegistrationFormInput = styled.input`
  */
 export const LoginFormButton = styled.button`
   width: 100%;
-  height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT };
-  font-size: 18px;
+  height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT};
+  font-size: 16px;
   color: #fff;
   text-align: center;
-  background-color: ${( props: {loginFormStateIndex: number} ) => (
-      ( props.loginFormStateIndex === 1 ) ? '#eee' : '#1ab395'
-    )
+  background-color: ${(props: { loginFormStateIndex: number }) => (
+    (props.loginFormStateIndex === 1) ? '#eee' : '#1ab395'
+  )
   };
   border-radius: 2px;
   cursor: pointer;
+`;
+
+/**
+ * Кнопка подтверждения регистрации.
+ * @param {number} loginFormStateIndex
+ * @return {React.Component}
+ */
+export const RegistrationFormButton = styled.button`
+  width: 100%;
+  height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT};
+  font-size: 18px;
+  color: #fff;
+  text-align: center;
+  background-color: #1ab395;
+  border-radius: 2px;
+  cursor: pointer;
+  margin-top: 20px;
+`;
+
+/**
+ * Чекбокс пользовательского соглашения
+ * @returns {React.Component}
+ */
+export const RegistrationAgreementCheckbox = styled.a`
+  text-decoration: none;
+  cursor: pointer;
+  width: 100%;
+  height: 24px;
+  display: block;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #676a6c;
+  &::before {
+    content: "";
+    display: inline-block;
+    vertical-align: top;
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    background-image: url(${Checkboxes});
+    background-size: 240px 24px;
+    background-position: ${(props: { isSelected: boolean }) => (
+      props.isSelected ? '-48px 0' : '0 0'
+    )};
+  }
+  &:hover:before {
+    background-position: ${(props: { isSelected: boolean }) => (
+      props.isSelected ? '-48px 0' : '-24px 0'
+    )};
+  }
+
 `;
 
 /**

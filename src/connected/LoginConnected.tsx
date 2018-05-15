@@ -13,22 +13,30 @@ import { syncActionCreators, asyncActionCreators } from '@src/redux/login';
 import {
   LoginFormInterface,
   LoginFormStateInterface,
-  IRegistrationForm
+  IRegistrationForm,
+  IRegistrationFormValidation
 } from '@src/interfaces';
 
 interface StateProps {
-  LoginValue: LoginFormInterface['login'],
-  PasswordValue: LoginFormInterface['password'],
-  LoginFormState: LoginFormStateInterface,
-  EMailValue: IRegistrationForm['email'],
-  registrationFormStateType: string,
+  loginValue: LoginFormInterface['login'],
+  passwordValue: LoginFormInterface['password'],
+  loginFormState: LoginFormStateInterface,
+  registrationEmailValue: IRegistrationForm['email'],
+  registrationPasswordValue: IRegistrationForm['password'],
+  registrationConfirmPasswordValue: IRegistrationForm['password'],
+  registrationAgreementValue: boolean,
+  registrationFormValidation: IRegistrationFormValidation,
+  reCaptcha: string,
 }
 
 interface DispatchProps {
   changeLoginValue: ( payload: LoginFormInterface['login'] ) => any,
-  changePasswordValue: ( payload: LoginFormInterface['password'] ) => any,
+  changePasswordValue: (payload: LoginFormInterface['password']) => any,
+  changeConfirmPasswordValue: ( payload: LoginFormInterface['password'] ) => any,
   sendUserCredentialToAPI: ( payload: LoginFormInterface ) => any,
   handleInputEmailEvent: (payload: IRegistrationForm['email']) => any,
+  updateRecaptchaValue: (payload: string) => any,
+  switchAgreementCheckboxValue: () => any,
 }
 
 interface OwnProps {}
@@ -36,12 +44,20 @@ interface OwnProps {}
 const mapStateToProps:
 MapStateToPropsParam<StateProps, OwnProps, RootState> =
   createStructuredSelector<RootState, StateProps>({
-    LoginValue: ( state: RootState ) => state.login.LoginValue,
-    PasswordValue: ( state: RootState ) => state.login.PasswordValue,
-    LoginFormState: ( state: RootState ) => state.login.LoginFormState,
-    EMailValue: ( state: RootState ) => state.login.EMailValue,
-    registrationFormStateType:
-      ( state: RootState ) => state.login.registrationFormStateType,
+    loginValue: ( state: RootState ) => state.login.loginValue,
+    passwordValue: (state: RootState) => state.login.passwordValue,
+    loginFormState: ( state: RootState ) => state.login.loginFormState,
+    registrationEmailValue: ( state: RootState ) => 
+      state.login.registrationEmailValue,
+    registrationPasswordValue: (state: RootState) =>
+      state.login.registrationPasswordValue,
+    registrationConfirmPasswordValue: ( state: RootState ) => 
+      state.login.registrationConfirmPasswordValue,
+    registrationAgreementValue: (state: RootState) => 
+      state.login.registrationAgreementValue,
+    registrationFormValidation: (state: RootState) =>
+      state.login.registrationFormValidation,
+    reCaptcha: ( state: RootState ) => state.login.reCaptcha,
   });
 
 
@@ -49,8 +65,11 @@ const mapDispatchToProps:
 MapDispatchToPropsParam<DispatchProps, OwnProps> = ( dispatch: Dispatch ) => bindActionCreators({
   changeLoginValue: syncActionCreators.changeLoginValue,
   changePasswordValue: syncActionCreators.changePasswordValue,
+  changeConfirmPasswordValue: syncActionCreators.changeConfirmPasswordValue,
   sendUserCredentialToAPI: asyncActionCreators.sendUserCredentialToAPI,
   handleInputEmailEvent: asyncActionCreators.handleInputEmailEvent,
+  updateRecaptchaValue: syncActionCreators.updateRecaptchaValue,
+  switchAgreementCheckboxValue: syncActionCreators.switchAgreementCheckboxValue,
 }, dispatch);
 
 export const LoginConnected =

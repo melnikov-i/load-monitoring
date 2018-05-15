@@ -4,6 +4,7 @@ import {
   LoginFormInterface,
   LoginFormStateInterface,
   IRegistrationForm,
+  IRegistrationFormValidation,
 } from '@src/interfaces';
 
 import {
@@ -12,18 +13,27 @@ import {
   CHANGE_LOGIN_VALUE,
   CHANGE_PASSWORD_VALUE,
   SENDING_USER_CREDENTIAL_IN_PROGRESS,
-  SWITCH_REGISTRATION_FORM_STATE_TYPE,
-  CHANGE_EMAIL_VALUE,
+  CHANGE_R_PASSWORD_VALUE,
+  CHANGE_R_CONFIRM_PASSWORD_VALUE,
+  CHANGE_R_EMAIL_VALUE,
+  UPDATE_RECAPTCHA_VALUE,
+  SWITCH_R_AGREEMENT_CHECKBOX_VALUE
 } from '@src/redux/login';
 
 export type State = {
+  /** ключ проверки авторизации */
   readonly isAuthorized: boolean,
-  readonly LoginValue: LoginFormInterface['login'],
-  readonly PasswordValue: LoginFormInterface['password'],
-  readonly LoginFormState: LoginFormStateInterface,
-  readonly registrationFormStateType: string,
-  readonly EMailValue: IRegistrationForm['email'],
-  
+  /** значения полей формы авторизации */
+  readonly loginValue: LoginFormInterface['login'],
+  readonly passwordValue: LoginFormInterface['password'],
+  readonly loginFormState: LoginFormStateInterface,
+  /** значение полей формы регистрации */
+  readonly registrationEmailValue: IRegistrationForm['email'],
+  readonly registrationPasswordValue: IRegistrationForm['password'],
+  readonly registrationConfirmPasswordValue: IRegistrationForm['password'],
+  readonly registrationAgreementValue: boolean,
+  readonly registrationFormValidation: IRegistrationFormValidation,
+  readonly reCaptcha: string,
 };
 
 const loginFormStateInitialState: LoginFormStateInterface = {
@@ -35,7 +45,12 @@ const loginFormStateInitialState: LoginFormStateInterface = {
   ],
 };
 
-// const registrationFormInit: 
+const formItemsValidationInit: IRegistrationFormValidation = {
+  email: 0,
+  password: 0,
+  agreement: 0,
+  recapture: 0,
+}
 
 export const reducer = combineReducers<State>({
   /**
@@ -56,7 +71,7 @@ export const reducer = combineReducers<State>({
   /**
    * Содержит значение поля ввода логина.
   */
-  LoginValue: ( state = '', action ) => {
+  loginValue: ( state = '', action ) => {
     switch ( action.type ) {
       case CHANGE_LOGIN_VALUE:
         return action.payload;
@@ -72,7 +87,7 @@ export const reducer = combineReducers<State>({
   /**
    * Содержит значение поля ввода пароля.
   */
-  PasswordValue: ( state = '', action ) => {
+  passwordValue: ( state = '', action ) => {
     switch ( action.type ) {
       case CHANGE_PASSWORD_VALUE:
         return action.payload;
@@ -88,7 +103,7 @@ export const reducer = combineReducers<State>({
   /**
    * Содержит состояние формы авторизации
   */
-  LoginFormState: ( state = loginFormStateInitialState, action ) => {
+  loginFormState: ( state = loginFormStateInitialState, action ) => {
     switch ( action.type ) {
       case SENDING_USER_CREDENTIAL_IN_PROGRESS:
         if ( action.payload < state.header.length ) {
@@ -109,13 +124,31 @@ export const reducer = combineReducers<State>({
   },
 
   /**
-   * Содержит тип состояния поля ввода E-Mail на странице регистрации
+   * Содержит значение поля ввода пароля формы регистрации
    */
-  registrationFormStateType: ( state = '', action ) => {
-    switch ( action.type ) {
-      case SWITCH_REGISTRATION_FORM_STATE_TYPE:
+  registrationPasswordValue: (state = '', action) => {
+    switch (action.type) {
+      case CHANGE_R_PASSWORD_VALUE:
         return action.payload;
-      default: 
+      case USER_WAS_LOGOUT:
+        return '';
+      default:
+        return state;
+    }
+  },
+
+  /**
+   * Содержит значение поля ввода подтверждения пароля формы регистрации.
+  */
+  registrationConfirmPasswordValue: (state = '', action) => {
+    switch (action.type) {
+      case CHANGE_R_CONFIRM_PASSWORD_VALUE:
+        return action.payload;
+      case USER_IS_AUTHORIZED:
+        return '';
+      case USER_WAS_LOGOUT:
+        return '';
+      default:
         return state;
     }
   },
@@ -123,12 +156,70 @@ export const reducer = combineReducers<State>({
   /**
    * Содержит значение поля ввода E-Mail в форме авторизации
    */
-  EMailValue: ( state = '', action ) => {
+  registrationEmailValue: ( state = '', action ) => {
     switch ( action.type ) {
-      case CHANGE_EMAIL_VALUE:
+      case CHANGE_R_EMAIL_VALUE:
         return action.payload;
+      case USER_WAS_LOGOUT:
+        return '';
+      default:
+        return state;
+    }
+  },
+
+  /**
+   * Строка с кодом ответа от сервиса Google ReCaptcha
+   */
+  reCaptcha: ( state = '', action ) => {
+    switch ( action.type ) {
+      case UPDATE_RECAPTCHA_VALUE:
+        return action.payload;
+      case USER_WAS_LOGOUT:
+        return '';
+      default:
+        return state;
+    }
+  },
+
+  /**
+   * состояние чекбокса
+   */
+  registrationAgreementValue: (state = false, action) => {
+    switch (action.type) {
+      case SWITCH_R_AGREEMENT_CHECKBOX_VALUE:
+        return !state;
+      case USER_WAS_LOGOUT:
+        return false;
+      default:
+        return state;
+    }
+  },
+
+  /**
+   * Объект валидации формы. При нажатии на кнопку отправки формы,
+   * форма подвергнется проверке. После чего в этот объект передадутся
+   * данные по всем элементам формы для визуального отображения ошибки.
+   */
+  registrationFormValidation: (state = formItemsValidationInit, action) => {
+    switch (action.type) {
+      case USER_WAS_LOGOUT:
+        return formItemsValidationInit;
       default:
         return state;
     }
   }
+
 });
+
+/**
+ * USER_IS_AUTHORIZED
+USER_WAS_LOGOUT
+CHANGE_LOGIN_VALUE
+CHANGE_PASSWORD_VALUE
+SENDING_USER_CREDENTIAL_IN_PROGRESS
+CHANGE_R_PASSWORD_VALUE
+CHANGE_R_CONFIRM_PASSWORD_VALUE
+CHANGE_R_EMAIL_VALUE
+UPDATE_RECAPTCHA_VALUE
+SWITCH_R_AGREEMENT_CHECKBOX_VALUE
+ */

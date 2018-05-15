@@ -3,9 +3,6 @@ export interface LoginFormInterface {
   password: string
 };
 
-export interface IRegistrationForm {
-  email: string,
-}
 
 export interface LogOunInterface {
   step: string,
@@ -16,7 +13,15 @@ export interface LoginFormStateInterface {
   header: string[],
 }
 
-// export type LSendingInProgressProps =
-//   LoginFormStateInterface['loginFormStateIndex'] 
-//   & React.HTMLProps<HTMLButtonElement> 
-//   & React.MouseEvent<HTMLButtonElement>;
+export interface IRegistrationForm {
+  email: string,
+  password: string,
+  acreement: boolean,
+}
+
+export interface IRegistrationFormValidation {
+  email: number,
+  password: number,
+  agreement: number,
+  recapture: number,
+}
