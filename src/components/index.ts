@@ -1,5 +1,6 @@
 export * from './App';
 export * from './Login';
+export * from './Registration';
 export * from './Spinner';
 export * from './Main';
 export * from './Dashboard';

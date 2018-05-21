@@ -4,4 +4,4 @@ import { LoginConnected } from '@src/connected';
 
 export default () => (
   <LoginConnected />
-); 
+);

@@ -197,11 +197,49 @@ export const LoginFormInput = styled.input`
 `;
 
 /**
- * Поле ввода на странице регистрации
- * @param {string} registrationFormStateType
+ * Обертка поля ввода в форме регистрации
+ * @param {string} validation
+ * @param {string} hint
  */
+type TRegistrationFormInputWrapper = {
+  validation: string,
+  hint: string,
+};
+
+export const RegistrationFormInputWrapper = styled.div`
+  position: relative;
+  &::after {
+    content: "${(props: TRegistrationFormInputWrapper) => props.hint}";
+    display: ${(props: TRegistrationFormInputWrapper) => {
+      switch (props.validation) {
+        case 'valid': return 'none';
+        case 'notValid': return 'block';
+        default: return 'none';
+      }
+    }};
+    font-size: 12px;
+    color: #b84252;
+    position: absolute;
+    width: 250px;
+    top: 0;
+    left: 105%;
+  }
+`;
+
+/**
+ * Поле ввода на странице регистрации
+ * @param {string} validation
+ */
+
 export const RegistrationFormInput = styled.input`
   box-sizing: border-box;
+  border: ${(props: {validation: string}) => {
+    switch (props.validation) {
+      case 'valid': return '2px solid rgb(44, 143, 123)';
+      case 'notValid': return '2px solid #b84252';
+      default: return '1px solid #e5e6e7';
+    }
+  }};
   width: 100%;
   font-size: 16px;
   font-weight: normal;
@@ -209,7 +247,6 @@ export const RegistrationFormInput = styled.input`
   line-height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT};
   margin-bottom: 20px;
   padding-left: 12px;
-  border: 1px solid #e5e6e7;
   background-color: #fff;
   color: #676a6c;
   border-radius: 2px;
@@ -237,7 +274,6 @@ export const LoginFormButton = styled.button`
 
 /**
  * Кнопка подтверждения регистрации.
- * @param {number} loginFormStateIndex
  * @return {React.Component}
  */
 export const RegistrationFormButton = styled.button`
@@ -256,6 +292,12 @@ export const RegistrationFormButton = styled.button`
  * Чекбокс пользовательского соглашения
  * @returns {React.Component}
  */
+type TRegistrationAgreementCheckbox = {
+  isSelected: boolean,
+  hint: string,
+  validation: string,
+};
+
 export const RegistrationAgreementCheckbox = styled.a`
   text-decoration: none;
   cursor: pointer;
@@ -265,6 +307,7 @@ export const RegistrationAgreementCheckbox = styled.a`
   margin-bottom: 20px;
   font-size: 14px;
   color: #676a6c;
+  position: relative;
   &::before {
     content: "";
     display: inline-block;
@@ -274,16 +317,32 @@ export const RegistrationAgreementCheckbox = styled.a`
     margin-right: 10px;
     background-image: url(${Checkboxes});
     background-size: 240px 24px;
-    background-position: ${(props: { isSelected: boolean }) => (
+    background-position: ${(props: TRegistrationAgreementCheckbox) => (
       props.isSelected ? '-48px 0' : '0 0'
     )};
   }
   &:hover:before {
-    background-position: ${(props: { isSelected: boolean }) => (
+    background-position: ${(props: TRegistrationAgreementCheckbox) => (
       props.isSelected ? '-48px 0' : '-24px 0'
     )};
   }
-
+  &::after {
+    content: "${(props: TRegistrationAgreementCheckbox) => props.hint}";
+    display: ${(props: TRegistrationAgreementCheckbox) => {
+      switch (props.validation) {
+        case 'valid': return 'none';
+        case 'notValid': return 'block';
+        default: return 'none';
+      }
+    }};
+    font-size: 12px;
+    color: #b84252;
+    position: absolute;
+    top: 50%;
+    left: 105%;
+    transform: translateY(-50%);
+    width: 250px;
+  }
 `;
 
 /**

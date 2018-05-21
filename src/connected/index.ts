@@ -1,5 +1,6 @@
 export * from './AppConnected';
 export * from './LoginConnected';
+export * from './RegistrationConnected';
 export * from './MainConnected';
 export * from './DashboardConnected';
 export * from './MainHeaderConnected';

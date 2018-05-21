@@ -13,15 +13,17 @@ export interface LoginFormStateInterface {
   header: string[],
 }
 
-export interface IRegistrationForm {
+export interface IRegistrationFormItemsCollection {
   email: string,
   password: string,
-  acreement: boolean,
+  confirm: string,
+  agreement: boolean,
 }
 
 export interface IRegistrationFormValidation {
-  email: number,
-  password: number,
-  agreement: number,
-  recapture: number,
+  email: string,
+  password: string,
+  confirm: string,
+  agreement: string,
+  recapture: string,
 }

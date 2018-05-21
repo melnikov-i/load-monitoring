@@ -5,7 +5,8 @@ import {
   LoginFormInterface,
   LoginFormStateInterface,
   LogOunInterface,
-  IRegistrationForm
+  IRegistrationFormItemsCollection,
+  IRegistrationFormValidation,
 } from '@src/interfaces';
 
 export const USER_IS_AUTHORIZED = 
@@ -18,16 +19,18 @@ export const CHANGE_PASSWORD_VALUE =
   'CHANGE_PASSWORD_VALUE';
 export const SENDING_USER_CREDENTIAL_IN_PROGRESS =
     'SENDING_USER_CREDENTIAL_IN_PROGRESS';
-export const CHANGE_R_PASSWORD_VALUE =
-  'CHANGE_R_PASSWORD_VALUE';
-export const CHANGE_R_CONFIRM_PASSWORD_VALUE =
-  'CHANGE_R_CONFIRM_PASSWORD_VALUE';
-export const CHANGE_R_EMAIL_VALUE =
-  'CHANGE_R_EMAIL_VALUE';
+export const CHANGE_REGISTRATION_PASSWORD_VALUE =
+  'CHANGE_REGISTRATION_PASSWORD_VALUE';
+export const CHANGE_REGISTRATION_CONFIRM_PASSWORD_VALUE =
+  'CHANGE_REGISTRATION_CONFIRM_PASSWORD_VALUE';
+export const CHANGE_REGISTRATION_EMAIL_VALUE =
+  'CHANGE_REGISTRATION_EMAIL_VALUE';
 export const UPDATE_RECAPTCHA_VALUE =
   'UPDATE_RECAPTCHA_VALUE';
-export const SWITCH_R_AGREEMENT_CHECKBOX_VALUE =
-  'SWITCH_R_AGREEMENT_CHECKBOX_VALUE';
+export const SWITCH_REGISTRATION_AGREEMENT_VALUE =
+  'SWITCH_REGISTRATION_AGREEMENT_VALUE';
+export const UPDATE_R_FORM_VALIDATION =
+  'UPDATE_R_FORM_VALIDATION';
 
 export type Actions = {
   USER_IS_AUTHORIZED: {
@@ -48,24 +51,28 @@ export type Actions = {
     type: typeof SENDING_USER_CREDENTIAL_IN_PROGRESS,
     payload: LoginFormStateInterface['loginFormStateIndex'],
   },
-  CHANGE_R_PASSWORD_VALUE: {
-    type: typeof CHANGE_R_PASSWORD_VALUE,
-    payload: IRegistrationForm['password'],
+  CHANGE_REGISTRATION_PASSWORD_VALUE: {
+    type: typeof CHANGE_REGISTRATION_PASSWORD_VALUE,
+    payload: IRegistrationFormItemsCollection['password'],
   },
-  CHANGE_R_CONFIRM_PASSWORD_VALUE: {
-    type: typeof CHANGE_R_CONFIRM_PASSWORD_VALUE,
-    payload: IRegistrationForm['password'],
+  CHANGE_REGISTRATION_CONFIRM_PASSWORD_VALUE: {
+    type: typeof CHANGE_REGISTRATION_CONFIRM_PASSWORD_VALUE,
+    payload: IRegistrationFormItemsCollection['confirm'],
   },
-  CHANGE_R_EMAIL_VALUE: {
-    type: typeof CHANGE_R_EMAIL_VALUE,
-    payload: IRegistrationForm['email'],
+  CHANGE_REGISTRATION_EMAIL_VALUE: {
+    type: typeof CHANGE_REGISTRATION_EMAIL_VALUE,
+    payload: IRegistrationFormItemsCollection['email'],
   },
   UPDATE_RECAPTCHA_VALUE: {
     type: typeof UPDATE_RECAPTCHA_VALUE,
     payload: string,
   }
-  SWITCH_R_AGREEMENT_CHECKBOX_VALUE: {
-    type: typeof SWITCH_R_AGREEMENT_CHECKBOX_VALUE,
+  SWITCH_REGISTRATION_AGREEMENT_VALUE: {
+    type: typeof SWITCH_REGISTRATION_AGREEMENT_VALUE,
+  },
+  UPDATE_R_FORM_VALIDATION: {
+    type: typeof UPDATE_R_FORM_VALIDATION,
+    payload: IRegistrationFormValidation,
   }
 };
 
@@ -118,19 +125,20 @@ export const syncActionCreators = {
    * По мере ввода текста с клавиатуры в поле ввода пароля, меняет
    * значение этого поля.
   */
-  changeReristrationPasswordValue:
-  (payload: IRegistrationForm['password']):
-    Actions[typeof CHANGE_R_PASSWORD_VALUE] => ({
-      type: CHANGE_R_PASSWORD_VALUE, payload
+  changeRegistrationPasswordValue:
+  (payload: IRegistrationFormItemsCollection['password']):
+    Actions[typeof CHANGE_REGISTRATION_PASSWORD_VALUE] => ({
+      type: CHANGE_REGISTRATION_PASSWORD_VALUE, payload
     }),
 
   /**
    * По мере ввода текста с клавиатуры в поле ввода подтверждения
    * пароля, меняет значение этого поля.
    */
-  changeConfirmPasswordValue: (payload: IRegistrationForm['password']):
-    Actions[typeof CHANGE_R_CONFIRM_PASSWORD_VALUE] => ({
-      type: CHANGE_R_CONFIRM_PASSWORD_VALUE, payload,
+  changeRegistrationConfirmPasswordValue: 
+  (payload: IRegistrationFormItemsCollection['confirm']):
+    Actions[typeof CHANGE_REGISTRATION_CONFIRM_PASSWORD_VALUE] => ({
+      type: CHANGE_REGISTRATION_CONFIRM_PASSWORD_VALUE, payload,
     }),
 
 
@@ -138,9 +146,10 @@ export const syncActionCreators = {
    * По мере ввода текста с клавиатуры в поле ввода E-Mail, меняет
    * значение этого поля.
   */
-  changeEmailValue: (payload: IRegistrationForm['email']):
-    Actions[typeof CHANGE_R_EMAIL_VALUE] => ({
-      type: CHANGE_R_EMAIL_VALUE, payload
+  changeRegistrationEmailValue: 
+  (payload: IRegistrationFormItemsCollection['email']):
+    Actions[typeof CHANGE_REGISTRATION_EMAIL_VALUE] => ({
+      type: CHANGE_REGISTRATION_EMAIL_VALUE, payload
     }),
   
   /**
@@ -155,9 +164,17 @@ export const syncActionCreators = {
    * Меняет значение чекбокса лицензионного соглашения в форме
    * регистрации
    */
-  switchAgreementCheckboxValue: ():
-    Actions[typeof SWITCH_R_AGREEMENT_CHECKBOX_VALUE] => ({
-      type: SWITCH_R_AGREEMENT_CHECKBOX_VALUE,
+  switchRegistrationAgreementValue: ():
+    Actions[typeof SWITCH_REGISTRATION_AGREEMENT_VALUE] => ({
+      type: SWITCH_REGISTRATION_AGREEMENT_VALUE,
+    }),
+  
+  /**
+   * Изменяет состояние объекта с данными о валидности ввода
+   */
+  updateRegistrationFormValidation: (payload: IRegistrationFormValidation):
+    Actions[typeof UPDATE_R_FORM_VALIDATION] => ({
+      type: UPDATE_R_FORM_VALIDATION, payload,
     }),
 };
 
@@ -208,12 +225,4 @@ export const asyncActionCreators = {
       )
     }
   },
-  
-  handleInputEmailEvent: ( payload: IRegistrationForm['email'] ) => {
-    return ( dispatch: Dispatch ) => {
-      dispatch(
-        syncActionCreators.changeEmailValue(payload)
-      );
-    }
-  }
 }

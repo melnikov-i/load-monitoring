@@ -3,7 +3,6 @@
  * авторизации.
 */
 import * as React from 'react';
-import * as Recaptcha from 'react-recaptcha';
 
 import {
   LoginLayout,
@@ -17,18 +16,12 @@ import {
   LoginFormButton,
   LoginFormSpinner,  
   LoginLayoutWrapper,
-  RegistrationWrapper,
-  RegistrationFormHeader,
-  RegistrationFormInput,
-  RegistrationFormButton,
-  RegistrationAgreementCheckbox,
 } from '@src/styled';
 
 import {
   LoginFormInterface,
   LoginFormStateInterface,
-  IRegistrationForm,
-  IRegistrationFormValidation,
+  
 } from '@src/interfaces';
 
 /* Импорт компонента спиннера для отображения процесса загрузки */
@@ -37,21 +30,11 @@ import { Spinner } from '@src/components';
 interface LoginProps {
   loginValue: LoginFormInterface['login'],
   passwordValue: LoginFormInterface['password'],
-  loginFormState: LoginFormStateInterface,
-  registrationEmailValue: IRegistrationForm['email'],
-  registrationPasswordValue: IRegistrationForm['password'],
-  registrationConfirmPasswordValue: IRegistrationForm['password'],
-  registrationAgreementValue: boolean,
-  registrationFormValidation: IRegistrationFormValidation,
-  reCaptcha: string,
-  
+  loginFormState: LoginFormStateInterface,  
   changeLoginValue: (payload: LoginFormInterface['login']) => any,
   changePasswordValue: (payload: LoginFormInterface['password']) => any,
-  changeConfirmPasswordValue: (payload: LoginFormInterface['password']) => any,
   sendUserCredentialToAPI: ( payload: LoginFormInterface ) => any,
-  handleInputEmailEvent: (payload: IRegistrationForm['email']) => any,
-  updateRecaptchaValue: ( payload: string ) => any,
-  switchAgreementCheckboxValue: () => any,
+  
 }
 
 export const Login: React.SFC<LoginProps> = (props) => {
@@ -59,56 +42,27 @@ export const Login: React.SFC<LoginProps> = (props) => {
     loginValue,
     passwordValue,
     loginFormState,
-    registrationEmailValue,
-    registrationPasswordValue,
-    registrationConfirmPasswordValue,
-    registrationAgreementValue,
-    // registrationFormValidation,
-    reCaptcha,
     changeLoginValue,
     changePasswordValue,
-    changeConfirmPasswordValue,
     sendUserCredentialToAPI,
-    handleInputEmailEvent,
-    updateRecaptchaValue,
-    switchAgreementCheckboxValue,
   } = props;
 
-  const loginStateType: string = 'registration';
-  
   /**
-   * Обработчики событий
+   * Обработчики событий формы авторизации
    */
-  /* При вводе символа в поле, отправляет этот символ в store */
   const updateLoginValue = 
   (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     changeLoginValue(e.currentTarget.value);
   };
 
-  /* При вводе символа в поле, отправляет этот символ в store */
   const updatePasswordValue =
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      e.preventDefault();
-      changePasswordValue(e.currentTarget.value);
-    };
-
-  /* При вводе символа в поле, отправляет этот символ в store */
-  const updateConfirmPasswordValue =
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      e.preventDefault();
-      changeConfirmPasswordValue(e.currentTarget.value);
-    };
-
-  /* При вводе символа в поле, отправляет этот символ в store */
-  const updateEmailValue =
   (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    handleInputEmailEvent(e.currentTarget.value);
-  }
-
-  /* По нажатии на кнопку, отправляет введенные данные на бэкэнд */
-  const handlerLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
+    changePasswordValue(e.currentTarget.value);
+  };
+  
+  const handlerSendCredential = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const UserCredential: LoginFormInterface = {
       login: loginValue,
@@ -117,27 +71,7 @@ export const Login: React.SFC<LoginProps> = (props) => {
     sendUserCredentialToAPI(UserCredential);
   };
 
-  const handlerVerify = ( response: string ) => {
-    updateRecaptchaValue(response);
-  }
-
-  const handlerRegistration = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    const payload: any = {
-      state: 'register',
-      email: registrationEmailValue,
-      verification: reCaptcha,
-    };
-
-    console.log('toServer:', payload);
-  };
-
-  const handlerAgreement = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    switchAgreementCheckboxValue();
-  };
-
-  const loginPage = (): JSX.Element => (
+  return (
     <LoginLayoutWrapper>
       <LoginLayout>
         <LoginWrapper>
@@ -190,7 +124,7 @@ export const Login: React.SFC<LoginProps> = (props) => {
                 loginFormStateIndex={
                   loginFormState.loginFormStateIndex
                 }
-                onClick={handlerLogin}
+                onClick={handlerSendCredential}
               >{'Вход'}</LoginFormButton>
             </LoginFormLayout>
           </LoginInnerPart>
@@ -198,56 +132,4 @@ export const Login: React.SFC<LoginProps> = (props) => {
       </LoginLayout>
     </LoginLayoutWrapper>
   );
-
-  const registrationPage = (): JSX.Element => (
-    <LoginLayoutWrapper>
-      <LoginLayout>
-        <RegistrationWrapper>
-          <RegistrationFormHeader>
-            {'Регистрация'}
-          </RegistrationFormHeader>
-          <RegistrationFormInput
-            onChange={updateEmailValue}
-            type={'text'}
-            placeholder={'E-Mail'}
-            value={registrationEmailValue}
-          />
-          <RegistrationFormInput
-            onChange={updatePasswordValue}
-            type={'password'}
-            placeholder={'Пароль'}
-            value={registrationPasswordValue}
-          />
-          <RegistrationFormInput
-            onChange={updateConfirmPasswordValue}
-            type={'password'}
-            placeholder={'Повторитье пароль'}
-            value={registrationConfirmPasswordValue}
-          />
-          <RegistrationAgreementCheckbox
-            isSelected={registrationAgreementValue}
-            onClick={handlerAgreement}
-          >
-            {'Я принимаю'}
-          </RegistrationAgreementCheckbox>
-          <Recaptcha
-            sitekey="6Ld2mlgUAAAAAJW72kNFehX6Jz9I468FVOiiPce7"
-            render="explicit"
-            verifyCallback={handlerVerify}
-          />
-          <RegistrationFormButton
-            onClick={handlerRegistration}
-          >{'Регистрация'}</RegistrationFormButton>
-        </RegistrationWrapper>
-      </LoginLayout>
-    </LoginLayoutWrapper>
-  );
-
-  switch ( loginStateType ) {
-    case 'error': return null;
-    case 'login': return loginPage();
-    case 'registration': return registrationPage();
-    case 'agreement': return null;
-    default: return null;
-  }
 };
