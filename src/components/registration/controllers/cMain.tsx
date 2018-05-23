@@ -1,4 +1,3 @@
-// import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import {
   connect,
@@ -6,10 +5,10 @@ import {
   MapDispatchToPropsParam,
 } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Dispatch, RootState } from '@src/redux';
+import { Dispatch, RootState } from '@src/core';
 import { withRouter } from 'react-router-dom';
 
-import { Form } from '../views';
+import { VMain } from '../views';
 // import { syncActionCreators } from '@src/redux/login';
 
 import {
@@ -37,7 +36,7 @@ interface DispatchProps {
   // (payload: IRegistrationFormValidation) => any,
 }
 
-interface OwnProps { }
+interface OwnProps {}
 
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
@@ -65,7 +64,7 @@ const mapDispatchToProps:
     //   syncActionCreators.updateRegistrationFormValidation,
   }, dispatch);
 
-export const RegistrationForm =
-  withRouter(connect<StateProps, DispatchProps, OwnProps, RootState>(
-    mapStateToProps, mapDispatchToProps)(Form)
+export const Main = withRouter(
+  connect<StateProps, DispatchProps, OwnProps, RootState>(
+    mapStateToProps, mapDispatchToProps)(VMain)
   );

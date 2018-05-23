@@ -7,7 +7,7 @@ import {
 import {
   createStructuredSelector,
 } from 'reselect';
-import { Dispatch, RootState } from '@src/redux';
+import { Dispatch, RootState } from '@src/core';
 import { withRouter } from 'react-router-dom';
 
 import { App } from '@src/components';

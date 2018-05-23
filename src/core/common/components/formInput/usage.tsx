@@ -4,6 +4,9 @@
  */
 import * as React from 'react';
 
-import { Main as Registration } from './controllers';
+import { Main as FormInput } from './controllers';
+import { IFormInputItems } from './model';
 
-export default () => <Registration />
+export default ({ formInputItems }: {formInputItems: IFormInputItems}) => (
+  <FormInput formInputItems={formInputItems} />
+);

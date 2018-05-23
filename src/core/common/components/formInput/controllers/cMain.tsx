@@ -1,3 +1,6 @@
+/**
+ * Контроллер формы ввода. Общедоступный компонент ядра приложения.
+ */
 import { bindActionCreators } from 'redux';
 import {
   connect,
@@ -5,10 +8,10 @@ import {
   MapDispatchToPropsParam,
 } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Dispatch, RootState } from '@src/redux';
-import { withRouter } from 'react-router-dom';
+import { Dispatch, RootState } from '@src/core';
 
-import { RegistrationLayout } from '../views';
+import { VMain } from '../views';
+import { IFormInputItems } from '../model';
 // import { syncActionCreators } from '@src/redux/login';
 
 import {
@@ -18,9 +21,7 @@ import {
 
 
 interface StateProps {
-  // registrationFormItemsCollection: IRegistrationFormItemsCollection,
-  // registrationFormValidation: IRegistrationFormValidation,
-  // reCaptcha: string,
+  // value: string,
 }
 
 interface DispatchProps {
@@ -36,11 +37,14 @@ interface DispatchProps {
   // (payload: IRegistrationFormValidation) => any,
 }
 
-interface OwnProps {}
+interface OwnProps {
+  formInputItems: IFormInputItems,
+}
 
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
   createStructuredSelector<RootState, StateProps>({
+    // value: (state: RootState) => state.
     // registrationFormItemsCollection: (state: RootState) =>
     //   state.login.registrationFormItemsCollection,
     // registrationFormValidation: (state: RootState) =>
@@ -64,7 +68,6 @@ const mapDispatchToProps:
     //   syncActionCreators.updateRegistrationFormValidation,
   }, dispatch);
 
-export const Registration =
-  withRouter(connect<StateProps, DispatchProps, OwnProps, RootState>(
-    mapStateToProps, mapDispatchToProps)(RegistrationLayout)
-  );
+export const Main = 
+  connect<StateProps, DispatchProps, OwnProps, RootState>(
+    mapStateToProps, mapDispatchToProps)(VMain);

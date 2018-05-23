@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { emergence } from '@src/core/helpers/styled';
+import { emergence } from '@src/core/common/styled';
 
 /** Шаблон для стиля чекбокса */
 const Checkboxes = require('@src/images/checkboxes');
@@ -12,7 +12,7 @@ import {
   LOGIN_LAYOUT_BIG_WIDTH,
   LOGIN_FORM_INPUT_BIG_HEIGHT,
   MIDDLE_SCREEN_MAX,
-} from '@src/core/helpers/styled';
+} from '@src/core/common/styled';
 
 /**
  * Обертка основного блока каркаса страницы.

@@ -2,7 +2,7 @@ import { bindActionCreators } from 'redux';
 import {
   connect, MapDispatchToPropsParam,
 } from 'react-redux';
-import { Dispatch, RootState } from '@src/redux';
+import { Dispatch, RootState } from '@src/core';
 import { withRouter } from 'react-router-dom';
 
 import { MainHeader } from '@src/components';

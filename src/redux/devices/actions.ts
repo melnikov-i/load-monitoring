@@ -5,7 +5,7 @@ import {
   DevicesLoadInterface,
 } from '@src/interfaces';
 
-import { Dispatch } from '@src/redux';
+import { Dispatch } from '@src/core';
 
 import {
   syncActionCreators as loginActionCreators

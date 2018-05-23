@@ -5,7 +5,7 @@ import {
   MapDispatchToPropsParam,
 } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Dispatch, RootState } from '@src/redux';
+import { Dispatch, RootState } from '@src/core';
 
 import { Login } from '@src/components';
 import { syncActionCreators, asyncActionCreators } from '@src/redux/login';
