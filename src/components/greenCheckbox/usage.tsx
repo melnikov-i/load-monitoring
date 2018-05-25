@@ -4,6 +4,6 @@
  */
 import * as React from 'react';
 
-import { RegistrationConnected as Registration } from './connected';
+import { GreenCheckboxConnected as GreenCheckbox } from './connected';
 
-export default () => <Registration />
+export default () => <GreenCheckbox />

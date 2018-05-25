@@ -27,7 +27,7 @@ const fontAwesomeSVG = require('@src/fonts/fontawesome-webfont.svg');
  * Компоненты, подгружаемые в процессе проверки авторизации 
  */
 import LoginConnected from '@src/usage/LoginUsage';
-import Registration from '@src/components/registration/usage';
+import Registration from '@src/components/registration';
 import MainConnected from '@src/usage/MainUsage';
 
 /**
