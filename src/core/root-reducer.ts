@@ -7,8 +7,8 @@ import { reducer as overview, State as OverviewState } from '@src/redux/overview
 import { reducer as dashboard, State as DashboardState } from '@src/redux/dashboard';
 import { reducer as mainHead, State as MainHeadState } from '@src/redux/mainHead';
 import { reducer as formInput, State as FormInputState } from '@src/components/formInput';
-// import { reducer as registration, State as RegistrationState } from '@src/components/registration';
-import { reducer as greenCheckbox, State as GreenCheckboxState } from '@src/components/greenCheckbox';
+import { reducer as registration, State as RegistrationState } from '@src/components/registration';
+
 
 export interface RootState {
   main: MainState,
@@ -18,8 +18,8 @@ export interface RootState {
   dashboard: DashboardState,
   mainHead: MainHeadState,
   formInput: FormInputState,
-  // registration: RegistrationState,
-  greenCheckbox: GreenCheckboxState,
+  registration: RegistrationState,
+
 
 }
 
@@ -31,6 +31,6 @@ export const rootReducer = combineReducers<RootState>({
   dashboard,
   mainHead,
   formInput,
-  // registration,
-  greenCheckbox,
+  registration,
+
 });

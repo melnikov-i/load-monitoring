@@ -3,14 +3,19 @@ import { RouteComponentProps } from 'react-router-dom';
 
 import FormInput, {
   IFormInputItems,
-  IFormInputValues
+  // IFormInputValues,
 } from '@src/components/formInput';
-import GreenCheckbox from '@src/components/greenCheckbox';
 
 import {
   RegistrationFormHeader,
   Content,  
 } from './';
+
+import {
+  GreenCheckboxConnected as GreenCheckbox,
+  ReCaptchaConnected as ReCaptcha,
+  ConfirmButtonConnected as ConfirmButton,
+} from '../connected';
 
 const formInputItemsCollection: IFormInputItems[] = [
   {
@@ -37,13 +42,13 @@ const formInputItemsCollection: IFormInputItems[] = [
 ];
 
 interface RegistrationFormProps extends RouteComponentProps<void> {
-  values: IFormInputValues['values'],
+  // values: IFormInputValues['values'],
 }
 
 export const RegistrationForm: React.SFC<RegistrationFormProps> = (props) => {
-  const { values } = props;
+  const { /*values*/ } = props;
 
-  console.log('values:', values);
+  // console.log('values:', values);
   console.log('form');
 
   return (
@@ -57,6 +62,8 @@ export const RegistrationForm: React.SFC<RegistrationFormProps> = (props) => {
           />
         ))}
         <GreenCheckbox />
+        <ReCaptcha />
+        <ConfirmButton />
       </form>
     </Content>
   );

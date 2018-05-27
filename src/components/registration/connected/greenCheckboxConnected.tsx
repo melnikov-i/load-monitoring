@@ -32,7 +32,7 @@ interface OwnProps {
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
   createStructuredSelector<RootState, StateProps>({
-    agreement: (state: RootState) => state.greenCheckbox.agreement,
+    agreement: (state: RootState) => state.registration.agreement,
   });
 
 
