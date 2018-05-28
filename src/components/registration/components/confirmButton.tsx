@@ -4,25 +4,36 @@ import {
   RegistrationFormButton
 } from './';
 
-interface ConfirmButtonProps {
+import {
+  IFormInputValues,
+} from '@src/components/formInput/interfaces';
 
+interface ConfirmButtonProps {
+  values: IFormInputValues['values'],
+  agreement: boolean,
+  reCaptcha: string,
 }
 
 export const ConfirmButton: React.SFC<ConfirmButtonProps> = (props) => {
-  const {  } = props;
-
+  const { values, agreement, reCaptcha } = props;
+  
   const validateFormFields = (): boolean => {
+    console.log('values:', values);
     return true;
   }
   
   /**
    * Обработчик кнопки "Регистрация"
    */
-  const handlerSendRegistration = (e: React.MouseEvent<HTMLButtonElement>): void => {
+  const handlerSendRegistration = 
+  (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
 
+
     if (validateFormFields()) {
-      
+      console.log('все верно, отправка данных');
+    } else {
+      console.log('все плохо, валидация не пройдена');
     }
 
     // const collection = registrationFormItemsCollection;

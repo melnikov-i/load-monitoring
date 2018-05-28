@@ -18,9 +18,7 @@ import {
 
 
 interface StateProps {
-  // registrationFormItemsCollection: IRegistrationFormItemsCollection,
-  // registrationFormValidation: IRegistrationFormValidation,
-  // reCaptcha: string,
+  registrationView: string,
 }
 
 interface DispatchProps {
@@ -41,6 +39,8 @@ interface OwnProps {}
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
   createStructuredSelector<RootState, StateProps>({
+    registrationView: 
+    (state: RootState) => state.registration.registrationView,
     // registrationFormItemsCollection: (state: RootState) =>
     //   state.login.registrationFormItemsCollection,
     // registrationFormValidation: (state: RootState) =>

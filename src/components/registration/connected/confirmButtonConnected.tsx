@@ -10,10 +10,15 @@ import { Dispatch, RootState } from '@src/core';
 import { ConfirmButton } from '../components';
 // import { syncActionCreators } from '../redux';
 
-import {} from '@src/interfaces';
+import {
+  IFormInputValues,
+} from '@src/components/formInput/interfaces';
 
 
 interface StateProps {
+  values: IFormInputValues['values'],
+  agreement: boolean,
+  reCaptcha: string,
 }
 
 interface DispatchProps {
@@ -24,6 +29,9 @@ interface OwnProps { }
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
   createStructuredSelector<RootState, StateProps>({
+    values: (state: RootState) => state.formInput.values,
+    agreement: (state: RootState) => state.registration.agreement,
+    reCaptcha: (state: RootState) => state.registration.reCaptcha,
   });
 
 

@@ -3,7 +3,6 @@ import { RouteComponentProps } from 'react-router-dom';
 
 import FormInput, {
   IFormInputItems,
-  // IFormInputValues,
 } from '@src/components/formInput';
 
 import {
@@ -41,14 +40,9 @@ const formInputItemsCollection: IFormInputItems[] = [
   },
 ];
 
-interface RegistrationFormProps extends RouteComponentProps<void> {
-  // values: IFormInputValues['values'],
-}
+interface RegistrationFormProps extends RouteComponentProps<void> {}
 
-export const RegistrationForm: React.SFC<RegistrationFormProps> = (props) => {
-  const { /*values*/ } = props;
-
-  // console.log('values:', values);
+export const RegistrationForm: React.SFC<RegistrationFormProps> = (/*props*/) => {
   console.log('form');
 
   return (

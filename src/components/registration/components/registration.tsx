@@ -8,11 +8,11 @@ import {
 } from '../connected';
 
 interface RegistrationProps extends RouteComponentProps<void> {
-
+  registrationView: string,
 }
 
 export const Registration: React.SFC<RegistrationProps> = (props) => {
-  const {} = props;
+  const { registrationView } = props;
 
 
   const layoutDecorator = (innerJSX: JSX.Element): JSX.Element => (
@@ -23,12 +23,14 @@ export const Registration: React.SFC<RegistrationProps> = (props) => {
     </LayoutWrapper>
   );
 
+  console.log('registrationView', registrationView);
+
   console.log('layout');
 
-  const view: string = 'form';
-
-  switch (view) {
+  switch (registrationView) {
     case 'form': return layoutDecorator(<RegistrationForm />);
+    case 'success': return null;
+    case 'failed': return null;
     default: return null;
   }
 };
