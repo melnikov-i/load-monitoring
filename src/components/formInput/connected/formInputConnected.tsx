@@ -41,10 +41,11 @@ interface OwnProps {
 
 type Selector<TInput, TOutput> = (state: TInput, props?: any) => TOutput;
 
-const getValue: Selector<RootState, any> =
-  (state: RootState, props: OwnProps) => {
-    state.formInput.values[props.formInputItems.storeContext[0]];
-  }
+const getValue: Selector<RootState, string> =
+  (state: RootState, props: OwnProps): string => 
+    state.formInput
+      .values[props.formInputItems.storeContext[0]][props.formInputItems.storeContext[1]];
+
 
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =

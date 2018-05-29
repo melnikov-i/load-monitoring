@@ -32,6 +32,8 @@ export const FormInput: React.SFC<FormInputProps> = (props) => {
     value,
   } = props;
 
+  console.log('value', value, 'storeContext', storeContext);
+
   const changeValueHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const payload: IFormInputChangeValue = {

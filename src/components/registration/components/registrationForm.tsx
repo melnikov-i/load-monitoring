@@ -28,14 +28,14 @@ const formInputItemsCollection: IFormInputItems[] = [
     storeContext: [0, 1],
     type: 'password',
     hint: 'Это поле не совпадает с полем Повторите пароль',
-    placeholder: 'Password',
+    placeholder: 'Пароль',
     validation: '',
   },
   {
     storeContext: [0, 2],
     type: 'password',
     hint: 'Это поле не совпадает с полем Пароль',
-    placeholder: 'Confirm',
+    placeholder: 'Повторите пароль',
     validation: '',
   },
 ];

@@ -15,7 +15,7 @@ interface ConfirmButtonProps {
 }
 
 export const ConfirmButton: React.SFC<ConfirmButtonProps> = (props) => {
-  const { values, agreement, reCaptcha } = props;
+  const { values/*, agreement, reCaptcha*/ } = props;
   
   const validateFormFields = (): boolean => {
     console.log('values:', values);
