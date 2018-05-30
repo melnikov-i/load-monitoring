@@ -9,7 +9,7 @@ import { Dispatch, RootState } from '@src/core';
 import { withRouter } from 'react-router-dom';
 
 import { RegistrationForm } from '../components';
-import { IFormInputValues } from '@src/components/formInput';
+import { IFormInputValues } from '@src/core/interfaces';
 
 interface StateProps {
   values: IFormInputValues['values'],

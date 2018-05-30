@@ -1,9 +1,13 @@
 import { sendRequestToAPI } from '@src/libs';
 import { Dispatch } from '@src/core';
 
+import { IFormInputValues } from '@src/core/interfaces';
+import { RegistrationRequest } from '../interfaces';
+
 export const SWITCH_AGREEMENT_VALUE = 'SWITCH_AGREEMENT_VALUE';
 export const UPDATE_RECAPTCHA_VALUE = 'UPDATE_RECAPTCHA_VALUE';
 export const CHANGE_REGISTRATION_VIEW = 'CHANGE_REGISTRATION_VIEW';
+export const CHANGE_VALIDATION_VALUE = 'CHANGE_VALIDATION_VALUE';
 
 export type Actions = {
   SWITCH_AGREEMENT_VALUE: {
@@ -18,6 +22,11 @@ export type Actions = {
   CHANGE_REGISTRATION_VIEW: {
     type: typeof CHANGE_REGISTRATION_VIEW,
     payload: string,
+  },
+
+  CHANGE_VALIDATION_VALUE: {
+    type: typeof CHANGE_VALIDATION_VALUE,
+    payload: IFormInputValues['values'],
   }
 };
 
@@ -45,26 +54,36 @@ export const syncActionCreators = {
   changeRegistrationView: (payload: string):
     Actions[typeof CHANGE_REGISTRATION_VIEW] => ({
       type: CHANGE_REGISTRATION_VIEW, payload,
+    }),
+
+  /**
+   * Содержит значение для механизма валидации чекбокса 
+   * подтверждения согласия с пользовательским соглашением.
+   */
+  changeValidationValue: (payload: IFormInputValues['values']):
+    Actions[typeof CHANGE_VALIDATION_VALUE] => ({
+      type: CHANGE_VALIDATION_VALUE, payload,
     })
 };
 
 export const asyncActionCreators = {
   sendRegistrationToAPI:
-  (payload: any) => {
-    return async (dispatch: Dispatch) => {
-      try {
-        const { request: { data }} = await sendRequestToAPI.post('/reg.php', payload);
-        switch (data.status) {
-          case "ok": dispatch(
-            syncActionCreators.changeRegistrationView('success')); return;
-          case "already_registered": dispatch(
-            syncActionCreators.changeRegistrationView('already')); return;
-          default: dispatch(
-            syncActionCreators.changeRegistrationView('failed')); return;
+    (payload: RegistrationRequest) => {
+      return async (dispatch: Dispatch) => {
+        dispatch(syncActionCreators.changeValidationValue([['valid','valid','valid','valid','valid']]));
+        try {
+          const { request: { data }} = await sendRequestToAPI.post('/reg.php', payload);
+          switch (data.status) {
+            case "ok": dispatch(
+              syncActionCreators.changeRegistrationView('success')); return;
+            case "already_registered": dispatch(
+              syncActionCreators.changeRegistrationView('already')); return;
+            default: dispatch(
+              syncActionCreators.changeRegistrationView('failed')); return;
+          }
+        } catch (error) {
+          console.error(error);
         }
-      } catch (error) {
-        console.error(error);
       }
     }
-  }
-}
+  };

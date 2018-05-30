@@ -11,28 +11,13 @@ import { FormInput } from '../components';
 import { IFormInputItems, IFormInputChangeValue } from '../interfaces';
 import { syncActionCreators } from '../redux';
 
-import {
-  // IRegistrationFormItemsCollection,
-  // IRegistrationFormValidation
-} from '@src/interfaces';
-
-
 interface StateProps {
   value: string;
+  validation: string,
 }
 
 interface DispatchProps {
   changeValue: (payload: IFormInputChangeValue) => any,
-  // changeRegistrationEmailValue:
-  // (payload: IRegistrationFormItemsCollection['email']) => any,
-  // changeRegistrationPasswordValue:
-  // (payload: IRegistrationFormItemsCollection['password']) => any,
-  // changeRegistrationConfirmPasswordValue:
-  // (payload: IRegistrationFormItemsCollection['confirm']) => any,
-  // updateRecaptchaValue: (payload: string) => any,
-  // switchRegistrationAgreementValue: () => any,
-  // updateRegistrationFormValidation:
-  // (payload: IRegistrationFormValidation) => any,
 }
 
 interface OwnProps {
@@ -46,6 +31,11 @@ const getValue: Selector<RootState, string> =
     state.formInput
       .values[props.formInputItems.storeContext[0]][props.formInputItems.storeContext[1]];
 
+const getValidation: Selector<RootState, string> = 
+  (state: RootState, props: OwnProps): string =>
+    state.registration
+      .validation[props.formInputItems.storeContext[0]][props.formInputItems.storeContext[1]];
+
 
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
@@ -53,29 +43,17 @@ const mapStateToProps:
     value: createSelector(
       getValue,
       ( valueItem ) => valueItem,
-    )
-    // registrationFormItemsCollection: (state: RootState) =>
-    //   state.login.registrationFormItemsCollection,
-    // registrationFormValidation: (state: RootState) =>
-    //   state.login.registrationFormValidation,
-    // reCaptcha: (state: RootState) => state.login.reCaptcha,
+    ),
+    validation: createSelector(
+      getValidation,
+      ( validation ) => validation
+    ),
   });
 
 
 const mapDispatchToProps:
   MapDispatchToPropsParam<DispatchProps, OwnProps> = (dispatch: Dispatch) => bindActionCreators({
     changeValue: syncActionCreators.changeValue,
-    // changeRegistrationEmailValue:
-    //   syncActionCreators.changeRegistrationEmailValue,
-    // changeRegistrationPasswordValue:
-    //   syncActionCreators.changeRegistrationPasswordValue,
-    // changeRegistrationConfirmPasswordValue:
-    //   syncActionCreators.changeRegistrationConfirmPasswordValue,
-    // updateRecaptchaValue: syncActionCreators.updateRecaptchaValue,
-    // switchRegistrationAgreementValue:
-    //   syncActionCreators.switchRegistrationAgreementValue,
-    // updateRegistrationFormValidation:
-    //   syncActionCreators.updateRegistrationFormValidation,
   }, dispatch);
 
 export const FormInputConnected = 

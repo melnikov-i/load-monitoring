@@ -12,7 +12,9 @@ import { ReCaptcha } from '../components';
 
 import { syncActionCreators } from '../redux';
 
-interface StateProps {}
+interface StateProps {
+  validation: string,
+}
 
 interface DispatchProps {
   updateReCaptchaValue: (payload: string) => any,
@@ -23,7 +25,7 @@ interface OwnProps {}
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
   createStructuredSelector<RootState, StateProps>({
-
+    validation: (state: RootState) => state.registration.validation[0][4],
   });
 
 const mapDispatchToProps:

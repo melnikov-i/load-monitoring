@@ -16,6 +16,7 @@ import {
 interface FormInputProps {
   formInputItems: IFormInputItems,
   value: string,
+  validation: string,
   changeValue: (payload: IFormInputChangeValue) => any,
 }
 
@@ -25,11 +26,11 @@ export const FormInput: React.SFC<FormInputProps> = (props) => {
       storeContext,
       type,
       hint,
-      validation,
       placeholder,
     },
     changeValue,
     value,
+    validation,
   } = props;
 
   console.log('value', value, 'storeContext', storeContext);

@@ -8,11 +8,13 @@ import { createStructuredSelector } from 'reselect';
 import { Dispatch, RootState } from '@src/core';
 
 import { ConfirmButton } from '../components';
-// import { syncActionCreators } from '../redux';
+import { syncActionCreators, asyncActionCreators } from '../redux';
+// import {
+//   syncActionCreators as formInputActionCreators
+// } from '@src/components/formInput'
 
-import {
-  IFormInputValues,
-} from '@src/components/formInput/interfaces';
+import { IFormInputValues } from '@src/core/interfaces';
+import { RegistrationRequest } from '../interfaces';
 
 
 interface StateProps {
@@ -22,6 +24,8 @@ interface StateProps {
 }
 
 interface DispatchProps {
+  changeValidationValue: (payload: IFormInputValues['values']) => any,
+  sendRegistrationToAPI: (payload: RegistrationRequest) => any,
 }
 
 interface OwnProps { }
@@ -37,6 +41,8 @@ const mapStateToProps:
 
 const mapDispatchToProps:
   MapDispatchToPropsParam<DispatchProps, OwnProps> = (dispatch: Dispatch) => bindActionCreators({
+    changeValidationValue: syncActionCreators.changeValidationValue,
+    sendRegistrationToAPI: asyncActionCreators.sendRegistrationToAPI,
   }, dispatch);
 
 export const ConfirmButtonConnected = 

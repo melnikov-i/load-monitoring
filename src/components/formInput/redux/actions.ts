@@ -1,7 +1,10 @@
 import {
   IFormInputChangeValue,
-  IFormInputValues,
 } from '@src/components/formInput';
+
+import {
+  IFormInputValues,
+} from '@src/core/interfaces'
 
 export const FORM_INPUT_CHANGE_VALUE = 'FORM_INPUT_CHANGE_VALUE';
 export const FORM_INPUT_CHANGE_VALIDATION_VALUE = 'FORM_INPUT_CHANGE_VALIDATION_VALUE';
@@ -24,7 +27,7 @@ export const syncActionCreators = {
       type: FORM_INPUT_CHANGE_VALUE, payload,
     }),
 
-  changeValidationValue: (payload: IFormInputValues['values']):
+  formInputChangeValidationValue: (payload: IFormInputValues['values']):
     Actions[typeof FORM_INPUT_CHANGE_VALIDATION_VALUE] => ({
       type: FORM_INPUT_CHANGE_VALIDATION_VALUE, payload,
     })

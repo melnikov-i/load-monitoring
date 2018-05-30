@@ -30,6 +30,7 @@ export const Registration: React.SFC<RegistrationProps> = (props) => {
   switch (registrationView) {
     case 'form': return layoutDecorator(<RegistrationForm />);
     case 'success': return null;
+    case 'already': return null;
     case 'failed': return null;
     default: return null;
   }

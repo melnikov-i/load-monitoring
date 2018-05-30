@@ -2,15 +2,22 @@ import * as React from 'react';
 
 import {
   RegistrationAgreementCheckbox,
+  RegistrationAgreementLink,
+  RegistrationAgreementCheckboxWrapper
 } from './';
 
 interface GreenCheckboxProps {
   agreement: boolean,
+  validation: string,
   switchAgreementValue: () => any,
 }
 
 export const GreenCheckbox: React.SFC<GreenCheckboxProps> = (props) => {
-  const { agreement, switchAgreementValue } = props;
+  const {
+    agreement,
+    switchAgreementValue,
+    validation,
+  } = props;
 
 
   const handlerAgreement = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -19,15 +26,24 @@ export const GreenCheckbox: React.SFC<GreenCheckboxProps> = (props) => {
   }
 
   return (
-    <RegistrationAgreementCheckbox
-      isSelected={agreement}
-      onClick={handlerAgreement}
-      validation={''}
+    <RegistrationAgreementCheckboxWrapper
+      validation={validation}    
       hint={'Чтобы продолжить, '
         + 'необходимо принять пользовательское соглашение'
       }
     >
-      {'Я принимаю'}
-    </RegistrationAgreementCheckbox>
+      <RegistrationAgreementCheckbox
+        isSelected={agreement}
+        onClick={handlerAgreement}
+      >
+        {'Я принимаю'}
+      </RegistrationAgreementCheckbox>
+      <RegistrationAgreementLink
+        to={'/registration/agreement'}
+        title={'Пользовательское соглашение'}
+      >
+        {'пользовательское соглашение'}
+      </RegistrationAgreementLink>
+    </RegistrationAgreementCheckboxWrapper>
   );
 }

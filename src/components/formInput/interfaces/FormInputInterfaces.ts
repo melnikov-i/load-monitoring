@@ -5,17 +5,7 @@ export interface IFormInputItems {
   storeContext: number[],
   type: string,
   hint: string,
-  validation: string,
   placeholder: string,
-}
-
-/**
- * Интерфейс для объекта, хранящего в сторе значения полей,
- * заполненные пользователем.
- */
-export interface IFormInputValues {
-  storeContext: number[],
-  values: string[][],
 }
 
 /**

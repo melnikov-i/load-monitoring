@@ -98,6 +98,9 @@ export const App: React.SFC<AppProps> = (props) => {
       <Route exact path={'/registration'} render={() => (
         <Registration />
       )} />
+      <Route exact path={'/registration/agreement'} render={() => (
+        <Registration />
+      )} />
       {/* Любой другой путь */}
       <Route path={'/'} render={() => (
         isAuthorized ? (

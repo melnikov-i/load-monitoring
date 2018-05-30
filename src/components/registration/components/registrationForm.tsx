@@ -22,21 +22,18 @@ const formInputItemsCollection: IFormInputItems[] = [
     type: 'text',
     hint: 'Введите существующий адрес электронной почты',
     placeholder: 'E-Mail',
-    validation: '',
   },
   {
     storeContext: [0, 1],
     type: 'password',
     hint: 'Это поле не совпадает с полем Повторите пароль',
     placeholder: 'Пароль',
-    validation: '',
   },
   {
     storeContext: [0, 2],
     type: 'password',
     hint: 'Это поле не совпадает с полем Пароль',
     placeholder: 'Повторите пароль',
-    validation: '',
   },
 ];
 

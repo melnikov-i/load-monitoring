@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 /**
  * Импорт констант
@@ -152,22 +153,15 @@ const Checkboxes = require('@src/images/checkboxes');
  * Чекбокс пользовательского соглашения
  * @returns {React.Component}
  */
-type TRegistrationAgreementCheckbox = {
-  isSelected: boolean,
-  hint: string,
-  validation: string,
-};
 
 export const RegistrationAgreementCheckbox = styled.a`
   text-decoration: none;
   cursor: pointer;
-  width: 100%;
   height: 24px;
-  display: block;
+  display: inline-block;
   margin-bottom: 20px;
   font-size: 14px;
   color: #676a6c;
-  position: relative;
   &::before {
     content: "";
     display: inline-block;
@@ -177,15 +171,23 @@ export const RegistrationAgreementCheckbox = styled.a`
     margin-right: 10px;
     background-image: url(${Checkboxes});
     background-size: 240px 24px;
-    background-position: ${(props: TRegistrationAgreementCheckbox) => (
-    props.isSelected ? '-48px 0' : '0 0'
-  )};
+    background-position: ${(props: {isSelected: boolean}) => (
+      props.isSelected ? '-48px 0' : '0 0'
+    )};
   }
   &:hover:before {
-    background-position: ${(props: TRegistrationAgreementCheckbox) => (
-    props.isSelected ? '-48px 0' : '-24px 0'
-  )};
-  }
+    background-position: ${(props: { isSelected: boolean}) => (
+      props.isSelected ? '-48px 0' : '-24px 0'
+    )};
+  }  
+`;
+  
+type TRegistrationAgreementCheckbox = {
+  hint: string,
+  validation: string,
+};
+export const RegistrationAgreementCheckboxWrapper = styled.div`
+  position: relative;
   &::after {
     content: "${(props: TRegistrationAgreementCheckbox) => props.hint}";
     display: ${(props: TRegistrationAgreementCheckbox) => {
@@ -204,3 +206,14 @@ export const RegistrationAgreementCheckbox = styled.a`
     width: 250px;
   }
 `;
+
+export const RegistrationAgreementLink = styled(NavLink)`
+  text-decoration: none;
+  height: 24px;
+  display: inline-block;
+  margin: 0 0 20px 10px;
+  font-size: 14px;
+  color: #1c84c6;
+`;
+
+export const RecaptchaWrapper = RegistrationAgreementCheckboxWrapper.extend``;
