@@ -29,11 +29,17 @@ export const ReCaptcha: React.SFC<ReCaptchaProps> = (props) => {
       hint={'Чтобы продолжить, необходимо пройти проверку'
       }
     >
-      <Recaptcha
-        elementID={'g-recaptcha'}
-        sitekey="6LcGDlkUAAAAAHu79gGfIkB6F7cU9-zD_vnOpaha"
-        verifyCallback={handlerVerifyByReCaptcha}
-      />
+      <div
+        style={{
+          display: 'inline-block',
+        }}
+      >
+        <Recaptcha
+          sitekey="6LcGDlkUAAAAAHu79gGfIkB6F7cU9-zD_vnOpaha"
+          render="explicit"
+          verifyCallback={handlerVerifyByReCaptcha}
+        />
+      </div>
     </RecaptchaWrapper>
   );
 }

@@ -1,9 +1,10 @@
 import * as React from 'react';
 
 import {
-  RegistrationAgreementCheckbox,
+  RegistrationAgreementCheckboxLink,
   RegistrationAgreementLink,
-  RegistrationAgreementCheckboxWrapper
+  RegistrationAgreementCheckboxWrapper,
+  RegistrationAgreementCheckbox
 } from './';
 
 interface GreenCheckboxProps {
