@@ -154,7 +154,7 @@ const Checkboxes = require('@src/images/checkboxes');
  * @returns {React.Component}
  */
 
-export const RegistrationAgreementCheckbox = styled.a`
+export const RegistrationAgreementCheckboxLink = styled.a`
   text-decoration: none;
   cursor: pointer;
   height: 24px;
@@ -162,24 +162,33 @@ export const RegistrationAgreementCheckbox = styled.a`
   margin-bottom: 20px;
   font-size: 14px;
   color: #676a6c;
-  &::before {
-    content: "";
-    display: inline-block;
-    vertical-align: top;
-    width: 24px;
-    height: 24px;
-    margin-right: 10px;
-    background-image: url(${Checkboxes});
-    background-size: 240px 24px;
-    background-position: ${(props: {isSelected: boolean}) => (
-      props.isSelected ? '-48px 0' : '0 0'
-    )};
+
+  `;
+    // &::before {
+    //   content: "";
+    // }
+    // &:hover:before {
+    //   background-position: ${(props: { isSelected: boolean}) => (
+    //     props.isSelected ? '-48px 0' : '-24px 0'
+    //   )};
+    // }
+  
+export const RegistrationAgreementCheckbox = styled.span`
+  display: inline-block;
+  vertical-align: top;
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  background-image: url(${Checkboxes});
+  background-size: 240px 24px;
+  background-position: ${(props: {isSelected: boolean}) => (
+    props.isSelected ? '-48px 0' : '0 0'
+  )};
+  &:hover {
+    background-position: ${(props: { isSelected: boolean }) => (
+    props.isSelected ? '-48px 0' : '-24px 0'
+  )};
   }
-  &:hover:before {
-    background-position: ${(props: { isSelected: boolean}) => (
-      props.isSelected ? '-48px 0' : '-24px 0'
-    )};
-  }  
 `;
   
 type TRegistrationAgreementCheckbox = {
@@ -188,6 +197,7 @@ type TRegistrationAgreementCheckbox = {
 };
 export const RegistrationAgreementCheckboxWrapper = styled.div`
   position: relative;
+  text-align: center;
   &::after {
     content: "${(props: TRegistrationAgreementCheckbox) => props.hint}";
     display: ${(props: TRegistrationAgreementCheckbox) => {
@@ -216,4 +226,14 @@ export const RegistrationAgreementLink = styled(NavLink)`
   color: #1c84c6;
 `;
 
-export const RecaptchaWrapper = RegistrationAgreementCheckboxWrapper.extend``;
+export const RecaptchaWrapper =
+RegistrationAgreementCheckboxWrapper.extend`
+  @media screen and (max-width: ${ MIDDLE_SCREEN_MAX}){
+    &::after {
+      width: 175px;
+      left: 75%;
+      text-align: left;
+      top: 45%;
+    }
+  }
+`;

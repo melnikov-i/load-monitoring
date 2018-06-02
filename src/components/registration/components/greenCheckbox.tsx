@@ -1,9 +1,10 @@
 import * as React from 'react';
 
 import {
-  RegistrationAgreementCheckbox,
+  RegistrationAgreementCheckboxLink,
   RegistrationAgreementLink,
-  RegistrationAgreementCheckboxWrapper
+  RegistrationAgreementCheckboxWrapper,
+  RegistrationAgreementCheckbox
 } from './';
 
 interface GreenCheckboxProps {
@@ -32,12 +33,13 @@ export const GreenCheckbox: React.SFC<GreenCheckboxProps> = (props) => {
         + 'необходимо принять пользовательское соглашение'
       }
     >
-      <RegistrationAgreementCheckbox
-        isSelected={agreement}
-        onClick={handlerAgreement}
-      >
+      <RegistrationAgreementCheckboxLink>
+        <RegistrationAgreementCheckbox
+          isSelected={agreement}
+          onClick={handlerAgreement}
+        />
         {'Я принимаю'}
-      </RegistrationAgreementCheckbox>
+      </RegistrationAgreementCheckboxLink>
       <RegistrationAgreementLink
         to={'/registration/agreement'}
         title={'Пользовательское соглашение'}

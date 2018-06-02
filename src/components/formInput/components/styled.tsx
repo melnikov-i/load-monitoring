@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import {
   LOGIN_FORM_INPUT_BIG_HEIGHT,
+  MIDDLE_SCREEN_MAX
 } from '@src/core/styled';
 
 /**
@@ -31,6 +32,13 @@ export const FormInputWrapper = styled.div`
     width: 250px;
     top: 0;
     left: 105%;
+  }
+  @media screen and (max-width: ${ MIDDLE_SCREEN_MAX}){
+    &::after {
+      width: 300px;
+      left: 50%;
+      top: 13%;
+    }
   }
 `;
 
