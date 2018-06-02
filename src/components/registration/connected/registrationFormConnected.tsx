@@ -9,11 +9,8 @@ import { Dispatch, RootState } from '@src/core';
 import { withRouter } from 'react-router-dom';
 
 import { RegistrationForm } from '../components';
-import { IFormInputValues } from '@src/core/interfaces';
 
-interface StateProps {
-  values: IFormInputValues['values'],
-}
+interface StateProps {}
 
 interface DispatchProps {}
 
@@ -24,7 +21,6 @@ const mapStateToProps:
   createStructuredSelector<RootState, StateProps>({
     values: (state: RootState) => state.formInput.values,
   });
-
 
 const mapDispatchToProps:
   MapDispatchToPropsParam<DispatchProps, OwnProps> = 

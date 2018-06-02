@@ -9,13 +9,9 @@ import { Dispatch, RootState } from '@src/core';
 
 import { ConfirmButton } from '../components';
 import { syncActionCreators, asyncActionCreators } from '../redux';
-// import {
-//   syncActionCreators as formInputActionCreators
-// } from '@src/components/formInput'
 
 import { IFormInputValues } from '@src/core/interfaces';
 import { RegistrationRequest } from '../interfaces';
-
 
 interface StateProps {
   values: IFormInputValues['values'],

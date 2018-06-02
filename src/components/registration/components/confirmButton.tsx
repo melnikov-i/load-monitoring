@@ -8,10 +8,15 @@ import { IFormInputValues } from '@src/core/interfaces';
 import { RegistrationRequest } from '../interfaces';
 
 interface ConfirmButtonProps {
+  /** Массив значений полей ввода информации */
   values: IFormInputValues['values'],
+  /** Значение чекбокса */
   agreement: boolean,
+  /** Значение рекапчи */
   reCaptcha: string,
+  /** Отправляет результат валидации в Store для последующей стилизации элементов формы */
   changeValidationValue: (payload: IFormInputValues['values']) => any,
+  /** Отправляет данные на сервер */
   sendRegistrationToAPI: (payload: RegistrationRequest) => any,
 }
 
@@ -28,8 +33,8 @@ export const ConfirmButton: React.SFC<ConfirmButtonProps> = (props) => {
   
   const validateFormFields = (): boolean => {
     let key: boolean = true;
-    /** Проверка поля с e-mail */
     
+    /** Проверка поля с e-mail */
     if (/.+@.+\..+/i.test(values[0][0])) {
       validation.push('valid');
     } else {
@@ -47,6 +52,7 @@ export const ConfirmButton: React.SFC<ConfirmButtonProps> = (props) => {
       key = false;
     }
 
+    /** Проверка чекбокса */
     if (agreement) {
       validation.push('valid');
     } else {
@@ -54,6 +60,7 @@ export const ConfirmButton: React.SFC<ConfirmButtonProps> = (props) => {
       key = false;
     }
 
+    /** Проверка рекапчи */
     if (reCaptcha !== "") {
       validation.push('valid');
     } else {
@@ -61,8 +68,6 @@ export const ConfirmButton: React.SFC<ConfirmButtonProps> = (props) => {
       key = false;
     }
     
-    console.log('validation', validation);
-    console.log('reCaptcha', reCaptcha);
     return key;
   }
   
@@ -85,20 +90,6 @@ export const ConfirmButton: React.SFC<ConfirmButtonProps> = (props) => {
       console.log('все плохо, валидация не пройдена');
       changeValidationValue([validation]);
     }
-
-    // const collection = registrationFormItemsCollection;
-
-    // const validation: IRegistrationFormValidation = {
-    //   email: /.+@.+\..+/i.test(registrationFormItemsCollection.email)
-    //     ? 'valid' : 'notValid',
-    //   password: (collection.password === collection.confirm)
-    //     ? collection.password !== '' ? 'valid' : 'notValid' : 'notValid',
-
-    //   agreement: collection.agreement ? 'valid' : 'notValid',
-    //   recapture: reCaptcha,
-    // }
-    // updateRegistrationFormValidation(validation);
-
   };
 
   return (

@@ -14,9 +14,13 @@ import {
 } from '../interfaces';
 
 interface FormInputProps {
+  /** параметры для построения поля. Получаются от родительского контейнера */
   formInputItems: IFormInputItems,
+  /** введенная в поле информация. Получается из redux */
   value: string,
+  /** значение результата прохождения валидации формы перед отправкой на сервер */
   validation: string,
+  /** отправляет в redux введенную в поле информацию (то, что уже в поле, плюс введенный символ) */
   changeValue: (payload: IFormInputChangeValue) => any,
 }
 
@@ -32,8 +36,6 @@ export const FormInput: React.SFC<FormInputProps> = (props) => {
     value,
     validation,
   } = props;
-
-  console.log('value', value, 'storeContext', storeContext);
 
   const changeValueHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -55,9 +57,7 @@ export const FormInput: React.SFC<FormInputProps> = (props) => {
         placeholder={placeholder}
         value={value}
         onChange={changeValueHandler}
-      >
-
-      </FormInputField>
+      />
     </FormInputWrapper>
   );
 }

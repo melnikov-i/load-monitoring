@@ -1,12 +1,15 @@
+/**
+ * Компонент содержт google reCaptcha и механизмы обработки полученного результата
+ */
 import * as React from 'react';
 import * as Recaptcha from 'react-recaptcha';
 
-import {
-  RecaptchaWrapper
-} from './';
+import { RecaptchaWrapper } from './';
 
 interface ReCaptchaProps {
+  /** Значение результата валидации перед отправкой на сервер */
   validation: string,
+  /** Отправляет результат рекапчи в store */
   updateReCaptchaValue: (payload: string) => any,
 }
 
@@ -16,15 +19,9 @@ export const ReCaptcha: React.SFC<ReCaptchaProps> = (props) => {
     validation,
   } = props;
 
-  async function handlerVerifyByReCaptcha(response: string): Promise<void> {
-    try {
-      const resp = await response;
-      console.log('resp:', resp);
-      updateReCaptchaValue(resp);
-    } catch (error) {
-      console.warn(error);
-    }
-  }
+  const handlerVerifyByReCaptcha = (response: string) => {
+    updateReCaptchaValue(response);
+  };
 
   return (
     <RecaptchaWrapper
@@ -33,8 +30,8 @@ export const ReCaptcha: React.SFC<ReCaptchaProps> = (props) => {
       }
     >
       <Recaptcha
+        elementID={'g-recaptcha'}
         sitekey="6LcGDlkUAAAAAHu79gGfIkB6F7cU9-zD_vnOpaha"
-        render="explicit"
         verifyCallback={handlerVerifyByReCaptcha}
       />
     </RecaptchaWrapper>

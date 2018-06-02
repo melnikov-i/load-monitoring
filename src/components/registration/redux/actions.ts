@@ -31,26 +31,19 @@ export type Actions = {
 };
 
 export const syncActionCreators = {
-  /**
-   * Меняет значение чекбокса лицензионного соглашения в форме
-   * регистрации
-   */
+  /** Меняет значение чекбокса лицензионного соглашения в форме регистрации */
   switchAgreementValue: ():
     Actions[typeof SWITCH_AGREEMENT_VALUE] => ({
       type: SWITCH_AGREEMENT_VALUE,
     }),
 
-  /**
-   * Передает а редьюсер значение, полученное от сервиса reCAPTCHA
-   */
+  /** Передает а редьюсер значение, полученное от сервиса reCAPTCHA */
   updateReCaptchaValue: (payload: string):
     Actions[typeof UPDATE_RECAPTCHA_VALUE] => ({
       type: UPDATE_RECAPTCHA_VALUE, payload
     }),
 
-  /**
-   * Содержит ключевое значение для отображения шаблона страницы
-   */
+  /** Содержит ключевое значение для отображения шаблона страницы */
   changeRegistrationView: (payload: string):
     Actions[typeof CHANGE_REGISTRATION_VIEW] => ({
       type: CHANGE_REGISTRATION_VIEW, payload,
@@ -72,7 +65,7 @@ export const asyncActionCreators = {
       return async (dispatch: Dispatch) => {
         dispatch(syncActionCreators.changeValidationValue([['valid','valid','valid','valid','valid']]));
         try {
-          const { request: { data }} = await sendRequestToAPI.post('/reg.php', payload);
+          const { data } = await sendRequestToAPI.post('/reg.php', payload);
           switch (data.status) {
             case "ok": dispatch(
               syncActionCreators.changeRegistrationView('success')); return;

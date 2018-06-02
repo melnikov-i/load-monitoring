@@ -40,14 +40,8 @@ const getValidation: Selector<RootState, string> =
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
   createStructuredSelector<RootState, StateProps>({
-    value: createSelector(
-      getValue,
-      ( valueItem ) => valueItem,
-    ),
-    validation: createSelector(
-      getValidation,
-      ( validation ) => validation
-    ),
+    value: createSelector(getValue, ( valueItem ) => valueItem),
+    validation: createSelector(getValidation, ( validation ) => validation),
   });
 
 
