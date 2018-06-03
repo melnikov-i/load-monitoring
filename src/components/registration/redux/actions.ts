@@ -9,6 +9,7 @@ export const SWITCH_FOCUSED_VALUE = 'SWITCH_FOCUSED_VALUE';
 export const UPDATE_RECAPTCHA_VALUE = 'UPDATE_RECAPTCHA_VALUE';
 export const CHANGE_REGISTRATION_VIEW = 'CHANGE_REGISTRATION_VIEW';
 export const CHANGE_VALIDATION_VALUE = 'CHANGE_VALIDATION_VALUE';
+export const CLEAR_FORM_DATA = 'CLEAR_FORM_DATA';
 
 export type Actions = {
   SWITCH_AGREEMENT_VALUE: {
@@ -32,6 +33,10 @@ export type Actions = {
   CHANGE_VALIDATION_VALUE: {
     type: typeof CHANGE_VALIDATION_VALUE,
     payload: IFormInputValues['values'],
+  },
+
+  CLEAR_FORM_DATA: {
+    type: typeof CLEAR_FORM_DATA,
   }
 };
 
@@ -67,7 +72,12 @@ export const syncActionCreators = {
   changeValidationValue: (payload: IFormInputValues['values']):
     Actions[typeof CHANGE_VALIDATION_VALUE] => ({
       type: CHANGE_VALIDATION_VALUE, payload,
-    })
+    }),
+
+  clearFormData: ():
+    Actions[typeof CLEAR_FORM_DATA] => ({
+      type: CLEAR_FORM_DATA,
+    }),
 };
 
 export const asyncActionCreators = {
@@ -75,6 +85,8 @@ export const asyncActionCreators = {
     (payload: RegistrationRequest) => {
       return async (dispatch: Dispatch) => {
         dispatch(syncActionCreators.changeValidationValue([['valid','valid','valid','valid','valid']]));
+        dispatch(syncActionCreators.changeRegistrationView('waiting'));
+        dispatch(syncActionCreators.clearFormData());
         try {
           const { data } = await sendRequestToAPI.post('/reg.php', payload);
           console.log('data:', data);

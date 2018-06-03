@@ -8,27 +8,24 @@ import { createStructuredSelector } from 'reselect';
 import { Dispatch, RootState } from '@src/core';
 import { withRouter } from 'react-router-dom';
 
-import { SimplyPage } from '../components';
+import { Login } from '../components';
+// import { syncActionCreators } from '../redux';
 
 interface StateProps { }
 
-interface DispatchProps { }
+interface DispatchProps {}
 
-interface OwnProps {
-  hint: string,
-  type: string,
-}
+interface OwnProps { }
 
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
-  createStructuredSelector<RootState, StateProps>({ });
+  createStructuredSelector<RootState, StateProps>({});
 
 const mapDispatchToProps:
-  MapDispatchToPropsParam<DispatchProps, OwnProps> = (dispatch: Dispatch) => bindActionCreators({
-    
-  }, dispatch);
+  MapDispatchToPropsParam<DispatchProps, OwnProps> = (dispatch: Dispatch) =>
+    bindActionCreators({}, dispatch);
 
-export const SimplyPageConnected = withRouter(
+export const LoginConnected = withRouter(
   connect<StateProps, DispatchProps, OwnProps, RootState>(
-    mapStateToProps, mapDispatchToProps)(SimplyPage)
+    mapStateToProps, mapDispatchToProps)(Login)
 );

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
-export const SimplePageWrapper = styled.div`
+export const NotificationPageWrapper = styled.div`
   width: 400px;
   height: 400px;
   position: fixed;
@@ -24,7 +24,7 @@ export const SimplePageWrapper = styled.div`
   }
 `;
 
-export const SimplePageText = styled.p`
+export const NotificationPageText = styled.p`
   font-size: 18px;
   color: ${(props: { type: string }) => (
     props.type === 'error' ? '#ed5565' : '#1ab394'
@@ -32,7 +32,7 @@ export const SimplePageText = styled.p`
   margin-bottom: 20px;
 `;
 
-export const SimplePageLinkToHome = styled(NavLink)`
+export const NotificationPageLinkToHome = styled(NavLink)`
   text-decoration: ingerit;
   font-size: 18px;
   color: #1c84c6;

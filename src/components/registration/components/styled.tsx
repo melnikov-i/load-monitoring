@@ -68,64 +68,6 @@ export const RegistrationFormHeader = styled.div`
 `;
 
 /**
- * Обертка поля ввода в форме регистрации
- * @param {string} validation
- * @param {string} hint
- */
-type TRegistrationFormInputWrapper = {
-  validation: string,
-  hint: string,
-};
-
-
-export const RegistrationFormInputWrapper = styled.div`
-  position: relative;
-  &::after {
-    content: "${(props: TRegistrationFormInputWrapper) => props.hint}";
-    display: ${(props: TRegistrationFormInputWrapper) => {
-    switch (props.validation) {
-      case 'valid': return 'none';
-      case 'notValid': return 'block';
-      default: return 'none';
-    }
-  }};
-    font-size: 12px;
-    color: #b84252;
-    position: absolute;
-    width: 250px;
-    top: 0;
-    left: 105%;
-  }
-`;
-
-/**
- * Поле ввода на странице регистрации
- * @param {string} validation
- */
-
-
-export const RegistrationFormInput = styled.input`
-  box-sizing: border-box;
-  border: ${(props: { validation: string }) => {
-    switch (props.validation) {
-      case 'valid': return '2px solid rgb(44, 143, 123)';
-      case 'notValid': return '2px solid #b84252';
-      default: return '1px solid #e5e6e7';
-    }
-  }};
-  width: 100%;
-  font-size: 16px;
-  font-weight: normal;
-  height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT};
-  line-height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT};
-  margin-bottom: 20px;
-  padding-left: 12px;
-  background-color: #fff;
-  color: #676a6c;
-  border-radius: 2px;
-`;
-
-/**
  * Кнопка подтверждения регистрации.
  * @return {React.Component}
  */
@@ -139,7 +81,6 @@ export const RegistrationFormButton = styled.button`
   background-color: #1ab395;
   border-radius: 2px;
   cursor: pointer;
-  margin-top: 20px;
 `;
 
 /** Шаблон для стиля чекбокса */
@@ -159,7 +100,7 @@ type TRegistrationCheckbox = {
 export const RegistrationCheckboxWrapper = styled.div`
   position: relative;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   &::after {
     content: "${(props: TRegistrationCheckbox) => props.hint}";
     display: ${(props: TRegistrationCheckbox) => {
@@ -195,8 +136,6 @@ export const RegistrationLabelText = styled.span`
   cursor: pointer;
   font-size: 14px;
   color: #676a6c;
-  height: 24px;
-  line-height: 24px;
   &::before {
     content: '';
     display: inline-block;
@@ -241,3 +180,31 @@ RegistrationCheckboxWrapper.extend`
     }
   }
 `;
+
+export const ToLoginPageHead = styled.h4`
+  font-size: 14px;
+  color: #676a6c;
+  margin: 15px auto;
+  text-align: center;
+`;
+
+export const ToLoginPageLink = styled(NavLink)`
+  display: block;
+  height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT};
+  font-size: 18px;
+  color: #676a6c;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 2px;
+  cursor: pointer;
+  box-sizing: border-box;
+  border: 1px solid #e7eaec;
+  text-decoration: none;
+  line-height: 32px;
+  margin: 0 auto;
+  width: calc(${ LOGIN_LAYOUT_BIG_WIDTH} / 2);
+  @media screen and (max-width: ${ MIDDLE_SCREEN_MAX}){
+    width: 100%;
+  }
+`;
+

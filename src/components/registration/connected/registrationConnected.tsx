@@ -9,12 +9,15 @@ import { Dispatch, RootState } from '@src/core';
 import { withRouter } from 'react-router-dom';
 
 import { Registration } from '../components';
+import { syncActionCreators } from '../redux';
 
 interface StateProps {
   registrationView: string,
 }
 
-interface DispatchProps {}
+interface DispatchProps {
+  changeRegistrationView: (payload: string) => any,
+}
 
 interface OwnProps {}
 
@@ -25,7 +28,10 @@ const mapStateToProps:
   });
 
 const mapDispatchToProps:
-  MapDispatchToPropsParam<DispatchProps, OwnProps> = (dispatch: Dispatch) => bindActionCreators({}, dispatch);
+  MapDispatchToPropsParam<DispatchProps, OwnProps> = (dispatch: Dispatch) =>
+  bindActionCreators({
+      changeRegistrationView: syncActionCreators.changeRegistrationView,
+  }, dispatch);
 
 export const RegistrationConnected = withRouter(
   connect<StateProps, DispatchProps, OwnProps, RootState>(

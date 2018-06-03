@@ -5,42 +5,58 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
-import { LayoutWrapper, Layout } from './';
+import {
+  LayoutWrapper,
+  Layout,
+  ToLoginPageHead,
+  ToLoginPageLink,
+} from './';
 
 import {
   RegistrationFormConnected as RegistrationForm
 } from '../connected';
-import SimplyPage from '@src/components/simplyPage';
+import NotificationPage from '@src/components/notificationPage';
 
 interface RegistrationProps extends RouteComponentProps<void> {
   /** параметр, определяющий отображаемый шаблон */
   registrationView: string,
+  changeRegistrationView: (payload: string) => any,
 }
 
 export const Registration: React.SFC<RegistrationProps> = (props) => {
-  const { registrationView } = props;
+  const {
+    registrationView,
+    changeRegistrationView
+  } = props;
 
-  const layoutDecorator = (innerJSX: JSX.Element): JSX.Element => (
-    <LayoutWrapper>
-      <Layout>
-        {innerJSX}
-      </Layout>
-    </LayoutWrapper>
-  );
+  const handleLinkToHome = () => {
+    changeRegistrationView('form');
+  }
 
   switch (registrationView) {
-    case 'success': return <SimplyPage
+    case 'success': return <NotificationPage
       hint={'Регистрация прошла успешно. В течение ближайшего времени '
         + 'Вам на почту придет ссылка подтверждения регистрации.'}
-      type={'success'} />;
+      type={'success'}
+      callback={handleLinkToHome} />;
     case 'already': 
-      return <SimplyPage
+      return <NotificationPage
         hint={'Указанный e-mail уже зарегистрирован в системе'}
-        type={'error'} />;
+        type={'error'}
+        callback={handleLinkToHome} />;
     case 'failed': 
-      return <SimplyPage
+      return <NotificationPage
         hint={'Произошла ошибка во время регистрации. Пожалуйста, попробуйте еще раз позднее'}
-        type={'error'} />;
-    default: return layoutDecorator(<RegistrationForm />);
+        type={'error'}
+        callback={handleLinkToHome} />;
+    default: return (
+      <LayoutWrapper>
+        <Layout>
+          <RegistrationForm />
+          <ToLoginPageHead>{'Уже зарегистрированы?'}</ToLoginPageHead>
+          <ToLoginPageLink to={'/'}>Войти</ToLoginPageLink>
+        </Layout>
+      </LayoutWrapper>
+    );
   }
 };

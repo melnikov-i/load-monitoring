@@ -4,9 +4,10 @@
  */
 import * as React from 'react';
 
-import { SimplyPageConnected as SimplyPage } from './connected';
+import { NotificationPageConnected as NotificationPage } from './connected';
 
-export default ({hint, type}: {
+export default ({hint, type, callback}: {
   hint: string,
   type: string,
-}) => <SimplyPage hint={hint} type={type} />
+  callback: () => any,
+}) => <NotificationPage hint={hint} type={type} callback={callback} />

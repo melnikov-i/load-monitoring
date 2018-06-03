@@ -6,6 +6,7 @@ import {
   UPDATE_RECAPTCHA_VALUE,
   CHANGE_REGISTRATION_VIEW,
   CHANGE_VALIDATION_VALUE,
+  CLEAR_FORM_DATA,
 } from './';
 
 import { IFormInputValues } from '@src/core/interfaces';
@@ -34,6 +35,8 @@ export const reducer = combineReducers<State>({
     switch (action.type) {
       case SWITCH_AGREEMENT_VALUE:
         return !state;
+      case CLEAR_FORM_DATA:
+        return false;
       default:
         return state;
     }
@@ -44,6 +47,8 @@ export const reducer = combineReducers<State>({
     switch (action.type) {
       case SWITCH_FOCUSED_VALUE:
         return !state;
+      case CLEAR_FORM_DATA:
+        return false;
       default: return state;
     }
   },
@@ -53,6 +58,8 @@ export const reducer = combineReducers<State>({
     switch (action.type) {
       case CHANGE_VALIDATION_VALUE:
         return action.payload;
+      case CLEAR_FORM_DATA:
+        return _validation;
       default: return state;
     }
   },
@@ -62,6 +69,8 @@ export const reducer = combineReducers<State>({
     switch (action.type) {
       case UPDATE_RECAPTCHA_VALUE:
         return action.payload;
+      case CLEAR_FORM_DATA:
+        return '';
       default:
         return state;
     }
@@ -71,6 +80,8 @@ export const reducer = combineReducers<State>({
   registrationView: (state = 'form', action) => {
     switch (action.type) {
       case CHANGE_REGISTRATION_VIEW: return action.payload;
+      case CLEAR_FORM_DATA:
+        return 'form';
       default: return state;
     }
   },

@@ -60,7 +60,7 @@ export const FormInputField = styled.input`
   font-weight: normal;
   height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT};
   line-height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT};
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   padding-left: 12px;
   background-color: #fff;
   color: #676a6c;
