@@ -5,6 +5,7 @@ import { IFormInputValues } from '@src/core/interfaces';
 import { RegistrationRequest } from '../interfaces';
 
 export const SWITCH_AGREEMENT_VALUE = 'SWITCH_AGREEMENT_VALUE';
+export const SWITCH_FOCUSED_VALUE = 'SWITCH_FOCUSED_VALUE';
 export const UPDATE_RECAPTCHA_VALUE = 'UPDATE_RECAPTCHA_VALUE';
 export const CHANGE_REGISTRATION_VIEW = 'CHANGE_REGISTRATION_VIEW';
 export const CHANGE_VALIDATION_VALUE = 'CHANGE_VALIDATION_VALUE';
@@ -13,6 +14,10 @@ export type Actions = {
   SWITCH_AGREEMENT_VALUE: {
     type: typeof SWITCH_AGREEMENT_VALUE,
   },
+
+  SWITCH_FOCUSED_VALUE: {
+    type: typeof SWITCH_FOCUSED_VALUE,
+  }
   
   UPDATE_RECAPTCHA_VALUE: {
     type: typeof UPDATE_RECAPTCHA_VALUE,
@@ -35,6 +40,12 @@ export const syncActionCreators = {
   switchAgreementValue: ():
     Actions[typeof SWITCH_AGREEMENT_VALUE] => ({
       type: SWITCH_AGREEMENT_VALUE,
+    }),
+
+  /** Меняет признак фокуса чекбокса, получаемый при фокусе оригинального чекбокса */
+  switchFocusedValue: ():
+    Actions[typeof SWITCH_FOCUSED_VALUE] => ({
+      type: SWITCH_FOCUSED_VALUE,
     }),
 
   /** Передает а редьюсер значение, полученное от сервиса reCAPTCHA */
@@ -66,6 +77,7 @@ export const asyncActionCreators = {
         dispatch(syncActionCreators.changeValidationValue([['valid','valid','valid','valid','valid']]));
         try {
           const { data } = await sendRequestToAPI.post('/reg.php', payload);
+          console.log('data:', data);
           switch (data.status) {
             case "ok": dispatch(
               syncActionCreators.changeRegistrationView('success')); return;

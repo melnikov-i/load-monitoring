@@ -10,6 +10,7 @@ import { LayoutWrapper, Layout } from './';
 import {
   RegistrationFormConnected as RegistrationForm
 } from '../connected';
+import SimplyPage from '@src/components/simplyPage';
 
 interface RegistrationProps extends RouteComponentProps<void> {
   /** параметр, определяющий отображаемый шаблон */
@@ -27,28 +28,19 @@ export const Registration: React.SFC<RegistrationProps> = (props) => {
     </LayoutWrapper>
   );
 
-  const pageAfter = (innerText: string): JSX.Element => (
-    <div>
-      <p
-        style={{
-          fontSize: '16px',
-          textAlign: 'center'
-        }}
-      >
-        {innerText}
-      </p>
-    </div>
-  );
-
-  const successText: string = 'Регистрация прошла успешно. В течение ближайшего времени '
-    + 'Вам на почту придет ссылка подтверждения регистрации.';
-  const alreadyText: string = 'Данный электронный адрес уже зарегистрирован.';
-  const error: string = 'Во время регистрации произошла ошибка. Попробуйте зарегистрироваться позднее';
-
   switch (registrationView) {
-    case 'success': return layoutDecorator(pageAfter(successText));
-    case 'already': return layoutDecorator(pageAfter(alreadyText));
-    case 'failed': return layoutDecorator(pageAfter(error));
+    case 'success': return <SimplyPage
+      hint={'Регистрация прошла успешно. В течение ближайшего времени '
+        + 'Вам на почту придет ссылка подтверждения регистрации.'}
+      type={'success'} />;
+    case 'already': 
+      return <SimplyPage
+        hint={'Указанный e-mail уже зарегистрирован в системе'}
+        type={'error'} />;
+    case 'failed': 
+      return <SimplyPage
+        hint={'Произошла ошибка во время регистрации. Пожалуйста, попробуйте еще раз позднее'}
+        type={'error'} />;
     default: return layoutDecorator(<RegistrationForm />);
   }
 };

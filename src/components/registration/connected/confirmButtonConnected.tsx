@@ -15,7 +15,7 @@ import { RegistrationRequest } from '../interfaces';
 
 interface StateProps {
   values: IFormInputValues['values'],
-  agreement: boolean,
+  isSelected: boolean,
   reCaptcha: string,
 }
 
@@ -30,7 +30,7 @@ const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
   createStructuredSelector<RootState, StateProps>({
     values: (state: RootState) => state.formInput.values,
-    agreement: (state: RootState) => state.registration.agreement,
+    isSelected: (state: RootState) => state.registration.isSelected,
     reCaptcha: (state: RootState) => state.registration.reCaptcha,
   });
 

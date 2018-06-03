@@ -49,8 +49,8 @@ export const RegistrationForm: React.SFC<RegistrationFormProps> = () => {
       <RegistrationFormHeader>{'Регистрация'}</RegistrationFormHeader>
       <form action="">
         {formInputItemsCollection.map((e, i) => <FormInput key={i} formInputItems={e} />)}
-        <GreenCheckbox />
         <ReCaptcha />
+        <GreenCheckbox />
         <ConfirmButton />
       </form>
     </Content>

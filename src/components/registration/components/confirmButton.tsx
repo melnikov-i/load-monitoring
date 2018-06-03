@@ -11,7 +11,7 @@ interface ConfirmButtonProps {
   /** Массив значений полей ввода информации */
   values: IFormInputValues['values'],
   /** Значение чекбокса */
-  agreement: boolean,
+  isSelected: boolean,
   /** Значение рекапчи */
   reCaptcha: string,
   /** Отправляет результат валидации в Store для последующей стилизации элементов формы */
@@ -23,7 +23,7 @@ interface ConfirmButtonProps {
 export const ConfirmButton: React.SFC<ConfirmButtonProps> = (props) => {
   const {
     values,
-    agreement,
+    isSelected,
     reCaptcha,
     changeValidationValue,
     sendRegistrationToAPI,
@@ -53,7 +53,7 @@ export const ConfirmButton: React.SFC<ConfirmButtonProps> = (props) => {
     }
 
     /** Проверка чекбокса */
-    if (agreement) {
+    if (isSelected) {
       validation.push('valid');
     } else {
       validation.push('notValid');
@@ -94,6 +94,7 @@ export const ConfirmButton: React.SFC<ConfirmButtonProps> = (props) => {
 
   return (
     <RegistrationFormButton
+      id={'registrationButton'}
       onClick={handlerSendRegistration}
     > {'Регистрация'} </RegistrationFormButton>
   );

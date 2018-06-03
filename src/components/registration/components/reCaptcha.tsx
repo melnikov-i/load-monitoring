@@ -25,15 +25,15 @@ export const ReCaptcha: React.SFC<ReCaptchaProps> = (props) => {
 
   return (
     <RecaptchaWrapper
-      validation={validation}
-      hint={'Чтобы продолжить, необходимо пройти проверку'
-      }
-    >
+    validation={validation}
+    hint={'Чтобы продолжить, необходимо пройти проверку'
+  }
+  >
       <div
         style={{
           display: 'inline-block',
         }}
-      >
+        >
         <Recaptcha
           sitekey="6LcGDlkUAAAAAHu79gGfIkB6F7cU9-zD_vnOpaha"
           render="explicit"

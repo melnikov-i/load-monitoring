@@ -125,10 +125,6 @@ export const RegistrationFormInput = styled.input`
   border-radius: 2px;
 `;
 
-
-
-
-
 /**
  * Кнопка подтверждения регистрации.
  * @return {React.Component}
@@ -153,60 +149,26 @@ const Checkboxes = require('@src/images/checkboxes');
  * Чекбокс пользовательского соглашения
  * @returns {React.Component}
  */
-
-export const RegistrationAgreementCheckboxLink = styled.a`
-  text-decoration: none;
-  cursor: pointer;
-  height: 24px;
-  display: inline-block;
-  margin-bottom: 20px;
-  font-size: 14px;
-  color: #676a6c;
-
-  `;
-    // &::before {
-    //   content: "";
-    // }
-    // &:hover:before {
-    //   background-position: ${(props: { isSelected: boolean}) => (
-    //     props.isSelected ? '-48px 0' : '-24px 0'
-    //   )};
-    // }
-  
-export const RegistrationAgreementCheckbox = styled.span`
-  display: inline-block;
-  vertical-align: top;
-  width: 24px;
-  height: 24px;
-  margin-right: 10px;
-  background-image: url(${Checkboxes});
-  background-size: 240px 24px;
-  background-position: ${(props: {isSelected: boolean}) => (
-    props.isSelected ? '-48px 0' : '0 0'
-  )};
-  &:hover {
-    background-position: ${(props: { isSelected: boolean }) => (
-    props.isSelected ? '-48px 0' : '-24px 0'
-  )};
-  }
-`;
-  
-type TRegistrationAgreementCheckbox = {
+/**
+ * Обертка для чекбока. Служит каркасом для дочерних элементов
+ */
+type TRegistrationCheckbox = {
   hint: string,
   validation: string,
 };
-export const RegistrationAgreementCheckboxWrapper = styled.div`
+export const RegistrationCheckboxWrapper = styled.div`
   position: relative;
   text-align: center;
+  margin-bottom: 20px;
   &::after {
-    content: "${(props: TRegistrationAgreementCheckbox) => props.hint}";
-    display: ${(props: TRegistrationAgreementCheckbox) => {
-    switch (props.validation) {
-      case 'valid': return 'none';
-      case 'notValid': return 'block';
-      default: return 'none';
-    }
-  }};
+    content: "${(props: TRegistrationCheckbox) => props.hint}";
+    display: ${(props: TRegistrationCheckbox) => {
+      switch (props.validation) {
+        case 'valid': return 'none';
+        case 'notValid': return 'block';
+        default: return 'none';
+      }
+    }};
     font-size: 12px;
     color: #b84252;
     position: absolute;
@@ -217,17 +179,59 @@ export const RegistrationAgreementCheckboxWrapper = styled.div`
   }
 `;
 
-export const RegistrationAgreementLink = styled(NavLink)`
+/**
+ * Зеленый скрытый оригинальный чекбокс
+ */
+export const RegistrationCheckbox = styled.input`
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+`;
+
+/**
+ * Текст для чекбокса с имитированным и стилизованным чекбоксом
+ */
+export const RegistrationLabelText = styled.span`
+  cursor: pointer;
+  font-size: 14px;
+  color: #676a6c;
+  height: 24px;
+  line-height: 24px;
+  &::before {
+    content: '';
+    display: inline-block;
+    vertical-align: top;
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+    background-image: url(${Checkboxes});
+    background-size: 240px 24px;
+    background-position: ${(props: {isSelected: boolean, isFocused: boolean}) => (
+      props.isSelected ? '-48px 0' : props.isFocused ? '-24px 0' : '0 0'
+    )};
+  }
+  &:hover:before {
+    background-position: ${(props: { isSelected: boolean }) => (
+      props.isSelected ? '-48px 0' : '-24px 0'
+    )};
+  }
+`;
+
+/**
+ * Ссылка на страницу с пользовательским соглашением
+ */
+export const RegistrationLink = styled(NavLink)`
   text-decoration: none;
   height: 24px;
+  line-height: 24px;
   display: inline-block;
-  margin: 0 0 20px 10px;
+  margin-left: 10px;
   font-size: 14px;
   color: #1c84c6;
 `;
 
 export const RecaptchaWrapper =
-RegistrationAgreementCheckboxWrapper.extend`
+RegistrationCheckboxWrapper.extend`
   @media screen and (max-width: ${ MIDDLE_SCREEN_MAX}){
     &::after {
       width: 175px;

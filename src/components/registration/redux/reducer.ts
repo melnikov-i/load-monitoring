@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 import {
   SWITCH_AGREEMENT_VALUE,
+  SWITCH_FOCUSED_VALUE,
   UPDATE_RECAPTCHA_VALUE,
   CHANGE_REGISTRATION_VIEW,
   CHANGE_VALIDATION_VALUE,
@@ -10,7 +11,8 @@ import {
 import { IFormInputValues } from '@src/core/interfaces';
 
 export type State = {
-  readonly agreement: boolean,
+  readonly isSelected: boolean,
+  readonly isFocused: boolean,
   readonly reCaptcha: string,
   readonly registrationView: string,
   readonly validation: IFormInputValues['values'],
@@ -28,12 +30,21 @@ const _validation: IFormInputValues['values'] = [['', '', '', '', '']];
 
 export const reducer = combineReducers<State>({
   /** Содержит состояние нажатия чекбокса принятия пользовательского соглашения */
-  agreement: (state = false, action) => {
+  isSelected: (state = false, action) => {
     switch (action.type) {
       case SWITCH_AGREEMENT_VALUE:
         return !state;
       default:
         return state;
+    }
+  },
+
+  /** Содержит значение чекбокса при фокусе оригинального скрытого чекбокса */
+  isFocused: (state = false, action) => {
+    switch (action.type) {
+      case SWITCH_FOCUSED_VALUE:
+        return !state;
+      default: return state;
     }
   },
 
