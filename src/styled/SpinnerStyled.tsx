@@ -1,5 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 
+import { colors } from '@src/core/styled';
+
 const rotateBefore = keyframes`
   20% { transform: rotateZ(0deg); }
   35% { transform: rotateZ(180deg); }
@@ -25,7 +27,7 @@ export const CircularSpinner = styled.div`
   background-color: ${ 
     ( props: CircularSpinnerProps ) => props.bgColor 
   };
-  color: ${ ( props: CircularSpinnerProps ) => props.color };
+  color: ${ ( props: CircularSpinnerProps ) => colors[props.color] };
   border-radius: 50%;
   position: absolute;
   top: 50%;

@@ -19,40 +19,77 @@ import {
   ConfirmButtonConnected as ConfirmButton,
 } from '../connected';
 
-/** Контекст элементов формы */
+/** Статический котнекст формы */
 const formInputItemsCollection: IFormInputItems[] = [
   {
-    storeContext: [0, 0],
+    id: 'email',
+    validation: '',
     type: 'text',
     hint: 'Введите существующий адрес электронной почты',
     placeholder: 'E-Mail',
   },
   {
-    storeContext: [0, 1],
+    id: 'password',
+    validation: '',
     type: 'password',
     hint: 'Это поле не совпадает с полем Повторите пароль',
     placeholder: 'Пароль',
   },
   {
-    storeContext: [0, 2],
+    id: 'confirm',
+    validation: '',
     type: 'password',
     hint: 'Это поле не совпадает с полем Пароль',
     placeholder: 'Повторите пароль',
   },
-];
+]
 
-interface RegistrationFormProps extends RouteComponentProps<void> {}
+/** Контекст элементов формы */
+// const _formInputItemsCollection: IFormInputItems[] = [
+//   {
+//     storeContext: [0, 0],
+//     type: 'text',
+//     hint: 'Введите существующий адрес электронной почты',
+//     placeholder: 'E-Mail',
+//   },
+//   {
+//     storeContext: [0, 1],
+//     type: 'password',
+//     hint: 'Это поле не совпадает с полем Повторите пароль',
+//     placeholder: 'Пароль',
+//   },
+//   {
+//     storeContext: [0, 2],
+//     type: 'password',
+//     hint: 'Это поле не совпадает с полем Пароль',
+//     placeholder: 'Повторите пароль',
+//   },
+// ];
 
-export const RegistrationForm: React.SFC<RegistrationFormProps> = () => {
-  return (
-    <Content>
-      <RegistrationFormHeader>{'Регистрация'}</RegistrationFormHeader>
-      <form action="">
-        {formInputItemsCollection.map((e, i) => <FormInput key={i} formInputItems={e} />)}
-        <ReCaptcha />
-        <GreenCheckbox />
-        <ConfirmButton />
-      </form>
-    </Content>
-  );
+interface RegistrationFormProps extends RouteComponentProps<void> {
+  context: any,
+  createContext: (payload: any) => any,
+}
+
+export const RegistrationForm: React.SFC<RegistrationFormProps> = (props) => {
+  const { context, createContext } = props;
+  console.log('context', context);
+
+  if (context['registration'] === undefined) {
+    /** Создаем и передаем в reducer контекст формы, чтобы с ней могли работать другие компоненты */
+    createContext(['registration', formInputItemsCollection]);
+    return null;
+  } else {
+    return (
+      <Content>
+        <RegistrationFormHeader>{'Регистрация'}</RegistrationFormHeader>
+        <form action="">
+          {formInputItemsCollection.map((e, i) => <FormInput key={i} formInputItems={e} />)}
+          <ReCaptcha />
+          <GreenCheckbox />
+          <ConfirmButton />
+        </form>
+      </Content>
+    );
+  }
 };

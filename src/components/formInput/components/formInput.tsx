@@ -27,23 +27,23 @@ interface FormInputProps {
 export const FormInput: React.SFC<FormInputProps> = (props) => {
   const {
     formInputItems: {
-      storeContext,
+      // id,
+      validation,
       type,
       hint,
       placeholder,
     },
-    changeValue,
+    // changeValue,
     value,
-    validation,
   } = props;
 
   const changeValueHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    const payload: IFormInputChangeValue = {
-      storeContext: storeContext,
-      value: e.currentTarget.value,
-    };
-    changeValue(payload);
+    // const payload: IFormInputChangeValue = {
+    //   dest: dest,
+    //   value: e.currentTarget.value,
+    // };
+    // changeValue(payload);
   }
 
   return (

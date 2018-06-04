@@ -5,7 +5,8 @@ import {
   LOGIN_LAYOUT_BIG_HEIGHT,
   // LOGIN_FORM_INPUT_BIG_HEIGHT,
   MIDDLE_SCREEN_MAX,
-  emergence
+  emergence,
+  colors,
 } from '@src/core/styled';
 
 const Logo = require('@src/images/LogoBig');
@@ -91,4 +92,17 @@ export const LoginFormHeader = styled.h4`
   text-align: center;
   height: 50px;
   line-height: 50px;
+  color: ${(props: {color: string}) => 
+    colors[props.color]};
+`;
+
+/**
+ * Контейнер, в который помещается спиннер
+ * @return {React.Component}
+ */
+export const LoginFormSpinner = styled.div`
+  width: 100%;
+  height: 108px;
+  position: relative;
+  background-color: #fff;
 `;

@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 import {
   LOGIN_FORM_INPUT_BIG_HEIGHT,
-  MIDDLE_SCREEN_MAX
+  MIDDLE_SCREEN_MAX,
+  colors,
 } from '@src/core/styled';
 
 /**
@@ -50,9 +51,9 @@ export const FormInputField = styled.input`
   box-sizing: border-box;
   border: ${(props: { validation: string }) => {
     switch (props.validation) {
-      case 'valid': return '2px solid rgb(44, 143, 123)';
-      case 'notValid': return '2px solid #b84252';
-      default: return '1px solid #e5e6e7';
+      case 'valid': return '2px solid ' + colors.green;
+      case 'notValid': return '2px solid ' + colors.red;
+      default: return '1px solid ' + colors.grey;
     }
   }};
   width: 100%;

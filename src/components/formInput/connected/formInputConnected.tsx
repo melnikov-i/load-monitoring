@@ -27,14 +27,15 @@ interface OwnProps {
 type Selector<TInput, TOutput> = (state: TInput, props?: any) => TOutput;
 
 const getValue: Selector<RootState, string> =
-  (state: RootState, props: OwnProps): string => 
-    state.formInput
-      .values[props.formInputItems.storeContext[0]][props.formInputItems.storeContext[1]];
+  (state: RootState/*, props: OwnProps*/): string => 
+    state.formInput.context//[props.formInputItems.dest[0]][props.formInputItems.dest[1]];
+    // state.formInput
+    //   .values[props.formInputItems.storeContext[0]][props.formInputItems.storeContext[1]];
 
 const getValidation: Selector<RootState, string> = 
-  (state: RootState, props: OwnProps): string =>
-    state.registration
-      .validation[props.formInputItems.storeContext[0]][props.formInputItems.storeContext[1]];
+  (state: RootState/*, props: OwnProps*/): string =>
+    state.registration.validation[0][1];
+      // .validation[props.formInputItems.storeContext[0]][props.formInputItems.storeContext[1]];
 
 
 const mapStateToProps:
