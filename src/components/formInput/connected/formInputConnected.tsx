@@ -27,12 +27,11 @@ type Selector<TInput, TOutput> = (state: TInput, props?: any) => TOutput;
 
 const getItems: Selector<RootState, any> =
   (state: RootState, props: OwnProps): any => {
-    console.log('up')
     if (props.staticItems.id[0] in state.formInput.dynamicItemsModel) {
       if (props.staticItems.id[1] in state.formInput.dynamicItemsModel[props.staticItems.id[0]]) {
         return state.formInput.dynamicItemsModel[props.staticItems.id[0]][props.staticItems.id[1]];
       }
-    }    
+    }
   }
 
 const mapStateToProps:

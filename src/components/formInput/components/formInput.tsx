@@ -29,6 +29,10 @@ export const FormInput: React.SFC<FormInputProps> = (props) => {
     changeDynamicItemsModel,
   } = props;
   
+  /** 
+   * Из store может ничего и не прийти.
+   * Значит в сторе еще нет модели для этого поля и ее надо создать 
+   */
   if (!dynamicItems) {
     changeDynamicItemsModel({
       id: id,
@@ -38,6 +42,7 @@ export const FormInput: React.SFC<FormInputProps> = (props) => {
     return null;
   } else {
     const { value, validation } = dynamicItems;
+    
     const changeValueHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
       e.preventDefault();
       const payload: IFormInputDynamicItems = {

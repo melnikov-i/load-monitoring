@@ -5,6 +5,7 @@ import {
 } from './';
 
 import { IFormInputValues } from '@src/core/interfaces';
+import { IFormInputDynamicItems } from '@src/components/formInput';
 import { RegistrationRequest } from '../interfaces';
 
 interface ConfirmButtonProps {
@@ -35,28 +36,44 @@ export const ConfirmButton: React.SFC<ConfirmButtonProps> = (props) => {
   } = props;
   
   let validation = new Array();
-  let _dynamicItemsModel: any = dynamicItemsModel;
+  let _dynamicItemsModel: any;
+  
   
   const validateFormFields = (): boolean => {
     let key: boolean = true;
+    const model: any = dynamicItemsModel.registration;
     
     /** Проверка поля с e-mail */
-    if (/.+@.+\..+/i.test(dynamicItemsModel.registration.email.value)) {
-      _dynamicItemsModel.registration.email.validation = 'valid';
-    } else {
-      _dynamicItemsModel.registration.email.validation = 'notValid';
-      key = false;
-    }
-
+    const email: IFormInputDynamicItems = {
+      ...model.email,
+      validation: /.+@.+\..+/i.test(model.email.value)
+        ? 'valid' : 'notValid',
+    };
+    
+    if (email.validation === 'notValid') key = false;
+    
     /** Проверка поля с паролем и подтверждением пароля */
-    if (dynamicItemsModel.registration.password.value 
-      && dynamicItemsModel.registration.password.value === dynamicItemsModel.registration.confirm.value ) {
-      _dynamicItemsModel.registration.password.validation = 'valid';
-      _dynamicItemsModel.registration.confirm.validation = 'valid';
-    } else {
-      _dynamicItemsModel.registration.password.validation = 'notValid';
-      _dynamicItemsModel.registration.confirm.validation = 'notValid';
-      key = false;
+    const password: IFormInputDynamicItems = {
+      ...model.password,
+      validation: (model.password && model.password === model.confirm)
+        ? 'valid' : 'notValid',
+    };
+
+    const confirm: IFormInputDynamicItems = {
+      ...model.confirm,
+      validation: (model.password && model.password === model.confirm)
+        ? 'valid' : 'notValid',
+    };
+
+    if (password.validation === 'notValid') key = false;
+
+    _dynamicItemsModel = {
+      ...model,
+      ['registration']: {
+        email: email,
+        password: password,
+        confirm: confirm,
+      }
     }
 
     /** Проверка чекбокса */
