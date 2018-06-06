@@ -5,8 +5,8 @@
 import * as React from 'react';
 
 import { FormInputConnected as FormInput } from './connected';
-import { IFormInputItems } from './interfaces';
+import { IFormInputStaticItems } from './interfaces';
 
-export default ({ formInputItems }: {formInputItems: IFormInputItems}) => (
-  <FormInput formInputItems={formInputItems} />
+export default ({ staticItems }: {staticItems: IFormInputStaticItems}) => (
+  <FormInput staticItems={staticItems} />
 );

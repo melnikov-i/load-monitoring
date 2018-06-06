@@ -4,12 +4,16 @@ import { Dispatch } from '@src/core';
 import { IFormInputValues } from '@src/core/interfaces';
 import { RegistrationRequest } from '../interfaces';
 
+import { syncActionCreators as formInputActionCreators } from '@src/components/formInput';
+
 export const SWITCH_AGREEMENT_VALUE = 'SWITCH_AGREEMENT_VALUE';
 export const SWITCH_FOCUSED_VALUE = 'SWITCH_FOCUSED_VALUE';
 export const UPDATE_RECAPTCHA_VALUE = 'UPDATE_RECAPTCHA_VALUE';
-export const CHANGE_REGISTRATION_VIEW = 'CHANGE_REGISTRATION_VIEW';
-export const CHANGE_VALIDATION_VALUE = 'CHANGE_VALIDATION_VALUE';
 export const CLEAR_FORM_DATA = 'CLEAR_FORM_DATA';
+export const CHANGE_REGISTRATION_VIEW = 'CHANGE_REGISTRATION_VIEW';
+export const CHANGE_VALIDATION_VALUE_IN_COMPONENTS = 'CHANGE_VALIDATION_VALUE_IN_COMPONENTS';
+
+export const CHANGE_VALIDATION_VALUE = 'CHANGE_VALIDATION_VALUE';
 
 export type Actions = {
   SWITCH_AGREEMENT_VALUE: {
@@ -29,15 +33,20 @@ export type Actions = {
     type: typeof CHANGE_REGISTRATION_VIEW,
     payload: string,
   },
+  
+  CLEAR_FORM_DATA: {
+    type: typeof CLEAR_FORM_DATA,
+  },
+
+  CHANGE_VALIDATION_VALUE_IN_COMPONENTS: {
+    type: typeof CHANGE_VALIDATION_VALUE_IN_COMPONENTS,
+    payload: any,
+  }
 
   CHANGE_VALIDATION_VALUE: {
     type: typeof CHANGE_VALIDATION_VALUE,
     payload: IFormInputValues['values'],
   },
-
-  CLEAR_FORM_DATA: {
-    type: typeof CLEAR_FORM_DATA,
-  }
 };
 
 export const syncActionCreators = {
@@ -64,6 +73,11 @@ export const syncActionCreators = {
     Actions[typeof CHANGE_REGISTRATION_VIEW] => ({
       type: CHANGE_REGISTRATION_VIEW, payload,
     }),
+
+  // changeValidationValueInComponents: (payload: any):
+  // Actions[typeof CHANGE_VALIDATION_VALUE_IN_COMPONENTS] => ({
+  //     type: CHANGE_VALIDATION_VALUE_IN_COMPONENTS, payload,
+  // }),
 
   /**
    * Содержит значение для механизма валидации чекбокса 
@@ -102,5 +116,12 @@ export const asyncActionCreators = {
           console.error(error);
         }
       }
+    },
+  changeValidationValueInComponents:
+    (payload: any) => {
+      return (dispatch: Dispatch) => {
+        dispatch(formInputActionCreators.formInputsChangeValidation(payload.formInput));
+      }
     }
+
   };

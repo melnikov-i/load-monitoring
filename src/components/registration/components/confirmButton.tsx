@@ -9,11 +9,14 @@ import { RegistrationRequest } from '../interfaces';
 
 interface ConfirmButtonProps {
   /** Массив значений полей ввода информации */
-  values: IFormInputValues['values'],
+  dynamicItemsModel: any,
+  // values: IFormInputValues['values'],
   /** Значение чекбокса */
   isSelected: boolean,
   /** Значение рекапчи */
   reCaptcha: string,
+
+  changeValidationValueInComponents: (payload: any) => any,
   /** Отправляет результат валидации в Store для последующей стилизации элементов формы */
   changeValidationValue: (payload: IFormInputValues['values']) => any,
   /** Отправляет данные на сервер */
@@ -22,33 +25,37 @@ interface ConfirmButtonProps {
 
 export const ConfirmButton: React.SFC<ConfirmButtonProps> = (props) => {
   const {
-    values,
+    // values,
+    dynamicItemsModel,
     isSelected,
     reCaptcha,
-    changeValidationValue,
+    changeValidationValueInComponents,
+    // changeValidationValue,
     sendRegistrationToAPI,
   } = props;
   
   let validation = new Array();
+  let _dynamicItemsModel: any = dynamicItemsModel;
   
   const validateFormFields = (): boolean => {
     let key: boolean = true;
     
     /** Проверка поля с e-mail */
-    if (/.+@.+\..+/i.test(values[0][0])) {
-      validation.push('valid');
+    if (/.+@.+\..+/i.test(dynamicItemsModel.registration.email.value)) {
+      _dynamicItemsModel.registration.email.validation = 'valid';
     } else {
-      validation.push('notValid');
+      _dynamicItemsModel.registration.email.validation = 'notValid';
       key = false;
     }
 
     /** Проверка поля с паролем и подтверждением пароля */
-    if (values[0][1] && values[0][1] === values[0][2]) {
-      validation.push('valid');
-      validation.push('valid');
+    if (dynamicItemsModel.registration.password.value 
+      && dynamicItemsModel.registration.password.value === dynamicItemsModel.registration.confirm.value ) {
+      _dynamicItemsModel.registration.password.validation = 'valid';
+      _dynamicItemsModel.registration.confirm.validation = 'valid';
     } else {
-      validation.push('notValid');
-      validation.push('notValid');
+      _dynamicItemsModel.registration.password.validation = 'notValid';
+      _dynamicItemsModel.registration.confirm.validation = 'notValid';
       key = false;
     }
 
@@ -82,13 +89,17 @@ export const ConfirmButton: React.SFC<ConfirmButtonProps> = (props) => {
       console.log('все верно, отправка данных');
       sendRegistrationToAPI({
         state: 'register',
-        email: values[0][0],
-        password: values[0][1],
+        email: dynamicItemsModel.registration.email.value,
+        password: dynamicItemsModel.registration.password.value,
         ['g-recaptcha-response']: reCaptcha,
       });
     } else {
       console.log('все плохо, валидация не пройдена');
-      changeValidationValue([validation]);
+      const payload: any = {
+        formInput: _dynamicItemsModel,
+      };
+      changeValidationValueInComponents(payload);
+      // changeValidationValue([validation]);
     }
   };
 

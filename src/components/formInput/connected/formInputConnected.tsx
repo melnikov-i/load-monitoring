@@ -8,47 +8,43 @@ import { createStructuredSelector, createSelector } from 'reselect';
 import { Dispatch, RootState } from '@src/core';
 
 import { FormInput } from '../components';
-import { IFormInputItems, IFormInputChangeValue } from '../interfaces';
+import { IFormInputStaticItems, IFormInputDynamicItems } from '../interfaces';
 import { syncActionCreators } from '../redux';
 
 interface StateProps {
-  value: string;
-  validation: string,
+  dynamicItems: any,
 }
 
 interface DispatchProps {
-  changeValue: (payload: IFormInputChangeValue) => any,
+  changeDynamicItemsModel: (payload: IFormInputDynamicItems) => any,
 }
 
 interface OwnProps {
-  formInputItems: IFormInputItems,
+  staticItems: IFormInputStaticItems,
 }
 
 type Selector<TInput, TOutput> = (state: TInput, props?: any) => TOutput;
 
-const getValue: Selector<RootState, string> =
-  (state: RootState/*, props: OwnProps*/): string => 
-    state.formInput.context//[props.formInputItems.dest[0]][props.formInputItems.dest[1]];
-    // state.formInput
-    //   .values[props.formInputItems.storeContext[0]][props.formInputItems.storeContext[1]];
-
-const getValidation: Selector<RootState, string> = 
-  (state: RootState/*, props: OwnProps*/): string =>
-    state.registration.validation[0][1];
-      // .validation[props.formInputItems.storeContext[0]][props.formInputItems.storeContext[1]];
-
+const getItems: Selector<RootState, any> =
+  (state: RootState, props: OwnProps): any => {
+    console.log('up')
+    if (props.staticItems.id[0] in state.formInput.dynamicItemsModel) {
+      if (props.staticItems.id[1] in state.formInput.dynamicItemsModel[props.staticItems.id[0]]) {
+        return state.formInput.dynamicItemsModel[props.staticItems.id[0]][props.staticItems.id[1]];
+      }
+    }    
+  }
 
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
   createStructuredSelector<RootState, StateProps>({
-    value: createSelector(getValue, ( valueItem ) => valueItem),
-    validation: createSelector(getValidation, ( validation ) => validation),
+    dynamicItems: createSelector(getItems, (items) => items),
   });
 
 
 const mapDispatchToProps:
   MapDispatchToPropsParam<DispatchProps, OwnProps> = (dispatch: Dispatch) => bindActionCreators({
-    changeValue: syncActionCreators.changeValue,
+    changeDynamicItemsModel: syncActionCreators.changeDynamicItemsModel,
   }, dispatch);
 
 export const FormInputConnected = 

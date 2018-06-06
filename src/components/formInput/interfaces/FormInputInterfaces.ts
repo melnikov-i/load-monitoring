@@ -1,12 +1,17 @@
 /**
  * Интерфейс передаваемых в компонент параметров через props от родителя
  */
-export interface IFormInputItems {
-  id: string,
-  validation: string,
+export interface IFormInputStaticItems {
+  id: string[],
   type: string,
   hint: string,
   placeholder: string,
+}
+
+export interface IFormInputDynamicItems {
+  id: string[],
+  value: string,
+  validation: string,
 }
 
 /**
@@ -16,3 +21,5 @@ export interface IFormInputChangeValue {
   dest: string[],
   value: string,
 }
+
+

@@ -8,16 +8,16 @@ import { createStructuredSelector } from 'reselect';
 import { Dispatch, RootState } from '@src/core';
 import { withRouter } from 'react-router-dom';
 
-import { syncActionCreators } from '@src/components/formInput';
+// import { syncActionCreators } from '@src/components/formInput';
 
 import { RegistrationForm } from '../components';
 
 interface StateProps {
-  context: any,
+  // context: any,
 }
 
 interface DispatchProps {
-  createContext: (payload: any) => any,
+  // createContext: (payload: any) => any,
 }
 
 interface OwnProps {}
@@ -25,14 +25,14 @@ interface OwnProps {}
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
   createStructuredSelector<RootState, StateProps>({
-    context: (state: RootState) => state.formInput.context,
+    // context: (state: RootState) => state.formInput.context,
     // values: (state: RootState) => state.formInput.values,
   });
 
 const mapDispatchToProps:
   MapDispatchToPropsParam<DispatchProps, OwnProps> = 
   (dispatch: Dispatch) => bindActionCreators({
-    createContext: syncActionCreators.createContext,
+    // createContext: syncActionCreators.createContext,
   }, dispatch);
 
 export const RegistrationFormConnected = withRouter(

@@ -1,30 +1,31 @@
 import {
-  IFormInputChangeValue,
-} from '@src/components/formInput';
+  IFormInputDynamicItems,
+} from '../interfaces';
 
-export const FORM_INPUT_CREATE_CONTEXT = 'FORM_INPUT_CREATE_CONTEXT';
-export const FORM_INPUT_CHANGE_VALUE = 'FORM_INPUT_CHANGE_VALUE';
+export const FORM_INPUT_CHANGE_DYNAMIC_ITEMS_MODEL = 'FORM_INPUT_CHANGE_DYNAMIC_ITEMS_MODEL';
+export const FORM_INPUT_CHANGE_VALIDATION = 'FORM_INPUT_CHANGE_VALIDATION';
 
 export type Actions = {
-  FORM_INPUT_CREATE_CONTEXT: {
-    type: typeof FORM_INPUT_CREATE_CONTEXT,
+  FORM_INPUT_CHANGE_DYNAMIC_ITEMS_MODEL: {
+    type: typeof FORM_INPUT_CHANGE_DYNAMIC_ITEMS_MODEL,
+    payload: IFormInputDynamicItems,
+  },
+
+  FORM_INPUT_CHANGE_VALIDATION: {
+    type: typeof FORM_INPUT_CHANGE_VALIDATION,
     payload: any,
-  },
-  FORM_INPUT_CHANGE_VALUE: {
-    type: typeof FORM_INPUT_CHANGE_VALUE,
-    payload: IFormInputChangeValue,
-  },
+  }
 };
 
 export const syncActionCreators = {
-  /** Создает котнекст */
-  createContext: (payload: any[]):
-    Actions[typeof FORM_INPUT_CREATE_CONTEXT] => ({
-      type: FORM_INPUT_CREATE_CONTEXT, payload,
-    }),
   /** Помещает в store введенную пользователем в поле информацию. */
-  changeValue: (payload: IFormInputChangeValue):
-    Actions[typeof FORM_INPUT_CHANGE_VALUE] => ({
-      type: FORM_INPUT_CHANGE_VALUE, payload,
+  changeDynamicItemsModel: (payload: IFormInputDynamicItems):
+    Actions[typeof FORM_INPUT_CHANGE_DYNAMIC_ITEMS_MODEL] => ({
+      type: FORM_INPUT_CHANGE_DYNAMIC_ITEMS_MODEL, payload,
+    }),
+
+  formInputsChangeValidation: (payload: any):
+    Actions[typeof FORM_INPUT_CHANGE_VALIDATION] => ({
+        type: FORM_INPUT_CHANGE_VALIDATION, payload,
     }),
 }
