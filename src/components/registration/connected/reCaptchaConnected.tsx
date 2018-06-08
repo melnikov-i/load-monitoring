@@ -9,11 +9,12 @@ import { createStructuredSelector } from 'reselect';
 import { Dispatch, RootState } from '@src/core';
 
 import { ReCaptcha } from '../components';
+import { IReCaptchaDynamic } from '../interfaces';
 
 import { syncActionCreators } from '../redux';
 
 interface StateProps {
-  validation: string,
+  validation: IReCaptchaDynamic['validation'],
 }
 
 interface DispatchProps {
@@ -25,7 +26,7 @@ interface OwnProps {}
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
   createStructuredSelector<RootState, StateProps>({
-    validation: (state: RootState) => state.registration.validation[0][4],
+    validation: (state: RootState) => state.registration.reCaptchaDynamic.validation,
   });
 
 const mapDispatchToProps:

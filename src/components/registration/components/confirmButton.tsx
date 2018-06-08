@@ -4,39 +4,47 @@ import {
   RegistrationFormButton
 } from './';
 
-import { IFormInputValues } from '@src/core/interfaces';
+// import { IFormInputValues } from '@src/core/interfaces';
 import { IFormInputDynamicItems } from '@src/components/formInput';
-import { RegistrationRequest } from '../interfaces';
+import { RegistrationRequest, IReCaptchaDynamic } from '../interfaces';
 
+/**
+ * Компонент на вход принимает поля с изменяемым контентом из хранилищ вспомогательных 
+ * компонентов и производит их парсинг, по резульату которого отправляет обратно в 
+ * хранилища результат проверки 
+ */
 interface ConfirmButtonProps {
   /** Массив значений полей ввода информации */
   dynamicItemsModel: any,
-  // values: IFormInputValues['values'],
-  /** Значение чекбокса */
-  isSelected: boolean,
   /** Значение рекапчи */
-  reCaptcha: string,
-
+  reCaptchaDynamic: IReCaptchaDynamic,
+  /** Отправляет в хранилище проверенные на корректность ввода значений содержание полей */
   changeValidationValueInComponents: (payload: any) => any,
-  /** Отправляет результат валидации в Store для последующей стилизации элементов формы */
-  changeValidationValue: (payload: IFormInputValues['values']) => any,
   /** Отправляет данные на сервер */
   sendRegistrationToAPI: (payload: RegistrationRequest) => any,
+
+
+  // values: IFormInputValues['values'],
+  /** Значение чекбокса */
+  // isSelected: boolean,
+  /** Отправляет результат валидации в Store для последующей стилизации элементов формы */
+  // changeValidationValue: (payload: IFormInputValues['values']) => any,
 }
 
 export const ConfirmButton: React.SFC<ConfirmButtonProps> = (props) => {
   const {
     // values,
     dynamicItemsModel,
-    isSelected,
-    reCaptcha,
+    // isSelected,
+    reCaptchaDynamic,
     changeValidationValueInComponents,
     // changeValidationValue,
     sendRegistrationToAPI,
   } = props;
   
-  let validation = new Array();
+  // let validation = new Array();
   let _dynamicItemsModel: any;
+  let _reCaptchaDynamic: IReCaptchaDynamic;
   
   
   const validateFormFields = (): boolean => {
@@ -77,20 +85,20 @@ export const ConfirmButton: React.SFC<ConfirmButtonProps> = (props) => {
     }
 
     /** Проверка чекбокса */
-    if (isSelected) {
-      validation.push('valid');
-    } else {
-      validation.push('notValid');
-      key = false;
-    }
+    // if (isSelected) {
+    //   validation.push('valid');
+    // } else {
+    //   validation.push('notValid');
+    //   key = false;
+    // }
 
     /** Проверка рекапчи */
-    if (reCaptcha !== "") {
-      validation.push('valid');
-    } else {
-      validation.push('notValid');
-      key = false;
-    }
+    _reCaptchaDynamic = {
+      ...reCaptchaDynamic,
+      validation: reCaptchaDynamic.value ? 'valid' : 'notValid',
+    };
+
+    if (_reCaptchaDynamic.validation === 'notValid') key = false;
     
     return key;
   }
@@ -108,12 +116,13 @@ export const ConfirmButton: React.SFC<ConfirmButtonProps> = (props) => {
         state: 'register',
         email: dynamicItemsModel.registration.email.value,
         password: dynamicItemsModel.registration.password.value,
-        ['g-recaptcha-response']: reCaptcha,
+        ['g-recaptcha-response']: reCaptchaDynamic.value,
       });
     } else {
       console.log('все плохо, валидация не пройдена');
       const payload: any = {
         formInput: _dynamicItemsModel,
+        reCaptcha: _reCaptchaDynamic,
       };
       changeValidationValueInComponents(payload);
       // changeValidationValue([validation]);

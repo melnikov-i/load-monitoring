@@ -28,7 +28,6 @@ export const reducer = combineReducers<State>({
           }
         };
       case FORM_INPUT_CHANGE_VALIDATION:
-        console.log('state:', action.payload);
         return { ...action.payload };
       default: return state;
     }

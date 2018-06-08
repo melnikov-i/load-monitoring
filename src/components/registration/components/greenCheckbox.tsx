@@ -8,12 +8,10 @@ import {
   RegistrationLink,
 } from './';
 
+import { ICheckboxDynamic } from '../interfaces';
+
 interface GreenCheckboxProps extends RouteComponentProps<void> {
-  /** Значение чекбокса */
-  isSelected: boolean,
-  isFocused: boolean,
-  /** Значение результата валидации перед отправкой на сервер */
-  validation: string,
+  checkboxDynamic: ICheckboxDynamic,
   /** Отправляет в store изменение значения чекбокса по нажатию пользователя */
   switchAgreementValue: () => any,
   /** Меняет значение фокуса псевдочекбокса при фокусе на оригинальном чекбоксе */
@@ -22,11 +20,9 @@ interface GreenCheckboxProps extends RouteComponentProps<void> {
 
 export const GreenCheckbox: React.SFC<GreenCheckboxProps> = (props) => {
   const {
-    isSelected,
-    isFocused,
+    checkboxDynamic: {value, validation, isFocused},
     switchAgreementValue,
     switchFocusedValue,
-    validation,
   } = props;
 
 
@@ -37,7 +33,6 @@ export const GreenCheckbox: React.SFC<GreenCheckboxProps> = (props) => {
 
   const handleFocusAndBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     e.preventDefault();
-    console.log('focus');
     switchFocusedValue();
   };
 
@@ -66,7 +61,7 @@ export const GreenCheckbox: React.SFC<GreenCheckboxProps> = (props) => {
           onKeyDown={handleKeyDown}
         />
         <RegistrationLabelText
-          isSelected={isSelected}
+          isSelected={value}
           isFocused={isFocused}
           onClick={handleSelection}
         >

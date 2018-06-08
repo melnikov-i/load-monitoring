@@ -11,10 +11,10 @@ import { withRouter } from 'react-router-dom';
 import { GreenCheckbox } from '../components';
 import { syncActionCreators } from '../redux';
 
+import { ICheckboxDynamic } from '../interfaces';
+
 interface StateProps {
-  isSelected: boolean,
-  isFocused: boolean,
-  validation: string,
+  checkboxDynamic: ICheckboxDynamic,
 }
 
 interface DispatchProps {
@@ -27,9 +27,7 @@ interface OwnProps {}
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
   createStructuredSelector<RootState, StateProps>({
-    isSelected: (state: RootState) => state.registration.isSelected,
-    isFocused: (state: RootState) => state.registration.isFocused,
-    validation: (state: RootState) => state.registration.validation[0][3],
+    checkboxDynamic: (state: RootState) => state.registration.checkboxDynamic,
   });
 
 const mapDispatchToProps:

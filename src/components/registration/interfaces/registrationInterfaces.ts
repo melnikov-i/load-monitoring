@@ -4,3 +4,14 @@ export interface RegistrationRequest {
   password: string,
   ['g-recaptcha-response']: string,
 }
+
+export interface ICheckboxDynamic {
+  value: boolean,
+  isFocused: boolean,
+  validation: string,
+}
+
+export interface IReCaptchaDynamic {
+  value: string,
+  validation: string,
+}

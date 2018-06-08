@@ -1,8 +1,8 @@
 import { sendRequestToAPI } from '@src/libs';
 import { Dispatch } from '@src/core';
 
-import { IFormInputValues } from '@src/core/interfaces';
-import { RegistrationRequest } from '../interfaces';
+// import { IFormInputValues } from '@src/core/interfaces';
+import { RegistrationRequest, IReCaptchaDynamic } from '../interfaces';
 
 import { syncActionCreators as formInputActionCreators } from '@src/components/formInput';
 
@@ -12,8 +12,9 @@ export const UPDATE_RECAPTCHA_VALUE = 'UPDATE_RECAPTCHA_VALUE';
 export const CLEAR_FORM_DATA = 'CLEAR_FORM_DATA';
 export const CHANGE_REGISTRATION_VIEW = 'CHANGE_REGISTRATION_VIEW';
 export const CHANGE_VALIDATION_VALUE_IN_COMPONENTS = 'CHANGE_VALIDATION_VALUE_IN_COMPONENTS';
+export const CHANGE_RECAPTCHA_VALIDATION = 'CHANGE_RECAPTCHA_VALIDATION';
 
-export const CHANGE_VALIDATION_VALUE = 'CHANGE_VALIDATION_VALUE';
+// export const CHANGE_VALIDATION_VALUE = 'CHANGE_VALIDATION_VALUE';    
 
 export type Actions = {
   SWITCH_AGREEMENT_VALUE: {
@@ -41,12 +42,17 @@ export type Actions = {
   CHANGE_VALIDATION_VALUE_IN_COMPONENTS: {
     type: typeof CHANGE_VALIDATION_VALUE_IN_COMPONENTS,
     payload: any,
+  },
+
+  CHANGE_RECAPTCHA_VALIDATION: {
+    type: typeof CHANGE_RECAPTCHA_VALIDATION,
+    payload: IReCaptchaDynamic,
   }
 
-  CHANGE_VALIDATION_VALUE: {
-    type: typeof CHANGE_VALIDATION_VALUE,
-    payload: IFormInputValues['values'],
-  },
+  // CHANGE_VALIDATION_VALUE: {
+  //   type: typeof CHANGE_VALIDATION_VALUE,
+  //   payload: IFormInputValues['values'],
+  // },
 };
 
 export const syncActionCreators = {
@@ -74,19 +80,24 @@ export const syncActionCreators = {
       type: CHANGE_REGISTRATION_VIEW, payload,
     }),
 
-  // changeValidationValueInComponents: (payload: any):
-  // Actions[typeof CHANGE_VALIDATION_VALUE_IN_COMPONENTS] => ({
-  //     type: CHANGE_VALIDATION_VALUE_IN_COMPONENTS, payload,
-  // }),
+  changeValidationValueInComponents: (payload: any):
+  Actions[typeof CHANGE_VALIDATION_VALUE_IN_COMPONENTS] => ({
+      type: CHANGE_VALIDATION_VALUE_IN_COMPONENTS, payload,
+  }),
+
+  changeReCaptchaValidation: (payload: IReCaptchaDynamic):
+    Actions[typeof CHANGE_RECAPTCHA_VALIDATION] => ({
+      type: CHANGE_RECAPTCHA_VALIDATION, payload,
+    }),
 
   /**
    * Содержит значение для механизма валидации чекбокса 
    * подтверждения согласия с пользовательским соглашением.
    */
-  changeValidationValue: (payload: IFormInputValues['values']):
-    Actions[typeof CHANGE_VALIDATION_VALUE] => ({
-      type: CHANGE_VALIDATION_VALUE, payload,
-    }),
+  // changeValidationValue: (payload: IFormInputValues['values']):
+  //   Actions[typeof CHANGE_VALIDATION_VALUE] => ({
+  //     type: CHANGE_VALIDATION_VALUE, payload,
+  //   }),
 
   clearFormData: ():
     Actions[typeof CLEAR_FORM_DATA] => ({
@@ -98,7 +109,7 @@ export const asyncActionCreators = {
   sendRegistrationToAPI:
     (payload: RegistrationRequest) => {
       return async (dispatch: Dispatch) => {
-        dispatch(syncActionCreators.changeValidationValue([['valid','valid','valid','valid','valid']]));
+        // dispatch(syncActionCreators.changeValidationValue([['valid','valid','valid','valid','valid']]));
         dispatch(syncActionCreators.changeRegistrationView('waiting'));
         dispatch(syncActionCreators.clearFormData());
         try {
@@ -121,6 +132,7 @@ export const asyncActionCreators = {
     (payload: any) => {
       return (dispatch: Dispatch) => {
         dispatch(formInputActionCreators.formInputsChangeValidation(payload.formInput));
+        dispatch(syncActionCreators.changeReCaptchaValidation(payload.reCaptcha));
       }
     }
 
