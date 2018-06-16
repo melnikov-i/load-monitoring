@@ -118,6 +118,14 @@ export const RegistrationCheckboxWrapper = styled.div`
     transform: translateY(-50%);
     width: 250px;
   }
+  @media screen and (max-width: ${ MIDDLE_SCREEN_MAX}){
+    &::after {
+      width: 175px;
+      left: 75%;
+      top: 30%;
+      text-align: left;
+    }
+  }
 `;
 
 /**

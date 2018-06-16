@@ -50,7 +50,7 @@ export const GreenCheckbox: React.SFC<GreenCheckboxProps> = (props) => {
   return (
     <RegistrationCheckboxWrapper
       validation={validation}    
-      hint={'Чтобы продолжить, необходимо принять пользовательское соглашение'}
+      hint={'Необходимо принять пользовательское соглашение'}
     >
       <label htmlFor="">
         <RegistrationCheckbox

@@ -2,9 +2,6 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
 import { Spinner } from '@src/components';
-// import FormInput, {
-//   IFormInputItems,
-// } from '@src/components/formInput';
 
 import {
   LoginLayoutWrapper,
@@ -16,23 +13,12 @@ import {
   LoginFormLayout,
   LoginFormHeader,
   LoginFormSpinner,
+  // LoginFormButton,
 } from './';
 
-/** Контекст элементов формы */
-// const formInputItemsCollection: IFormInputItems[] = [
-//   {
-//     storeContext: [1, 0],
-//     type: 'text',
-//     hint: '',
-//     placeholder: 'Имя пользователя'
-//   },
-//   {
-//     storeContext: [1, 1],
-//     type: 'text',
-//     hint: '',
-//     placeholder: 'Пароль',
-//   },
-// ];
+import {
+  LoginFormConnected as LoginForm
+} from '../connected';
 
 interface LoginProps extends RouteComponentProps<void> {
 
@@ -58,13 +44,7 @@ export const Login: React.SFC<LoginProps> = (props) => {
             </LoginFormSpinner>
           </LoginFormLayout>
         );
-      default:
-        return (
-          <LoginFormLayout>
-            <LoginFormHeader color={'darkGrey'}>{'Введите учетные данные'}</LoginFormHeader>
-            {/* {formInputItemsCollection.map((e, i) => <FormInput key={i} formInputItems={e} />)} */}
-          </LoginFormLayout>
-        );
+      default: return <LoginForm />;
     }
   };
 

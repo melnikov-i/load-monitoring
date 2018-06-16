@@ -16,7 +16,7 @@ import {
 interface FormInputProps {
   /** Статические параметры формы, получаемые от родительского компонента */
   staticItems: IFormInputStaticItems,
-  /** Динамические параметры формы, генерируемые непосредственно полями ввода */
+  /** Динамические параметры экземпляра поля ввода. */
   dynamicItems: IFormInputDynamicItems,
   /** Добавляет в Store экземпляр объекта dynamicItems */
   changeDynamicItemsModel: (payload: IFormInputDynamicItems) => any,

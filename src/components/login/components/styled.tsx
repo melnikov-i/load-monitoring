@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {
   LOGIN_LAYOUT_BIG_WIDTH,
   LOGIN_LAYOUT_BIG_HEIGHT,
-  // LOGIN_FORM_INPUT_BIG_HEIGHT,
+  LOGIN_FORM_INPUT_BIG_HEIGHT,
   MIDDLE_SCREEN_MAX,
   emergence,
   colors,
@@ -106,3 +106,26 @@ export const LoginFormSpinner = styled.div`
   position: relative;
   background-color: #fff;
 `;
+
+/**
+ * Кнопка авторизации. В процессе проверки введенных данных
+ * меняет цвет
+ * @param {number} loginFormStateIndex
+ * @return {React.Component}
+ */
+export const LoginFormButton = styled.button`
+  width: 100%;
+  height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT};
+  font-size: 16px;
+  color: #fff;
+  text-align: center;
+  background-color: #1ab395;
+  border-radius: 2px;
+  cursor: pointer;
+`;
+
+// background - color: ${
+//   (props: { loginFormStateIndex: number }) => (
+//     (props.loginFormStateIndex === 1) ? '#eee' : '#1ab395'
+//   )
+// };

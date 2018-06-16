@@ -1,6 +1,4 @@
 export * from './App';
-export * from './Login';
-export * from './Registration';
 export * from './Spinner';
 export * from './Main';
 export * from './Dashboard';
@@ -15,3 +13,6 @@ export * from './DashboardDragWidget';
 export * from './DashboardGridSettings';
 export * from './Devices';
 export * from './Overview';
+
+// export * from './login';
+// export * from './registration';

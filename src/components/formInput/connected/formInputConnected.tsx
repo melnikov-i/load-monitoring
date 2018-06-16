@@ -25,7 +25,7 @@ interface OwnProps {
 
 type Selector<TInput, TOutput> = (state: TInput, props?: any) => TOutput;
 
-const getItems: Selector<RootState, any> =
+const getItem: Selector<RootState, any> =
   (state: RootState, props: OwnProps): any => {
     if (props.staticItems.id[0] in state.formInput.dynamicItemsModel) {
       if (props.staticItems.id[1] in state.formInput.dynamicItemsModel[props.staticItems.id[0]]) {
@@ -37,9 +37,8 @@ const getItems: Selector<RootState, any> =
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
   createStructuredSelector<RootState, StateProps>({
-    dynamicItems: createSelector(getItems, (items) => items),
+    dynamicItems: createSelector(getItem, (items) => items),
   });
-
 
 const mapDispatchToProps:
   MapDispatchToPropsParam<DispatchProps, OwnProps> = (dispatch: Dispatch) => bindActionCreators({

@@ -5,7 +5,7 @@ import {
   SWITCH_FOCUSED_VALUE,
   UPDATE_RECAPTCHA_VALUE,
   CHANGE_REGISTRATION_VIEW,
-  CHANGE_VALIDATION_VALUE_IN_COMPONENTS,
+  CHANGE_CHECKBOX_VALIDATION,
   CLEAR_FORM_DATA,
   CHANGE_RECAPTCHA_VALIDATION,
 } from './';
@@ -17,10 +17,6 @@ export type State = {
   readonly checkboxDynamic: ICheckboxDynamic,
   readonly reCaptchaDynamic: IReCaptchaDynamic,
   readonly registrationView: string,
-  // readonly isSelected: boolean,
-  // readonly isFocused: boolean,
-  // readonly validation: IFormInputValues['values'],
-  // readonly reCaptcha: string,
 };
 
 const _checkboxDynamic: ICheckboxDynamic = {
@@ -38,58 +34,26 @@ export const reducer = combineReducers<State>({
   /** Динамические данные чекбокса */
   checkboxDynamic: (state = _checkboxDynamic, action) => {
     switch (action.type) {
+      /** значение чекбокса */
       case SWITCH_AGREEMENT_VALUE:
         return {
           ...state,
           value: !state.value,
         };
+      /** признак чекбокса в фокусе */
       case SWITCH_FOCUSED_VALUE:
         return {
           ...state,
           isFocused: !state.isFocused,
         }
-      case CHANGE_VALIDATION_VALUE_IN_COMPONENTS:
-        return {
-          ...state,
-          validation: action.payload,
-        }
+      /** значение валидации чекбокса */
+      case CHANGE_CHECKBOX_VALIDATION:
+        return action.payload;
+      case CLEAR_FORM_DATA:
+        return _checkboxDynamic;
       default: return state;
     }
   },
-
-  /** Содержит состояние нажатия чекбокса принятия пользовательского соглашения */
-  // isSelected: (state = false, action) => {
-  //   switch (action.type) {
-  //     case SWITCH_AGREEMENT_VALUE:
-  //       return !state;
-  //     case CLEAR_FORM_DATA:
-  //       return false;
-  //     default:
-  //       return state;
-  //   }
-  // },
-
-  /** Содержит значение чекбокса при фокусе оригинального скрытого чекбокса */
-  // isFocused: (state = false, action) => {
-  //   switch (action.type) {
-  //     case SWITCH_FOCUSED_VALUE:
-  //       return !state;
-  //     case CLEAR_FORM_DATA:
-  //       return false;
-  //     default: return state;
-  //   }
-  // },
-
-  /** содержит значения результата валидации всех полей ввода */
-  // validation: (state = _validation, action) => {
-  //   switch (action.type) {
-  //     case CHANGE_VALIDATION_VALUE_IN_COMPONENTS:
-  //       return action.payload;
-  //     case CLEAR_FORM_DATA:
-  //       return _validation;
-  //     default: return state;
-  //   }
-  // },
 
   reCaptchaDynamic: (state = _reCaptchaDynamic, action) => {
     switch(action.type) {
@@ -100,21 +64,11 @@ export const reducer = combineReducers<State>({
         };
       case CHANGE_RECAPTCHA_VALIDATION:
         return action.payload;
+      case CLEAR_FORM_DATA:
+        return _reCaptchaDynamic;
       default: return state;
     }
   },
-
-  /** Строка с кодом ответа от сервиса Google ReCaptcha */
-  // reCaptcha: (state = '', action) => {
-  //   switch (action.type) {
-  //     case UPDATE_RECAPTCHA_VALUE:
-  //       return action.payload;
-  //     case CLEAR_FORM_DATA:
-  //       return '';
-  //     default:
-  //       return state;
-  //   }
-  // },
 
   /** Определет показываемый пользователю шаблон */
   registrationView: (state = 'form', action) => {

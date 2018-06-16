@@ -17,7 +17,7 @@ export const reducer = combineReducers<State>({
   dynamicItemsModel: (state = {}, action) => {
     switch (action.type) {
       case FORM_INPUT_CHANGE_DYNAMIC_ITEMS_MODEL:
-        return {
+        const newState = {
           ...state,
           [action.payload.id[0]]: {
             ...state[action.payload.id[0]],
@@ -27,6 +27,8 @@ export const reducer = combineReducers<State>({
             }
           }
         };
+        // console.log('newState:', newState);
+        return newState;
       case FORM_INPUT_CHANGE_VALIDATION:
         return { ...action.payload };
       default: return state;

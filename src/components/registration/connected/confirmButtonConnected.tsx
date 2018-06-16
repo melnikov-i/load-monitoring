@@ -8,22 +8,22 @@ import { createStructuredSelector } from 'reselect';
 import { Dispatch, RootState } from '@src/core';
 
 import { ConfirmButton } from '../components';
-import { /* syncActionCreators,  */asyncActionCreators } from '../redux';
-import { syncActionCreators as formInputActionCreators } from '@src/components/formInput';
-
-// import { IFormInputValues } from '@src/core/interfaces';
-import { RegistrationRequest, IReCaptchaDynamic } from '../interfaces';
+import { asyncActionCreators } from '../redux';
+import { 
+  RegistrationRequest,
+  IReCaptchaDynamic,
+  ICheckboxDynamic,
+} from '../interfaces';
 
 interface StateProps {
-  dynamicItemsModel: any,
+  dAtributes: any,
   reCaptchaDynamic: IReCaptchaDynamic,
+  checkboxDynamic: ICheckboxDynamic,
 }
 
 interface DispatchProps {
   changeValidationValueInComponents: (payload: any) => any,
   sendRegistrationToAPI: (payload: RegistrationRequest) => any,
-
-  // changeValidationValue: (payload: IFormInputValues['values']) => any,
 }
 
 interface OwnProps { }
@@ -31,18 +31,16 @@ interface OwnProps { }
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
   createStructuredSelector<RootState, StateProps>({
-    dynamicItemsModel: (state: RootState) => state.formInput.dynamicItemsModel,
+    dAtributes: (state: RootState) => state.input.dAtributesModel,
     reCaptchaDynamic: (state: RootState) => state.registration.reCaptchaDynamic,
+    checkboxDynamic: (state: RootState) => state.registration.checkboxDynamic,
   });
 
 
 const mapDispatchToProps:
   MapDispatchToPropsParam<DispatchProps, OwnProps> = (dispatch: Dispatch) => bindActionCreators({
-    formInputsChangeValidation: formInputActionCreators.formInputsChangeValidation,
     changeValidationValueInComponents: asyncActionCreators.changeValidationValueInComponents,
     sendRegistrationToAPI: asyncActionCreators.sendRegistrationToAPI,
-
-    // changeValidationValue: syncActionCreators.changeValidationValue,
   }, dispatch);
 
 export const ConfirmButtonConnected = 
