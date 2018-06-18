@@ -5,16 +5,10 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
-import {
-  LayoutWrapper,
-  Layout,
-  ToLoginPageHead,
-  ToLoginPageLink,
-} from './';
+import { LayoutWrapper, Layout } from './';
+import { FormHeader, FormAnchor, FormAnchorSpan } from '@src/core/styled';
 
-import {
-  RegistrationFormConnected as RegistrationForm
-} from '../connected';
+import {RegistrationFormConnected as RegistrationForm} from '../connected';
 import NotificationPage from '@src/components/notificationPage';
 
 interface RegistrationProps extends RouteComponentProps<void> {
@@ -53,10 +47,29 @@ export const Registration: React.SFC<RegistrationProps> = (props) => {
       <LayoutWrapper>
         <Layout>
           <RegistrationForm />
-          <ToLoginPageHead>{'Уже зарегистрированы?'}</ToLoginPageHead>
-          <ToLoginPageLink to={'/'}>{'Войти'}</ToLoginPageLink>
-          <ToLoginPageHead>{'Забыли пароль?'}</ToLoginPageHead>
-          <ToLoginPageLink to={'/restore'}>{'Восстановить пароль'}</ToLoginPageLink>
+          <FormHeader
+            height={'24px'}
+            color={'grey'}
+            big={false}
+          >
+            {'Уже зарегистрированы?'}</FormHeader>
+          <FormAnchor to={'/'}>
+            <FormAnchorSpan
+              color={'grey'}
+              bColor={'lightGrey'}
+              bgColor={'white'}
+            >{'Войти'}</FormAnchorSpan></FormAnchor>
+          <FormHeader
+            height={'24px'}
+            color={'grey'}
+            big={false}
+          >
+            {'Забыли пароль?'}</FormHeader>
+          <FormAnchor to={'/restore'}><FormAnchorSpan
+            color={'grey'}
+            bColor={'lightGrey'}
+            bgColor={'white'}
+          >{'Восстановить пароль'}</FormAnchorSpan></FormAnchor>
         </Layout>
       </LayoutWrapper>
     );

@@ -7,10 +7,8 @@ import { RouteComponentProps } from 'react-router-dom';
 import Input from '@src/components/input';
 import { ISAtributes } from '@src/core/interfaces';
 
-import {
-  RegistrationFormHeader,
-  Content,  
-} from './';
+import { Content } from './';
+import { FormHeader } from '@src/core/styled';
 
 import {
   GreenCheckboxConnected as GreenCheckbox,
@@ -30,22 +28,26 @@ const formInputItemsCollection: ISAtributes[] = [
     id: ['registration', 'password'],
     type: 'password',
     hint: 'Это поле не совпадает с полем Повторите пароль',
-    placeholder: 'Пароль',
+    placeholder: 'пароль',
   },
   {
     id: ['registration', 'confirm'],
     type: 'password',
     hint: 'Это поле не совпадает с полем Пароль',
-    placeholder: 'Повторите пароль',
+    placeholder: 'повторите пароль',
   },
-]
+];
 
 interface RegistrationFormProps extends RouteComponentProps<void> {}
 
 export const RegistrationForm: React.SFC<RegistrationFormProps> = () => {
   return (
     <Content>
-      <RegistrationFormHeader>{'Регистрация'}</RegistrationFormHeader>
+      <FormHeader
+        height={'50px'}
+        color={'grey'}
+        big={true}
+      >{'Регистрация'}</FormHeader>
       <form action="">
         {formInputItemsCollection.map((e, i) => <Input key={i} sAtributes={e} />)}
         <ReCaptcha />

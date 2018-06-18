@@ -1,13 +1,17 @@
 import styled from 'styled-components';
+// import { NavLink } from 'react-router-dom';
 
 import {
   LOGIN_LAYOUT_BIG_WIDTH,
   LOGIN_LAYOUT_BIG_HEIGHT,
   LOGIN_FORM_INPUT_BIG_HEIGHT,
+  LOGIN_FORM_FONT_SIZE,
   MIDDLE_SCREEN_MAX,
   emergence,
   colors,
 } from '@src/core/styled';
+
+/** Login */
 
 const Logo = require('@src/images/LogoBig');
 
@@ -74,6 +78,8 @@ export const LoginHeader = styled.div`
   color: #676a6c;
 `;
 
+/** LoginForm */
+
 export const LoginFormLayout = styled.div`
   box-sizing: border-box;
   width: calc(100% - 10px);
@@ -86,15 +92,7 @@ export const LoginFormLayout = styled.div`
   position: relative;
 `;
 
-export const LoginFormHeader = styled.h4`
-  font-size: 13px;
-  font-weight: normal;
-  text-align: center;
-  height: 50px;
-  line-height: 50px;
-  color: ${(props: {color: string}) => 
-    colors[props.color]};
-`;
+/** LoginSpinner */
 
 /**
  * Контейнер, в который помещается спиннер
@@ -107,6 +105,10 @@ export const LoginFormSpinner = styled.div`
   background-color: #fff;
 `;
 
+
+
+
+
 /**
  * Кнопка авторизации. В процессе проверки введенных данных
  * меняет цвет
@@ -116,17 +118,11 @@ export const LoginFormSpinner = styled.div`
 export const LoginFormButton = styled.button`
   width: 100%;
   height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT};
-  font-size: 16px;
+  line-height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT};
+  font-size: ${ LOGIN_FORM_FONT_SIZE };
   color: #fff;
   text-align: center;
-  background-color: #1ab395;
   border-radius: 2px;
   cursor: pointer;
   background-color: ${(props: {bgColor: string}) => colors[props.bgColor]};
 `;
-
-// background - color: ${
-//   (props: { loginFormStateIndex: number }) => (
-//     (props.loginFormStateIndex === 1) ? '#eee' : '#1ab395'
-//   )
-// };

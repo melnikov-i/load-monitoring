@@ -53,6 +53,10 @@ export const LOGIN_LAYOUT_BIG_WIDTH: string = '780px';
 export const LOGIN_LAYOUT_BIG_HEIGHT: string = '300px';
 /* Высота поля ввода на большом экране */
 export const LOGIN_FORM_INPUT_BIG_HEIGHT: string = '34px';
+/** размер шрифта кнопки */
+export const LOGIN_FORM_FONT_SIZE: string = '12px';
+/** большой размер шрифта */
+export const LOGIN_FORM_BIG_FONT_SIZE: string = '24px';
 
 /**
  * Индексы кнопок с выпадающим меню
