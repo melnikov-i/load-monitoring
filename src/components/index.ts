@@ -1,4 +1,3 @@
-export * from './App';
 export * from './Spinner';
 export * from './Main';
 export * from './Dashboard';
@@ -14,5 +13,6 @@ export * from './DashboardGridSettings';
 export * from './Devices';
 export * from './Overview';
 
+// export * from './App';
 // export * from './login';
 // export * from './registration';

@@ -1,69 +1,43 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
-import FormInput, {
-  IFormInputStaticItems,
-} from '@src/components/formInput';
+import Input from '@src/components/input';
+import { ISAtributes } from '@src/core/interfaces';
 
-/** стили */
 import {
   LoginFormLayout,
-  LoginFormHeader,
-  LoginFormButton,
-} from './';
+  LoginFormHeader
+} from './'
 
-import {
-  // ConfirmButtonConnected as ConfirmButton,
-} from '../connected';
-
-/** Статический котнекст формы */
-const formInputItemsCollection: IFormInputStaticItems[] = [
+const loginInputCollection: ISAtributes[] = [
   {
     id: ['login', 'login'],
     type: 'text',
     hint: '',
-    placeholder: 'Имя пользователя'
+    placeholder: 'login',
   },
   {
     id: ['login', 'password'],
     type: 'password',
     hint: '',
-    placeholder: 'Пароль',
+    placeholder: 'password',
   },
 ]
 
 interface LoginFormProps extends RouteComponentProps<void> {
-  dynamicItemsModel: any,
-  sendUserCredentialToAPI: (payload: LoginFormInterface) => any,
+  
 }
 
 export const LoginForm: React.SFC<LoginFormProps> = (props) => {
-  const {
-    dynamicItemsModel,
-    sendUserCredentialToAPI
-  } = props;
-  const handlerSendCredential = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    const UserCredential: LoginFormInterface = {
-      login: dynamicItemsModel.login.value,
-      password: passwordValue,
-    };
-    sendUserCredentialToAPI(UserCredential);
-  };
-
+  const {} = props;
   return (
     <LoginFormLayout>
       <LoginFormHeader color={'darkGrey'}>
         {'Введите учетные данные'}
       </LoginFormHeader>
-      {formInputItemsCollection.map((e, i) =>
-        <FormInput key={i} staticItems={e} />)}
-      <LoginFormButton
-      // loginFormStateIndex={
-      //   loginFormState.loginFormStateIndex
-      // }
-      onClick={handlerSendCredential}
-      >{'Вход'}</LoginFormButton>
+      <form action="">
+        {loginInputCollection.map((e, i) => <Input key={i} sAtributes={e} />)}
+      </form>
     </LoginFormLayout>
   );
-};
+}

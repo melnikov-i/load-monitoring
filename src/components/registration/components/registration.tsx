@@ -54,7 +54,9 @@ export const Registration: React.SFC<RegistrationProps> = (props) => {
         <Layout>
           <RegistrationForm />
           <ToLoginPageHead>{'Уже зарегистрированы?'}</ToLoginPageHead>
-          <ToLoginPageLink to={'/'}>Войти</ToLoginPageLink>
+          <ToLoginPageLink to={'/'}>{'Войти'}</ToLoginPageLink>
+          <ToLoginPageHead>{'Забыли пароль?'}</ToLoginPageHead>
+          <ToLoginPageLink to={'/restore'}>{'Восстановить пароль'}</ToLoginPageLink>
         </Layout>
       </LayoutWrapper>
     );

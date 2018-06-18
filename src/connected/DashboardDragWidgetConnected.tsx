@@ -5,7 +5,7 @@ import {
   MapDispatchToPropsParam,
 } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Dispatch, RootState } from '@src/core';
+import { Dispatch, RootState } from '@src/core/redux';
 
 import { DashboardDragWidget } from '@src/components';
 

@@ -6,12 +6,12 @@ import {
 } from 'react-redux';
 
 import { createStructuredSelector } from 'reselect';
-import { Dispatch, RootState } from '@src/core';
+import { Dispatch, RootState } from '@src/core/redux';
 
 import { ReCaptcha } from '../components';
-import { IReCaptchaDynamic } from '../interfaces';
+import { IReCaptchaDynamic } from '@src/core/interfaces';
 
-import { syncActionCreators } from '../redux';
+import { syncActionCreators } from '@src/core/redux/registration';
 
 interface StateProps {
   validation: IReCaptchaDynamic['validation'],

@@ -6,4 +6,4 @@ import * as React from 'react';
 
 import { RegistrationConnected as Registration } from './connected';
 
-export default () => <Registration />
+export default () => <Registration />;

@@ -5,7 +5,7 @@ import {
   OverviewEventsTableInterface,
 } from '@src/interfaces';
 
-import { Dispatch } from '@src/core';
+import { Dispatch } from '@src/core/redux';
 
 export const OVERVIEW_ITEMS_WAS_REQUESTED_FROM_API =
   'OVERVIEW_ITEMS_WAS_REQUESTED_FROM_API';

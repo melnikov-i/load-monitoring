@@ -1,6 +1,3 @@
-export * from './AppConnected';
-// export * from './LoginConnected';
-// export * from './RegistrationConnected';
 export * from './MainConnected';
 export * from './DashboardConnected';
 export * from './MainHeaderConnected';
@@ -12,3 +9,7 @@ export * from './DashboardDragWidgetConnected';
 export * from './DashboardGridSettingsConnected';
 export * from './DevicesConnected';
 export * from './OverviewConnected';
+
+// export * from './AppConnected';
+// export * from './LoginConnected';
+// export * from './RegistrationConnected';

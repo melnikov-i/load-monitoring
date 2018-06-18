@@ -1,29 +1,33 @@
 import { bindActionCreators } from 'redux';
-import {
-  connect,
-  MapStateToPropsParam,
-  MapDispatchToPropsParam,
-} from 'react-redux';
+import { connect, MapStateToPropsParam, MapDispatchToPropsParam, } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Dispatch, RootState } from '@src/core';
+import { Dispatch, RootState } from '@src/core/redux';
 import { withRouter } from 'react-router-dom';
 
 import { Login } from '../components';
-// import { syncActionCreators } from '../redux';
+import { syncActionCreators } from '@src/core/redux/login';
 
-interface StateProps { }
+interface StateProps {
+  loginView: string,
+}
 
-interface DispatchProps {}
+interface DispatchProps {
+  changeLoginView: (payload: string) => any,
+}
 
-interface OwnProps { }
+interface OwnProps {}
 
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
-  createStructuredSelector<RootState, StateProps>({});
+  createStructuredSelector<RootState, StateProps>({
+    loginView: (state: RootState) => state.login.loginView,
+  });
 
 const mapDispatchToProps:
   MapDispatchToPropsParam<DispatchProps, OwnProps> = (dispatch: Dispatch) =>
-    bindActionCreators({}, dispatch);
+    bindActionCreators({
+      changeLoginView: syncActionCreators.changeLoginValue,
+    }, dispatch);
 
 export const LoginConnected = withRouter(
   connect<StateProps, DispatchProps, OwnProps, RootState>(

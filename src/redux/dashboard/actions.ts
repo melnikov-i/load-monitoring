@@ -6,7 +6,7 @@ import {
   ElementsOfDashboardCollectionInterface
 } from '@src/interfaces';
 
-import { Dispatch } from '@src/core';
+import { Dispatch } from '@src/core/redux';
 
 import {
   syncActionCreators as loginActionCreators

@@ -1,15 +1,11 @@
 import { bindActionCreators } from 'redux';
-import {
-  connect,
-  MapStateToPropsParam,
-  MapDispatchToPropsParam,
-} from 'react-redux';
+import { connect, MapStateToPropsParam, MapDispatchToPropsParam } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Dispatch, RootState } from '@src/core';
+import { Dispatch, RootState } from '@src/core/redux';
 
 import { Input } from '../components';
-import { ISAtributes, IDAtributes } from '../interfaces';
-import { syncActionCreators } from '../redux';
+import { ISAtributes, IDAtributes } from '@src/core/interfaces';
+import { syncActionCreators } from '@src/core/redux/input';
 
 interface StateProps {}
 

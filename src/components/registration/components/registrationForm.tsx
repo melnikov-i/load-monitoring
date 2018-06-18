@@ -4,7 +4,8 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
-import Input, { ISAtributes } from '@src/components/input';
+import Input from '@src/components/input';
+import { ISAtributes } from '@src/core/interfaces';
 
 import {
   RegistrationFormHeader,

@@ -5,15 +5,15 @@ import {
   MapDispatchToPropsParam,
 } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Dispatch, RootState } from '@src/core';
+import { Dispatch, RootState } from '@src/core/redux';
 
 import { ConfirmButton } from '../components';
-import { asyncActionCreators } from '../redux';
+import { asyncActionCreators } from '@src/core/redux/registration';
 import { 
   RegistrationRequest,
   IReCaptchaDynamic,
   ICheckboxDynamic,
-} from '../interfaces';
+} from '@src/core/interfaces';
 
 interface StateProps {
   dAtributes: any,

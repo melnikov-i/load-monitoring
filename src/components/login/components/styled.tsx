@@ -122,6 +122,7 @@ export const LoginFormButton = styled.button`
   background-color: #1ab395;
   border-radius: 2px;
   cursor: pointer;
+  background-color: ${(props: {bgColor: string}) => colors[props.bgColor]};
 `;
 
 // background - color: ${

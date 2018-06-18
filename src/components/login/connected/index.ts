@@ -1,2 +1,2 @@
 export * from './loginConnected';
-export * from './loginFormConnected';
+export * from './LoginFormConntected';;

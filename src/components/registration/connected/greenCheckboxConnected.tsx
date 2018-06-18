@@ -5,13 +5,13 @@ import {
   MapDispatchToPropsParam,
 } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Dispatch, RootState } from '@src/core';
+import { Dispatch, RootState } from '@src/core/redux';
 import { withRouter } from 'react-router-dom';
 
 import { GreenCheckbox } from '../components';
-import { syncActionCreators } from '../redux';
+import { syncActionCreators } from '@src/core/redux/registration';
 
-import { ICheckboxDynamic } from '../interfaces';
+import { ICheckboxDynamic } from '@src/core/interfaces';
 
 interface StateProps {
   checkboxDynamic: ICheckboxDynamic,

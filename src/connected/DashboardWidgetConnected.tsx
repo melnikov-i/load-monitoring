@@ -8,7 +8,7 @@ import {
   createStructuredSelector,
   createSelector,
 } from 'reselect';
-import { Dispatch, RootState } from '@src/core';
+import { Dispatch, RootState } from '@src/core/redux';
 
 import {
   asyncActionCreators,

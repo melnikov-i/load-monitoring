@@ -8,7 +8,7 @@ import {
   RegistrationLink,
 } from './';
 
-import { ICheckboxDynamic } from '../interfaces';
+import { ICheckboxDynamic } from '@src/core/interfaces';
 
 interface GreenCheckboxProps extends RouteComponentProps<void> {
   checkboxDynamic: ICheckboxDynamic,

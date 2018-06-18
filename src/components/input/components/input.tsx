@@ -4,8 +4,7 @@
 import * as React from 'react';
 
 import { InputWrapper, InputField } from './styled';
-
-import { ISAtributes, IDAtributes } from '../interfaces';
+import { ISAtributes, IDAtributes } from '@src/core/interfaces';
 
 interface InputProps {
   sAtributes: ISAtributes,
@@ -24,10 +23,7 @@ export const Input: React.SFC<InputProps> = (props) => {
     e.preventDefault();
     changeInputValue({ [id[0]]: { [id[1]]: { value: e.currentTarget.value } } });
   }
-
-  console.log('value:', value);
-  console.log('validation:', validation);
-
+  
   return (
     <InputWrapper
       validation={validation}
@@ -42,5 +38,4 @@ export const Input: React.SFC<InputProps> = (props) => {
       />
     </InputWrapper>
   );
-
 }

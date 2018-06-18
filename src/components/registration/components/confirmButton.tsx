@@ -4,13 +4,12 @@ import {
   RegistrationFormButton
 } from './';
 
-// import { IFormInputValues } from '@src/core/interfaces';
-import { IDAtributes } from '@src/components/input';
+import { IDAtributes } from '@src/core/interfaces';
 import {
   RegistrationRequest,
   IReCaptchaDynamic,
   ICheckboxDynamic
-} from '../interfaces';
+} from '@src/core/interfaces';
   
 /**
  * Компонент на вход принимает поля с изменяемым контентом из хранилищ 
@@ -24,7 +23,8 @@ interface ConfirmButtonProps {
   reCaptchaDynamic: IReCaptchaDynamic,
   /** Значение чекбокса */
   checkboxDynamic: ICheckboxDynamic,
-  /** Отправляет в хранилище проверенные на корректность ввода значений содержание полей */
+  /** Отправляет в хранилище проверенные на корректность ввода значений 
+   * содержание полей */
   changeValidationValueInComponents: (payload: any) => any,
   /** Отправляет данные на сервер */
   sendRegistrationToAPI: (payload: RegistrationRequest) => any,
@@ -42,7 +42,6 @@ export const ConfirmButton: React.SFC<ConfirmButtonProps> = (props) => {
   let _dAtributes: any;
   let _reCaptchaDynamic: IReCaptchaDynamic;
   let _checkboxDynamic: ICheckboxDynamic;
-  
   
   const validateFormFields = (): boolean => {
     let key: boolean = true;
@@ -127,6 +126,10 @@ export const ConfirmButton: React.SFC<ConfirmButtonProps> = (props) => {
       changeValidationValueInComponents(payload);
     }
   };
+  // const handlerSendRegistration = (e: React.MouseEvent<HTMLButtonElement>): void => {
+  //   e.preventDefault();
+  //   console.log('send');
+  // };
 
   return (
     <RegistrationFormButton

@@ -5,7 +5,7 @@
  */
 import * as React from 'react';
 
-import { ISAtributes, IDAtributes } from '../interfaces';
+import { ISAtributes, IDAtributes } from '@src/core/interfaces';
 import { InputConnected as Input } from '../connected';
 
 interface InputInitializeProps {
@@ -20,15 +20,12 @@ interface InputInitializeProps {
 export const InputInitialize: React.SFC<InputInitializeProps> = (props) => {
   const { sAtributes, dAtributes, createDAtributes } = props;
 
-  console.log('initialize:', sAtributes.id[0], sAtributes.id[1]);
-
   if (!dAtributes) {
     createDAtributes({
       [sAtributes.id[0]]: {
         [sAtributes.id[1]]: {
           value: '',
           validation: '',
-          validationRule: sAtributes.validationRule
         }
       }
     });

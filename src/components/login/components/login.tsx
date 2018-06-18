@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
-import { Spinner } from '@src/components';
+// import { Spinner } from '@src/components';
 
 import {
   LoginLayoutWrapper,
@@ -10,10 +10,9 @@ import {
   LoginInnerPart,
   LoginLogotype,
   LoginHeader,
-  LoginFormLayout,
-  LoginFormHeader,
-  LoginFormSpinner,
-  // LoginFormButton,
+  // LoginFormLayout,
+  // LoginFormHeader,
+  // LoginFormSpinner,
 } from './';
 
 import {
@@ -21,7 +20,7 @@ import {
 } from '../connected';
 
 interface LoginProps extends RouteComponentProps<void> {
-
+  // loginView
 }
 
 export const Login: React.SFC<LoginProps> = (props) => {
@@ -31,19 +30,19 @@ export const Login: React.SFC<LoginProps> = (props) => {
 
   const getView = (status: string): JSX.Element => {
     switch (status) {
-      case 'processing':
-        return (
-          <LoginFormLayout>
-            <LoginFormHeader color={'grey'}>{'Проверка учетных данных'}</LoginFormHeader>
-            <LoginFormSpinner>
-              <Spinner
-                width={3}
-                color={'grey'}
-                bgColor={'#fff'}
-              />
-            </LoginFormSpinner>
-          </LoginFormLayout>
-        );
+  //     case 'processing':
+  //       return (
+  //         <LoginFormLayout>
+  //           <LoginFormHeader color={'grey'}>{'Проверка учетных данных'}</LoginFormHeader>
+  //           <LoginFormSpinner>
+  //             <Spinner
+  //               width={3}
+  //               color={'grey'}
+  //               bgColor={'#fff'}
+  //             />
+  //           </LoginFormSpinner>
+  //         </LoginFormLayout>
+  //       );
       default: return <LoginForm />;
     }
   };

@@ -1,15 +1,11 @@
 import { bindActionCreators } from 'redux';
-import {
-  connect,
-  MapStateToPropsParam,
-  MapDispatchToPropsParam,
-} from 'react-redux';
+import { connect, MapStateToPropsParam, MapDispatchToPropsParam, } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Dispatch, RootState } from '@src/core';
+import { Dispatch, RootState } from '@src/core/redux';
 import { withRouter } from 'react-router-dom';
 
 import { Registration } from '../components';
-import { syncActionCreators } from '../redux';
+import { syncActionCreators } from '@src/core/redux/registration';
 
 interface StateProps {
   registrationView: string,

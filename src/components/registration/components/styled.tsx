@@ -29,8 +29,8 @@ export const LayoutWrapper = styled.div`
  */
 export const Layout = styled.div`
   width: ${ LOGIN_LAYOUT_BIG_WIDTH};
-  padding-top: 100px;
-  margin: 0 auto;
+  padding-top: 50px;
+  margin: 0 auto 50px;
   animation-name: ${ emergence};
   animation-duration: 1s;
   animation-timing-function: linear;
@@ -192,7 +192,7 @@ RegistrationCheckboxWrapper.extend`
 export const ToLoginPageHead = styled.h4`
   font-size: 14px;
   color: #676a6c;
-  margin: 15px auto;
+  margin: 10px auto;
   text-align: center;
 `;
 

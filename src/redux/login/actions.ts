@@ -1,5 +1,5 @@
 import { sendRequestToAPI } from '@src/libs';
-import { Dispatch } from '@src/core';
+import { Dispatch } from '@src/core/redux';
 
 import {
   LoginFormInterface,

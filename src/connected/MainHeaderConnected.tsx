@@ -2,7 +2,7 @@ import { bindActionCreators } from 'redux';
 import {
   connect, MapDispatchToPropsParam,
 } from 'react-redux';
-import { Dispatch, RootState } from '@src/core';
+import { Dispatch, RootState } from '@src/core/redux';
 import { withRouter } from 'react-router-dom';
 
 import { MainHeader } from '@src/components';
@@ -12,8 +12,6 @@ import { syncActionCreators } from '@src/redux/mainHead';
 import {
   syncActionCreators as mainActionCreators
 } from '@src/redux/main'
-
-import {} from '@src/selectors';
 
 import { MainHeaderInterface } from '@src/interfaces';
 

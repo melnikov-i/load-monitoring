@@ -1,15 +1,11 @@
 import { bindActionCreators } from 'redux';
-import {
-  connect,
-  MapStateToPropsParam,
-  MapDispatchToPropsParam,
-} from 'react-redux';
+import { connect, MapStateToPropsParam, MapDispatchToPropsParam } from 'react-redux';
 import { createStructuredSelector, createSelector } from 'reselect';
-import { Dispatch, RootState } from '@src/core';
+import { Dispatch, RootState } from '@src/core/redux';
 
 import { InputInitialize } from '../components';
-import { ISAtributes, IDAtributes } from '../interfaces';
-import { syncActionCreators } from '../redux';
+import { ISAtributes, IDAtributes } from '@src/core/interfaces';
+import { syncActionCreators } from '@src/core/redux/input';
 
 interface StateProps {
   dAtributes: IDAtributes,
@@ -25,6 +21,7 @@ interface OwnProps {
 
 type Selector<TInput, TOutput> = (state: TInput, props?: any) => TOutput;
 
+/** получает из хранилища данные конкретного поля ввода */
 const getAtributes: Selector<RootState, any> =
   (state: RootState, props: OwnProps): any => {
     if (props.sAtributes.id[0] in state.input.dAtributesModel) {

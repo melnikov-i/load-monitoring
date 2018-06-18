@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { rootReducer, RootState } from '@src/core';
+import { rootReducer, RootState } from '@src/core/redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 function confugureStore(initialState?: RootState) {  
