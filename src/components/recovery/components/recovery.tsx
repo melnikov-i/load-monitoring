@@ -29,8 +29,10 @@ export const Recovery: React.SFC<RecoveryProps> = (props) => {
         <FormSmallHeader color={'grey'}>{'Уже зарегистрированы?'}</FormSmallHeader>
         <FormAnchor to={'/'}>
           <FormAnchorSpan>{'Войти'}</FormAnchorSpan></FormAnchor>
-        <FormSmallHeader color={'grey'}>{'Забыли пароль?'}</FormSmallHeader>
-        <FormAnchor to={'/restore'}><FormAnchorSpan>{'Восстановить пароль'}</FormAnchorSpan></FormAnchor>
+        <FormSmallHeader color={'grey'}>{'Еще нет аккаунта?'}</FormSmallHeader>
+        <FormAnchor to={'/registration'}>
+          <FormAnchorSpan>{'Регистрация'}</FormAnchorSpan>
+        </FormAnchor>
       </FormPage>
     </FormPageLayout>
   );

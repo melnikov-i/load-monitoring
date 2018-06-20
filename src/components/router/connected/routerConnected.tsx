@@ -4,7 +4,7 @@ import { createStructuredSelector } from 'reselect';
 import { Dispatch, RootState } from '@src/core/redux';
 import { withRouter } from 'react-router-dom';
 
-import { Authenticate } from '../components';
+import { Router } from '../components';
 
 interface StateProps {
   // isAuthorized: boolean,
@@ -24,6 +24,6 @@ const mapDispatchToProps:
 MapDispatchToPropsParam<DispatchProps, OwnProps> =
   (dispatch: Dispatch): DispatchProps => bindActionCreators({}, dispatch);
 
-export const AuthenticateConnected = withRouter(
+export const RouterConnected = withRouter(
   connect<StateProps, DispatchProps, OwnProps, RootState>(
-    MapStateToProps, mapDispatchToProps)(Authenticate));
+    MapStateToProps, mapDispatchToProps)(Router));

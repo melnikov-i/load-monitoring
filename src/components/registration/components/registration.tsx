@@ -63,7 +63,9 @@ export const Registration: React.SFC<RegistrationProps> = (props) => {
           <FormAnchor to={'/'}>
             <FormAnchorSpan>{'Войти'}</FormAnchorSpan></FormAnchor>
           <FormSmallHeader color={'grey'}>{'Забыли пароль?'}</FormSmallHeader>
-          <FormAnchor to={'/recovery'}><FormAnchorSpan>{'Восстановить пароль'}</FormAnchorSpan></FormAnchor>
+          <FormAnchor to={'/recovery'}>
+            <FormAnchorSpan>{'Восстановить пароль'}</FormAnchorSpan>
+          </FormAnchor>
         </FormPage>
       </FormPageLayout>
     );

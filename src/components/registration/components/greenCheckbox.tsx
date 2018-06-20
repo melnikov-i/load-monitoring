@@ -64,15 +64,11 @@ export const GreenCheckbox: React.SFC<GreenCheckboxProps> = (props) => {
           isSelected={value}
           isFocused={isFocused}
           onClick={handleSelection}
-        >
-          {'Я принимаю'}
-        </RegistrationLabelText>
+        >{'Я принимаю'}</RegistrationLabelText>
       </label>
       <RegistrationLink
         to={'/registration/agreement'}
-      >
-        {'пользовательское соглашение'}
-      </RegistrationLink>
+      >{'пользовательское соглашение'}</RegistrationLink>
   </RegistrationCheckboxWrapper>
   );
 };

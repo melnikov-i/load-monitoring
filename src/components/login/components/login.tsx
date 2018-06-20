@@ -6,6 +6,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import {} from './';
 
 import { LoginFormConnected as LoginForm } from '../connected';
+import { LoginPendingConnected as LoginPending } from '../connected';
 import {
   FormPageLayout,
   FormPage,
@@ -23,25 +24,11 @@ interface LoginProps extends RouteComponentProps<void> {
 export const Login: React.SFC<LoginProps> = (props) => {
   const {} = props;
 
-  const status: string = '';
+  const status: string = 'pending';
 
   const getView = (status: string): JSX.Element => {
     switch (status) {
-
-  //     case 'processing':
-  //       return (
-  //         <LoginFormLayout>
-  //           <LoginFormHeader color={'grey'}>{'Проверка учетных данных'}</LoginFormHeader>
-  //           <LoginFormSpinner>
-  //             <Spinner
-  //               width={3}
-  //               color={'grey'}
-  //               bgColor={'#fff'}
-  //             />
-  //           </LoginFormSpinner>
-  //         </LoginFormLayout>
-  //       );
-
+      case 'pending': return <LoginPending />
       default: return <LoginForm />;
     }
   };
@@ -58,6 +45,10 @@ export const Login: React.SFC<LoginProps> = (props) => {
         <FormSmallHeader color={'grey'}>{'Еще нет аккаунта?'}</FormSmallHeader>
         <FormAnchor to={'/registration'}>
           <FormAnchorSpan>{'Регистрация'}</FormAnchorSpan>
+        </FormAnchor>
+        <FormSmallHeader color={'grey'}>{'Забыли пароль?'}</FormSmallHeader>
+        <FormAnchor to={'/recovery'}>
+          <FormAnchorSpan>{'Восстановить пароль'}</FormAnchorSpan>
         </FormAnchor>
       </FormPage>
     </FormPageLayout>

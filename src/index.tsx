@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { HashRouter as Router } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
 import store from '@src/core/store';
-import Authenticate from '@src/components/authenticate';
+import Router from '@src/components/router';
 
 const Root: JSX.Element = (
   <Provider store={ store }>
-    <Router hashType={'slash'} basename={'/'}>
-      <Authenticate />
-    </Router>
+    <HashRouter hashType={'slash'} basename={'/'}>
+      <Router />
+    </HashRouter>
   </Provider>
 );
 

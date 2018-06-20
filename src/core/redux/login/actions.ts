@@ -1,7 +1,7 @@
-// import { sendRequestToAPI } from '@src/libs';
-// import { Dispatch } from '@src/core';
+import { sendRequestToAPI } from '@src/libs';
+import { Dispatch } from '../';
 
-import { } from '@src/core/interfaces';
+import { ILoginRequestPayload } from '@src/core/interfaces';
 
 // import {
 //   syncActionCreators as inputActionCreators
@@ -23,8 +23,7 @@ export type Actions = {
 
 export const syncActionCreators = {
   /**
-   * По мере ввода текста с клавиатуры в поле ввода логина, меняет
-   * значение этого поля.
+   * Меняет идентификатор вида страницы
    */
   changeLoginValue: (payload: string):
     Actions[typeof CHANGE_LOGIN_VIEW] => ({
@@ -38,4 +37,21 @@ export const syncActionCreators = {
   userIsAuthorized: (): Actions[typeof USER_IS_AUTHORIZED] => ({
     type: USER_IS_AUTHORIZED,
   }),
-}
+};
+
+export const asyncActionCreators = {
+  sendUserCredentialToAPI: (payload: ILoginRequestPayload) => {
+    return async (dispatch: Dispatch) => {
+      try {
+        dispatch(syncActionCreators.changeLoginValue('pending'));
+        const response: any = await sendRequestToAPI.post('/auth.php', payload);
+        if (response.data === 'true') {
+          dispatch(syncActionCreators.userIsAuthorized());
+        }
+        dispatch(syncActionCreators.changeLoginValue(''));
+      } catch (error) {
+        console.error('send user credential error:', error);
+      }
+    }
+  }
+};

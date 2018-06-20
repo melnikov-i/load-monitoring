@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 
 import {
   FORM_LAYOUT_WIDTH,
-  LOGIN_FORM_INPUT_BIG_HEIGHT,
   FORM_PAGE_FONT_SIZE,
+  FORM_SPINNER_LAYOUT_HEIGHT,
   emergence2,
   colors,
 } from './';
@@ -66,13 +66,11 @@ export const FormAnchor = styled(NavLink)`
  */
 export const FormAnchorSpan = styled.span`
   display: block;
-    height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT};
-    line-height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT};
   font-size: ${ FORM_PAGE_FONT_SIZE};
   text-align: center;
   border-radius: 2px;
   cursor: pointer;  
-  box-sizing: border-box;
+  padding: 6px 0;
   text-decoration: none;
   margin: 0 auto;
   width: 100%;
@@ -93,7 +91,7 @@ export const FormHeader = styled.h4`
   font-weight: normal;
   text-align: center;
   color: ${(props: {color: string}) => colors[props.color]};
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 `;
 
 export const FormSmallHeader = FormHeader.extend`
@@ -117,8 +115,18 @@ export const FormSubmit = styled.button`
   text-align: center;
   white-space: nowrap;
   user-select: none;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   &:hover {
     background-color: ${colors.green};
   }
+`;
+
+/**
+ * Контейнер, в который помещается спиннер
+ * @return {React.Component}
+ */
+export const FormSpinnerLayout = styled.div`
+  width: 100%;
+  height: ${FORM_SPINNER_LAYOUT_HEIGHT};
+  position: relative;
 `;

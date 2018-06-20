@@ -48,15 +48,15 @@ export const DROPPED_MENU_ITEM_HEIGHT: string = '22px';
  */
 
 /* Ширина страницы на большом экране */
-export const LOGIN_LAYOUT_BIG_WIDTH: string = '780px';
+// export const LOGIN_LAYOUT_BIG_WIDTH: string = '780px';
 /* Высота страницы на большом экране */
-export const LOGIN_LAYOUT_BIG_HEIGHT: string = '300px';
+// export const LOGIN_LAYOUT_BIG_HEIGHT: string = '300px';
 /* Высота поля ввода на большом экране */
-export const LOGIN_FORM_INPUT_BIG_HEIGHT: string = '34px';
+// export const LOGIN_FORM_INPUT_BIG_HEIGHT: string = '34px';
 /** размер шрифта кнопки */
-export const LOGIN_FORM_FONT_SIZE: string = '14px';
+// export const LOGIN_FORM_FONT_SIZE: string = '14px';
 /** большой размер шрифта */
-export const LOGIN_FORM_BIG_FONT_SIZE: string = '24px';
+// export const LOGIN_FORM_BIG_FONT_SIZE: string = '24px';
 
 /** Страницы с формой авторизации и регистрации */
 export const FORM_LAYOUT_WIDTH: string = '300px';
@@ -64,6 +64,8 @@ export const FORM_LAYOUT_WIDTH: string = '300px';
 export const FORM_PAGE_FONT_SIZE: string = '14px';
 /** ширина поля для ввода */
 export const FORM_INPUT_WIDTH: string = '274px';
+/** высота блока со спиннером */
+export const FORM_SPINNER_LAYOUT_HEIGHT: string = '96px';
 
 
 /**

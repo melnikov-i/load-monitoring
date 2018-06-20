@@ -60,48 +60,24 @@ injectGlobal`
   }
 `;
 
-interface AuthenticateProps extends RouteComponentProps<void> {
+interface RouterProps extends RouteComponentProps<void> {
   // isAuthorized: boolean,
 }
 
-export const Authenticate: React.SFC<AuthenticateProps> = (props) => {
+export const Router: React.SFC<RouterProps> = (props) => {
   const { /* isAuthorized */ } = props;
 
   const isAuthorized: boolean = false;
 
-  /**
-   * Компонент содержит два дочерних. При этом реализован механизм,
-   * при котором отобразится только один из них.
-   * Первый компонент - страница авторизации, второй - основной компонент
-   * админ-панели. Алгоритм выбора компонента для отображения состоит
-   * из двух основных вещей. С одной стороны (и во-первых) -- это адресная
-   * строка браузера пользователя. С другой -- значение переменной 
-   * isAutorized. 
-   */
   return (
     <Switch>
-      {/* Если в адресной строке строго /login  */}
-      <Route exact path={'/login'} render={() => (
-        !isAuthorized ? (
-          <Login />
-        ) : (
-            <Redirect to={'/'} />
-          )
-      )} />
-      <Route exact path={'/registration'} render={() =>
-        <Registration />
-      } />
-      <Route exact path={'/recovery'} render={() =>
-        <Recovery />
-      } />
-      {/* Любой другой путь */}
-      <Route path={'/'} render={() => (
-        isAuthorized ? (
-          <MainConnected />
-        ) : (
-            <Redirect to={'/login'} />
-          )
-      )} />
+      {/** Страницы, доступ на которые возможен после проверки авторизации */}
+      <Route exact path={'/login'} render={() => !isAuthorized ? <Login /> : <Redirect to={'/'} />} />
+      <Route exact path={'/'} render={() => isAuthorized ? <MainConnected /> : <Redirect to={'/login'} />} />
+      {/** Страницы, доступ на которые открыт */}
+      <Route exact path={'/registration'} render={() => <Registration />} />
+      <Route exact path={'/recovery'} render={() => <Recovery />} />
+
     </Switch>
   );
 }

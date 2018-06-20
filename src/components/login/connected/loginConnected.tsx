@@ -5,14 +5,14 @@ import { Dispatch, RootState } from '@src/core/redux';
 import { withRouter } from 'react-router-dom';
 
 import { Login } from '../components';
-import { syncActionCreators } from '@src/core/redux/login';
+// import { syncActionCreators } from '@src/core/redux/login';
 
 interface StateProps {
   loginView: string,
 }
 
 interface DispatchProps {
-  changeLoginView: (payload: string) => any,
+  // changeLoginView: (payload: string) => any,
 }
 
 interface OwnProps {}
@@ -26,7 +26,7 @@ const mapStateToProps:
 const mapDispatchToProps:
   MapDispatchToPropsParam<DispatchProps, OwnProps> = (dispatch: Dispatch) =>
     bindActionCreators({
-      changeLoginView: syncActionCreators.changeLoginValue,
+      // changeLoginView: syncActionCreators.changeLoginValue,
     }, dispatch);
 
 export const LoginConnected = withRouter(

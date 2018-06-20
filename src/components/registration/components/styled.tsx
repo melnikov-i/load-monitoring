@@ -1,63 +1,6 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
-/**
- * Импорт констант
- */
-import {
-  emergence,
-  LOGIN_LAYOUT_BIG_WIDTH,
-  LOGIN_FORM_INPUT_BIG_HEIGHT,
-  MIDDLE_SCREEN_MAX,
-} from '@src/core/styled';
-
-/** Registration */
-
-/**
- * Обертка основного блока каркаса страницы.
- * Необходима для анимации страницы.
- * @return {React.Component}
- */
-export const LayoutWrapper = styled.div`
-  width: 100%;
-  overflow: hidden;
-`;
-
-/**
- * Основной блок каркаса страницы. Задает ширину,
- * высоту, положение на странице и анимацию формы
- * авторизации.
- * @return {React.Component}
- */
-export const Layout = styled.div`
-  width: ${ LOGIN_LAYOUT_BIG_WIDTH};
-  padding-top: 50px;
-  margin: 0 auto 50px;
-  animation-name: ${ emergence};
-  animation-duration: 1s;
-  animation-timing-function: linear;
-  animation-fill-mode: both;
-  @media screen and (max-width: ${ MIDDLE_SCREEN_MAX}){
-    padding: 20px 20px 0;
-    box-sizing: border-box;
-    width: 100%;
-  }
-`;
-
-/** RegistrationForm */
-
-/**
- * Оборачивает ключевые части формы регистрации
- * @returns {React.Component}
- */
-export const Content = styled.div`
-  width: calc(${ LOGIN_LAYOUT_BIG_WIDTH} / 2);
-  margin: 0 auto;
-  @media screen and (max-width: ${ MIDDLE_SCREEN_MAX}){
-    width: 100%;
-  }
-`;
-
 /** ReCaptcha */
 
 /**
@@ -91,14 +34,6 @@ export const RecaptchaWrapper = styled.div`
     transform: translateY(-50%);
     width: 250px;
   }
-  @media screen and (max-width: ${ MIDDLE_SCREEN_MAX}){
-    &::after {
-      width: 175px;
-      left: 75%;
-      text-align: left;
-      top: 45%;
-    }
-  }
 `;
 
 /** GreenCheckbox */
@@ -110,16 +45,7 @@ const Checkboxes = require('@src/images/checkboxes');
  * Обертка для чекбока. Служит каркасом для дочерних элементов
  * @returns {React.Component}
  */
-export const RegistrationCheckboxWrapper = RecaptchaWrapper.extend`
-  @media screen and (max-width: ${ MIDDLE_SCREEN_MAX}){
-    &::after {
-      width: 175px;
-      left: 75%;
-      top: 30%;
-      text-align: left;
-    }
-  }
-`;
+export const RegistrationCheckboxWrapper = RecaptchaWrapper.extend``;
 
 /**
  * Зеленый скрытый оригинальный чекбокс
@@ -160,7 +86,7 @@ export const RegistrationLabelText = styled.span`
 /**
  * Ссылка на страницу с пользовательским соглашением
  */
-export const RegistrationLink = styled(NavLink) `
+export const RegistrationLink = styled(NavLink)`
   text-decoration: none;
   height: 24px;
   line-height: 24px;
@@ -169,41 +95,3 @@ export const RegistrationLink = styled(NavLink) `
   font-size: 14px;
   color: #1c84c6;
 `;
-
-
-
-
-
-
-
-/**
- * Кнопка подтверждения регистрации.
- * @return {React.Component}
- */
-
-export const RegistrationFormButton = styled.button`
-  width: 100%;
-  height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT};
-  font-size: 18px;
-  color: #fff;
-  background-color: #1ab395;
-  text-align: center;
-  border-radius: 2px;
-  cursor: pointer;
-  &:hover {
-    background-color: #2C8F7B;
-  }
-`;
-
-
-
-
-
-
-
-
-
-
-
-
-
