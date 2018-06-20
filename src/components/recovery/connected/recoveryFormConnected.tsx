@@ -2,10 +2,9 @@ import { bindActionCreators } from 'redux';
 import { connect, MapStateToPropsParam, MapDispatchToPropsParam } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Dispatch, RootState } from '@src/core/redux';
+import { withRouter } from 'react-router-dom';
 
-import { ConfirmButton } from '../components';
-// import { asyncActionCreators } from '@src/core/redux/registration';
-import {} from '@src/core/interfaces';
+import { RecoveryForm } from '../components';
 
 interface StateProps { }
 
@@ -15,16 +14,13 @@ interface OwnProps { }
 
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
-  createStructuredSelector<RootState, StateProps>({
-    
-  });
-
+  createStructuredSelector<RootState, StateProps>({});
 
 const mapDispatchToProps:
-  MapDispatchToPropsParam<DispatchProps, OwnProps> = (dispatch: Dispatch) => bindActionCreators({
+  MapDispatchToPropsParam<DispatchProps, OwnProps> =
+  (dispatch: Dispatch) => bindActionCreators({}, dispatch);
 
-  }, dispatch);
-
-export const ConfirmButtonConnected =
+export const RecoveryFormConnected = withRouter(
   connect<StateProps, DispatchProps, OwnProps, RootState>(
-    mapStateToProps, mapDispatchToProps)(ConfirmButton);
+    mapStateToProps, mapDispatchToProps)(RecoveryForm)
+);

@@ -3,21 +3,18 @@ import { RouteComponentProps } from 'react-router-dom';
 
 // import { Spinner } from '@src/components';
 
-import {
-  LoginLayoutWrapper,
-  LoginLayout,
-  LoginWrapper,
-  LoginInnerPart,
-  LoginLogotype,
-  LoginHeader,
-  // LoginFormLayout,
-  // LoginFormHeader,
-  // LoginFormSpinner,
-} from './';
+import {} from './';
 
+import { LoginFormConnected as LoginForm } from '../connected';
 import {
-  LoginFormConnected as LoginForm
-} from '../connected';
+  FormPageLayout,
+  FormPage,
+  FormPageLogotype,
+  FormPageLogotypeHeader,
+  FormSmallHeader,
+  FormAnchor,
+  FormAnchorSpan
+} from '@src/core/styled';
 
 interface LoginProps extends RouteComponentProps<void> {
   // loginView
@@ -30,6 +27,7 @@ export const Login: React.SFC<LoginProps> = (props) => {
 
   const getView = (status: string): JSX.Element => {
     switch (status) {
+
   //     case 'processing':
   //       return (
   //         <LoginFormLayout>
@@ -43,24 +41,25 @@ export const Login: React.SFC<LoginProps> = (props) => {
   //           </LoginFormSpinner>
   //         </LoginFormLayout>
   //       );
+
       default: return <LoginForm />;
     }
   };
 
   return (
-    <LoginLayoutWrapper>
-      <LoginLayout>
-        <LoginWrapper>
-          <LoginInnerPart>
-            <LoginLogotype>
-              <LoginHeader>{'Система мониторинга'}</LoginHeader>
-            </LoginLogotype>
-          </LoginInnerPart>
-          <LoginInnerPart>
-            {getView(status)}
-          </LoginInnerPart>
-        </LoginWrapper>
-      </LoginLayout>
-    </LoginLayoutWrapper>
+    <FormPageLayout>
+      <FormPage>
+        <FormPageLogotype>
+          <FormPageLogotypeHeader>
+            {'Система мониторинга'}
+          </FormPageLogotypeHeader>
+        </FormPageLogotype>
+        {getView(status)}
+        <FormSmallHeader color={'grey'}>{'Еще нет аккаунта?'}</FormSmallHeader>
+        <FormAnchor to={'/registration'}>
+          <FormAnchorSpan>{'Регистрация'}</FormAnchorSpan>
+        </FormAnchor>
+      </FormPage>
+    </FormPageLayout>
   );
 }

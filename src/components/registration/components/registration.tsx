@@ -5,8 +5,15 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
-import { LayoutWrapper, Layout } from './';
-import { FormHeader, FormAnchor, FormAnchorSpan } from '@src/core/styled';
+import {
+  FormPageLayout,
+  FormPage,
+  FormPageLogotype,
+  FormPageLogotypeHeader,
+  FormSmallHeader,
+  FormAnchor,
+  FormAnchorSpan
+} from '@src/core/styled';
 
 import {RegistrationFormConnected as RegistrationForm} from '../connected';
 import NotificationPage from '@src/components/notificationPage';
@@ -44,34 +51,21 @@ export const Registration: React.SFC<RegistrationProps> = (props) => {
         type={'error'}
         callback={handleLinkToHome} />;
     default: return (
-      <LayoutWrapper>
-        <Layout>
+      <FormPageLayout>
+        <FormPage>
+          <FormPageLogotype>
+            <FormPageLogotypeHeader>
+              {'Система мониторинга'}
+            </FormPageLogotypeHeader>
+          </FormPageLogotype>
           <RegistrationForm />
-          <FormHeader
-            height={'24px'}
-            color={'grey'}
-            big={false}
-          >
-            {'Уже зарегистрированы?'}</FormHeader>
+          <FormSmallHeader color={'grey'}>{'Уже зарегистрированы?'}</FormSmallHeader>
           <FormAnchor to={'/'}>
-            <FormAnchorSpan
-              color={'grey'}
-              bColor={'lightGrey'}
-              bgColor={'white'}
-            >{'Войти'}</FormAnchorSpan></FormAnchor>
-          <FormHeader
-            height={'24px'}
-            color={'grey'}
-            big={false}
-          >
-            {'Забыли пароль?'}</FormHeader>
-          <FormAnchor to={'/restore'}><FormAnchorSpan
-            color={'grey'}
-            bColor={'lightGrey'}
-            bgColor={'white'}
-          >{'Восстановить пароль'}</FormAnchorSpan></FormAnchor>
-        </Layout>
-      </LayoutWrapper>
+            <FormAnchorSpan>{'Войти'}</FormAnchorSpan></FormAnchor>
+          <FormSmallHeader color={'grey'}>{'Забыли пароль?'}</FormSmallHeader>
+          <FormAnchor to={'/recovery'}><FormAnchorSpan>{'Восстановить пароль'}</FormAnchorSpan></FormAnchor>
+        </FormPage>
+      </FormPageLayout>
     );
   }
 };

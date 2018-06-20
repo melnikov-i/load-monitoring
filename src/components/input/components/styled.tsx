@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 import {
-  LOGIN_FORM_INPUT_BIG_HEIGHT,
-  MIDDLE_SCREEN_MAX,
+  FORM_PAGE_FONT_SIZE,
+  FORM_INPUT_WIDTH,
   colors,
 } from '@src/core/styled';
 
@@ -18,6 +18,7 @@ type TFormInputWrapper = {
 
 export const InputWrapper = styled.div`
   position: relative;
+  margin-bottom: 15px;
   &::after {
     content: "${(props: TFormInputWrapper) => props.hint}";
     display: ${(props: TFormInputWrapper) => {
@@ -34,13 +35,6 @@ export const InputWrapper = styled.div`
     top: 0;
     left: 105%;
   }
-  @media screen and (max-width: ${ MIDDLE_SCREEN_MAX}){
-    &::after {
-      width: 300px;
-      left: 50%;
-      top: 13%;
-    }
-  }
 `;
 
 /**
@@ -48,22 +42,24 @@ export const InputWrapper = styled.div`
  * @param {string} validation
  */
 export const InputField = styled.input`
-  box-sizing: border-box;
   border: ${(props: { validation: string }) => {
     switch (props.validation) {
-      case 'valid': return '2px solid ' + colors.green;
-      case 'notValid': return '2px solid ' + colors.red;
-      default: return '1px solid ' + colors.grey;
+      case 'valid': return '1px solid ' + colors.green;
+      case 'notValid': return '1px solid ' + colors.red;
+      default: return '1px solid ' + colors.lightGrey;
     }
   }};
-  width: 100%;
-  font-size: 16px;
+  width: ${FORM_INPUT_WIDTH};
+  font-size: ${FORM_PAGE_FONT_SIZE};
   font-weight: normal;
-  height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT};
-  line-height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT};
-  margin-bottom: 15px;
-  padding-left: 12px;
+  padding: 6px 12px;
   background-color: #fff;
+  background-image: none;
+  color: inherit;
+  display: block;
   color: #676a6c;
-  border-radius: 2px;
+  border-radius: 1px;
 `;
+// box-sizing: border-box;
+  // height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT};
+  // line-height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT};

@@ -7,13 +7,11 @@ import { RouteComponentProps } from 'react-router-dom';
 import Input from '@src/components/input';
 import { ISAtributes } from '@src/core/interfaces';
 
-import { Content } from './';
-import { FormHeader } from '@src/core/styled';
+import { FormHeader, FormSubmit } from '@src/core/styled';
 
 import {
   GreenCheckboxConnected as GreenCheckbox,
   ReCaptchaConnected as ReCaptcha,
-  ConfirmButtonConnected as ConfirmButton,
 } from '../connected';
 
 /** Статический котнекст формы */
@@ -42,18 +40,14 @@ interface RegistrationFormProps extends RouteComponentProps<void> {}
 
 export const RegistrationForm: React.SFC<RegistrationFormProps> = () => {
   return (
-    <Content>
-      <FormHeader
-        height={'50px'}
-        color={'grey'}
-        big={true}
-      >{'Регистрация'}</FormHeader>
+    <div>
+      <FormHeader color={'grey'}>{'Регистрация'}</FormHeader>
       <form action="">
         {formInputItemsCollection.map((e, i) => <Input key={i} sAtributes={e} />)}
         <ReCaptcha />
         <GreenCheckbox />
-        <ConfirmButton />
+        <FormSubmit>{'Регистрация'}</FormSubmit>
       </form>
-    </Content>
+    </div>
   );
 };

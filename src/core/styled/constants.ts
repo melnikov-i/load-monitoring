@@ -54,9 +54,17 @@ export const LOGIN_LAYOUT_BIG_HEIGHT: string = '300px';
 /* Высота поля ввода на большом экране */
 export const LOGIN_FORM_INPUT_BIG_HEIGHT: string = '34px';
 /** размер шрифта кнопки */
-export const LOGIN_FORM_FONT_SIZE: string = '12px';
+export const LOGIN_FORM_FONT_SIZE: string = '14px';
 /** большой размер шрифта */
 export const LOGIN_FORM_BIG_FONT_SIZE: string = '24px';
+
+/** Страницы с формой авторизации и регистрации */
+export const FORM_LAYOUT_WIDTH: string = '300px';
+/** Размер шрифта на странице с формой */
+export const FORM_PAGE_FONT_SIZE: string = '14px';
+/** ширина поля для ввода */
+export const FORM_INPUT_WIDTH: string = '274px';
+
 
 /**
  * Индексы кнопок с выпадающим меню

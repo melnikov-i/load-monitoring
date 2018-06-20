@@ -19,6 +19,7 @@ const fontAwesomeSVG = require('@src/fonts/fontawesome-webfont.svg');
 /** Компоненты, подгружаемые в процессе проверки авторизации */
 import Login from '@src/components/login';
 import Registration from '@src/components/registration';
+import Recovery from '@src/components/recovery';
 import MainConnected from '@src/usage/MainUsage';
 
 /** Глобальные стили */
@@ -87,8 +88,11 @@ export const Authenticate: React.SFC<AuthenticateProps> = (props) => {
             <Redirect to={'/'} />
           )
       )} />
-      <Route exact path={'/registration'} render={() => 
+      <Route exact path={'/registration'} render={() =>
         <Registration />
+      } />
+      <Route exact path={'/recovery'} render={() =>
+        <Recovery />
       } />
       {/* Любой другой путь */}
       <Route path={'/'} render={() => (

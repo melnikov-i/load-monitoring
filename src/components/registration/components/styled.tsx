@@ -186,10 +186,13 @@ export const RegistrationFormButton = styled.button`
   height: ${ LOGIN_FORM_INPUT_BIG_HEIGHT};
   font-size: 18px;
   color: #fff;
-  text-align: center;
   background-color: #1ab395;
+  text-align: center;
   border-radius: 2px;
   cursor: pointer;
+  &:hover {
+    background-color: #2C8F7B;
+  }
 `;
 
 
