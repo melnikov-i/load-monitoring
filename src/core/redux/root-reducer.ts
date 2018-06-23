@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 import { reducer as login, State as LoginState } from './login';
-import { reducer as input, State as InputState } from './input';
+import { reducer as form, State as FormState } from './form';
 import { reducer as registration, State as RegistrationState } from './registration';
 
 import { reducer as main, State as MainState} from '@src/redux/main';
@@ -18,7 +18,7 @@ export interface RootState {
   overview: OverviewState,
   dashboard: DashboardState,
   mainHead: MainHeadState,
-  input: InputState,
+  form: FormState,
   registration: RegistrationState,
 }
 
@@ -29,6 +29,6 @@ export const rootReducer = combineReducers<RootState>({
   overview,
   dashboard,
   mainHead,
-  input,
+  form,
   registration,
 });

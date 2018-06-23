@@ -40,7 +40,7 @@ import {
   MainHeaderInterface
 } from '@src/interfaces';
 
-import { Spinner } from '@src/components';
+// import { Spinner } from '@src/components';
 import MainHeaderConnected from
   '@src/usage/MainHeaderUsage';
 
@@ -283,11 +283,12 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
     );    
   } else {
     return (
-      <Spinner
-        width={3}
-        color={'#2f4050'}
-        bgColor={'#f3f3f4'}
-      />
+      null
+      // <Spinner
+      //   width={3}
+      //   color={'#2f4050'}
+      //   bgColor={'#f3f3f4'}
+      // />
     );    
   }
 };

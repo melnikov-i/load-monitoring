@@ -1,41 +1,43 @@
-export const CREATE_D_ATRIBUTES = 'CREATE_D_ATRIBUTES';
+export const CREATE_FORMS_MODEL_ITEM = 'CREATE_FORMS_MODEL_ITEM';
 export const CHANGE_INPUT_VALUE = 'CHANGE_INPUT_VALUE';
-export const CLEAR_D_ATRIBUTES = 'CLEAR_D_ATRIBUTES';
-export const VALIDATE_D_ATRIBUTES = 'VALIDATE_D_ATRIBUTES';
+export const CLEAR_FORMS_MODEL_ITEM = 'CLEAR_FORMS_MODEL_ITEM';
+export const VALIDATE_FORMS_MODEL_ITEM = 'VALIDATE_FORMS_MODEL_ITEM';
 
 export type Actions = {
-  CREATE_D_ATRIBUTES: {
-    type: typeof CREATE_D_ATRIBUTES,
+  CREATE_FORMS_MODEL_ITEM: {
+    type: typeof CREATE_FORMS_MODEL_ITEM,
     payload: any,
   },
   CHANGE_INPUT_VALUE: {
     type: typeof CHANGE_INPUT_VALUE,
     payload: any,
   },
-  CLEAR_D_ATRIBUTES: {
-    type: typeof CLEAR_D_ATRIBUTES,
+  CLEAR_FORMS_MODEL_ITEM: {
+    type: typeof CLEAR_FORMS_MODEL_ITEM,
   },
-  VALIDATE_D_ATRIBUTES: {
-    type: typeof VALIDATE_D_ATRIBUTES,
+  VALIDATE_FORMS_MODEL_ITEM: {
+    type: typeof VALIDATE_FORMS_MODEL_ITEM,
     payload: any,
   }
 };
 
 export const syncActionCreators = {
   /** передает в хранилище новую ячейку экземпляра компонента */
-  createDAtributes: (payload: any): Actions[typeof CREATE_D_ATRIBUTES] => ({
-    type: CREATE_D_ATRIBUTES, payload,
+  createFormsModelItem: (payload: any): 
+  Actions[typeof CREATE_FORMS_MODEL_ITEM] => ({
+    type: CREATE_FORMS_MODEL_ITEM, payload,
   }),
   /** передает в хранилище измененное значение экземпляра поля */
   changeInputValue: (payload: any): Actions[typeof CHANGE_INPUT_VALUE] => ({
     type: CHANGE_INPUT_VALUE, payload,
   }),
   /** очищает ячейку поля в хранилище */
-  clearDAtributes: (): Actions[typeof CLEAR_D_ATRIBUTES] => ({
-    type: CLEAR_D_ATRIBUTES,
+  clearFormsModelItem: (): Actions[typeof CLEAR_FORMS_MODEL_ITEM] => ({
+    type: CLEAR_FORMS_MODEL_ITEM,
   }),
   /** передает в хранилище дополненные значениями валидации объект */
-  validateDAtributes: (payload: any): Actions[typeof VALIDATE_D_ATRIBUTES] => ({
-    type: VALIDATE_D_ATRIBUTES, payload,
+  validateFormsModelItem: (payload: any): 
+  Actions[typeof VALIDATE_FORMS_MODEL_ITEM] => ({
+    type: VALIDATE_FORMS_MODEL_ITEM, payload,
   })
 }

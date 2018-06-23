@@ -1,20 +1,23 @@
+/**
+ * ### FORM ###
+ */
 import { combineReducers } from 'redux';
 
 import {
-  CREATE_D_ATRIBUTES,
+  CREATE_FORMS_MODEL_ITEM,
   CHANGE_INPUT_VALUE,
-  CLEAR_D_ATRIBUTES,
-  VALIDATE_D_ATRIBUTES,
+  CLEAR_FORMS_MODEL_ITEM,
+  VALIDATE_FORMS_MODEL_ITEM,
 } from './';
 
 export type State = {
-  readonly dAtributesModel: any,
+  readonly formsModel: any,
 };
 
 export const reducer = combineReducers<State>({
-  dAtributesModel: (state = {}, action) => {
+  formsModel: (state = {}, action) => {
     switch (action.type) {
-      case CREATE_D_ATRIBUTES:
+      case CREATE_FORMS_MODEL_ITEM:
         let _state = {};
         for (let parent in action.payload) {
           _state = {
@@ -41,8 +44,8 @@ export const reducer = combineReducers<State>({
           }
         }
         return _change;      
-        case CLEAR_D_ATRIBUTES: return {};
-        case VALIDATE_D_ATRIBUTES:
+        case CLEAR_FORMS_MODEL_ITEM: return {};
+        case VALIDATE_FORMS_MODEL_ITEM:
           return action.payload;
       default: return state;
     }

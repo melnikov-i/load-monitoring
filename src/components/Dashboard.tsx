@@ -11,7 +11,7 @@ import {
  * Подгружаемые компоненты
  */
 /* Компонент спиннера */
-import { Spinner } from '@src/components';
+// import { Spinner } from '@src/components';
 /* Компонент заголовка страницы */
 import MainHeaderConnected from
   '@src/usage/MainHeaderUsage';
@@ -71,13 +71,14 @@ export const Dashboard: React.SFC<DashboardProps> = (props) => {
    */
   const viewState2 = (): JSX.Element => {
     console.log('2');
-    return (
-      <Spinner
-        width={3}
-        color={'#2f4050'}
-        bgColor={'#f3f3f4'}
-      />
-    )
+    return (<div></div>);
+    // return (
+    //   <Spinner
+    //     width={3}
+    //     color={'#2f4050'}
+    //     bgColor={'#f3f3f4'}
+    //   />
+    // )
   };
 
   /**

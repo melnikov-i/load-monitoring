@@ -4,9 +4,9 @@ import { Dispatch } from '../';
 // import { IFormInputValues } from '@src/core/interfaces';
 import { RegistrationRequest, IReCaptchaDynamic, ICheckboxDynamic } from '@src/core/interfaces';
 
-import { 
-  syncActionCreators as inputActionCreators
-} from '../input';
+// import { 
+//   syncActionCreators as inputActionCreators
+// } from '../input';
 
 export const SWITCH_AGREEMENT_VALUE = 'SWITCH_AGREEMENT_VALUE';
 export const SWITCH_FOCUSED_VALUE = 'SWITCH_FOCUSED_VALUE';
@@ -131,7 +131,7 @@ export const asyncActionCreators = {
   changeValidationValueInComponents:
     (payload: any) => {
       return (dispatch: Dispatch) => {
-        dispatch(inputActionCreators.validateDAtributes(payload.formInput));
+        // dispatch(inputActionCreators.validateDAtributes(payload.formInput));
         dispatch(syncActionCreators.changeReCaptchaValidation(payload.reCaptcha));
         dispatch(syncActionCreators.changeCheckboxValidation(payload.checkbox));
       }

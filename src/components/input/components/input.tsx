@@ -7,6 +7,7 @@ import { InputWrapper, InputField } from './styled';
 import { ISAtributes, IDAtributes } from '@src/core/interfaces';
 
 interface InputProps {
+  formItemModel: IFormItemModel,
   sAtributes: ISAtributes,
   dAtributes: IDAtributes,
   changeInputValue: (payload: any) => any,
@@ -14,8 +15,9 @@ interface InputProps {
 
 export const Input: React.SFC<InputProps> = (props) => {
   const {
-    sAtributes: {id, type, hint, placeholder},
-    dAtributes: {value, validation},
+    formItemModel: { id, type, hint, placeholder, value, validation},
+    // sAtributes: {id, type, hint, placeholder},
+    // dAtributes: {value, validation},
     changeInputValue,
   } = props;
 

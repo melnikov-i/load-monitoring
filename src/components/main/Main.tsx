@@ -17,7 +17,7 @@ import {
   DroppedMenuButtonClickedType,
 } from '@src/interfaces';
 
-import { Spinner } from '@src/components';
+// import { Spinner } from '@src/components';
 import { DroppedMenu } from '@src/libs';
 
 import {
@@ -138,13 +138,13 @@ export const Main: React.SFC<MainProps> = (props) => {
   const devicesMenu: MainMenuLinksInterface[] = getDevicesMenu(); 
 
   if ( !AllMenusWasResponsedFromAPI ) {
-    return (
-      <Spinner
-        width={3}
-        color={'#2f4050'}
-        bgColor={'#f3f3f4'}
-      />
-    );
+    // return (
+    //   <Spinner
+    //     width={3}
+    //     color={'#2f4050'}
+    //     bgColor={'#f3f3f4'}
+    //   />
+    // );
   }
 
   /**

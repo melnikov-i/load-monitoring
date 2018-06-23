@@ -17,7 +17,7 @@ import {
   DroppedMenuButtonClickedType,
 } from '@src/interfaces';
 
-import { Spinner } from '@src/components';
+// import { Spinner } from '@src/components';
 import { DroppedMenu } from '@src/libs';
 
 import {
@@ -94,7 +94,7 @@ interface MainProps extends RouteComponentProps<void> {
 export const Main: React.SFC<MainProps> = (props) => {
   const {
     MainMenuWasRequestedFromAPI,
-    AllMenusWasResponsedFromAPI,
+    // AllMenusWasResponsedFromAPI,
     MainMenuItemsCollection,
     makeMainMenuRequestToAPI,
     DevicesMenuWasRequestedFromAPI,
@@ -137,15 +137,15 @@ export const Main: React.SFC<MainProps> = (props) => {
   /* Получает и хранит коллекцию элементов меню устройств */
   const devicesMenu: MainMenuLinksInterface[] = getDevicesMenu(); 
 
-  if ( !AllMenusWasResponsedFromAPI ) {
-    return (
-      <Spinner
-        width={3}
-        color={'#2f4050'}
-        bgColor={'#f3f3f4'}
-      />
-    );
-  }
+  // if ( !AllMenusWasResponsedFromAPI ) {
+  //   return (
+  //     <Spinner
+  //       width={3}
+  //       color={'#2f4050'}
+  //       bgColor={'#f3f3f4'}
+  //     />
+  //   );
+  // }
 
   /**
    * Покажет компонент после загрузки меню устройств 

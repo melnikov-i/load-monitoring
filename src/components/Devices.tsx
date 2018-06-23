@@ -37,7 +37,7 @@ import {
   MainHeaderInterface
 } from '@src/interfaces';
 
-import { Spinner } from '@src/components';
+// import { Spinner } from '@src/components';
 import { DroppedMenu } from '@src/libs';
 // import DevicesLoadConnected from 
 //   '@src/usage/DevicesLoadUsage';
@@ -71,13 +71,13 @@ export const Devices: React.SFC<DevicesProps> = (props) => {
       makeDevicesItemsRequestFromAPI();
 
     } 
-    return (
-      <Spinner
-        width={3}
-        color={'#2f4050'}
-        bgColor={'#f3f3f4'}
-      />
-    );
+    // return (
+    //   <Spinner
+    //     width={3}
+    //     color={'#2f4050'}
+    //     bgColor={'#f3f3f4'}
+    //   />
+    // );
   }
 
   const {

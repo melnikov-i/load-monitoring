@@ -5,7 +5,7 @@ import { Dispatch, RootState } from '@src/core/redux';
 
 import { InputInitialize } from '../components';
 import { ISAtributes, IDAtributes } from '@src/core/interfaces';
-import { syncActionCreators } from '@src/core/redux/input';
+import { syncActionCreators } from '@src/core/redux/form';
 
 interface StateProps {
   dAtributes: IDAtributes,
@@ -22,11 +22,11 @@ interface OwnProps {
 type Selector<TInput, TOutput> = (state: TInput, props?: any) => TOutput;
 
 /** получает из хранилища данные конкретного поля ввода */
-const getAtributes: Selector<RootState, any> =
+const getFormItem: Selector<RootState, any> =
   (state: RootState, props: OwnProps): any => {
-    if (props.sAtributes.id[0] in state.input.dAtributesModel) {
-      if (props.sAtributes.id[1] in state.input.dAtributesModel[props.sAtributes.id[0]]) {
-        return state.input.dAtributesModel[props.sAtributes.id[0]][props.sAtributes.id[1]];
+    if (props.sAtributes.id[0] in state.form.formsModel) {
+      if (props.sAtributes.id[1] in state.form.formsModel[props.sAtributes.id[0]]) {
+        return state.form.formsModel[props.sAtributes.id[0]][props.sAtributes.id[1]];
       }
     }
   }
@@ -34,12 +34,12 @@ const getAtributes: Selector<RootState, any> =
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
   createStructuredSelector<RootState, StateProps>({
-    dAtributes: createSelector(getAtributes, (items) => items),
+    dAtributes: createSelector(getFormItem, (items) => items),
   });
 
 const mapDispatchToProps:
   MapDispatchToPropsParam<DispatchProps, OwnProps> = (dispatch: Dispatch) => bindActionCreators({
-    createDAtributes: syncActionCreators.createDAtributes,
+    createDAtributes: syncActionCreators.createFormsModelItem,
   }, dispatch);
 
 export const InputInitializeConnected =
