@@ -16,6 +16,8 @@ interface NotificationPageProps extends RouteComponentProps<void> {
 export const NotificationPage: React.SFC<NotificationPageProps> = (props) => {
   const { hint, type, callback } = props;
 
+  console.log('[notificationPage].notificationPage');
+
   return (
     <NotificationPageWrapper type={type}>
       <NotificationPageText

@@ -67,6 +67,8 @@ interface RouterProps extends RouteComponentProps<void> {
 export const Router: React.SFC<RouterProps> = (props) => {
   const { /* isAuthorized */ } = props;
 
+  console.log('[router].router');
+
   const isAuthorized: boolean = false;
 
   return (

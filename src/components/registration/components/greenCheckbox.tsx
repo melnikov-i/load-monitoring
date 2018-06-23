@@ -25,6 +25,7 @@ export const GreenCheckbox: React.SFC<GreenCheckboxProps> = (props) => {
     switchFocusedValue,
   } = props;
 
+  console.log('[registration].greenCheckbox');
 
   const handleSelection = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();

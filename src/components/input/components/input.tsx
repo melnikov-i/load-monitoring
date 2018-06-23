@@ -4,22 +4,20 @@
 import * as React from 'react';
 
 import { InputWrapper, InputField } from './styled';
-import { ISAtributes, IDAtributes } from '@src/core/interfaces';
+import { IInputModel } from '@src/core/interfaces';
 
 interface InputProps {
-  formItemModel: IFormItemModel,
-  sAtributes: ISAtributes,
-  dAtributes: IDAtributes,
+  items: IInputModel,
   changeInputValue: (payload: any) => any,
 }
 
 export const Input: React.SFC<InputProps> = (props) => {
   const {
-    formItemModel: { id, type, hint, placeholder, value, validation},
-    // sAtributes: {id, type, hint, placeholder},
-    // dAtributes: {value, validation},
+    items: { id, type, hint, placeholder, value, validation},
     changeInputValue,
   } = props;
+  
+  console.log('[input].input id:', id);
 
   const changeValueHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();

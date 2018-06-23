@@ -9,6 +9,8 @@ interface LoginPendingProps extends RouteComponentProps<void> { }
 export const LoginPending: React.SFC<LoginPendingProps> = (props) => {
   const { } = props;
 
+  console.log('[login].loginPending');
+
   return (
     <div>
       <FormHeader color={'grey'}>{'Выполняется проверка'}</FormHeader>

@@ -1,4 +1,5 @@
-export interface IFormItemModel {
+/** интерфейс данных, полученных от родителя и из хранилища и передаваемых в вид */
+export interface IInputModel {
   id: string[],
   type: string,
   hint: string,
@@ -7,14 +8,10 @@ export interface IFormItemModel {
   validation: string,
 }
 
-export interface ISAtributes {
+/** интерфейс данных, полученных от родительского компонента */
+export interface IInputAtributes {
   id: string[],
   type: string,
   hint: string,
   placeholder: string,
-}
-
-export interface IDAtributes {
-  value: string,
-  validation: string,
 }

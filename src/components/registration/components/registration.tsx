@@ -25,10 +25,9 @@ interface RegistrationProps extends RouteComponentProps<void> {
 }
 
 export const Registration: React.SFC<RegistrationProps> = (props) => {
-  const {
-    registrationView,
-    changeRegistrationView
-  } = props;
+  const { registrationView, changeRegistrationView } = props;
+
+  console.log('[registration].registration');
 
   const handleLinkToHome = () => {
     changeRegistrationView('form');

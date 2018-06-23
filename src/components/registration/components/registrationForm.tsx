@@ -5,7 +5,7 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
 import Input from '@src/components/input';
-import { ISAtributes } from '@src/core/interfaces';
+import { IInputAtributes } from '@src/core/interfaces';
 
 import { FormHeader, FormSubmit } from '@src/core/styled';
 
@@ -15,7 +15,7 @@ import {
 } from '../connected';
 
 /** Статический котнекст формы */
-const formInputItemsCollection: ISAtributes[] = [
+const formInputItemsCollection: IInputAtributes[] = [
   {
     id: ['registration', 'email'],
     type: 'text',
@@ -39,11 +39,14 @@ const formInputItemsCollection: ISAtributes[] = [
 interface RegistrationFormProps extends RouteComponentProps<void> {}
 
 export const RegistrationForm: React.SFC<RegistrationFormProps> = () => {
+
+  console.log('[registration].registrationForm');
+
   return (
     <div>
       <FormHeader color={'grey'}>{'Регистрация'}</FormHeader>
       <form action="">
-        {formInputItemsCollection.map((e, i) => <Input key={i} sAtributes={e} />)}
+        {formInputItemsCollection.map((e, i) => <Input key={i} atributes={e} />)}
         <ReCaptcha />
         <GreenCheckbox />
         <FormSubmit>{'Регистрация'}</FormSubmit>

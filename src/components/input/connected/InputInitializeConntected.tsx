@@ -4,29 +4,29 @@ import { createStructuredSelector, createSelector } from 'reselect';
 import { Dispatch, RootState } from '@src/core/redux';
 
 import { InputInitialize } from '../components';
-import { ISAtributes, IDAtributes } from '@src/core/interfaces';
+import { IInputAtributes, IFormsModelItem } from '@src/core/interfaces';
 import { syncActionCreators } from '@src/core/redux/form';
 
 interface StateProps {
-  dAtributes: IDAtributes,
+  formsModelItem: IFormsModelItem,
 }
 
 interface DispatchProps {
-  createDAtributes: (payload: any) => any,
+  createFormsModelItem: (payload: any) => any,
 }
 
 interface OwnProps {
-  sAtributes: ISAtributes,
+  atributes: IInputAtributes,
 }
 
 type Selector<TInput, TOutput> = (state: TInput, props?: any) => TOutput;
 
 /** получает из хранилища данные конкретного поля ввода */
-const getFormItem: Selector<RootState, any> =
+const getFormsModelItem: Selector<RootState, any> =
   (state: RootState, props: OwnProps): any => {
-    if (props.sAtributes.id[0] in state.form.formsModel) {
-      if (props.sAtributes.id[1] in state.form.formsModel[props.sAtributes.id[0]]) {
-        return state.form.formsModel[props.sAtributes.id[0]][props.sAtributes.id[1]];
+    if (props.atributes.id[0] in state.form.formsModel) {
+      if (props.atributes.id[1] in state.form.formsModel[props.atributes.id[0]]) {
+        return state.form.formsModel[props.atributes.id[0]][props.atributes.id[1]];
       }
     }
   }
@@ -34,12 +34,12 @@ const getFormItem: Selector<RootState, any> =
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
   createStructuredSelector<RootState, StateProps>({
-    dAtributes: createSelector(getFormItem, (items) => items),
+    formsModelItem: createSelector(getFormsModelItem, (items) => items),
   });
 
 const mapDispatchToProps:
   MapDispatchToPropsParam<DispatchProps, OwnProps> = (dispatch: Dispatch) => bindActionCreators({
-    createDAtributes: syncActionCreators.createFormsModelItem,
+    createFormsModelItem: syncActionCreators.createFormsModelItem,
   }, dispatch);
 
 export const InputInitializeConnected =

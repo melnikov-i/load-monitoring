@@ -4,7 +4,7 @@ import { createStructuredSelector } from 'reselect';
 import { Dispatch, RootState } from '@src/core/redux';
 
 import { Input } from '../components';
-import { ISAtributes, IDAtributes, IFormItemModel } from '@src/core/interfaces';
+import { /* ISAtributes, */ IInputModel } from '@src/core/interfaces';
 import { syncActionCreators } from '@src/core/redux/form';
 
 interface StateProps {}
@@ -14,9 +14,7 @@ interface DispatchProps {
 }
 
 interface OwnProps {
-  formItemModel: IFormItemModel,
-  dAtributes: IDAtributes,
-  sAtributes: ISAtributes,
+  items: IInputModel,
 }
 
 const mapStateToProps:

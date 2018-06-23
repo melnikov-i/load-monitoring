@@ -5,25 +5,27 @@
  */
 import * as React from 'react';
 
-import { ISAtributes, IDAtributes } from '@src/core/interfaces';
+import { IInputAtributes, IFormsModelItem, IInputModel } from '@src/core/interfaces';
 import { InputConnected as Input } from '../connected';
 
 interface InputInitializeProps {
   /** полученные от родительского элемента статические атрибуты */
-  sAtributes: ISAtributes,
+  atributes: IInputAtributes,
   /** полученные из собственного редьюсера динамически изменяемые атрибуты */
-  dAtributes: IDAtributes,
+  formsModelItem: IFormsModelItem,
   /** создает ячейку данных для конкретного экземпляра компонента в хранилище динамических атрибутов */
-  createDAtributes: (payload: any) => any;
+  createFormsModelItem: (payload: any) => any;
 }
 
 export const InputInitialize: React.SFC<InputInitializeProps> = (props) => {
-  const { sAtributes, dAtributes, createDAtributes } = props;
+  const { atributes, formsModelItem, createFormsModelItem } = props;
 
-  if (!dAtributes) {
-    createDAtributes({
-      [sAtributes.id[0]]: {
-        [sAtributes.id[1]]: {
+  console.log('[input].inputInitialize');
+
+  if (!formsModelItem) {
+    createFormsModelItem({
+      [atributes.id[0]]: {
+        [atributes.id[1]]: {
           value: '',
           validation: '',
         }
@@ -31,6 +33,7 @@ export const InputInitialize: React.SFC<InputInitializeProps> = (props) => {
     });
     return null;
   } else {
-    return <Input sAtributes={sAtributes} dAtributes={dAtributes} />
+    const inputModel: IInputModel = Object.assign({}, atributes, formsModelItem);
+    return <Input items={inputModel} />
   }
 }

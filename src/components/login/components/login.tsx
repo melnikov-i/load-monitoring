@@ -24,6 +24,8 @@ interface LoginProps extends RouteComponentProps<void> {
 export const Login: React.SFC<LoginProps> = (props) => {
   const {} = props;
 
+  console.log('[login].login');
+
   const status: string = 'pending';
 
   const getView = (status: string): JSX.Element => {
