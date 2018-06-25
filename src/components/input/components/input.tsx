@@ -16,8 +16,6 @@ export const Input: React.SFC<InputProps> = (props) => {
     items: { id, type, hint, placeholder, value, validation},
     changeInputValue,
   } = props;
-  
-  console.log('[input].input id:', id);
 
   const changeValueHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();

@@ -1,29 +1,20 @@
-import { bindActionCreators } from 'redux';
-import { connect, MapStateToPropsParam, MapDispatchToPropsParam } from 'react-redux';
+import { connect, MapStateToPropsParam } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Dispatch, RootState } from '@src/core/redux';
+import { RootState } from '@src/core/redux';
 import { withRouter } from 'react-router-dom';
 
 import { Router } from '../components';
 
 interface StateProps {
-  // isAuthorized: boolean,
+  isAuthorized: boolean,
 }
 
-interface DispatchProps {}
-
-interface OwnProps {}
-
 const MapStateToProps:
-MapStateToPropsParam<StateProps, OwnProps, RootState> =
+MapStateToPropsParam<StateProps, {}, RootState> =
   createStructuredSelector<RootState, StateProps>({
-    // isAuthorized: (state: RootState) => state.login.isAuthorized,
+    isAuthorized: (state: RootState) => state.login.isAuthorized,
   });
 
-const mapDispatchToProps:
-MapDispatchToPropsParam<DispatchProps, OwnProps> =
-  (dispatch: Dispatch): DispatchProps => bindActionCreators({}, dispatch);
-
 export const RouterConnected = withRouter(
-  connect<StateProps, DispatchProps, OwnProps, RootState>(
-    MapStateToProps, mapDispatchToProps)(Router));
+  connect<StateProps, {}, {}, RootState>(
+    MapStateToProps, {})(Router));

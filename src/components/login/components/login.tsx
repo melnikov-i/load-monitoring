@@ -1,10 +1,6 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
-// import { Spinner } from '@src/components';
-
-import {} from './';
-
 import { LoginFormConnected as LoginForm } from '../connected';
 import { LoginPendingConnected as LoginPending } from '../connected';
 import {
@@ -18,18 +14,14 @@ import {
 } from '@src/core/styled';
 
 interface LoginProps extends RouteComponentProps<void> {
-  // loginView
+  loginView: string,
 }
 
 export const Login: React.SFC<LoginProps> = (props) => {
-  const {} = props;
-
-  console.log('[login].login');
-
-  const status: string = 'pending';
-
-  const getView = (status: string): JSX.Element => {
-    switch (status) {
+  const { loginView } = props;
+  
+  const getView = (): JSX.Element => {
+    switch (loginView) {
       case 'pending': return <LoginPending />
       default: return <LoginForm />;
     }
@@ -43,7 +35,7 @@ export const Login: React.SFC<LoginProps> = (props) => {
             {'Система мониторинга'}
           </FormPageLogotypeHeader>
         </FormPageLogotype>
-        {getView(status)}
+        {getView()}
         <FormSmallHeader color={'grey'}>{'Еще нет аккаунта?'}</FormSmallHeader>
         <FormAnchor to={'/registration'}>
           <FormAnchorSpan>{'Регистрация'}</FormAnchorSpan>

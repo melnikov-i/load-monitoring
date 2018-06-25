@@ -3,7 +3,5 @@
  * с другими компонентами приложения
  */
 import * as React from 'react';
-
 import { RegistrationConnected as Registration } from './connected';
-
 export default () => <Registration />;

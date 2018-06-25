@@ -3,22 +3,16 @@
  * остальными компонентами.
  */
 import * as React from 'react';
-import {
-  Route,
-  Switch,
-  Redirect,
-  RouteComponentProps,
-} from 'react-router-dom';
+import { Route, Switch/* , Redirect */, RouteComponentProps } from 'react-router-dom';
 
 import {
   MainMenuLinksInterface,
   UserMenuInterface,
-  LogOunInterface,
+  LogOutInterface,
   DroppedMenuButtonClickedType,
-} from '@src/interfaces';
+} from '@src/core/interfaces';
 
-// import { Spinner } from '@src/components';
-import { DroppedMenu } from '@src/libs';
+import { DroppedMenu } from '@src/core/libs';
 
 import {
   PageLayout,
@@ -45,19 +39,12 @@ import {
   PageSubMenuItem,
   PageSubMenuAnchor,
   PageSubMenuCloseAnchor,
-} from '@src/styled';
+} from './';
 
-/**
- *  Компоненты для подгрузки с помощью роутера 
- */
-import DashboardConnected from '@src/usage/DashboardUsage';
-import DevicesConnected from '@src/usage/DevicesUsage';
-import OverviewConnected from '@src/usage/OverviewUsage';
-
-interface MainProps extends RouteComponentProps<void> {
+interface PageProps extends RouteComponentProps<void> {
   /* Ключ, указывающий, что основное меню было запрошено с бэкэнда */
   MainMenuWasRequestedFromAPI: boolean,
-  AllMenusWasResponsedFromAPI: boolean,
+  // AllMenusWasResponsedFromAPI: boolean,
   /* Коллекция элементов основного меню */
   MainMenuItemsCollection: MainMenuLinksInterface[],
   /* Коллекция элементов пользовательского меню */
@@ -68,7 +55,7 @@ interface MainProps extends RouteComponentProps<void> {
   DevicesMenuItemsCollection: MainMenuLinksInterface[],
   /* Запускает в actions метод запроса основного меню с бэкэнда */
   makeMainMenuRequestToAPI: () => any,
-  /* Запускает в actions метод запросаменю устройств с бэкэнда */
+  /* Запускает в actions метод запроса меню устройств с бэкэнда */
   makeDevicesMenuRequestToAPI: () => any,
   /* Идентификатор активированного выпадающего списка */
   DroppedMenuButtonClickedId: DroppedMenuButtonClickedType,
@@ -77,30 +64,30 @@ interface MainProps extends RouteComponentProps<void> {
   /* Метод в actions, меняющий значение ключа isMenuOpenedOnSmallScreen */
   switchMenuOnSmallScreens: () => any,
   /* Метод в actions, меняющий значение DroppedMenuButtonClickedId */
-  changeDroppedMenuClickedId: 
+  changeDroppedMenuClickedId:
   (payload: DroppedMenuButtonClickedType) => any,
   /* Запускает в actions метод, посылающий в бэкэнд событие выхода */
-  sendLogOutToAPI: (payload: LogOunInterface) => any,
+  sendLogOutToAPI: (payload: LogOutInterface) => any,
   /* Идентификатор активного составного пункта основного меню */
   PageMenuItemActive: string,
   /* Ключ состояния составного пункта основного меню */
   PageMenuItemMultiActive: string,
   /* Метод в actions, изменяющий идентифкатор PageMenuItemActive */
-  switchPageMenuItemActive: ( payload: string ) => any,
+  switchPageMenuItemActive: (payload: string) => any,
   /* Метод в action, изменяющий состояние ключа PageMenuItemMultiActive */
-  switchPageMenuItemMultiActive: ( payload: string ) => any,
+  switchPageMenuItemMultiActive: (payload: string) => any,
 }
 
-export const Main: React.SFC<MainProps> = (props) => {
+export const Page: React.SFC<PageProps> = (props) => {
   const {
     MainMenuWasRequestedFromAPI,
-    // AllMenusWasResponsedFromAPI,
     MainMenuItemsCollection,
     makeMainMenuRequestToAPI,
     DevicesMenuWasRequestedFromAPI,
     DevicesMenuItemsCollection,
     makeDevicesMenuRequestToAPI,
   } = props;
+
 
   /**
    * Выполняет проверку наличия основного меню в Store.
@@ -110,7 +97,7 @@ export const Main: React.SFC<MainProps> = (props) => {
    * @return {MainMenuLinksInterface[]}
    */
   const getMainMenu = (): MainMenuLinksInterface[] => {
-    if ( !MainMenuWasRequestedFromAPI ) {
+    if (!MainMenuWasRequestedFromAPI) {
       makeMainMenuRequestToAPI();
       return [];
     }
@@ -128,14 +115,14 @@ export const Main: React.SFC<MainProps> = (props) => {
    * @return {MainMenuLinksInterface[]}
    */
   const getDevicesMenu = (): MainMenuLinksInterface[] => {
-    if ( !DevicesMenuWasRequestedFromAPI ) {
+    if (!DevicesMenuWasRequestedFromAPI) {
       makeDevicesMenuRequestToAPI();
     }
     return DevicesMenuItemsCollection;
   };
 
   /* Получает и хранит коллекцию элементов меню устройств */
-  const devicesMenu: MainMenuLinksInterface[] = getDevicesMenu(); 
+  const devicesMenu: MainMenuLinksInterface[] = getDevicesMenu();
 
   // if ( !AllMenusWasResponsedFromAPI ) {
   //   return (
@@ -150,7 +137,7 @@ export const Main: React.SFC<MainProps> = (props) => {
   /**
    * Покажет компонент после загрузки меню устройств 
    * (грузится последним) 
-   */  
+   */
   const {
     UserMenuItemsCollection,
     DroppedMenuButtonClickedId,
@@ -180,7 +167,7 @@ export const Main: React.SFC<MainProps> = (props) => {
     ];
     let key: boolean = false;
     items.forEach((e) => {
-      if ( e === to ) {
+      if (e === to) {
         key = true;
       }
     });
@@ -194,7 +181,7 @@ export const Main: React.SFC<MainProps> = (props) => {
    * @return {void}
    */
   const pageHeaderExitLinkHandler = (): void => {
-    const payload: LogOunInterface = {
+    const payload: LogOutInterface = {
       step: 'exit',
     };
     sendLogOutToAPI(payload);
@@ -217,17 +204,17 @@ export const Main: React.SFC<MainProps> = (props) => {
    * @param {React.MouseEvent<T>} e
    * @return {void}
    */
-  type MouseEventGenericType = 
+  type MouseEventGenericType =
     | HTMLLIElement
     | HTMLUListElement
     | HTMLAnchorElement;
 
   const PageMenuItemActiveHandler =
-  ( e: React.MouseEvent<MouseEventGenericType> ): void => {
-    const current: string = 
-      String(e.currentTarget.getAttribute('data-item-id'));
-    switchPageMenuItemActive(current);
-  };
+    (e: React.MouseEvent<MouseEventGenericType>): void => {
+      const current: string =
+        String(e.currentTarget.getAttribute('data-item-id'));
+      switchPageMenuItemActive(current);
+    };
 
   /**
    * Отправляет в Store идентификатор активного составного элемента
@@ -236,15 +223,15 @@ export const Main: React.SFC<MainProps> = (props) => {
    * @return {void}
    */
   const PageMenuItemMultiActiveHandler =
-  ( e: React.MouseEvent<MouseEventGenericType> ): void => {
-    const current: string = 
-      String(e.currentTarget.getAttribute('data-item-id'));
-    if ( PageMenuItemMultiActive === current ) {
-      switchPageMenuItemMultiActive('');
-    } else {
-      switchPageMenuItemMultiActive(current);
-    }
-  };
+    (e: React.MouseEvent<MouseEventGenericType>): void => {
+      const current: string =
+        String(e.currentTarget.getAttribute('data-item-id'));
+      if (PageMenuItemMultiActive === current) {
+        switchPageMenuItemMultiActive('');
+      } else {
+        switchPageMenuItemMultiActive(current);
+      }
+    };
 
   /**
    * Возвращает стиль активного меню для NavLink. Необходим для показа
@@ -253,7 +240,7 @@ export const Main: React.SFC<MainProps> = (props) => {
    * @return {Object}
    */
   const PageMenuItemActiveStyle = (): object => {
-    if ( PageMenuItemActive !== '') 
+    if (PageMenuItemActive !== '')
       return {};
     return {
       color: '#fff',
@@ -270,7 +257,7 @@ export const Main: React.SFC<MainProps> = (props) => {
    * @return {Array}
    */
   const getSubMenu = (to: string): Array<any> => {
-    switch ( to ) {
+    switch (to) {
       case 'devices': return devicesMenu;
       default: return [];
     }
@@ -282,8 +269,8 @@ export const Main: React.SFC<MainProps> = (props) => {
    * @param {string} to
    * @return {string}
    */
-  const getSubMenuTitle = ( to: string ): string => {
-    switch ( to ) {
+  const getSubMenuTitle = (to: string): string => {
+    switch (to) {
       case 'devices': return 'Все устройства';
       case 'dashboards': return 'Все дашборды';
       default: return '';
@@ -296,8 +283,8 @@ export const Main: React.SFC<MainProps> = (props) => {
    * @param {string} to
    * @return {string}
    */
-  const getSubMenuIndex = ( to: string ): string => {
-    switch ( to ) {
+  const getSubMenuIndex = (to: string): string => {
+    switch (to) {
       case 'devices': return '4';
       case 'dashboards': return '5';
       default: return '4'
@@ -319,8 +306,8 @@ export const Main: React.SFC<MainProps> = (props) => {
         <PageLogoWrapper>
           <PageLogo>
             <UserMenuAnchor
-              /* Кнопка вызова меню пользователя */ 
-              onClick={(e) => 
+              /* Кнопка вызова меню пользователя */
+              onClick={(e) =>
                 DroppedMenu(
                   e,
                   DroppedMenuButtonClickedId,
@@ -330,8 +317,8 @@ export const Main: React.SFC<MainProps> = (props) => {
               data-button-id={'00'}
               isClicked={DroppedMenuButtonClickedId === '00'}
             >
-              { UserMenuItemsCollection.user[0].login }
-            </UserMenuAnchor>              
+              {UserMenuItemsCollection.user[0].login}
+            </UserMenuAnchor>
             <UserMenuLayout
               /* Меню пользователя */
               isClicked={DroppedMenuButtonClickedId === '00'}
@@ -345,7 +332,7 @@ export const Main: React.SFC<MainProps> = (props) => {
                       ? pageHeaderExitLinkHandler : undefined
                     }
                   >
-                    { e.value }
+                    {e.value}
                   </UserMenuLink>
                 </UserMenuItem>
               ))}
@@ -354,106 +341,106 @@ export const Main: React.SFC<MainProps> = (props) => {
         </PageLogoWrapper>
         <PageMenuLayout>
           {mainMenu.map((e, i) => {
-              /**
-               * Построение основного меню страницы на основе коллекции 
-               * элементов основного меню.
-               */
-              if ( isMultiplePageMenuItem(e.to) ) {
-                /* Пункт меню содержит подменю */
-                
-                /* Получение коллекции элементов подменю */
-                const subMenu: MainMenuLinksInterface[] = getSubMenu(e.to);
-                /* Вычисление высоты подменю для плавного выпадания */
-                const subMenuHeight: string = 
-                  ( subMenu.length !== 0 )
-                    ? String(subMenu.length * 32 + 42) : '42';
-                return (
-                  <PageMenuItem
-                    key={i}
+            /**
+             * Построение основного меню страницы на основе коллекции 
+             * элементов основного меню.
+             */
+            if (isMultiplePageMenuItem(e.to)) {
+              /* Пункт меню содержит подменю */
+
+              /* Получение коллекции элементов подменю */
+              const subMenu: MainMenuLinksInterface[] = getSubMenu(e.to);
+              /* Вычисление высоты подменю для плавного выпадания */
+              const subMenuHeight: string =
+                (subMenu.length !== 0)
+                  ? String(subMenu.length * 32 + 42) : '42';
+              return (
+                <PageMenuItem
+                  key={i}
+                  isActive={PageMenuItemMultiActive === '3' + i}
+                >
+                  {/* Пункт основного меню */}
+                  <PageMenuItemAnchor
+                    icon={e.icon}
+                    data-item-id={'3' + i}
+                    onClick={PageMenuItemMultiActiveHandler}
                     isActive={PageMenuItemMultiActive === '3' + i}
                   >
-                    {/* Пункт основного меню */}
-                    <PageMenuItemAnchor
-                      icon={e.icon}
-                      data-item-id={'3' + i}
-                      onClick={PageMenuItemMultiActiveHandler}
-                      isActive={PageMenuItemMultiActive === '3' + i}
-                    >
-                      {e.value}
-                    </PageMenuItemAnchor>
-                    {/* Подменю */}
-                    <PageSubMenuLayout
-                      isActive={PageMenuItemMultiActive === '3' + i}
-                      subMenuHeight={subMenuHeight}
-                    >
-                      <PageSubMenuCloseAnchor
-                        isActive={PageMenuItemMultiActive === '3' + i}
-                        onClick={PageMenuItemMultiActiveHandler}
-                      />
-                      {/* Пункт подменю, не входящий в коллекцию */}
-                      <PageSubMenuItem
-                        key={i}
-                        onClick={PageMenuItemActiveHandler}
-                        data-item-id={getSubMenuIndex(e.to) + '0'}
-                        isActive={
-                          PageMenuItemActive === getSubMenuIndex(e.to) + '0'
-                        }
-                      >
-                        <PageSubMenuAnchor
-                          to={'/' + e.to}
-                          title={getSubMenuTitle(e.to)}
-                          activeStyle={{
-                            color: '#fff',
-                          }}
-                          icon={'f069'}
-                        >{getSubMenuTitle(e.to)}</PageSubMenuAnchor>
-                      </PageSubMenuItem>
-                      {
-                        subMenu.map((e, i) => {
-                          /* Пункты подменю из коллекции */
-                          return (
-                            <PageSubMenuItem
-                              key={i}
-                              onClick={PageMenuItemActiveHandler}
-                              data-item-id={'4' + (i + 1)}
-                              isActive={
-                                PageMenuItemActive === getSubMenuIndex(e.to) + (i + 1)
-                              }
-                            >
-                              <PageSubMenuAnchor
-                                to={'/' + e.to}
-                                title={e.value}
-                                activeStyle={{
-                                  color: '#fff',
-                                }}
-                                icon={e.icon}
-                              >{e.value}</PageSubMenuAnchor>
-                            </PageSubMenuItem>
-                          );
-                        })
-                      }
-                    </PageSubMenuLayout>
-                  </PageMenuItem>
-                );
-              } else {
-                /* Простой пункт основного меню */
-                return (
-                  <PageMenuItem
-                    key={i}
-                    isActive={PageMenuItemActive === '3' + i}
+                    {e.value}
+                  </PageMenuItemAnchor>
+                  {/* Подменю */}
+                  <PageSubMenuLayout
+                    isActive={PageMenuItemMultiActive === '3' + i}
+                    subMenuHeight={subMenuHeight}
                   >
-                    <PageMenuItemLink
+                    <PageSubMenuCloseAnchor
+                      isActive={PageMenuItemMultiActive === '3' + i}
+                      onClick={PageMenuItemMultiActiveHandler}
+                    />
+                    {/* Пункт подменю, не входящий в коллекцию */}
+                    <PageSubMenuItem
+                      key={i}
                       onClick={PageMenuItemActiveHandler}
-                      data-item-id={'3' + i}
-                      icon={e.icon}
-                      to={'/' + e.to}
-                      activeStyle={PageMenuItemActiveStyle()}
-                      title={e.value}
-                    >{e.value}</PageMenuItemLink>
-                  </PageMenuItem>
-                );                  
-              }
-            })
+                      data-item-id={getSubMenuIndex(e.to) + '0'}
+                      isActive={
+                        PageMenuItemActive === getSubMenuIndex(e.to) + '0'
+                      }
+                    >
+                      <PageSubMenuAnchor
+                        to={'/' + e.to}
+                        title={getSubMenuTitle(e.to)}
+                        activeStyle={{
+                          color: '#fff',
+                        }}
+                        icon={'f069'}
+                      >{getSubMenuTitle(e.to)}</PageSubMenuAnchor>
+                    </PageSubMenuItem>
+                    {
+                      subMenu.map((e, i) => {
+                        /* Пункты подменю из коллекции */
+                        return (
+                          <PageSubMenuItem
+                            key={i}
+                            onClick={PageMenuItemActiveHandler}
+                            data-item-id={'4' + (i + 1)}
+                            isActive={
+                              PageMenuItemActive === getSubMenuIndex(e.to) + (i + 1)
+                            }
+                          >
+                            <PageSubMenuAnchor
+                              to={'/' + e.to}
+                              title={e.value}
+                              activeStyle={{
+                                color: '#fff',
+                              }}
+                              icon={e.icon}
+                            >{e.value}</PageSubMenuAnchor>
+                          </PageSubMenuItem>
+                        );
+                      })
+                    }
+                  </PageSubMenuLayout>
+                </PageMenuItem>
+              );
+            } else {
+              /* Простой пункт основного меню */
+              return (
+                <PageMenuItem
+                  key={i}
+                  isActive={PageMenuItemActive === '3' + i}
+                >
+                  <PageMenuItemLink
+                    onClick={PageMenuItemActiveHandler}
+                    data-item-id={'3' + i}
+                    icon={e.icon}
+                    to={'/' + e.to}
+                    activeStyle={PageMenuItemActiveStyle()}
+                    title={e.value}
+                  >{e.value}</PageMenuItemLink>
+                </PageMenuItem>
+              );
+            }
+          })
           }
         </PageMenuLayout>
       </PageMenu>
@@ -466,43 +453,38 @@ export const Main: React.SFC<MainProps> = (props) => {
             >
               {'Выход'}
             </PageHeaderExitLink>
-          </PageHeaderExitWrapper>              
+          </PageHeaderExitWrapper>
         </PageHeader>
         <PageContent>
           <Switch>
             <Route
               exact path="/overview"
               render={() => {
+                // <OverviewConnected />
                 return (
-                  <OverviewConnected />
+                  null
                 );
-              }} 
+              }}
             />
             <Route
               exact path={'/devices'}
-              render={()=> (
-                <DevicesConnected />
-              )} 
+              // <DevicesConnected />
+              render={() => (
+                null
+              )}
             />
             {devicesMenu.map((e, i) => {
               return (
-                <Route 
+                <Route
                   key={i}
                   exact path={'/' + e.to}
+                  // <DashboardConnected id={e.to} />
                   render={() => (
-                    <DashboardConnected id={e.to} />
+                    null
                   )}
                 />
               );
             })}
-            <Route exact path={'/'} render={() => (
-                /**
-                 * При обращении к строго корню сайта, запрос 
-                 * перенаправляется на /overview 
-                 */
-                <Redirect to={'/overview'} />
-              )}
-            />
           </Switch>
         </PageContent>
       </PageWrapper>
@@ -514,3 +496,11 @@ export const Main: React.SFC<MainProps> = (props) => {
     </PageLayout>
   );
 };
+                // <Route exact path={'/'} render={() => (
+                //   /**
+                //    * При обращении к строго корню сайта, запрос 
+                //    * перенаправляется на /overview 
+                //    */
+                //   <Redirect to={'/overview'} />
+                // )}
+                // />

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
-import { CircularSpinner } from '@src/styled';
+import { CircularSpinner } from './';
 
 interface SpinnerProps extends RouteComponentProps<void> {
   width: number,

@@ -3,12 +3,15 @@
  * остальными компонентами.
  */
 import * as React from 'react';
+
 import {
   Route,
   Switch,
   Redirect,
   RouteComponentProps,
 } from 'react-router-dom';
+
+
 
 import {
   MainMenuLinksInterface,
@@ -57,7 +60,7 @@ import OverviewConnected from '@src/usage/OverviewUsage';
 interface MainProps extends RouteComponentProps<void> {
   /* Ключ, указывающий, что основное меню было запрошено с бэкэнда */
   MainMenuWasRequestedFromAPI: boolean,
-  AllMenusWasResponsedFromAPI: boolean,
+  // AllMenusWasResponsedFromAPI: boolean,
   /* Коллекция элементов основного меню */
   MainMenuItemsCollection: MainMenuLinksInterface[],
   /* Коллекция элементов пользовательского меню */
@@ -68,7 +71,7 @@ interface MainProps extends RouteComponentProps<void> {
   DevicesMenuItemsCollection: MainMenuLinksInterface[],
   /* Запускает в actions метод запроса основного меню с бэкэнда */
   makeMainMenuRequestToAPI: () => any,
-  /* Запускает в actions метод запросаменю устройств с бэкэнда */
+  /* Запускает в actions метод запроса меню устройств с бэкэнда */
   makeDevicesMenuRequestToAPI: () => any,
   /* Идентификатор активированного выпадающего списка */
   DroppedMenuButtonClickedId: DroppedMenuButtonClickedType,
@@ -92,9 +95,9 @@ interface MainProps extends RouteComponentProps<void> {
 }
 
 export const Main: React.SFC<MainProps> = (props) => {
+  // AllMenusWasResponsedFromAPI,
   const {
     MainMenuWasRequestedFromAPI,
-    AllMenusWasResponsedFromAPI,
     MainMenuItemsCollection,
     makeMainMenuRequestToAPI,
     DevicesMenuWasRequestedFromAPI,
@@ -137,15 +140,15 @@ export const Main: React.SFC<MainProps> = (props) => {
   /* Получает и хранит коллекцию элементов меню устройств */
   const devicesMenu: MainMenuLinksInterface[] = getDevicesMenu(); 
 
-  if ( !AllMenusWasResponsedFromAPI ) {
-    // return (
-    //   <Spinner
-    //     width={3}
-    //     color={'#2f4050'}
-    //     bgColor={'#f3f3f4'}
-    //   />
-    // );
-  }
+  // if ( !AllMenusWasResponsedFromAPI ) {
+  //   return (
+  //     <Spinner
+  //       width={3}
+  //       color={'#2f4050'}
+  //       bgColor={'#f3f3f4'}
+  //     />
+  //   );
+  // }
 
   /**
    * Покажет компонент после загрузки меню устройств 

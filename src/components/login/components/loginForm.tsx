@@ -2,9 +2,10 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
 import Input from '@src/components/input';
-import { IInputAtributes, ILoginRequestPayload } from '@src/core/interfaces';
+import Submit from '@src/components/submit';
+import { IInputAtributes, ILoginRequestPayload, ISubmitParams } from '@src/core/interfaces';
 
-import { FormHeader, FormSubmit } from '@src/core/styled';
+import { FormHeader } from '@src/core/styled';
 
 const loginInputCollection: IInputAtributes[] = [
   {
@@ -21,17 +22,34 @@ const loginInputCollection: IInputAtributes[] = [
   },
 ];
 
+let params: ISubmitParams = {
+  value: 'Вход',
+  formName: 'login',
+  validationRules: {
+    login: {
+      method: '',
+      condition: '',
+    },
+    password: {
+      method: '',
+      condition: '',
+    }
+  }
+};
+
 interface LoginFormProps extends RouteComponentProps<void> {
   sendUserCredentialToAPI: (payload: ILoginRequestPayload) => any,
 }
 
 export const LoginForm: React.SFC<LoginFormProps> = (props) => {
-  const { /* sendUserCredentialToAPI */ } = props;
+  const { sendUserCredentialToAPI } = props;
 
-  console.log('[login].loginForm');
-
-  const submitHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const sendDataToAPI = (formItems: any) => {
+    const payload: ILoginRequestPayload = {
+      login: formItems.login.value,
+      password: formItems.password.value,
+    }
+    sendUserCredentialToAPI(payload);
   }
 
   return (
@@ -39,7 +57,7 @@ export const LoginForm: React.SFC<LoginFormProps> = (props) => {
       <FormHeader color={'grey'}>{'Введите учетные данные'}</FormHeader>
       <form action="">
         {loginInputCollection.map((e, i) => <Input key={i} atributes={e} />)}
-        <FormSubmit onClick={submitHandler}>{'Вход'}</FormSubmit>
+        <Submit params={params} callback={sendDataToAPI} />
       </form>
     </div>
   );

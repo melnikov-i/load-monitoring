@@ -19,9 +19,7 @@ interface InputInitializeProps {
 
 export const InputInitialize: React.SFC<InputInitializeProps> = (props) => {
   const { atributes, formsModelItem, createFormsModelItem } = props;
-
-  console.log('[input].inputInitialize');
-
+  
   if (!formsModelItem) {
     createFormsModelItem({
       [atributes.id[0]]: {

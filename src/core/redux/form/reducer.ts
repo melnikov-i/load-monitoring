@@ -6,7 +6,7 @@ import { combineReducers } from 'redux';
 import {
   CREATE_FORMS_MODEL_ITEM,
   CHANGE_INPUT_VALUE,
-  CLEAR_FORMS_MODEL_ITEM,
+  CLEAR_FORMS_MODEL,
   VALIDATE_FORMS_MODEL_ITEM,
 } from './';
 
@@ -44,9 +44,12 @@ export const reducer = combineReducers<State>({
           }
         }
         return _change;      
-        case CLEAR_FORMS_MODEL_ITEM: return {};
+        case CLEAR_FORMS_MODEL: return {};
         case VALIDATE_FORMS_MODEL_ITEM:
-          return action.payload;
+          return {
+            ...state,
+            [action.payload.formName]: action.payload.formItems,
+          };
       default: return state;
     }
   },

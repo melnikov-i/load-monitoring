@@ -20,7 +20,8 @@ const fontAwesomeSVG = require('@src/fonts/fontawesome-webfont.svg');
 import Login from '@src/components/login';
 import Registration from '@src/components/registration';
 import Recovery from '@src/components/recovery';
-import MainConnected from '@src/usage/MainUsage';
+import Page from '@src/components/page';
+// import MainConnected from '@src/usage/MainUsage';
 
 /** Глобальные стили */
 injectGlobal`
@@ -61,21 +62,19 @@ injectGlobal`
 `;
 
 interface RouterProps extends RouteComponentProps<void> {
-  // isAuthorized: boolean,
+  isAuthorized: boolean,
 }
 
 export const Router: React.SFC<RouterProps> = (props) => {
-  const { /* isAuthorized */ } = props;
+  const { isAuthorized } = props;
 
-  console.log('[router].router');
-
-  const isAuthorized: boolean = false;
+  console.log('[router].isAuthorized:', isAuthorized);
 
   return (
     <Switch>
       {/** Страницы, доступ на которые возможен после проверки авторизации */}
       <Route exact path={'/login'} render={() => !isAuthorized ? <Login /> : <Redirect to={'/'} />} />
-      <Route exact path={'/'} render={() => isAuthorized ? <MainConnected /> : <Redirect to={'/login'} />} />
+      <Route exact path={'/'} render={() => isAuthorized ? <Page /> : <Redirect to={'/login'} />} />
       {/** Страницы, доступ на которые открыт */}
       <Route exact path={'/registration'} render={() => <Registration />} />
       <Route exact path={'/recovery'} render={() => <Recovery />} />

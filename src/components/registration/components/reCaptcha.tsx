@@ -15,9 +15,7 @@ interface ReCaptchaProps {
 
 export const ReCaptcha: React.SFC<ReCaptchaProps> = (props) => {
   const { updateReCaptchaValue, validation, } = props;
-
-  console.log('[registration].reCaptcha');
-
+  
   const handlerVerifyByReCaptcha = (response: string) => {
     updateReCaptchaValue(response);
   };

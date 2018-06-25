@@ -17,9 +17,7 @@ interface RecoveryProps extends RouteComponentProps<void> {}
 
 export const Recovery: React.SFC<RecoveryProps> = (props) => {
   const {} = props;
-
-  console.log('[recovery].recovery');
-
+  
   return (
     <FormPageLayout>
       <FormPage>

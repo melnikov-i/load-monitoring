@@ -5,7 +5,7 @@ import { FORM_PAGE_FONT_SIZE, colors } from '@src/core/styled';
 /**
  * Кнопка отправки формы
  */
-export const FormSubmit = styled.button`
+export const SubmitButton = styled.button`
   width: 100%;
   padding: 6px 12px;
   border: 1px solid transparent;

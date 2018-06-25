@@ -6,7 +6,7 @@ import {
   UPDATE_RECAPTCHA_VALUE,
   CHANGE_REGISTRATION_VIEW,
   CHANGE_CHECKBOX_VALIDATION,
-  CLEAR_FORM_DATA,
+  // CLEAR_FORM_DATA,
   CHANGE_RECAPTCHA_VALIDATION,
 } from './';
 
@@ -48,8 +48,8 @@ export const reducer = combineReducers<State>({
       /** значение валидации чекбокса */
       case CHANGE_CHECKBOX_VALIDATION:
         return action.payload;
-      case CLEAR_FORM_DATA:
-        return _checkboxDynamic;
+      // case CLEAR_FORM_DATA:
+      //   return _checkboxDynamic;
       default: return state;
     }
   },
@@ -63,8 +63,8 @@ export const reducer = combineReducers<State>({
         };
       case CHANGE_RECAPTCHA_VALIDATION:
         return action.payload;
-      case CLEAR_FORM_DATA:
-        return _reCaptchaDynamic;
+      // case CLEAR_FORM_DATA:
+      //   return _reCaptchaDynamic;
       default: return state;
     }
   },
@@ -73,8 +73,8 @@ export const reducer = combineReducers<State>({
   registrationView: (state = 'form', action) => {
     switch (action.type) {
       case CHANGE_REGISTRATION_VIEW: return action.payload;
-      case CLEAR_FORM_DATA:
-        return 'form';
+      // case CLEAR_FORM_DATA:
+      //   return 'form';
       default: return state;
     }
   },

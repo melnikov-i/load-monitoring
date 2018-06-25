@@ -5,9 +5,10 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
 import Input from '@src/components/input';
-import { IInputAtributes } from '@src/core/interfaces';
+import Submit from '@src/components/submit';
+import { IInputAtributes, ISubmitParams } from '@src/core/interfaces';
 
-import { FormHeader, FormSubmit } from '@src/core/styled';
+import { FormHeader } from '@src/core/styled';
 
 import {
   GreenCheckboxConnected as GreenCheckbox,
@@ -36,12 +37,42 @@ const formInputItemsCollection: IInputAtributes[] = [
   },
 ];
 
-interface RegistrationFormProps extends RouteComponentProps<void> {}
+const params: ISubmitParams = {
+  value: 'Регистрация',
+  formName: 'registration',
+  validationRules: {
+    email: {
+      method: 'test',
+      condition: /.+@.+\..+/i,
+    },
+    password: {
+      method: 'compare',
+      condition: 'confirm',
+    },
+    confirm: {
+      method: 'compare',
+      condition: 'password',
+    }
+  }
+}
 
-export const RegistrationForm: React.SFC<RegistrationFormProps> = () => {
 
-  console.log('[registration].registrationForm');
+interface RegistrationFormProps extends RouteComponentProps<void> {
+  sendRegistrationToAPI: (payload: any) => any,
+}
 
+export const RegistrationForm: React.SFC<RegistrationFormProps> = (props) => {
+  const { /* sendRegistrationToAPI */ } = props;
+  
+  const sendDataToAPI = (formItems: any) => {
+    console.log('registration:', formItems);
+    // sendRegistrationToAPI({
+      // state: 'register',
+      // email: formItems.email.value,
+      // password: formItems.password.value,
+      // ['g-recaptcha-response']: reCaptchaDynamic.value,
+    // });
+  }
   return (
     <div>
       <FormHeader color={'grey'}>{'Регистрация'}</FormHeader>
@@ -49,8 +80,10 @@ export const RegistrationForm: React.SFC<RegistrationFormProps> = () => {
         {formInputItemsCollection.map((e, i) => <Input key={i} atributes={e} />)}
         <ReCaptcha />
         <GreenCheckbox />
-        <FormSubmit>{'Регистрация'}</FormSubmit>
+        <Submit params={params} callback={sendDataToAPI} />
       </form>
     </div>
   );
 };
+
+{/* <FormSubmit>{'Регистрация'}</FormSubmit> */}
