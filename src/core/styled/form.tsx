@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 import {
   FORM_LAYOUT_WIDTH,
   FORM_PAGE_FONT_SIZE,
-  FORM_SPINNER_LAYOUT_HEIGHT,
   emergence2,
   colors,
 } from './';
@@ -96,37 +95,4 @@ export const FormHeader = styled.h4`
 
 export const FormSmallHeader = FormHeader.extend`
   font-size: 10px;
-`;
-
-/**
- * Кнопка отправки формы
- */
-// export const FormSubmit = styled.button`
-//   width: 100%;
-//   padding: 6px 12px;
-//   border: 1px solid transparent;
-//   border-radius: 3px;
-//   font-size: ${FORM_PAGE_FONT_SIZE};
-//   font-weight: 400;
-//   touch-action: manipulation;
-//   cursor: pointer;
-//   color: #fff;
-//   background-color: ${colors.lightGreen};
-//   text-align: center;
-//   white-space: nowrap;
-//   user-select: none;
-//   margin-bottom: 10px;
-//   &:hover {
-//     background-color: ${colors.green};
-//   }
-// `;
-
-/**
- * Контейнер, в который помещается спиннер
- * @return {React.Component}
- */
-export const FormSpinnerLayout = styled.div`
-  width: 100%;
-  height: ${FORM_SPINNER_LAYOUT_HEIGHT};
-  position: relative;
 `;

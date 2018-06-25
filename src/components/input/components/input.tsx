@@ -19,7 +19,14 @@ export const Input: React.SFC<InputProps> = (props) => {
 
   const changeValueHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    changeInputValue({ [id[0]]: { [id[1]]: { value: e.currentTarget.value } } });
+    changeInputValue({ 
+      [id[0]]: {
+        [id[1]]: {
+          value: e.currentTarget.value,
+          validation: validation 
+        }
+      }
+    });
   }
   
   return (

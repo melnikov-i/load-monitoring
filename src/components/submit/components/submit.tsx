@@ -43,6 +43,15 @@ export const Submit: React.SFC<SubmitProps> = (props) => {
             const isCompareValid: boolean = doCompare();
             isValid = (isCompareValid) ? isValid : isCompareValid;
             break;
+
+            case 'match':
+            const doMatch = (): boolean => {
+              if (formsModelPart[field].value === validationRules[field].condition)
+                return false;
+              return true;
+            }
+            const isMatch: boolean = doMatch();
+            isValid = (isMatch) ? isValid : isMatch;
         }
         formItems = {
           ...formItems,

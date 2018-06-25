@@ -1,21 +1,24 @@
 /**
- * Компонент содержит каркас формы и подключает дочерние элементы формы 
+ * RegistrationForm -- это компонент, который содержит в себе элементы формы
+ * регистрации нового пользователя. Также в нем сосредоточены параметры элементов
+ * форм.
  */
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
 import Input from '@src/components/input';
 import Submit from '@src/components/submit';
+import ReCaptcha from '@src/components/reCaptcha';
 import { IInputAtributes, ISubmitParams } from '@src/core/interfaces';
 
 import { FormHeader } from '@src/core/styled';
 
 import {
   GreenCheckboxConnected as GreenCheckbox,
-  ReCaptchaConnected as ReCaptcha,
+  // ReCaptchaConnected as ReCaptcha,
 } from '../connected';
 
-/** Статический котнекст формы */
+/** параметры полей ввода информации */
 const formInputItemsCollection: IInputAtributes[] = [
   {
     id: ['registration', 'email'],
@@ -37,6 +40,7 @@ const formInputItemsCollection: IInputAtributes[] = [
   },
 ];
 
+/** параметры проверки введенной в поля ввода информации */
 const params: ISubmitParams = {
   value: 'Регистрация',
   formName: 'registration',
@@ -52,6 +56,10 @@ const params: ISubmitParams = {
     confirm: {
       method: 'compare',
       condition: 'password',
+    },
+    reCaptcha: {
+      method: 'match',
+      condition: ''
     }
   }
 }

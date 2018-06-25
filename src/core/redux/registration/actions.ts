@@ -113,7 +113,7 @@ export const asyncActionCreators = {
   sendRegistrationToAPI:
     (payload: RegistrationRequest) => {
       return async (dispatch: Dispatch) => {
-        dispatch(syncActionCreators.changeRegistrationView('waiting'));
+        dispatch(syncActionCreators.changeRegistrationView('pending'));
         // dispatch(syncActionCreators.clearFormData());
         try {
           const { data } = await sendRequestToAPI.post('/reg.php', payload);
