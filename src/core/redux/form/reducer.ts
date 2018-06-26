@@ -26,7 +26,6 @@ export const reducer = combineReducers<State>({
               {}, state[parent], action.payload[parent])
             };
         }
-        console.log('CREATE_FORMS_MODEL_ITEM:', _state);
         return _state;
       case CHANGE_INPUT_VALUE:
         let _change;

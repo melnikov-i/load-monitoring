@@ -17,14 +17,7 @@ export const ReCaptcha: React.SFC<ReCaptchaProps> = (props) => {
   const { changeInputValue, items: {validation} } = props;
 
   const handlerVerifyByReCaptcha = (response: string) => {
-    changeInputValue({
-      registration: {
-        reCaptcha: {
-          value: response,
-          validation: validation
-        }
-      }
-    });
+    changeInputValue({ registration: { reCaptcha: { value: response }}});
   };
 
   return (

@@ -10,45 +10,45 @@ import {
 
 import { ICheckboxDynamic } from '@src/core/interfaces';
 
-interface GreenCheckboxProps extends RouteComponentProps<void> {
+interface CheckboxProps extends RouteComponentProps<void> {
   checkboxDynamic: ICheckboxDynamic,
   /** Отправляет в store изменение значения чекбокса по нажатию пользователя */
-  switchAgreementValue: () => any,
+  changeCheckboxValue: () => any,
   /** Меняет значение фокуса псевдочекбокса при фокусе на оригинальном чекбоксе */
-  switchFocusedValue: () => any,
+  changeCheckboxFocused: () => any,
 }
 
-export const GreenCheckbox: React.SFC<GreenCheckboxProps> = (props) => {
+export const Checkbox: React.SFC<CheckboxProps> = (props) => {
   const {
-    checkboxDynamic: {value, validation, isFocused},
-    switchAgreementValue,
-    switchFocusedValue,
+    checkboxDynamic: { value, validation, isFocused },
+    changeCheckboxValue,
+    changeCheckboxFocused,
   } = props;
-  
+
   const handleSelection = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    switchAgreementValue();
+    changeCheckboxValue();
   };
 
   const handleFocusAndBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     e.preventDefault();
-    switchFocusedValue();
+    changeCheckboxFocused();
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     e.preventDefault();
     if (e.keyCode === 32) {
-      switchAgreementValue();
+      changeCheckboxValue();
     }
     if (e.keyCode === 9) {
-      const next: any = document.getElementById('registrationButton');
+      const next: any = document.getElementById('submit');
       next.focus();
     }
   }
 
   return (
     <RegistrationCheckboxWrapper
-      validation={validation}    
+      validation={validation}
       hint={'Необходимо принять пользовательское соглашение'}
     >
       <label htmlFor="">
@@ -68,6 +68,6 @@ export const GreenCheckbox: React.SFC<GreenCheckboxProps> = (props) => {
       <RegistrationLink
         to={'/registration/agreement'}
       >{'пользовательское соглашение'}</RegistrationLink>
-  </RegistrationCheckboxWrapper>
+    </RegistrationCheckboxWrapper>
   );
 };

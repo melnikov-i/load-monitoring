@@ -9,14 +9,10 @@ import { RouteComponentProps } from 'react-router-dom';
 import Input from '@src/components/input';
 import Submit from '@src/components/submit';
 import ReCaptcha from '@src/components/reCaptcha';
+import Checkbox from '@src/components/checkbox';
 import { IInputAtributes, ISubmitParams } from '@src/core/interfaces';
 
 import { FormHeader } from '@src/core/styled';
-
-import {
-  GreenCheckboxConnected as GreenCheckbox,
-  // ReCaptchaConnected as ReCaptcha,
-} from '../connected';
 
 /** параметры полей ввода информации */
 const formInputItemsCollection: IInputAtributes[] = [
@@ -73,7 +69,7 @@ export const RegistrationForm: React.SFC<RegistrationFormProps> = (props) => {
   const { /* sendRegistrationToAPI */ } = props;
   
   const sendDataToAPI = (formItems: any) => {
-    console.log('registration:', formItems);
+    console.log('REGISTRATION:', formItems);
     // sendRegistrationToAPI({
       // state: 'register',
       // email: formItems.email.value,
@@ -87,7 +83,7 @@ export const RegistrationForm: React.SFC<RegistrationFormProps> = (props) => {
       <form action="">
         {formInputItemsCollection.map((e, i) => <Input key={i} atributes={e} />)}
         <ReCaptcha />
-        <GreenCheckbox />
+        <Checkbox />
         <Submit params={params} callback={sendDataToAPI} />
       </form>
     </div>

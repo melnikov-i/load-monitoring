@@ -30,5 +30,4 @@ export const ReCaptchaInitialize: React.SFC<ReCaptchaInitializeProps> = (props) 
   } else {
     return <ReCaptcha items={formsModelReCaptcha} />;
   }
-
 };

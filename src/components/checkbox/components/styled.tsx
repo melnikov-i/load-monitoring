@@ -1,11 +1,9 @@
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
 
-/** ReCaptcha */
+const Checkboxes = require('@src/images/checkboxes');
 
 /**
- * Оборачивает рекапчу для позиционирования и показа 
- * вспомогательных сообщений (подсказок)
+ * Обертка для чекбока. Служит каркасом для дочерних элементов
  * @returns {React.Component}
  */
 type TRegistrationCheckbox = {
@@ -13,7 +11,7 @@ type TRegistrationCheckbox = {
   validation: string,
 };
 
-export const RecaptchaWrapper = styled.div`
+export const RegistrationCheckboxWrapper = styled.div`
   position: relative;
   text-align: center;
   margin-bottom: 15px;
@@ -35,17 +33,6 @@ export const RecaptchaWrapper = styled.div`
     width: 250px;
   }
 `;
-
-/** GreenCheckbox */
-
-/** Шаблон для стиля чекбокса */
-const Checkboxes = require('@src/images/checkboxes');
-
-/**
- * Обертка для чекбока. Служит каркасом для дочерних элементов
- * @returns {React.Component}
- */
-export const RegistrationCheckboxWrapper = RecaptchaWrapper.extend``;
 
 /**
  * Зеленый скрытый оригинальный чекбокс

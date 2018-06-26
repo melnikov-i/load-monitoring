@@ -3,27 +3,27 @@ import { connect, MapStateToPropsParam, MapDispatchToPropsParam } from 'react-re
 import { createStructuredSelector } from 'reselect';
 import { Dispatch, RootState } from '@src/core/redux';
 
-import { ReCaptchaInitialize } from '../components';
+import { CheckboxInitialize } from '../components';
 import { IFormsModelItem } from '@src/core/interfaces';
 import { syncActionCreators } from '@src/core/redux/form';
 
 interface StateProps {
-  formsModelReCaptcha: IFormsModelItem,
+  formsModelCheckbox: IFormsModelItem,
 }
 
 interface DispatchProps {
   createFormsModelItem: (payload: any) => any,
 }
 
-interface OwnProps {}
+interface OwnProps { }
 
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
   createStructuredSelector<RootState, StateProps>({
-    formsModelReCaptcha: (state: RootState) => {
+    formsModelCheckbox: (state: RootState) => {
       if ('registration' in state.form.formsModel) {
-        if ('reCaptcha' in state.form.formsModel['registration']) {
-          return state.form.formsModel['registration']['reCaptcha'];
+        if ('checkbox' in state.form.formsModel['registration']) {
+          return state.form.formsModel['registration']['checkbox'];
         }
       }
     },
@@ -34,6 +34,6 @@ const mapDispatchToProps:
     createFormsModelItem: syncActionCreators.createFormsModelItem,
   }, dispatch);
 
-export const ReCaptchaInitializeConnected =
+export const CheckboxInitializeConnected =
   connect<StateProps, DispatchProps, OwnProps, RootState>(
-    mapStateToProps, mapDispatchToProps)(ReCaptchaInitialize);
+    mapStateToProps, mapDispatchToProps)(CheckboxInitialize);

@@ -22,6 +22,7 @@ export const Submit: React.SFC<SubmitProps> = (props) => {
 
     let formItems: any = {};
     let isValid: boolean = true;
+    let isFieldValid: boolean = true;
     
     for (let field in formsModelPart) {
       if (field in validationRules) {
@@ -29,9 +30,10 @@ export const Submit: React.SFC<SubmitProps> = (props) => {
           case 'test':
             const isTestValid: boolean = validationRules[field].condition.test(formsModelPart[field].value);
             isValid = (isTestValid) ? isValid : isTestValid;
+            isFieldValid = (isTestValid) ? true : false;
             break;
             
-            case 'compare':
+          case 'compare':
             const doCompare = (): boolean => {
               if (formsModelPart[field].value === '') return false;
               if (formsModelPart[field].value === formsModelPart[validationRules[field].condition].value) {
@@ -42,9 +44,10 @@ export const Submit: React.SFC<SubmitProps> = (props) => {
             }
             const isCompareValid: boolean = doCompare();
             isValid = (isCompareValid) ? isValid : isCompareValid;
+            isFieldValid = (isCompareValid) ? true : false;
             break;
 
-            case 'match':
+          case 'match':
             const doMatch = (): boolean => {
               if (formsModelPart[field].value === validationRules[field].condition)
                 return false;
@@ -52,12 +55,16 @@ export const Submit: React.SFC<SubmitProps> = (props) => {
             }
             const isMatch: boolean = doMatch();
             isValid = (isMatch) ? isValid : isMatch;
+            isFieldValid = (isMatch) ? true : false;
+            console.log('isMatch:', isMatch);
+            console.log('isValid:', isValid);
+            break;
         }
         formItems = {
           ...formItems,
           [field]: {
             value: formsModelPart[field].value,
-            validation: isValid ? 'valid' : 'notValid',
+            validation: isFieldValid ? 'valid' : 'notValid',
           }
         };
       }
@@ -67,11 +74,11 @@ export const Submit: React.SFC<SubmitProps> = (props) => {
       formItems: formItems,
     }
     if (isValid) {
+      console.log('VALID');
       callback(formItems);
-    } else {
-      console.log('formItems:', formItems);
-      validateFormsModelItem(payload);
     }
+    console.log('formItems:', formItems);
+    validateFormsModelItem(payload);
   }
   
   return <SubmitButton onClick={defaultHandler}>{value}</SubmitButton>;
