@@ -1,28 +1,30 @@
 import { bindActionCreators } from 'redux';
 import { connect, MapDispatchToPropsParam } from 'react-redux';
-
+import { withRouter } from 'react-router-dom';
 import { Dispatch, RootState } from '@src/core/redux';
 
 import { Checkbox } from '../components';
 
 import { syncActionCreators } from '@src/core/redux/form';
-import { IFormsModelItem } from '@src/core/interfaces';
+import { IFormModelCheckboxItem } from '@src/core/interfaces';
 
 interface StateProps { }
 
 interface DispatchProps {
-  changeInputValue: (payload: any) => any,
+  changeCheckboxValue: (payload: any) => any,
+  changeCheckboxFocused: (payload: any) => any,
 }
 
 interface OwnProps {
-  items: IFormsModelItem,
+  items: IFormModelCheckboxItem,
 }
 
 const mapDispatchToProps:
   MapDispatchToPropsParam<DispatchProps, OwnProps> = (dispatch: Dispatch) => bindActionCreators({
-    changeInputValue: syncActionCreators.changeInputValue,
+    changeCheckboxValue: syncActionCreators.changeCheckboxValue,
+    changeCheckboxFocused: syncActionCreators.changeCheckboxFocused,
   }, dispatch);
 
-export const CheckboxConnected =
+export const CheckboxConnected = withRouter(
   connect<StateProps, DispatchProps, OwnProps, RootState>(
-    null, mapDispatchToProps)(Checkbox);
+    null, mapDispatchToProps)(Checkbox));

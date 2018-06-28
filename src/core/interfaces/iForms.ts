@@ -4,3 +4,8 @@ export interface IFormsModelItem {
   validation: string,
 }
 
+export interface IFormModelCheckboxItem {
+  value: boolean,
+  isFocused: boolean,
+  validation: string,
+}

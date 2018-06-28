@@ -6,6 +6,8 @@ import { combineReducers } from 'redux';
 import {
   CREATE_FORMS_MODEL_ITEM,
   CHANGE_INPUT_VALUE,
+  CHANGE_CHECKBOX_VALUE,
+  CHANGE_CHECKBOX_FOCUSED,
   CLEAR_FORMS_MODEL,
   VALIDATE_FORMS_MODEL_ITEM,
 } from './';
@@ -43,13 +45,49 @@ export const reducer = combineReducers<State>({
             };
           }
         }
-        return _change;      
-        case CLEAR_FORMS_MODEL: return {};
-        case VALIDATE_FORMS_MODEL_ITEM:
-          return {
-            ...state,
-            [action.payload.formName]: action.payload.formItems,
-          };
+        return _change;   
+      case CHANGE_CHECKBOX_VALUE:
+        let _checkboxValue;
+        for (let parent in action.payload) {
+          for (let field in action.payload[parent]) {
+            _checkboxValue = {
+              ...state,
+              [parent]: {
+                ...state[parent],
+                [field]: {
+                  ...state[parent][field],
+                  value: !state[parent][field].value,
+                }
+              }
+            };
+          }
+        }
+        return _checkboxValue;
+      case CHANGE_CHECKBOX_FOCUSED:
+        let _checkboxFocused;
+        for (let parent in action.payload) {
+          for (let field in action.payload[parent]) {
+            _checkboxFocused = {
+              ...state,
+              [parent]: {
+                ...state[parent],
+                [field]: {
+                  ...state[parent][field],
+                  isFocused: !state[parent][field].isFocused,
+                }
+              }
+            };
+          }
+        }
+        return _checkboxFocused;
+      case CLEAR_FORMS_MODEL: 
+        console.log('CLEAR_FORMS_MODEL');
+        return {};
+      case VALIDATE_FORMS_MODEL_ITEM:
+        return {
+          ...state,
+          [action.payload.formName]: action.payload.formItems,
+        };
       default: return state;
     }
   },

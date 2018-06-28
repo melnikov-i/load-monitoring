@@ -1,28 +1,28 @@
 import * as React from 'react';
-import { IFormsModelItem } from '@src/core/interfaces';
+import { IFormModelCheckboxItem } from '@src/core/interfaces';
 import { CheckboxConnected as Checkbox } from '../connected';
 
-interface ReCaptchaInitializeProps {
-  formsModelReCaptcha: IFormsModelItem,
+interface CheckboxInitializeProps {
+  formsModelCheckbox: IFormModelCheckboxItem,
   createFormsModelItem: (payload: any) => any;
 }
 
-export const ReCaptchaInitialize: React.SFC<ReCaptchaInitializeProps> = (props) => {
-  const { formsModelReCaptcha, createFormsModelItem } = props;
-  console.log('formsModelReCaptcha:', formsModelReCaptcha);
+export const CheckboxInitialize: React.SFC<CheckboxInitializeProps> = (props) => {
+  const { formsModelCheckbox, createFormsModelItem } = props;
+  console.log('formsModelCheckbox:', formsModelCheckbox);
 
-  if (!formsModelReCaptcha) {
+  if (!formsModelCheckbox) {
     createFormsModelItem({
       registration: {
         checkbox: {
           value: false,
-          focused: false,
+          isFocused: false,
           validation: '',
         }
       }
     });
     return null;
   } else {
-    return <Checkbox items={formsModelReCaptcha} />;
+    return <Checkbox items={formsModelCheckbox} />;
   }
 };

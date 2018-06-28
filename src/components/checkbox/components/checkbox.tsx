@@ -8,37 +8,39 @@ import {
   RegistrationLink,
 } from './';
 
-import { ICheckboxDynamic } from '@src/core/interfaces';
+import { IFormModelCheckboxItem } from '@src/core/interfaces';
 
 interface CheckboxProps extends RouteComponentProps<void> {
-  checkboxDynamic: ICheckboxDynamic,
+  items: IFormModelCheckboxItem
   /** Отправляет в store изменение значения чекбокса по нажатию пользователя */
-  changeCheckboxValue: () => any,
+  changeCheckboxValue: (payload: any) => any,
   /** Меняет значение фокуса псевдочекбокса при фокусе на оригинальном чекбоксе */
-  changeCheckboxFocused: () => any,
+  changeCheckboxFocused: (payload: any) => any,
 }
 
 export const Checkbox: React.SFC<CheckboxProps> = (props) => {
   const {
-    checkboxDynamic: { value, validation, isFocused },
+    items: {value, validation, isFocused},
     changeCheckboxValue,
     changeCheckboxFocused,
   } = props;
 
+  const payload: any = { registration: { checkbox: {} } };
+
   const handleSelection = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    changeCheckboxValue();
+    changeCheckboxValue(payload);
   };
 
   const handleFocusAndBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     e.preventDefault();
-    changeCheckboxFocused();
+    changeCheckboxFocused(payload);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     e.preventDefault();
     if (e.keyCode === 32) {
-      changeCheckboxValue();
+      changeCheckboxValue(payload);
     }
     if (e.keyCode === 9) {
       const next: any = document.getElementById('submit');

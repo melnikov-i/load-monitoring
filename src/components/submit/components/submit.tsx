@@ -76,10 +76,11 @@ export const Submit: React.SFC<SubmitProps> = (props) => {
     if (isValid) {
       console.log('VALID');
       callback(formItems);
+    } else {
+      console.log('formItems:', formItems);
+      validateFormsModelItem(payload);
     }
-    console.log('formItems:', formItems);
-    validateFormsModelItem(payload);
   }
   
-  return <SubmitButton onClick={defaultHandler}>{value}</SubmitButton>;
+  return <SubmitButton id={'submit'} onClick={defaultHandler}>{value}</SubmitButton>;
 };

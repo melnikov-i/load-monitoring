@@ -4,18 +4,18 @@ import { createStructuredSelector } from 'reselect';
 import { Dispatch, RootState } from '@src/core/redux';
 
 import { CheckboxInitialize } from '../components';
-import { IFormsModelItem } from '@src/core/interfaces';
+import { IFormModelCheckboxItem, } from '@src/core/interfaces';
 import { syncActionCreators } from '@src/core/redux/form';
 
 interface StateProps {
-  formsModelCheckbox: IFormsModelItem,
+  formsModelCheckbox: IFormModelCheckboxItem,
 }
 
 interface DispatchProps {
   createFormsModelItem: (payload: any) => any,
 }
 
-interface OwnProps { }
+interface OwnProps {}
 
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =

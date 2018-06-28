@@ -56,26 +56,29 @@ const params: ISubmitParams = {
     reCaptcha: {
       method: 'match',
       condition: ''
+    },
+    checkbox: {
+      method: 'match',
+      condition: false,
     }
   }
 }
-
 
 interface RegistrationFormProps extends RouteComponentProps<void> {
   sendRegistrationToAPI: (payload: any) => any,
 }
 
 export const RegistrationForm: React.SFC<RegistrationFormProps> = (props) => {
-  const { /* sendRegistrationToAPI */ } = props;
+  const { sendRegistrationToAPI } = props;
   
   const sendDataToAPI = (formItems: any) => {
     console.log('REGISTRATION:', formItems);
-    // sendRegistrationToAPI({
-      // state: 'register',
-      // email: formItems.email.value,
-      // password: formItems.password.value,
-      // ['g-recaptcha-response']: reCaptchaDynamic.value,
-    // });
+    sendRegistrationToAPI({
+      state: 'register',
+      email: formItems.email.value,
+      password: formItems.password.value,
+      recaptcha: formItems.reCaptcha.value,
+    });
   }
   return (
     <div>
@@ -89,5 +92,3 @@ export const RegistrationForm: React.SFC<RegistrationFormProps> = (props) => {
     </div>
   );
 };
-
-{/* <FormSubmit>{'Регистрация'}</FormSubmit> */}
