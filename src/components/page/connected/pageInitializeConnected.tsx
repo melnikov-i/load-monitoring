@@ -5,14 +5,16 @@ import { Dispatch, RootState } from '@src/core/redux';
 
 import { PageInitialize } from '../components';
 // import { IFormsModelItem } from '@src/core/interfaces';
-// import { syncActionCreators } from '@src/core/redux/page';
+import { asyncActionCreators } from '@src/core/redux/page';
 
 interface StateProps {
   isMenuLoaded: boolean,
   isError: boolean,
 }
 
-interface DispatchProps {}
+interface DispatchProps {
+  getAllMenusFromAPI: () => any,
+}
 
 interface OwnProps { }
 
@@ -24,7 +26,9 @@ const mapStateToProps:
   });
 
 const mapDispatchToProps:
-  MapDispatchToPropsParam<DispatchProps, OwnProps> = (dispatch: Dispatch) => bindActionCreators({}, dispatch);
+  MapDispatchToPropsParam<DispatchProps, OwnProps> = (dispatch: Dispatch) => bindActionCreators({
+    getAllMenusFromAPI: asyncActionCreators.getAllMenusFromAPI,
+  }, dispatch);
 
 export const PageInitializeConnected =
   connect<StateProps, DispatchProps, OwnProps, RootState>(
