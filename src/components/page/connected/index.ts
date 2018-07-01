@@ -1,1 +1,2 @@
-export * from './pageConnected';
+export * from './pageInitializeConnected';
+export * from './oldConnected';

@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 
-export const sendRequestToAPI = axios.create({
+export const sendRequestToAPI: AxiosInstance = axios.create({
   baseURL: 'http://dev.monyze.ru',
   withCredentials: true,
   headers: {
