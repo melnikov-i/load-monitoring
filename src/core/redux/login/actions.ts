@@ -5,12 +5,11 @@ import { syncActionCreators as formActionCreators } from '../form';
 
 import {
   ILoginRequestPayload,
-  LogOutInterface
 } from '@src/core/interfaces';
 
 export const CHANGE_LOGIN_VIEW = 'CHANGE_LOGIN_VIEW';
 export const USER_IS_AUTHORIZED = 'USER_IS_AUTHORIZED';
-export const USER_WAS_LOGOUT = 'USER_WAS_LOGOUT';
+export const USER_IS_NOT_AUTHORIZED = 'USER_IS_NOT_AUTHORIZED';
 
 export type Actions = {
   CHANGE_LOGIN_VIEW: {
@@ -22,8 +21,8 @@ export type Actions = {
     type: typeof USER_IS_AUTHORIZED,
   },
 
-  USER_WAS_LOGOUT: {
-    type: typeof USER_WAS_LOGOUT,
+  USER_IS_NOT_AUTHORIZED: {
+    type: typeof USER_IS_NOT_AUTHORIZED,
   }
 };
 
@@ -46,8 +45,8 @@ export const syncActionCreators = {
    * Меняет значение ключа isAuthorized на false.
    * Происходит при выходе пользователя из системы.
    */
-  userWasLogout: (): Actions[typeof USER_WAS_LOGOUT] => ({
-    type: USER_WAS_LOGOUT,
+  userIsNotAuthorized: (): Actions[typeof USER_IS_NOT_AUTHORIZED] => ({
+    type: USER_IS_NOT_AUTHORIZED,
   }),
 };
 
@@ -92,19 +91,15 @@ export const asyncActionCreators = {
   /**
    * Отправляет на сервер информацию о завершении сеанса.
   */
-  sendLogOutToAPI: (payload: LogOutInterface) => {
-    return (dispatch: Dispatch) => {
-      sendRequestToAPI.post('/auth.php', payload).then(
-        (response) => {
-          console.log('response:', response);
-          dispatch(syncActionCreators.userWasLogout());
-        }
-      )
-        .catch(
-          (error) => {
-            console.log('[ERROR]:', error);
-          }
-        )
+  sendLogoutToApi: () => {
+    return async (dispatch: Dispatch) => {
+      try {
+        const response: any = await sendRequestToAPI.post('/auth.php', { step: 'exit' });
+        console.log('response:', response);
+      } catch (error) {
+        console.log('[ERROR]:', error);
+      }
+      dispatch(syncActionCreators.userIsNotAuthorized());
     }
   },
 };

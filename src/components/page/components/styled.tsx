@@ -6,7 +6,7 @@ const Logo = require('@src/images/Logo');
 
 import {
   SMALL_SCREEN_MAX,
-  MIDDLE_SCREEN_MIN,
+  // MIDDLE_SCREEN_MIN,
   MIDDLE_SCREEN_MAX,
   BIG_SCREEN_MIN,
   MENU_LAYOUT_BIG_WIDTH,
@@ -20,11 +20,13 @@ import {
   emergence,
 } from '@src/core/styled';
 
+/** ### PageLayout ### */
+
 /**
  * Основной блок каркаса страницы
  * @return {React.Component}
  */
-export const PageLayout = styled.div`
+export const Layout = styled.div`
   width: 100%;
   min-height: 100%;
   height: auto;
@@ -39,47 +41,24 @@ export const PageLayout = styled.div`
  * @param {boolean} isMenuOpenedOnSmallScreen
  * @return {React.Component}
  */
-export const PageMenu = styled.div`
-  width: ${ MENU_LAYOUT_BIG_WIDTH};
+export const PageLayoutMenuCollumn = styled.div`
+  width: ${ MENU_LAYOUT_BIG_WIDTH };
   display: inline-block;
   vertical-align: top;
-  min-height: 100vh;
-  margin-bottom: -${ FOOTER_HEIGHT};
-  &::before {
-    content: "";
-    display: block;
-    width: ${ MENU_LAYOUT_BIG_WIDTH};
-    min-height: 100%;
-    height: auto;
-    background-color: #2f4050;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1;
-  }
+  background-color: #2f4050;
+  transition: width 0.4s;
+  overflow-x: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
   @media screen
-    and ( min-width: ${ MIDDLE_SCREEN_MIN} )
-    and ( max-width: ${ MIDDLE_SCREEN_MAX} ) {
-      width: ${ MENU_LAYOUT_MIDDLE_WIDTH};
-      &::before {
-        width: ${ MENU_LAYOUT_MIDDLE_WIDTH};
-      }
-    };
-  @media screen
-    and ( max-width: ${ SMALL_SCREEN_MAX} ) {
-      width: ${ MENU_LAYOUT_MIDDLE_WIDTH};
-      margin-left: ${(props: { isMenuOpenedOnSmallScreen: boolean }) => (
-    props.isMenuOpenedOnSmallScreen
-      ? '0' : `-${MENU_LAYOUT_MIDDLE_WIDTH}`
-  )};
-      &::before {
-        width: ${ MENU_LAYOUT_MIDDLE_WIDTH};
-        margin-left: ${(props: { isMenuOpenedOnSmallScreen: boolean }) => (
-    props.isMenuOpenedOnSmallScreen
-      ? '0' : `-${MENU_LAYOUT_MIDDLE_WIDTH}`
-  )};
-      }
-    };
+    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+      width: ${(props: { active: string }) => (
+        props.active === '1'
+          ? `${MENU_LAYOUT_BIG_WIDTH}` : `${MENU_LAYOUT_MIDDLE_WIDTH}`
+      )};
+    }
 `;
 
 /**
@@ -88,26 +67,333 @@ export const PageMenu = styled.div`
  * @param {boolean} isMenuOpenedOnSmallScreen
  * @return {React.Component}
  */
-export const PageWrapper = styled.div`
+export const PageLayoutContentCollumn = styled.div`
   display: inline-block;
   vertical-align: top;
-  width: calc( 100% - ${ MENU_LAYOUT_BIG_WIDTH} );
+  width: 100%;
   min-height: 100vh;
   margin-bottom: -${ FOOTER_HEIGHT};
+  padding-left: ${ MENU_LAYOUT_BIG_WIDTH};
+  box-sizing: border-box;
+  transition: padding-left 0.4s;
   @media screen 
-    and ( min-width: ${ MIDDLE_SCREEN_MIN} ) 
-    and ( max-width: ${ MIDDLE_SCREEN_MAX} ) {
-      width: calc( 100% - ${ MENU_LAYOUT_MIDDLE_WIDTH} );
-    }
-  @media screen
-    and ( max-width: ${ SMALL_SCREEN_MAX} ) {
-      width: ${(props: { isMenuOpenedOnSmallScreen: boolean }) => (
-    props.isMenuOpenedOnSmallScreen
-      ? `calc( 100% - ${MENU_LAYOUT_MIDDLE_WIDTH} )`
-      : '100%'
-  )};
+    and ( max-width: ${ MIDDLE_SCREEN_MAX } ) {
+      padding-left: ${(props: { active: string}) => (
+        props.active === '1'
+          ? `${MENU_LAYOUT_BIG_WIDTH}` : `${MENU_LAYOUT_MIDDLE_WIDTH}`
+      )};
     }
 `;
+
+  // export const PageMenu = styled.div`
+  //   width: ${ MENU_LAYOUT_BIG_WIDTH};
+  //   display: inline-block;
+  //   vertical-align: top;
+  //   min-height: 100vh;
+  //   margin-bottom: -${ FOOTER_HEIGHT};
+  //   &::before {
+  //     content: "";
+  //     display: block;
+  //     width: ${ MENU_LAYOUT_BIG_WIDTH};
+  //     min-height: 100%;
+  //     height: auto;
+  //     background-color: #2f4050;
+  //     position: fixed;
+  //     top: 0;
+  //     left: 0;
+  //     z-index: 1;
+  //   }
+  //   @media screen
+  //     and ( min-width: ${ MIDDLE_SCREEN_MIN} )
+  //     and ( max-width: ${ MIDDLE_SCREEN_MAX} ) {
+  //       width: ${ MENU_LAYOUT_MIDDLE_WIDTH};
+  //       &::before {
+  //         width: ${ MENU_LAYOUT_MIDDLE_WIDTH};
+  //       }
+  //     };
+  //   @media screen
+  //     and ( max-width: ${ SMALL_SCREEN_MAX} ) {
+  //       width: ${ MENU_LAYOUT_MIDDLE_WIDTH};
+  //       margin-left: ${(props: { isMenuOpenedOnSmallScreen: boolean }) => (
+  //     props.isMenuOpenedOnSmallScreen
+  //       ? '0' : `-${MENU_LAYOUT_MIDDLE_WIDTH}`
+  //   )};
+  //       &::before {
+  //         width: ${ MENU_LAYOUT_MIDDLE_WIDTH};
+  //         margin-left: ${(props: { isMenuOpenedOnSmallScreen: boolean }) => (
+  //     props.isMenuOpenedOnSmallScreen
+  //       ? '0' : `-${MENU_LAYOUT_MIDDLE_WIDTH}`
+  //   )};
+  //       }
+  //     };
+  // `;
+
+/** ### PageUserinfo ### */
+
+/**
+ * Обертка для блока с информацией пользователя
+ * @return {React.Component}
+ */
+export const PageUserinfoWrapper = styled.div`
+  width: 100%;
+  height: ${ MENU_LOGO_HEIGHT};
+  background-image: url( ${ HeaderProfile} );
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 30px 25px;
+  box-sizing: border-box;
+  position: relative;
+  @media screen 
+  and ( max-width: ${ MIDDLE_SCREEN_MAX} ) {
+    background-image: none;
+    height: 30px;
+    padding: 0;
+  }
+  `;
+
+/**
+ * Логотип в блоке с информацией пользователя
+ * @return {React.Component}
+ */
+export const PageUserinfoLogo = styled.div`
+  width: 100%;
+  min-height: 100%;
+  height: auto;
+  background-image: url( ${ Logo} );
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: 60%;
+  @media screen 
+    and ( max-width: ${ MIDDLE_SCREEN_MAX} ) {
+      background-image: none;
+      &::before {
+        content: "Monyze";
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        height: 70px;
+        line-height: 70px;
+        color: #fff;
+        text-align: center;
+      }
+    }
+`;
+
+/**
+ * Кнопка вызова пользовательского меню под логотипом
+ * @param {boolean} isClicked
+ * @return {React.Component}
+ */
+export const PageUserinfoMenuAnchor = styled.a`
+  width: 100%;
+  height: ${ DROPPED_MENU_ITEM_HEIGHT};
+  line-height: ${ DROPPED_MENU_ITEM_HEIGHT};
+  position: relative;
+  top: 65px;
+  background-color: transparent;
+  text-align: left;  
+  font-size: 13px;
+  font-weight: 600;
+  color: #dfe4fe;
+  cursor: pointer;
+  &::selection {
+    background-color: transparent;
+  }
+  &::after {
+    width: ${ DROPPED_MENU_ITEM_HEIGHT};
+    height: ${ DROPPED_MENU_ITEM_HEIGHT};
+    line-height: ${ DROPPED_MENU_ITEM_HEIGHT};
+    text-align: center;
+    content: "${(props: { isClicked: boolean }) => (
+      props.isClicked ? "\f078" : "\f053"
+    )}";
+    font-family: 'FontAwesome';
+    font-weight: normal;
+    font-size: calc( ${ FA_SMALL_FONT_SIZE} - 4px );
+    color: #dfe4fe;
+    margin-left: 10px;
+  }
+  &:focus {
+    outline: 0 solid transparent;
+  }  
+  @media screen 
+    and ( max-width: ${ MIDDLE_SCREEN_MAX} ) {
+      display: none;
+    }
+`;
+
+/**
+ * Список пунктов пользовательского меню под логотипом
+ * @param {boolean} isClicked
+ * @return {React.Component}
+ */
+export const PageUserinfoMenuLayout = styled.ul`
+  display: ${(props: { isClicked: boolean }) => (
+    props.isClicked ? 'block' : 'none'
+  )};
+  width: 100%;
+  background-color: #fff;
+  border-radius: 3px;
+  padding: 3px 0;
+  position: relative;
+  top: 70px;
+  left: 0;
+  z-index: 2;
+  @media screen 
+    and (max-width: ${ MIDDLE_SCREEN_MAX}) {
+      display: none;
+    }
+  animation-name: ${ emergence };
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+`;
+
+/**
+ * Элемент списка пользовательского меню под логотипом
+ * @return {React.Component}
+ */
+export const PageUserinfoMenuItem = styled.li`
+  list-style-position: inside;
+  list-style-type: none;
+`;
+
+/**
+ * Содержимое элемента списка пользовательского меню
+ * под логотипом
+ * @return {React.Component}
+ */
+export const PageUserinfoMenuLink = styled(NavLink)`
+  display: block;
+  text-decoration: none;
+  display: block;
+  height: ${ DROPPED_MENU_ITEM_HEIGHT };
+  line-height: ${ DROPPED_MENU_ITEM_HEIGHT };
+  font-size: 13px;
+  font-weight: normal;
+  color: #333;
+  white-space: nowrap;
+  padding: 3px 10px;
+  &::selection {
+    background-color: transparent;
+  }
+  &:hover {
+    background-color: #f5f5f5;
+    color: #262626;
+  }
+  @media screen
+    and ( max-width: ${ MIDDLE_SCREEN_MAX } ) {
+      display: none;
+    }
+`;
+
+/** [PageMenu] */
+
+/**
+ * Контейнер с основным меню
+ * @return {React.Component}
+ */
+export const PageMenuContainer = styled.ul`
+  width: 100%;
+  display: block;
+  margin-top: 10px;
+  padding-bottom: 50px;
+  @media screen and ( max-width: ${ MIDDLE_SCREEN_MAX } ) {
+    margin-top: 40px;
+    padding-top: 5px;
+  }
+`;
+
+/**
+ * Элемент основного меню страницы
+ * @param {boolean} isActive
+ * @return {React.Component}
+ */
+export const PageMenuItemContainer = styled.li`
+  list-style-position: inside;
+  list-style-type: none;
+  display: block;
+  position: relative;
+  transition: ${(props: { isActive: boolean }) => (
+    props.isActive ? 'border-left 0.4s' : 'all 0s'
+  )};
+  border-left: ${(props: { isActive: boolean }) => (
+    props.isActive ? '4px solid #19aa8d' : 'none'
+  )};
+  background-color: ${(props: { isActive: boolean }) => (
+    props.isActive ? '#293846' : 'transparent'
+  )};
+  color: ${(props: { isActive: boolean }) => (
+    props.isActive ? '#fff' : '#a7b1c2'
+  )};
+  &:hover {
+    background-color: #293846;
+    color: #fff;
+  }
+  &::selection {
+    background-color: transparent;
+  }
+`;
+
+/**
+ * Вложенная ссылка простого элемента основного меню страницы
+ * @param {string | null} icon
+ * @return {React.Component}
+ */
+type TPageMenuItemLink = {
+  icon: string | null,
+  active: string
+}
+export const PageMenuItemLink = styled(NavLink)`
+  display: block;
+  text-decoration: none;
+  font-size: ${ FA_SMALL_FONT_SIZE };
+  font-weight: 600;
+  color: inherit;
+  padding: 14px 20px 14px 25px;
+  background-color: transparent;
+  transition: font-size 0s, padding 0.4s;
+  &::selection {
+    background-color: transparent;
+  }
+  &::before {
+    content: "\\${(props: TPageMenuItemLink) => (
+      props.icon !== null ? props.icon : 'f05e'
+    )}";
+    font-family: 'FontAwesome';
+    font-weight: normal;
+    font-size: ${ FA_SMALL_FONT_SIZE };
+    margin-right: 6px;
+    transition: font-size 0.4s, margin 0.4s;
+  }
+  @media screen
+    and ( max-width: ${ MIDDLE_SCREEN_MAX } ) {
+      font-size: ${(props: TPageMenuItemLink) => (
+          (props.active === '1') ? `${FA_SMALL_FONT_SIZE }` : '0'
+        )};
+      padding: ${(props: TPageMenuItemLink) => (
+        (props.active === '1')
+          ? '14px 20px 14px 25px' : '10px 14px 10px 14px'
+        )};
+      &::before {
+        font-size: ${(props: TPageMenuItemLink) => (
+          (props.active === '1')
+            ? `${ FA_SMALL_FONT_SIZE }` : `${ FA_BIG_FONT_SIZE }`
+          )};
+        margin-right:  ${(props: TPageMenuItemLink) => (
+          (props.active === '1') ? '6px' : '0' )};
+      }
+    }
+`;
+
+
+
+
+
+
+
+
 
 /**
  * Шапка страницы
@@ -244,251 +530,19 @@ export const PageSmallMenuAnchor = styled.a`
     }
 `;
 
-/**
- * Обертка для логотипа
- * @return {React.Component}
- */
-export const PageLogoWrapper = styled.div`
-  width: 100%;
-  height: ${ MENU_LOGO_HEIGHT};
-  background-image: url( ${ HeaderProfile} );
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  padding: 30px 25px;
-  box-sizing: border-box;
-  position: relative;
-  z-index: 2;
-  @media screen 
-    and ( max-width: ${ MIDDLE_SCREEN_MAX} ) {
-      background-image: none;
-      height: 30px;
-      padding: 0;
-    }
-`;
 
-/**
- * Логотип
- * @return {React.Component}
- */
-export const PageLogo = styled.div`
-  width: 100%;
-  min-height: 100%;
-  height: auto;
-  background-image: url( ${ Logo} );
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-size: 60%;
-  @media screen 
-    and ( max-width: ${ MIDDLE_SCREEN_MAX} ) {
-      background-image: none;
-      &::before {
-        content: "Monyze";
-        display: block;
-        font-size: 14px;
-        font-weight: 600;
-        height: 70px;
-        line-height: 70px;
-        color: #fff;
-        text-align: center;
-      }
-    }
-`;
 
-/**
- * Кнопка вызова пользовательского меню под логотипом
- * @param {boolean} isClicked
- * @return {React.Component}
- */
-export const UserMenuAnchor = styled.a`
-  width: 100%;
-  height: ${ DROPPED_MENU_ITEM_HEIGHT};
-  line-height: ${ DROPPED_MENU_ITEM_HEIGHT};
-  position: relative;
-  top: 65px;
-  background-color: transparent;
-  text-align: left;  
-  font-size: 13px;
-  font-weight: 600;
-  color: #dfe4fe;
-  cursor: pointer;
-  &::selection {
-    background-color: transparent;
-  }
-  &::after {
-    width: ${ DROPPED_MENU_ITEM_HEIGHT};
-    height: ${ DROPPED_MENU_ITEM_HEIGHT};
-    line-height: ${ DROPPED_MENU_ITEM_HEIGHT};
-    text-align: center;
-    content: "${(props: { isClicked: boolean }) => (
-    props.isClicked ? "\f078" : "\f053"
-  )}";
-    font-family: 'FontAwesome';
-    font-weight: normal;
-    font-size: calc( ${ FA_SMALL_FONT_SIZE} - 4px );
-    color: #dfe4fe;
-    margin-left: 10px;
-  }
-  &:focus {
-    outline: 0 solid transparent;
-  }  
-  @media screen 
-    and ( max-width: ${ MIDDLE_SCREEN_MAX} ) {
-      display: none;
-    }
-`;
 
-/**
- * Список пунктов пользовательского меню под логотипом
- * @param {boolean} isClicked
- * @return {React.Component}
- */
-export const UserMenuLayout = styled.ul`
-  display: ${(props: { isClicked: boolean }) => (
-    props.isClicked ? 'block' : 'none'
-  )};
-  width: 100%;
-  background-color: #fff;
-  border-radius: 3px;
-  padding: 3px 0;
-  position: relative;
-  top: 70px;
-  left: 0;
-  @media screen 
-    and (max-width: ${ MIDDLE_SCREEN_MAX}) {
-      display: none;
-    }
-  animation-name: ${ emergence};
-  animation-duration: 1s;
-  animation-timing-function: linear;
-  animation-fill-mode: both;
-`;
 
-/**
- * Элемент списка пользовательского меню под логотипом
- * @return {React.Component}
- */
-export const UserMenuItem = styled.li`
-  list-style-position: inside;
-  list-style-type: none;
-`;
 
-/**
- * Содержимое элемента списка пользовательского меню
- * под логотипом
- * @return {React.Component}
- */
-export const UserMenuLink = styled(NavLink)`
-  display: block;
-  text-decoration: none;
-  display: block;
-  height: ${ DROPPED_MENU_ITEM_HEIGHT};
-  line-height: ${ DROPPED_MENU_ITEM_HEIGHT};
-  font-size: 13px;
-  font-weight: normal;
-  color: #333;
-  white-space: nowrap;
-  padding: 3px 10px;
-  &::selection {
-    background-color: transparent;
-  }
-  &:hover {
-    background-color: #f5f5f5;
-    color: #262626;
-  }
-  @media screen
-    and ( max-width: ${ MIDDLE_SCREEN_MAX} ) {
-      display: none;
-    }
-`;
 
-/**
- * Каркас основного меню страницы
- * @return {React.Component}
- */
-export const PageMenuLayout = styled.ul`
-  width: 100%;
-  margin-top: 10px;
-  padding-bottom: 50px;
-  position: relative;
-  z-index: 1;
-  @media screen 
-    and ( max-width: ${ MIDDLE_SCREEN_MAX} ) {
-      margin-top: 40px;
-      padding-top: 5px;
-    }
-`;
 
-/**
- * Элемент основного меню страницы
- * @param {boolean} isActive
- * @return {React.Component}
- */
-export const PageMenuItem = styled.li`
-  list-style-position: inside;
-  list-style-type: none;
-  display: block;
-  position: relative;
-  transition: ${(props: { isActive: boolean }) => (
-    props.isActive
-      ? 'border-left 0.4s' : 'all 0s'
-  )};
-  border-left: ${(props: { isActive: boolean }) => (
-    props.isActive
-      ? '4px solid #19aa8d' : 'none'
-  )};
-  background-color: ${(props: { isActive: boolean }) => (
-    props.isActive
-      ? '#293846' : 'transparent'
-  )};
-  color: ${(props: { isActive: boolean }) => (
-    props.isActive
-      ? '#fff' : '#a7b1c2'
-  )};
-  &:hover {
-    background-color: #293846;
-    color: #fff;
-  }
-  &::selection {
-    background-color: transparent;
-  }
-`;
 
-/**
- * Вложенная ссылка простого элемента основного меню страницы
- * @param {string | null} icon
- * @return {React.Component}
- */
-export const PageMenuItemLink = styled(NavLink)`
-  display: block;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 600;
-  color: inherit;
-  padding: 14px 20px 14px 25px;
-  background-color: transparent;
-  &::selection {
-    background-color: transparent;
-  }
-  &::before {
-    content: "\\${(props: { icon: string | null }) => (
-    props.icon !== null ? props.icon : 'f05e'
-  )}";
-    font-family: 'FontAwesome';
-    font-weight: normal;
-    font-size: ${ FA_SMALL_FONT_SIZE};
-    margin-right: 6px;
-  }
-  @media screen
-    and ( max-width: ${ MIDDLE_SCREEN_MAX} ) {
-      font-size: 0;
-      padding: 10px 14px 10px 14px;
-      &::before {
-        font-size: ${ FA_BIG_FONT_SIZE};
-        margin-right: 0;
-      }
-    }
-`;
+
+
+
+
+
 
 /**
  * Вложенная ссылка составного элемента основного меню страницы

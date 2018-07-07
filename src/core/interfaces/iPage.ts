@@ -1,8 +1,20 @@
-export interface MainMenuLinksInterface {
+export interface IMenuItem {
   to: string,
   icon: string,
   value: string,
+  submeny?: IMenuItem,
 }
+
+export interface IUser {
+  login: string,
+  links: {
+    to: string,
+    value: string,
+  }[],
+}
+
+
+
 
 export interface UserInterface {
   login: string,
@@ -19,3 +31,11 @@ export interface UserMenuInterface {
 }
 
 export type DroppedMenuButtonClickedType = string;
+
+
+/** delete */
+export interface MainMenuLinksInterface {
+  to: string,
+  icon: string,
+  value: string,
+}

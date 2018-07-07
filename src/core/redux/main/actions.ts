@@ -1,7 +1,7 @@
 import { sendRequestToAPI } from '@src/core/libs';
 
 import {
-  MainMenuLinksInterface,
+  IMenuItem,
   UserInterface,
   DroppedMenuButtonClickedType,
 } from '@src/core/interfaces';
@@ -25,8 +25,8 @@ export const DEVICES_MENU_WAS_REQUESTED_FROM_API =
   'DEVICES_MENU_WAS_REQUESTED_FROM_API';
 export const PUT_DEVICES_MENU_FROM_API_TO_COLLECTION =
   'PUT_DEVICES_MENU_FROM_API_TO_COLLECTION';
-export const CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID =
-  'CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID';
+    export const CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID =
+      'CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID';
 export const CHANGE_USER_AGENT =
   'CHANGE_USER_AGENT';
 export const SWITCH_MENU_ON_SMALL_SCREENS =
@@ -46,7 +46,7 @@ export type Actions = {
   },
   PUT_MAIN_MENU_FROM_API_TO_COLLECTION: {
     type: typeof PUT_MAIN_MENU_FROM_API_TO_COLLECTION,
-    payload: MainMenuLinksInterface[],
+    payload: IMenuItem[],
   },
   PUT_USER_MENU_FROM_API_TO_COLLECTION: {
     type: typeof PUT_USER_MENU_FROM_API_TO_COLLECTION,
@@ -57,12 +57,12 @@ export type Actions = {
   },
   PUT_DEVICES_MENU_FROM_API_TO_COLLECTION: {
     type: typeof PUT_DEVICES_MENU_FROM_API_TO_COLLECTION,
-    payload: MainMenuLinksInterface[],
+    payload: IMenuItem[],
   },
-  CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID: {
-    type: typeof CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID,
-    payload: DroppedMenuButtonClickedType,
-  },
+      CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID: {
+        type: typeof CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID,
+        payload: DroppedMenuButtonClickedType,
+      },
   CHANGE_USER_AGENT: {
     type: typeof CHANGE_USER_AGENT,
   },
@@ -110,7 +110,7 @@ export const syncActionCreators = {
   /**
    * Помещает полученное от сервера основное меню в редьюсер
    */
-  putMainMenuFromAPIToCollection: (payload: MainMenuLinksInterface[]):
+  putMainMenuFromAPIToCollection: (payload: IMenuItem[]):
   Actions[typeof PUT_MAIN_MENU_FROM_API_TO_COLLECTION] => ({
     type: PUT_MAIN_MENU_FROM_API_TO_COLLECTION, payload
   }),
@@ -126,7 +126,7 @@ export const syncActionCreators = {
   /**
    * Помещает полученное от сервера меню устройств в редьюсер
    */
-  putDevicesMenuFromAPIToCollection: (payload: MainMenuLinksInterface[]):
+  putDevicesMenuFromAPIToCollection: (payload: IMenuItem[]):
   Actions[typeof PUT_DEVICES_MENU_FROM_API_TO_COLLECTION] => ({
     type: PUT_DEVICES_MENU_FROM_API_TO_COLLECTION, payload,
   }),
@@ -134,10 +134,10 @@ export const syncActionCreators = {
   /**
    * Меняет в редьюсере ИД выбранного выпадающего меню на только что выбранное
    */
-  changeDroppedMenuClickedId: (payload: DroppedMenuButtonClickedType):
-  Actions[typeof CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID] => ({
-    type: CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID, payload,
-  }),
+      changeDroppedMenuClickedId: (payload: DroppedMenuButtonClickedType):
+      Actions[typeof CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID] => ({
+        type: CHANGE_DROPPED_MENU_BUTTON_CLICKED_ID, payload,
+      }),
   
   /**
    * Ключ. По нему определяется, используется ли пользователем
@@ -186,7 +186,7 @@ export const asyncActionCreators = {
       sendRequestToAPI.post('/menu_data.php').then(
         ( response: any ) => {
           if (response.data.menu !== null) {
-            const menu: MainMenuLinksInterface[] = response.data.menu;
+            const menu: IMenuItem[] = response.data.menu;
             dispatch(
               syncActionCreators.putMainMenuFromAPIToCollection(menu)
             );
@@ -194,7 +194,7 @@ export const asyncActionCreators = {
             return user;
           } else {
             console.log('makeMainMenuRequestToAPI:', response.data.menu);
-            dispatch(loginActionCreators.userWasLogout());
+            dispatch(loginActionCreators.userIsNotAuthorized());
             const user: UserInterface = { login: '' };
             return user;
           }
@@ -235,7 +235,7 @@ export const asyncActionCreators = {
       sendRequestToAPI.post('/menu_devices.php').then(
         ( response: any ) => {
           if (response.data.devices_list !== null) {
-            const devices: MainMenuLinksInterface[] =
+            const devices: IMenuItem[] =
               response.data.devices_list;
             dispatch(
               syncActionCreators.putDevicesMenuFromAPIToCollection(devices)
@@ -245,7 +245,7 @@ export const asyncActionCreators = {
             );
           } else {
             dispatch(
-              loginActionCreators.userWasLogout()
+              loginActionCreators.userIsNotAuthorized()
             );
           }
         }

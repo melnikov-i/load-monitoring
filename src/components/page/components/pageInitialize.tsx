@@ -8,6 +8,9 @@
  */
 import * as React from 'react';
 
+import { PageLayoutConnected as PageLayout } from '../connected';
+import NotificationPage from '@src/components/notificationPage';
+
 interface PageInitializeProps {
   isMenuLoaded: boolean,
   isError: boolean,
@@ -24,7 +27,10 @@ export const PageInitialize: React.SFC<PageInitializeProps> = (props) => {
      if (isError) {
        /** Из-за ошибки */
        console.log('error');
-       return null;
+       return <NotificationPage
+         hint={'Произошла ошибка запроса данных. Пожалуйста, обновите страницу.'}
+         type={'error'}
+         callback={() => {}} />;
      } else {
        /** Начальная загрузка модуля */
        getAllMenusFromAPI();
@@ -33,6 +39,6 @@ export const PageInitialize: React.SFC<PageInitializeProps> = (props) => {
   } else {
     /** Меню загружено -- грузим компонент */
     console.log('loaded');
-    return null;
+    return <PageLayout />;
   }
 };

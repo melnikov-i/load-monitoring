@@ -4,32 +4,28 @@ import { createStructuredSelector } from 'reselect';
 import { Dispatch, RootState } from '@src/core/redux';
 import { withRouter } from 'react-router-dom';
 
-import { PageLayout } from '../components';
+import { PageMenu } from '../components';
+import { IMenuItem } from '@src/core/interfaces';
 
 interface StateProps {
-  isMenuItemActiveOnSmallScreen: string
+  mainMenuCollection: IMenuItem[],
 }
 
-interface DispatchProps {
+interface DispatchProps { }
 
-}
-
-interface OwnProps {
-
-}
+interface OwnProps { }
 
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
   createStructuredSelector<RootState, StateProps>({
-    isMenuItemActiveOnSmallScreen: (state: RootState) =>    
-      state.page.isMenuItemActiveOnSmallScreen
+    mainMenuCollection: (state: RootState) => state.page.mainMenuCollection
   });
 
 const mapDispatchToProps:
   MapDispatchToPropsParam<DispatchProps, OwnProps> =
   (dispatch: Dispatch) => bindActionCreators({}, dispatch);
 
-export const PageLayoutConnected =
+export const PageMenuConnected =
   withRouter(connect<StateProps, DispatchProps, OwnProps, RootState>(
-    mapStateToProps, mapDispatchToProps)(PageLayout)
+    mapStateToProps, mapDispatchToProps)(PageMenu)
   );

@@ -22,7 +22,7 @@ import {
 } from '@src/core/redux/main';
 
 import {
-  USER_WAS_LOGOUT
+  USER_IS_NOT_AUTHORIZED
 } from '@src/core/redux/login';
 
 export type State = {
@@ -64,7 +64,7 @@ export const reducer = combineReducers<State>({
     switch (action.type) {
       case MAIN_MENU_WAS_REQUESTED_FROM_API:
         return true;
-      case USER_WAS_LOGOUT:
+      case USER_IS_NOT_AUTHORIZED:
         return false;
       default:
         return state;
@@ -75,7 +75,7 @@ export const reducer = combineReducers<State>({
     switch (action.type) {
       case ALL_MENUS_WAS_RESPONSED_FROM_API:
         return true;
-      case USER_WAS_LOGOUT:
+      case USER_IS_NOT_AUTHORIZED:
         return false;
       default:
         return state;
@@ -86,7 +86,7 @@ export const reducer = combineReducers<State>({
     switch (action.type) {
       case PUT_MAIN_MENU_FROM_API_TO_COLLECTION:
         return [...action.payload];
-      case USER_WAS_LOGOUT:
+      case USER_IS_NOT_AUTHORIZED:
         return [];
       default:
         return state;
@@ -104,7 +104,7 @@ export const reducer = combineReducers<State>({
             }
           ]
         };
-      case USER_WAS_LOGOUT:
+      case USER_IS_NOT_AUTHORIZED:
         return UserMenuInitialState;
       default:
         return state;
@@ -115,7 +115,7 @@ export const reducer = combineReducers<State>({
     switch (action.type) {
       case DEVICES_MENU_WAS_REQUESTED_FROM_API:
         return true;
-      case USER_WAS_LOGOUT:
+      case USER_IS_NOT_AUTHORIZED:
         return false;
       default:
         return state;
@@ -126,7 +126,7 @@ export const reducer = combineReducers<State>({
     switch (action.type) {
       case PUT_DEVICES_MENU_FROM_API_TO_COLLECTION:
         return [...action.payload];
-      case USER_WAS_LOGOUT:
+      case USER_IS_NOT_AUTHORIZED:
         return [];
       default:
         return state;
@@ -165,7 +165,7 @@ export const reducer = combineReducers<State>({
     switch (action.type) {
       case SWITCH_PAGE_MENU_ITEM_ACTIVE:
         return action.payload;
-      case USER_WAS_LOGOUT:
+      case USER_IS_NOT_AUTHORIZED:
         return '';
       default:
         return state;
@@ -177,7 +177,7 @@ export const reducer = combineReducers<State>({
     switch (action.type) {
       case SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE:
         return action.payload;
-      case USER_WAS_LOGOUT:
+      case USER_IS_NOT_AUTHORIZED:
         return '';
       default:
         return state;
