@@ -26,11 +26,10 @@ export const PageInitialize: React.SFC<PageInitializeProps> = (props) => {
     /** Меню не загружено */
      if (isError) {
        /** Из-за ошибки */
-       console.log('error');
-       return <NotificationPage
+       return (<NotificationPage
          hint={'Произошла ошибка запроса данных. Пожалуйста, обновите страницу.'}
          type={'error'}
-         callback={() => {}} />;
+       callback={() => {}} />);
      } else {
        /** Начальная загрузка модуля */
        getAllMenusFromAPI();
@@ -38,7 +37,6 @@ export const PageInitialize: React.SFC<PageInitializeProps> = (props) => {
      }
   } else {
     /** Меню загружено -- грузим компонент */
-    console.log('loaded');
     return <PageLayout />;
   }
 };

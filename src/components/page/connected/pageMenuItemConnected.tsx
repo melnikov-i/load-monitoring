@@ -9,9 +9,7 @@ import { IMenuItem } from '@src/core/interfaces';
 import { syncActionCreators } from '@src/core/redux/page';
 
 interface StateProps {
-  pageMenuItemActive: string,
   isActive: boolean,
-  style: any,
   isMenuItemActiveOnSmallScreen: string,
 }
 
@@ -27,29 +25,16 @@ type Selector<TInput, TOutput> = (state: TInput, props?: any) => TOutput;
 
 const provideActivity: Selector<RootState, any> =
   (state: RootState, props: OwnProps): any => {
-    return state.page.pageMenuItemActive === String(props.params.index);
-  }
-
-const selectStyle: Selector<RootState, any> =
-  (state: RootState, props: OwnProps): any => {
-    if (state.page.pageMenuItemActive === String(props.params.index)) {
-      return {
-        color: '#fff',
-        backgroundColor: '#293846',
-        borderLeft: '4px solid #19aa8d',
-        transition: 'border-left 0.4s',
-      };
-    } else {
-      return {};
+    if (state.page.pageMenuItemActive) {
+      return state.page.pageMenuItemActive === '3' + String(props.params.index)
     }
+    return null;
   }
 
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
   createStructuredSelector<RootState, StateProps>({
-    pageMenuItemActive: (state: RootState) => state.page.pageMenuItemActive,
     isActive: createSelector(provideActivity, (isActive) => isActive),
-    style: createSelector(selectStyle, (style) => style),
     isMenuItemActiveOnSmallScreen: (state: RootState) => 
       state.page.isMenuItemActiveOnSmallScreen,
   });

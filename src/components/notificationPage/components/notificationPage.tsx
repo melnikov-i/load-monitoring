@@ -1,3 +1,11 @@
+/**
+ * NotificationPage -- Страница, сообщающая о проблеме в работе приложения или об успешном
+ * действии пользователя. За это отвечает ключ type. Страница показывает сообщение, за которое
+ * отвечает параметр hint.
+ * callback нужен для того, чтобы при нажатии на ссылку произвести какое-либо действие, 
+ * связанное с redux (как частный случай - сбросить ключ, по которому выбирается отображаемый
+ * на странице вид).
+ */
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
@@ -20,9 +28,7 @@ export const NotificationPage: React.SFC<NotificationPageProps> = (props) => {
 
   return (
     <NotificationPageWrapper type={type}>
-      <NotificationPageText
-        type={type}
-      >{hint ? hint : 'Неизвестная ошибка'}</NotificationPageText>
+      <NotificationPageText type={type}>{hint ? hint : 'Неизвестная ошибка'}</NotificationPageText>
       <NotificationPageLinkToHome to={'/'} onClick={callback}>{'На главную'}</NotificationPageLinkToHome>
     </NotificationPageWrapper>
   );

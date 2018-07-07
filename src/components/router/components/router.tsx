@@ -72,13 +72,12 @@ export const Router: React.SFC<RouterProps> = (props) => {
 
   return (
     <Switch>
-      {/** Страницы, доступ на которые возможен после проверки авторизации */}
-      <Route exact path={'/login'} render={() => !isAuthorized ? <Login /> : <Redirect to={'/'} />} />
-      <Route exact path={'/'} render={() => isAuthorized ? <Page /> : <Redirect to={'/login'} />} />
       {/** Страницы, доступ на которые открыт */}
       <Route exact path={'/registration'} render={() => <Registration />} />
       <Route exact path={'/recovery'} render={() => <Recovery />} />
-
+      {/** Страницы, доступ на которые возможен после проверки авторизации */}
+      <Route exact path={'/login'} render={() => !isAuthorized ? <Login /> : <Redirect to={'/'} />} />
+      <Route path={'/'} render={() => isAuthorized ? <Page /> : <Redirect to={'/login'} />} />
     </Switch>
   );
 }

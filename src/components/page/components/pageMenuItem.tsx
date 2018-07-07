@@ -13,7 +13,6 @@ import {
 
 interface PageMenuItemProps extends RouteComponentProps<void> {
   isActive: boolean,
-  style: any,
   params: { item: IMenuItem, index: number },
   isMenuItemActiveOnSmallScreen: string,
   switchPageMenuItemActive: (payload: string) => any,
@@ -22,7 +21,6 @@ interface PageMenuItemProps extends RouteComponentProps<void> {
 export const PageMenuItem: React.SFC<PageMenuItemProps> = (props) => {
   const {
     isActive,
-    style,
     switchPageMenuItemActive,
     params: { item, index },
     isMenuItemActiveOnSmallScreen
@@ -48,6 +46,18 @@ export const PageMenuItem: React.SFC<PageMenuItemProps> = (props) => {
       switchPageMenuItemActive(current);
     };
 
+  const oddEvent = (match: any/* , location: any */) => {
+    if (!match) {
+      return false
+    }
+    console.log('[PageMenuItem].oddEvent match:', match);
+    const eventID = parseInt(match.params.eventID);
+    if (isActive === null) {
+      switchPageMenuItemActive('3' + index);
+    }
+    return !isNaN(eventID) && eventID % 2 === 1;
+  }
+
   return (
     <PageMenuItemContainer isActive={isActive}>
       <PageMenuItemLink
@@ -57,7 +67,7 @@ export const PageMenuItem: React.SFC<PageMenuItemProps> = (props) => {
         active={isMenuItemActiveOnSmallScreen}
         to={'/' + item.to}
         title={item.value}
-        style={style}
+        isActive={oddEvent}
       >{item.value}</PageMenuItemLink>
     </PageMenuItemContainer>
   );

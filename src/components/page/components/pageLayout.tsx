@@ -8,6 +8,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import {
   PageUserinfoConnected as PageUserinfo,
   PageMenuConnected as PageMenu,
+  PageRouterConnected as PageRouter
 } from '../connected';
 
 import {
@@ -30,7 +31,7 @@ export const PageLayout: React.SFC<PageLayoutProps> = (props) => {
         <PageMenu />
       </PageLayoutMenuCollumn>
       <PageLayoutContentCollumn active={isMenuItemActiveOnSmallScreen}>
-        <p style={{fontSize: '14px'}}>{'aaaaa'}</p>
+        <PageRouter />
       </PageLayoutContentCollumn>
     </Layout>
   );
