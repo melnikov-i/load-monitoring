@@ -1,6 +1,5 @@
 /**
- * PageMenuItem -- компонент, содержит элемент меню. 
- * Элемент может быть простым и содержать подменю. 
+ * PageMenuItem -- компонент, содержит элемент простого меню.
  */
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
@@ -8,22 +7,22 @@ import { IMenuItem } from '@src/core/interfaces';
 
 import {
   PageMenuItemContainer,
-  PageMenuItemLink
+  PageMenuItemLink,
 } from './';
 
 interface PageMenuItemProps extends RouteComponentProps<void> {
   isActive: boolean,
   params: { item: IMenuItem, index: number },
   isMenuItemActiveOnSmallScreen: string,
-  switchPageMenuItemActive: (payload: string) => any,
+  switchPageMenuSimpleItemActive: (payload: string) => any,  
 }
 
 export const PageMenuItem: React.SFC<PageMenuItemProps> = (props) => {
   const {
     isActive,
-    switchPageMenuItemActive,
+    switchPageMenuSimpleItemActive,
     params: { item, index },
-    isMenuItemActiveOnSmallScreen
+    isMenuItemActiveOnSmallScreen,    
   } = props;
 
   console.log('[PageMenuItem].item value:', item.value);
@@ -43,20 +42,17 @@ export const PageMenuItem: React.SFC<PageMenuItemProps> = (props) => {
     (e: React.MouseEvent<MouseEventGenericType>): void => {
       const current: string =
         String(e.currentTarget.getAttribute('data-item-id'));
-      switchPageMenuItemActive(current);
+      switchPageMenuSimpleItemActive(current);
     };
 
-  const oddEvent = (match: any/* , location: any */) => {
-    if (!match) {
-      return false
+  const oddEvent: any = (match: any) => {
+    if (match) {
+      if (isActive === null) {
+        switchPageMenuSimpleItemActive('3' + index);
+      }      
     }
-    console.log('[PageMenuItem].oddEvent match:', match);
-    const eventID = parseInt(match.params.eventID);
-    if (isActive === null) {
-      switchPageMenuItemActive('3' + index);
-    }
-    return !isNaN(eventID) && eventID % 2 === 1;
-  }
+    return false;
+  };
 
   return (
     <PageMenuItemContainer isActive={isActive}>

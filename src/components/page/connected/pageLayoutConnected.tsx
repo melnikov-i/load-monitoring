@@ -10,13 +10,9 @@ interface StateProps {
   isMenuItemActiveOnSmallScreen: string
 }
 
-interface DispatchProps {
+interface DispatchProps { }
 
-}
-
-interface OwnProps {
-
-}
+interface OwnProps { }
 
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
@@ -29,7 +25,6 @@ const mapDispatchToProps:
   MapDispatchToPropsParam<DispatchProps, OwnProps> =
   (dispatch: Dispatch) => bindActionCreators({}, dispatch);
 
-export const PageLayoutConnected =
-  withRouter(connect<StateProps, DispatchProps, OwnProps, RootState>(
-    mapStateToProps, mapDispatchToProps)(PageLayout)
-  );
+export const PageLayoutConnected = withRouter(
+  connect<StateProps, DispatchProps, OwnProps, RootState>(
+    mapStateToProps, mapDispatchToProps)(PageLayout));

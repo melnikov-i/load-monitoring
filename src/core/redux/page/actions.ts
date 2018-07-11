@@ -1,15 +1,17 @@
 // import { sendRequestToAPI } from '@src/core/libs';
 
 import { Dispatch } from '@src/core/redux';
-import { IMenuItem, IUser } from '@src/core/interfaces';
+import { IMenuItem, IUser, ISelecSubmenu } from '@src/core/interfaces';
 
 export const CHANGE_MENU_LOADED_KEY = 'CHANGE_MENU_LOADED_KEY';
 export const CHANGE_ERROR_KEY = 'CHANGE_ERROR_KEY';
 export const CREATE_USERINFO = 'CREATE_USERINFO';
 export const CREATE_MAIN_MENU = 'CREATE_MAIN_MENU';
 export const CHANGE_DROPPED_MENU_ITEM_ID = 'CHANGE_DROPPED_MENU_ITEM_ID';
-export const SWITCH_PAGE_MENU_ITEM_ACTIVE = 'SWITCH_PAGE_MENU_ITEM_ACTIVE';
+export const SWITCH_PAGE_MENU_SIMPLE_ITEM_ACTIVE = 'SWITCH_PAGE_MENU_SIMPLE_ITEM_ACTIVE';
 export const SWITCH_MENU_ITEM_ON_SMALL_SCREEN = 'SWITCH_MENU_ITEM_ON_SMALL_SCREEN';
+export const SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE = 'SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE';
+export const SWITCH_PAGE_SUBMENU_ITEM_ACTIVE = 'SWITCH_PAGE_SUBMENU_ITEM_ACTIVE';
 
 export type Actions = {
   CHANGE_MENU_LOADED_KEY: {
@@ -37,13 +39,23 @@ export type Actions = {
     payload: string,
   },
 
-  SWITCH_PAGE_MENU_ITEM_ACTIVE: {
-    type: typeof SWITCH_PAGE_MENU_ITEM_ACTIVE,
+  SWITCH_PAGE_MENU_SIMPLE_ITEM_ACTIVE: {
+    type: typeof SWITCH_PAGE_MENU_SIMPLE_ITEM_ACTIVE,
     payload: string,
   },
 
   SWITCH_MENU_ITEM_ON_SMALL_SCREEN: {
     type: typeof SWITCH_MENU_ITEM_ON_SMALL_SCREEN,
+  },
+
+  SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE: {
+    type: typeof SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE,
+    payload: string,
+  },
+
+  SWITCH_PAGE_SUBMENU_ITEM_ACTIVE: {
+    type: typeof SWITCH_PAGE_SUBMENU_ITEM_ACTIVE,
+    payload: string,
   }
 };
 
@@ -75,17 +87,34 @@ export const syncActionCreators = {
   }),
 
   /** Изменяет ИД активного простого пункта основного меню */
-  switchPageMenuItemActive: (payload: string):
-  Actions[typeof SWITCH_PAGE_MENU_ITEM_ACTIVE] => ({
-    type: SWITCH_PAGE_MENU_ITEM_ACTIVE, payload,
+  switchPageMenuSimpleItemActive: (payload: string):
+  Actions[typeof SWITCH_PAGE_MENU_SIMPLE_ITEM_ACTIVE] => ({
+    type: SWITCH_PAGE_MENU_SIMPLE_ITEM_ACTIVE, payload,
+  }),
+  
+  /** Изменяет ИД активного пункта основного меню, у которого есть подменю */
+  switchPageMenuItemMultiActive: (payload: string):
+  Actions[typeof SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE] => ({
+    type: SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE, payload
+  }),
+  
+  /** Изменяет ИД активного пункта дополнительного подменю */
+  switchPageSubmenuItemActive: (payload: string):
+  Actions[typeof SWITCH_PAGE_SUBMENU_ITEM_ACTIVE] => ({
+    type: SWITCH_PAGE_SUBMENU_ITEM_ACTIVE, payload,
   }),
 
+  /** на малых экранах включает полноразмерное по ширине меню */
   switchMenuItemOnSmallScreen: (): Actions[typeof SWITCH_MENU_ITEM_ON_SMALL_SCREEN] => ({
     type: SWITCH_MENU_ITEM_ON_SMALL_SCREEN
-  })
+  }),
 };
 
 export const asyncActionCreators = {
+  /**
+   * Получение данных для построения меню от сервера, обработка и подготовка
+   * данных, а также отправка их в хранилище
+   */
   getAllMenusFromAPI: () => {
     return async (dispatch: Dispatch) => {
       try {
@@ -160,7 +189,7 @@ export const asyncActionCreators = {
             switch (e.to) {
               case "devices": return {
                   ...e,
-                  sumbenu: [{
+                  submenu: [{
                     "value": "Все устройства",
                     "to": "devices",
                     "icon": "f233",
@@ -191,6 +220,37 @@ export const asyncActionCreators = {
       } catch (error) {
         dispatch(syncActionCreators.changeErrorKey(true));
       }
+    }
+  },
+  
+  openSubmenu: (payload: string) => {
+    return (dispatch: Dispatch) => {
+      dispatch(syncActionCreators.switchMenuItemOnSmallScreen());
+      dispatch(syncActionCreators.switchPageMenuItemMultiActive(payload));
+      setTimeout(() => {
+        dispatch(syncActionCreators.switchMenuItemOnSmallScreen());
+        dispatch(syncActionCreators.switchPageMenuItemMultiActive(''));
+      }, 10000);
+    }
+  },
+
+  closeSubmenu: () => {
+    return (dispatch: Dispatch) => {
+      let max_id = setTimeout(function () { });
+      while (max_id--) {
+        clearTimeout(max_id);
+      }
+      dispatch(syncActionCreators.switchMenuItemOnSmallScreen());
+      dispatch(syncActionCreators.switchPageMenuItemMultiActive(''));
+    }
+  },
+
+  selectSubmenu: (payload: ISelecSubmenu) => {
+    return (dispatch: Dispatch) => {
+      console.warn('selectSubmenu', payload)
+      dispatch(syncActionCreators.switchPageMenuSimpleItemActive(payload.parent));
+      dispatch(syncActionCreators.switchPageSubmenuItemActive(payload.child));
+      dispatch(asyncActionCreators.closeSubmenu());
     }
   }
 };

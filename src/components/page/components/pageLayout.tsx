@@ -18,7 +18,7 @@ import {
 } from './'
 
 interface PageLayoutProps extends RouteComponentProps<void> {
-  isMenuItemActiveOnSmallScreen: string
+  isMenuItemActiveOnSmallScreen: string,
 }
 
 export const PageLayout: React.SFC<PageLayoutProps> = (props) => {

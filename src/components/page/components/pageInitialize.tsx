@@ -7,11 +7,12 @@
  * @returns {JSX.Element | null}
  */
 import * as React from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 
 import { PageLayoutConnected as PageLayout } from '../connected';
 import NotificationPage from '@src/components/notificationPage';
 
-interface PageInitializeProps {
+interface PageInitializeProps extends RouteComponentProps<void> {
   isMenuLoaded: boolean,
   isError: boolean,
   getAllMenusFromAPI: () => any,

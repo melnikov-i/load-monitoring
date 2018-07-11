@@ -8,7 +8,9 @@ import {
   CHANGE_DROPPED_MENU_ITEM_ID,
   CREATE_USERINFO,
   CREATE_MAIN_MENU,
-  SWITCH_PAGE_MENU_ITEM_ACTIVE,
+  SWITCH_PAGE_MENU_SIMPLE_ITEM_ACTIVE,
+  SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE,
+  SWITCH_PAGE_SUBMENU_ITEM_ACTIVE,
   SWITCH_MENU_ITEM_ON_SMALL_SCREEN,
 } from './'
 
@@ -21,7 +23,9 @@ export type State = {
   readonly userinfo: IUser,
   readonly mainMenuCollection: IMenuItem[],
   readonly pageMenuItemActive: string,
-  readonly isMenuItemActiveOnSmallScreen: string
+  readonly pageMenuItemMultiActive: string,
+  readonly isMenuItemActiveOnSmallScreen: string,
+  readonly pageSubmenuItemActive: string,
 };
 
 const _userinfo: IUser = {
@@ -95,7 +99,31 @@ export const reducer = combineReducers<State>({
    */
   pageMenuItemActive: (state = '', action) => {
     switch (action.type) {
-      case SWITCH_PAGE_MENU_ITEM_ACTIVE:
+      case SWITCH_PAGE_MENU_SIMPLE_ITEM_ACTIVE:
+        return action.payload;
+      case USER_IS_NOT_AUTHORIZED:
+        return '';
+      default:
+        return state;
+    }
+  },
+
+  /* Идентификатор активного составного пункта основного меню */
+  pageMenuItemMultiActive: (state = '', action) => {
+    switch (action.type) {
+      case SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE:
+        return action.payload;
+      case USER_IS_NOT_AUTHORIZED:
+        return '';
+      default:
+        return state;
+    }
+  },
+
+  /* Идентификатор активного составного пункта основного меню */
+  pageSubmenuItemActive: (state = '', action) => {
+    switch (action.type) {
+      case SWITCH_PAGE_SUBMENU_ITEM_ACTIVE:
         return action.payload;
       case USER_IS_NOT_AUTHORIZED:
         return '';

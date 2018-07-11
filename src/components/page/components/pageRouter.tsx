@@ -6,17 +6,28 @@ import { Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom';
 
 import NotificationPage from '@src/components/notificationPage';
 
-interface PageRouterProps extends RouteComponentProps<void> {}
+interface PageRouterProps extends RouteComponentProps<void> {
+  switchPageMenuSimpleItemActive: (payload: string) => any,
+}
 
 export const PageRouter: React.SFC<PageRouterProps> = (props) => {
-  const {  } = props;
+  const { switchPageMenuSimpleItemActive } = props;
 
   console.log('[PageRouter]');
 
   const notify = (page: string) => (<NotificationPage
     hint={'компонент ' + page + ' находится на стадии разработки.'}
     type={'error'}
-    callback={() => { }} />);
+    callback={() => {
+      switchPageMenuSimpleItemActive('30');
+    }} />);
+  
+  const notFound = () => (<NotificationPage
+    hint={'Страница не найдена.'}
+    type={'error'}
+    callback={() => {
+      switchPageMenuSimpleItemActive('30');
+    }} />);
 
   return (
     <Switch>
@@ -29,6 +40,7 @@ export const PageRouter: React.SFC<PageRouterProps> = (props) => {
       <Route exact path={'/agent_update'} render={() => (notify('agent_update'))} />
       <Route exact path={'/backups'} render={() => (notify('backups'))} />
       <Route exact path={'/'} render={() => <Redirect to={'/overview'} />} />
+      <Route path={'/'} render={() => (notFound())} />
       {/* {devicesMenu.map((e, i) => {
         return (
           <Route

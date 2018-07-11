@@ -25,7 +25,6 @@ const mapDispatchToProps:
   MapDispatchToPropsParam<DispatchProps, OwnProps> =
   (dispatch: Dispatch) => bindActionCreators({}, dispatch);
 
-export const PageMenuConnected =
-  withRouter(connect<StateProps, DispatchProps, OwnProps, RootState>(
-    mapStateToProps, mapDispatchToProps)(PageMenu)
-  );
+export const PageMenuConnected = withRouter(
+  connect<StateProps, DispatchProps, OwnProps, RootState>(
+    mapStateToProps, mapDispatchToProps)(PageMenu));

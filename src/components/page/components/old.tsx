@@ -198,40 +198,40 @@
 //     switchMenuOnSmallScreens();
 //   };
 
-//   /**
-//    * Отправляет в Store идентификатор активного простого элемента
-//    * основного меню.
-//    * @param {React.MouseEvent<T>} e
-//    * @return {void}
-//    */
-//   type MouseEventGenericType =
-//     | HTMLLIElement
-//     | HTMLUListElement
-//     | HTMLAnchorElement;
+          //   /**
+          //    * Отправляет в Store идентификатор активного простого элемента
+          //    * основного меню.
+          //    * @param {React.MouseEvent<T>} e
+          //    * @return {void}
+          //    */
+          //   type MouseEventGenericType =
+          //     | HTMLLIElement
+          //     | HTMLUListElement
+          //     | HTMLAnchorElement;
 
-//   const PageMenuItemActiveHandler =
-//     (e: React.MouseEvent<MouseEventGenericType>): void => {
-//       const current: string =
-//         String(e.currentTarget.getAttribute('data-item-id'));
-//       switchPageMenuItemActive(current);
-//     };
+          //   const PageMenuItemActiveHandler =
+          //     (e: React.MouseEvent<MouseEventGenericType>): void => {
+          //       const current: string =
+          //         String(e.currentTarget.getAttribute('data-item-id'));
+          //       switchPageMenuItemActive(current);
+          //     };
 
-//   /**
-//    * Отправляет в Store идентификатор активного составного элемента
-//    * основного меню.
-//    * @param {React.MouseEvent<T>} e
-//    * @return {void}
-//    */
-//   const PageMenuItemMultiActiveHandler =
-//     (e: React.MouseEvent<MouseEventGenericType>): void => {
-//       const current: string =
-//         String(e.currentTarget.getAttribute('data-item-id'));
-//       if (PageMenuItemMultiActive === current) {
-//         switchPageMenuItemMultiActive('');
-//       } else {
-//         switchPageMenuItemMultiActive(current);
-//       }
-//     };
+            // /**
+            //  * Отправляет в Store идентификатор активного составного элемента
+            //  * основного меню.
+            //  * @param {React.MouseEvent<T>} e
+            //  * @return {void}
+            //  */
+            // const PageMenuItemMultiActiveHandler =
+            //   (e: React.MouseEvent<MouseEventGenericType>): void => {
+            //     const current: string =
+            //       String(e.currentTarget.getAttribute('data-item-id'));
+            //     if (PageMenuItemMultiActive === current) {
+            //       switchPageMenuItemMultiActive('');
+            //     } else {
+            //       switchPageMenuItemMultiActive(current);
+            //     }
+            //   };
 
 //   /**
 //    * Возвращает стиль активного меню для NavLink. Необходим для показа
@@ -340,34 +340,34 @@
       //           </PageLogo>
       //         </PageLogoWrapper>
 //         <PageMenuLayout>
-//           {mainMenu.map((e, i) => {
-//             /**
-//              * Построение основного меню страницы на основе коллекции 
-//              * элементов основного меню.
-//              */
-//             if (isMultiplePageMenuItem(e.to)) {
-//               /* Пункт меню содержит подменю */
+            //           {mainMenu.map((e, i) => {
+            //             /**
+            //              * Построение основного меню страницы на основе коллекции 
+            //              * элементов основного меню.
+            //              */
+            //             if (isMultiplePageMenuItem(e.to)) {
+            //               /* Пункт меню содержит подменю */
 
-//               /* Получение коллекции элементов подменю */
-//               const subMenu: MainMenuLinksInterface[] = getSubMenu(e.to);
-//               /* Вычисление высоты подменю для плавного выпадания */
-//               const subMenuHeight: string =
-//                 (subMenu.length !== 0)
-//                   ? String(subMenu.length * 32 + 42) : '42';
-//               return (
-//                 <PageMenuItem
-//                   key={i}
-//                   isActive={PageMenuItemMultiActive === '3' + i}
-//                 >
+            //               /* Получение коллекции элементов подменю */
+            //               const subMenu: MainMenuLinksInterface[] = getSubMenu(e.to);
+            //               /* Вычисление высоты подменю для плавного выпадания */
+            //               const subMenuHeight: string =
+            //                 (subMenu.length !== 0)
+            //                   ? String(subMenu.length * 32 + 42) : '42';
+            //               return (
+            //                 <PageMenuItem
+            //                   key={i}
+            //                   isActive={PageMenuItemMultiActive === '3' + i}
+            //                 >
 //                   {/* Пункт основного меню */}
-//                   <PageMenuItemAnchor
-//                     icon={e.icon}
-//                     data-item-id={'3' + i}
-//                     onClick={PageMenuItemMultiActiveHandler}
-//                     isActive={PageMenuItemMultiActive === '3' + i}
-//                   >
-//                     {e.value}
-//                   </PageMenuItemAnchor>
+                  // <PageMenuItemAnchor
+                  //   icon={e.icon}
+                  //   data-item-id={'3' + i}
+                  //   onClick={PageMenuItemMultiActiveHandler}
+                  //   isActive={PageMenuItemMultiActive === '3' + i}
+                  // >
+                  //   {e.value}
+                  // </PageMenuItemAnchor>
 //                   {/* Подменю */}
 //                   <PageSubMenuLayout
 //                     isActive={PageMenuItemMultiActive === '3' + i}

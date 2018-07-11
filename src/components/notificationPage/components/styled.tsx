@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 export const NotificationPageWrapper = styled.div`
-  width: 400px;
-  height: 400px;
+  width: 240px;
+  height: 240px;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -16,7 +16,7 @@ export const NotificationPageWrapper = styled.div`
     display: block;
     font-family: 'FontAwesome';
     font-weight: normal;
-    font-size: 280px;
+    font-size: 200px;
     color: ${(props: { type: string }) => (
       props.type === 'error' ? '#ed5565' : '#1ab394'
     )};
@@ -25,7 +25,7 @@ export const NotificationPageWrapper = styled.div`
 `;
 
 export const NotificationPageText = styled.p`
-  font-size: 18px;
+  font-size: 14px;
   color: ${(props: { type: string }) => (
     props.type === 'error' ? '#ed5565' : '#1ab394'
   )};

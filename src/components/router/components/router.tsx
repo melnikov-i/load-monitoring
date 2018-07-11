@@ -21,7 +21,6 @@ import Login from '@src/components/login';
 import Registration from '@src/components/registration';
 import Recovery from '@src/components/recovery';
 import Page from '@src/components/page';
-// import MainConnected from '@src/usage/MainUsage';
 
 /** Глобальные стили */
 injectGlobal`
@@ -41,7 +40,7 @@ injectGlobal`
 
   #app {
     width: 100%;
-    min-width: 700px;
+    min-width: 310px;
     min-height: 100%;
     box-sizing: border-box;
     height: auto;
@@ -68,7 +67,7 @@ interface RouterProps extends RouteComponentProps<void> {
 export const Router: React.SFC<RouterProps> = (props) => {
   const { isAuthorized } = props;
 
-  console.log('[router].isAuthorized:', isAuthorized);
+  console.warn('[router].isAuthorized:', isAuthorized);
 
   return (
     <Switch>

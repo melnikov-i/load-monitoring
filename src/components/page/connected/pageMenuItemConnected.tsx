@@ -9,12 +9,12 @@ import { IMenuItem } from '@src/core/interfaces';
 import { syncActionCreators } from '@src/core/redux/page';
 
 interface StateProps {
-  isActive: boolean,
+  isActive: boolean,  
   isMenuItemActiveOnSmallScreen: string,
 }
 
 interface DispatchProps {
-  switchPageMenuItemActive: (payload: string) => any,
+  switchPageMenuSimpleItemActive: (payload: string) => any,  
 }
 
 interface OwnProps {
@@ -34,7 +34,7 @@ const provideActivity: Selector<RootState, any> =
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
   createStructuredSelector<RootState, StateProps>({
-    isActive: createSelector(provideActivity, (isActive) => isActive),
+    isActive: createSelector(provideActivity, (isActive) => isActive),    
     isMenuItemActiveOnSmallScreen: (state: RootState) => 
       state.page.isMenuItemActiveOnSmallScreen,
   });
@@ -42,10 +42,9 @@ const mapStateToProps:
 const mapDispatchToProps:
   MapDispatchToPropsParam<DispatchProps, OwnProps> =
   (dispatch: Dispatch) => bindActionCreators({
-    switchPageMenuItemActive: syncActionCreators.switchPageMenuItemActive,
+    switchPageMenuSimpleItemActive: syncActionCreators.switchPageMenuSimpleItemActive,    
   }, dispatch);
 
-export const PageMenuItemConnected =
-  withRouter(connect<StateProps, DispatchProps, OwnProps, RootState>(
-    mapStateToProps, mapDispatchToProps)(PageMenuItem)
-  );
+export const PageMenuItemConnected = withRouter(
+  connect<StateProps, DispatchProps, OwnProps, RootState>(
+    mapStateToProps, mapDispatchToProps)(PageMenuItem));
