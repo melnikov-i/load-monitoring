@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { IMenuItem, ISelecSubmenu } from '@src/core/interfaces';
+import { IMenuItem, ISelectSubmenu } from '@src/core/interfaces';
 
 import {
   PageSubMenuItem,
@@ -8,22 +8,20 @@ import {
 } from './';
 
 interface PageSubmenuItemProps extends RouteComponentProps<void> {
-  isSubmenuActive: boolean,
-  isMenuItemActiveOnSmallScreen: string,
+  isActive: boolean,
   params: { item: IMenuItem, index: number, parent: string },
-  selectSubmenu: (payload: ISelecSubmenu) => any,
+  closeSubmenu: (payload?: string) => any,
+  selectSubmenu: (payload: ISelectSubmenu) => any,
 }
 
 export const PageSubmenuItem: React.SFC<PageSubmenuItemProps> = (props) => {
   const {
-    isSubmenuActive,
-    // isMenuItemActiveOnSmallScreen,
+    isActive,
     params : {item, index, parent},
+    closeSubmenu,
     selectSubmenu,
   } = props;
-
-  console.log('[PageSubmenuItem]');
-
+  
   /**
    * Отправляет в Store идентификатор активного простого элемента
    * основного меню.
@@ -39,28 +37,28 @@ export const PageSubmenuItem: React.SFC<PageSubmenuItemProps> = (props) => {
     (e: React.MouseEvent<MouseEventGenericType>): void => {
       const current: string =
         String(e.currentTarget.getAttribute('data-item-id'));
-        console.log('pageSubmenuItem', current);
-        selectSubmenu({parent: parent, child: current});
+        closeSubmenu(current);
     };
 
   const oddEvent: any = (match: any) => {
     if (match) {
-      if (isSubmenuActive === null) {
-        // selectSubmenu({ parent: parent, child: '4' + index });
+      if (isActive === null) {
+        selectSubmenu({ parent: parent, child: '4' + index });
       }
     }
     return false;
   };
 
   return (
-    <PageSubMenuItem isActive={isSubmenuActive}>
+    <PageSubMenuItem style={{
+      color: isActive ? '#fff' : '#a7b1c2'
+    }}>
       <PageSubMenuItemLink
         onClick={pageMenuItemActiveHandler}
         data-item-id={'4' + index}
         icon={item.icon}
         to={'/' + item.to}
         title={item.value}
-        // active={isMenuItemActiveOnSmallScreen}
         isActive={oddEvent}
       >{item.value}</PageSubMenuItemLink>
     </PageSubMenuItem>    

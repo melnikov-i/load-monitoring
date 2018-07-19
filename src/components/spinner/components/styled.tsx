@@ -46,7 +46,7 @@ export const CircularSpinner = styled.div`
     animation-name: ${ rotateBefore};
     animation-duration: 2s;
     animation-timing-function: linear;
-    animation-delay: 2s;
+    animation-delay: 0.4s;
     animation-iteration-count: infinite;
     animation-direction: normal;
     background-color: ${(props: CircularSpinnerProps) => props.bgColor};
@@ -62,7 +62,7 @@ export const CircularSpinner = styled.div`
     animation-name: ${ rotateAfter};
     animation-duration: 2s;
     animation-timing-function: linear;
-    animation-delay: 2s;
+    animation-delay: 0.4s;
     animation-iteration-count: infinite;
     animation-direction: normal;
     background-color: ${(props: CircularSpinnerProps) => props.bgColor};

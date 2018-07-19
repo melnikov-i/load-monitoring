@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import { reducer as login, State as LoginState } from './login';
 import { reducer as form, State as FormState } from './form';
 import { reducer as registration, State as RegistrationState } from './registration';
+import { reducer as recovery, State as RecoveryState } from './recovery';
 import { reducer as page, State as PageState } from './page';
 
 // import { reducer as main, State as MainState} from './main';
@@ -16,6 +17,7 @@ export interface RootState {
   login: LoginState,
   form: FormState,
   registration: RegistrationState,
+  recovery: RecoveryState,
   page: PageState,
   // main: MainState,
   // devices: DevicesState,
@@ -29,6 +31,7 @@ export const rootReducer = combineReducers<RootState>({
   form,
   registration,
   page,
+  recovery,
   // main,
   // devices,
   // overview,

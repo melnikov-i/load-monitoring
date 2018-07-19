@@ -4,17 +4,18 @@ import { createStructuredSelector, createSelector } from 'reselect';
 import { Dispatch, RootState } from '@src/core/redux';
 import { withRouter } from 'react-router-dom';
 
-import { PageMenuItem } from '../components';
+import { PageMenuSimpleItem } from '../components';
 import { IMenuItem } from '@src/core/interfaces';
-import { syncActionCreators } from '@src/core/redux/page';
+import { asyncActionCreators } from '@src/core/redux/page';
 
 interface StateProps {
-  isActive: boolean,  
-  isMenuItemActiveOnSmallScreen: string,
+  isSimpleMenuItemActive: boolean,  
+  isSubmenuActiveOnBigScreen: boolean,
+  isSubmenuActiveOnSmallScreen: boolean,
 }
 
 interface DispatchProps {
-  switchPageMenuSimpleItemActive: (payload: string) => any,  
+  selectSimpleItemMainMenu: (payload: string) => any,  
 }
 
 interface OwnProps {
@@ -25,8 +26,8 @@ type Selector<TInput, TOutput> = (state: TInput, props?: any) => TOutput;
 
 const provideActivity: Selector<RootState, any> =
   (state: RootState, props: OwnProps): any => {
-    if (state.page.pageMenuItemActive) {
-      return state.page.pageMenuItemActive === '3' + String(props.params.index)
+    if (state.page.pageMenuSimpleItemActive) {
+      return state.page.pageMenuSimpleItemActive === '3' + String(props.params.index)
     }
     return null;
   }
@@ -34,17 +35,19 @@ const provideActivity: Selector<RootState, any> =
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
   createStructuredSelector<RootState, StateProps>({
-    isActive: createSelector(provideActivity, (isActive) => isActive),    
-    isMenuItemActiveOnSmallScreen: (state: RootState) => 
-      state.page.isMenuItemActiveOnSmallScreen,
+    isSimpleMenuItemActive: createSelector(provideActivity, (isActive) => isActive),    
+    isSubmenuActiveOnBigScreen: (state: RootState) =>
+      state.page.isSubmenuActiveOnBigScreen,
+    isSubmenuActiveOnSmallScreen: (state: RootState) =>
+      state.page.isSubmenuActiveOnSmallScreen,
   });
 
 const mapDispatchToProps:
   MapDispatchToPropsParam<DispatchProps, OwnProps> =
   (dispatch: Dispatch) => bindActionCreators({
-    switchPageMenuSimpleItemActive: syncActionCreators.switchPageMenuSimpleItemActive,    
+    selectSimpleItemMainMenu: asyncActionCreators.selectSimpleItemMainMenu,    
   }, dispatch);
 
-export const PageMenuItemConnected = withRouter(
+export const PageMenuSimpleItemConnected = withRouter(
   connect<StateProps, DispatchProps, OwnProps, RootState>(
-    mapStateToProps, mapDispatchToProps)(PageMenuItem));
+    mapStateToProps, mapDispatchToProps)(PageMenuSimpleItem));

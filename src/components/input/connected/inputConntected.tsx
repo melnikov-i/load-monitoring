@@ -4,7 +4,7 @@ import { createStructuredSelector } from 'reselect';
 import { Dispatch, RootState } from '@src/core/redux';
 
 import { Input } from '../components';
-import { /* ISAtributes, */ IInputModel } from '@src/core/interfaces';
+import { IInputModel } from '@src/core/interfaces';
 import { syncActionCreators } from '@src/core/redux/form';
 
 interface StateProps {}

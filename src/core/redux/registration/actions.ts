@@ -80,25 +80,23 @@ export const syncActionCreators = {
 };
 
 export const asyncActionCreators = {
-  sendRegistrationToAPI:
-    (payload: RegistrationRequest) => {
-      return async (dispatch: Dispatch) => {
-        dispatch(syncActionCreators.changeRegistrationView('pending'));
-        dispatch(formActionCreators.clearFormsModel());
-        try {
-          const response = await sendRequestToAPI.post('/reg.php', payload);
-          console.log('data:', response);
-          switch (response.data.status) {
-            case "ok": dispatch(
-              syncActionCreators.changeRegistrationView('success')); return;
-            case "already_registered": dispatch(
-              syncActionCreators.changeRegistrationView('already')); return;
-            default: dispatch(
-              syncActionCreators.changeRegistrationView('failed')); return;
-          }
-        } catch (error) {
-          console.error(error);
+  sendRegistrationToAPI: (payload: RegistrationRequest) => {
+    return async (dispatch: Dispatch) => {
+      dispatch(syncActionCreators.changeRegistrationView('pending'));
+      dispatch(formActionCreators.clearFormsModel());
+      try {
+        const response = await sendRequestToAPI.post('/reg.php', payload);
+        switch (response.data.status) {
+          case "ok": dispatch(
+            syncActionCreators.changeRegistrationView('success')); return;
+          case "already_registered": dispatch(
+            syncActionCreators.changeRegistrationView('already')); return;
+          default: dispatch(
+            syncActionCreators.changeRegistrationView('failed')); return;
         }
+      } catch (error) {
+        console.error(error);
       }
-    },
+    }
+  }
 };

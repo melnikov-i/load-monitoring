@@ -44,7 +44,11 @@ export const Registration: React.SFC<RegistrationProps> = (props) => {
   switch (registrationView) {
     case 'error': 
       console.warn('server not responsed');
-      return null;
+      return <NotificationPage
+        hint={'Сервер не ответил за отведенное время '
+          + 'Пожалуйста проверьте подключение или повторите попытку позднее.'}
+        type={'error'}
+        callback={handleLinkToHome} />;
     case 'success': return <NotificationPage
       hint={'Регистрация прошла успешно. В течение ближайшего времени '
         + 'Вам на почту придет ссылка подтверждения регистрации.'}

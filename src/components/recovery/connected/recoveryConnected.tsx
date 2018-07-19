@@ -5,14 +5,15 @@ import { Dispatch, RootState } from '@src/core/redux';
 import { withRouter } from 'react-router-dom';
 
 import { Recovery } from '../components';
-// import { syncActionCreators } from '@src/core/redux/recovery';
+import { syncActionCreators } from '@src/core/redux/recovery';
+
 
 interface StateProps {
-  // recoveryView: string,
+  recoveryView: string,
 }
 
 interface DispatchProps {
-  // changeRecoveryView: (payload: string) => any,
+  changeRecoveryView: (payload: string) => any
 }
 
 interface OwnProps { }
@@ -20,13 +21,13 @@ interface OwnProps { }
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
   createStructuredSelector<RootState, StateProps>({
-    // registrationView: (state: RootState) => state.registration.registrationView,
+    recoveryView: (state: RootState) => state.recovery.recoveryView
   });
 
 const mapDispatchToProps:
   MapDispatchToPropsParam<DispatchProps, OwnProps> = (dispatch: Dispatch) =>
     bindActionCreators({
-      // changeRegistrationView: syncActionCreators.changeRegistrationView,
+      changeRecoveryView: syncActionCreators.changeRecoveryView
     }, dispatch);
 
 export const RecoveryConnected = withRouter(

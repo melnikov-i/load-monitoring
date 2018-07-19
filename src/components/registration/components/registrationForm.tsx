@@ -79,7 +79,8 @@ export const RegistrationForm: React.SFC<RegistrationFormProps> = (props) => {
       password: formItems.password.value,
       recaptcha: formItems.reCaptcha.value,
     });
-  }
+  };
+
   return (
     <div>
       <FormHeader color={'grey'}>{'Регистрация'}</FormHeader>

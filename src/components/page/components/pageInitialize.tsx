@@ -20,9 +20,6 @@ interface PageInitializeProps extends RouteComponentProps<void> {
 
 export const PageInitialize: React.SFC<PageInitializeProps> = (props) => {
   const { isMenuLoaded, isError, getAllMenusFromAPI } = props;
-  
-  console.log('[PageInitialize]');
-  
   if (!isMenuLoaded) {
     /** Меню не загружено */
      if (isError) {

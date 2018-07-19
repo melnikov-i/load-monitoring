@@ -4,6 +4,7 @@ import {
   FORM_PAGE_FONT_SIZE,
   FORM_INPUT_WIDTH,
   colors,
+  SMALL_SCREEN_MAX,
 } from '@src/core/styled';
 
 /**
@@ -34,6 +35,9 @@ export const InputWrapper = styled.div`
     width: 250px;
     top: 0;
     left: 105%;
+  }
+  @media screen and (max-width: ${SMALL_SCREEN_MAX}) {
+    margin-bottom: 6px;
   }
 `;
 

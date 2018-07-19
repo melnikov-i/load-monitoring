@@ -14,7 +14,7 @@ export const FormSpinner: React.SFC<{}> = () => {
     <div>
       <FormHeader color={'grey'}>{'Выполняется проверка'}</FormHeader>
       <SpinnerLayout>
-        <Spinner width={3} color={'grey'} bgColor={'#f3f3f4'} />
+        <Spinner width={3} color={'darkGrey'} bgColor={'#f3f3f4'} />
       </SpinnerLayout>
     </div>
   );

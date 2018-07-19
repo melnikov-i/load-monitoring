@@ -7,7 +7,7 @@ import { IMenuItem } from '@src/core/interfaces';
 
 import { PageMenuContainer } from './';
 
-import { PageMenuItemConnected as PageMenuItem } from '../connected';
+import { PageMenuSimpleItemConnected as PageMenuSimpleItem } from '../connected';
 import { PageMenuMultiItemConnected as PageMenuMultiItem } from '../connected';
 
 interface PageMenuProps extends RouteComponentProps<void> {
@@ -16,17 +16,19 @@ interface PageMenuProps extends RouteComponentProps<void> {
 
 export const PageMenu: React.SFC<PageMenuProps> = (props) => {
   const { mainMenuCollection } = props;
-
-  console.log('[PageMenu].mainMenuCollection:', mainMenuCollection);
-
+  
   return (
     <PageMenuContainer>
       {mainMenuCollection.map((e, i) => {
         const arr = e.submenu ? e.submenu : [];
         if (arr.length > 0) {
-          return (<PageMenuMultiItem params={{ item: e, index: i }} key={i} />);
+          return (
+            <PageMenuMultiItem params={{ item: e, index: i }} key={'multi' + i} />
+          );
         } else {
-          return (<PageMenuItem params={{ item: e, index: i }} key={i} />);
+          return (
+            <PageMenuSimpleItem params={{ item: e, index: i }} key={'simple' + i} />
+          );
         }
       })}
     </PageMenuContainer>

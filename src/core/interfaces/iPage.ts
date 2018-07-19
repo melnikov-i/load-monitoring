@@ -13,7 +13,7 @@ export interface IUser {
   }[],
 }
 
-export interface ISelecSubmenu {
+export interface ISelectSubmenu {
   parent: string,
   child: string,
 }

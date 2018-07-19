@@ -5,16 +5,16 @@ import { Dispatch, RootState } from '@src/core/redux';
 import { withRouter } from 'react-router-dom';
 
 import { PageSubmenuItem } from '../components';
-import { IMenuItem, ISelecSubmenu } from '@src/core/interfaces';
-import { asyncActionCreators/* , syncActionCreators */ } from '@src/core/redux/page';
+import { IMenuItem, ISelectSubmenu } from '@src/core/interfaces';
+import { asyncActionCreators } from '@src/core/redux/page';
 
 interface StateProps {
-  isSubmenuActive: boolean,
-  isMenuItemActiveOnSmallScreen: string,
+  isActive: boolean,
 }
 
 interface DispatchProps {
-  selectSubmenu: (payload: ISelecSubmenu) => any,
+  closeSubmenu: (payload?: string) => any,
+  selectSubmenu: (payload: ISelectSubmenu) => any,
 }
 
 interface OwnProps {
@@ -25,8 +25,8 @@ type Selector<TInput, TOutput> = (state: TInput, props?: any) => TOutput;
 
 const provideSubmenuActivity: Selector<RootState, any> =
   (state: RootState, props: OwnProps): any => {
-    if (state.page.pageSubmenuItemActive) {
-      return state.page.pageSubmenuItemActive === '4' + String(props.params.index);
+    if (state.page.pageMenuSimpleItemActive) {
+      return state.page.pageMenuSimpleItemActive === '4' + String(props.params.index);
     }
     return null;
   }
@@ -34,13 +34,12 @@ const provideSubmenuActivity: Selector<RootState, any> =
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
   createStructuredSelector<RootState, StateProps>({
-    isSubmenuActive: createSelector(provideSubmenuActivity, isActive => isActive),
-    isMenuItemActiveOnSmallScreen: (state: RootState) => 
-      state.page.isMenuItemActiveOnSmallScreen,
+    isActive: createSelector(provideSubmenuActivity, isActive => isActive),
   });
 
 const mapDispatchToProps:
   MapDispatchToPropsParam<DispatchProps, OwnProps> = (dispatch: Dispatch) => bindActionCreators({
+    closeSubmenu: asyncActionCreators.closeSubmenu,
     selectSubmenu: asyncActionCreators.selectSubmenu
   }, dispatch);
 

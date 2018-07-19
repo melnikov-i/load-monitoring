@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import { SMALL_SCREEN_MAX } from '@src/core/styled';
 
 const Checkboxes = require('@src/images/checkboxes');
 
@@ -32,6 +33,9 @@ export const RegistrationCheckboxWrapper = styled.div`
     left: 105%;
     transform: translateY(-50%);
     width: 250px;
+  }
+  @media screen and (max-width: ${SMALL_SCREEN_MAX}) {
+    margin-bottom: 6px;
   }
 `;
 

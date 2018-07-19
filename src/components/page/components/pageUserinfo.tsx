@@ -54,7 +54,7 @@ export const PageUserinfo: React.SFC<PageUserinfoProps> = (props) => {
           isClicked={droppedMenuItemId === '00'}
         >
           {userinfo.links.map((e, i) => (
-            <PageUserinfoMenuItem key={i}>
+            <PageUserinfoMenuItem key={'userinfo' + i}>
               <PageUserinfoMenuLink
                 to={'/' + e.to}
                 title={e.value}

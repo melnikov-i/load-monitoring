@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import {
   FORM_LAYOUT_WIDTH,
   FORM_PAGE_FONT_SIZE,
+  SMALL_SCREEN_MAX,
   emergence2,
   colors,
 } from './';
@@ -15,7 +16,6 @@ const Logo = require('@src/images/LogoBig');
  */
 export const FormPageLayout = styled.div`
   width: 100%;
-  overflow: hidden;
 `;
 
 /** 
@@ -39,6 +39,9 @@ export const FormPageLogotype = styled.div`
   background-repeat: no-repeat;
   background-size: contain;
   padding-top: 170px;
+  @media screen and (max-width: ${SMALL_SCREEN_MAX}) {
+    margin-top: -125px;
+  }
 `;
 
 export const FormPageLogotypeHeader = styled.h1`

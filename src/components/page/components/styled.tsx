@@ -6,7 +6,6 @@ const Logo = require('@src/images/Logo');
 
 import {
   SMALL_SCREEN_MAX,
-  // MIDDLE_SCREEN_MIN,
   MIDDLE_SCREEN_MAX,
   BIG_SCREEN_MIN,
   MENU_LAYOUT_BIG_WIDTH,
@@ -59,20 +58,17 @@ export const PageLayoutMenuCollumn = styled.div`
   left: 0;
   bottom: 0;
   z-index: 1;
-  @media screen
-    and (max-width: ${ MIDDLE_SCREEN_MAX }) {
-      width: ${(props: { active: string }) => (
-        props.active === '1'
-          ? `${MENU_LAYOUT_BIG_WIDTH}` : `${MENU_LAYOUT_MIDDLE_WIDTH}`
-      )};
-    }
+  @media screen and (max-width: ${ MIDDLE_SCREEN_MAX }) {
+    width: ${(props: { isSubmenuActiveOnSmallScreen: boolean }) => (
+      props.isSubmenuActiveOnSmallScreen
+        ? `${MENU_LAYOUT_BIG_WIDTH}` : `${MENU_LAYOUT_MIDDLE_WIDTH}`
+    )};
+  }
 `;
 
 /**
  * Колонка основного контента
  * В зависимости от ширины экрана может быть разной ширины.
- * В этом контейнере происходит корректировка размеров основной части страницы
- * при показе анимации раскрытия меню.
  * @param {boolean} isMenuOpenedOnSmallScreen
  * @return {React.Component}
  */
@@ -84,61 +80,11 @@ export const PageLayoutContentCollumn = styled.div`
   margin-bottom: -${ FOOTER_HEIGHT};
   padding-left: ${ MENU_LAYOUT_BIG_WIDTH};
   box-sizing: border-box;
-  transition:${(props: { active: string }) => (
-    props.active === '1'
-    ? 'padding-left 0.4s' : 'padding-left 0.4s ease 0.8s'
-  )};
-  @media screen 
-    and ( max-width: ${ MIDDLE_SCREEN_MAX } ) {
-      padding-left: ${(props: { active: string}) => (
-        props.active === '1'
-          ? `${MENU_LAYOUT_BIG_WIDTH}` : `${MENU_LAYOUT_MIDDLE_WIDTH}`
-      )};
-    }
+  transition: padding-left 0.4s;
+  @media screen and ( max-width: ${ MIDDLE_SCREEN_MAX } ) {
+    padding-left: ${MENU_LAYOUT_MIDDLE_WIDTH};
+  }
 `;
-
-  // export const PageMenu = styled.div`
-  //   width: ${ MENU_LAYOUT_BIG_WIDTH};
-  //   display: inline-block;
-  //   vertical-align: top;
-  //   min-height: 100vh;
-  //   margin-bottom: -${ FOOTER_HEIGHT};
-  //   &::before {
-  //     content: "";
-  //     display: block;
-  //     width: ${ MENU_LAYOUT_BIG_WIDTH};
-  //     min-height: 100%;
-  //     height: auto;
-  //     background-color: #2f4050;
-  //     position: fixed;
-  //     top: 0;
-  //     left: 0;
-  //     z-index: 1;
-  //   }
-  //   @media screen
-  //     and ( min-width: ${ MIDDLE_SCREEN_MIN} )
-  //     and ( max-width: ${ MIDDLE_SCREEN_MAX} ) {
-  //       width: ${ MENU_LAYOUT_MIDDLE_WIDTH};
-  //       &::before {
-  //         width: ${ MENU_LAYOUT_MIDDLE_WIDTH};
-  //       }
-  //     };
-  //   @media screen
-  //     and ( max-width: ${ SMALL_SCREEN_MAX} ) {
-  //       width: ${ MENU_LAYOUT_MIDDLE_WIDTH};
-  //       margin-left: ${(props: { isMenuOpenedOnSmallScreen: boolean }) => (
-  //     props.isMenuOpenedOnSmallScreen
-  //       ? '0' : `-${MENU_LAYOUT_MIDDLE_WIDTH}`
-  //   )};
-  //       &::before {
-  //         width: ${ MENU_LAYOUT_MIDDLE_WIDTH};
-  //         margin-left: ${(props: { isMenuOpenedOnSmallScreen: boolean }) => (
-  //     props.isMenuOpenedOnSmallScreen
-  //       ? '0' : `-${MENU_LAYOUT_MIDDLE_WIDTH}`
-  //   )};
-  //       }
-  //     };
-  // `;
 
 /** ### PageUserinfo ### */
 
@@ -324,20 +270,25 @@ export const PageMenuContainer = styled.ul`
  * @param {boolean} isActive
  * @return {React.Component}
  */
+type TPageMenuItemContainer = {
+  isActiveOnBigScreen: boolean,
+  isActiveOnSmallScreen: boolean,
+};
+
 export const PageMenuItemContainer = styled.li`
   list-style-position: inside;
   list-style-type: none;
   display: block;
   position: relative;
-  transition: border-left 0.4s;
-  border-left: ${(props: { isActive: boolean }) => (
-    props.isActive ? '4px solid #19aa8d' : '0 solid #19aa8d'
+  transition: border-left 0.4s, background-color 0.4s, color 0.4s;
+  border-left: ${(props: TPageMenuItemContainer) => (
+    props.isActiveOnBigScreen ? '4px solid #19aa8d' : '0 solid #19aa8d'
   )};
-  background-color: ${(props: { isActive: boolean }) => (
-    props.isActive ? '#293846' : 'transparent'
+  background-color: ${(props: TPageMenuItemContainer) => (
+    props.isActiveOnBigScreen ? '#293846' : 'transparent'
   )};
-  color: ${(props: { isActive: boolean }) => (
-    props.isActive ? '#fff' : '#a7b1c2'
+  color: ${(props: TPageMenuItemContainer) => (
+    props.isActiveOnBigScreen ? '#fff' : '#a7b1c2'
   )};
   &:hover {
     background-color: #293846;
@@ -345,6 +296,17 @@ export const PageMenuItemContainer = styled.li`
   }
   &::selection {
     background-color: transparent;
+  }
+  @media screen and ( max-width: ${ MIDDLE_SCREEN_MAX} ) {
+    border-left: ${(props: TPageMenuItemContainer) => (
+      props.isActiveOnSmallScreen ? '4px solid #19aa8d' : '0 solid #19aa8d'
+    )};
+  background-color: ${(props: TPageMenuItemContainer) => (
+      props.isActiveOnSmallScreen ? '#293846' : 'transparent'
+    )};
+  color: ${(props: TPageMenuItemContainer) => (
+      props.isActiveOnSmallScreen ? '#fff' : '#a7b1c2'
+    )};
   }
 `;
 
@@ -359,25 +321,31 @@ export const PageMenuItemContainer = styled.li`
  * @param {boolean} isActive
  * @return {React.Component}
  */
+type TPageMenuMultiItemContainer = {
+  isSubmenuActiveOnBigScreen: boolean,
+  isSubmenuActiveOnSmallScreen: boolean,
+}
 export const PageMenuMultiItemContainer = PageMenuItemContainer.extend`
-  transition: ${(props: {isActive: boolean}) => (
-    props.isActive ? 'border-left 0.4s' : 'border-left 0.4s ease 0.4s'
+  transition-delay: ${(props: TPageMenuMultiItemContainer) => (
+    props.isSubmenuActiveOnBigScreen ? '0s' : '0.4s'
   )};
-  @media screen and ( max-width: ${ MIDDLE_SCREEN_MAX } ) {
-    transition: ${(props: { isActive: boolean }) => (
-      props.isActive ? 'border-left 0.4s' : 'border-left 0.4s ease 0.8s'
+  @media screen and ( max-width: ${ MIDDLE_SCREEN_MAX} ) {
+    transition: ${(props: TPageMenuMultiItemContainer) => (
+      props.isSubmenuActiveOnSmallScreen ? '0.8s' : '0.4s'
     )};
   }
 `;
 
 /**
- * Вложенная ссылка простого элемента основного меню страницы
+ * Вложенная ссылка простого элемента основного меню страницы.
+ * [!!!] Вместо submenu: string должно быть isSubmenuActive: boolean.
+ * Но в этом месте можно передать только string и без camelCase.
  * @param {string | null} icon
  * @return {React.Component}
  */
 type TPageMenuItemLink = {
   icon: string | null,
-  active: string
+  submenu: string
 }
 export const PageMenuItemLink = styled(NavLink)`
   display: block;
@@ -387,6 +355,7 @@ export const PageMenuItemLink = styled(NavLink)`
   color: inherit;
   padding: 14px 20px 14px 25px;
   background-color: transparent;
+  cursor: pointer;
   transition: font-size 0s ease 0.4s, padding 0.4s ease 0.4s;
   &::selection {
     background-color: transparent;
@@ -403,19 +372,18 @@ export const PageMenuItemLink = styled(NavLink)`
   }
   @media screen and ( max-width: ${ MIDDLE_SCREEN_MAX } ) {
     font-size: ${(props: TPageMenuItemLink) => (
-        (props.active === '1') ? `${FA_SMALL_FONT_SIZE }` : '0'
-      )};
+      props.submenu ? `${FA_SMALL_FONT_SIZE }` : '0'
+    )};
     padding: ${(props: TPageMenuItemLink) => (
-      (props.active === '1')
-        ? '14px 20px 14px 25px' : '10px 14px 10px 14px'
-      )};
+      props.submenu ? '14px 20px 14px 25px' : '10px 14px 10px 14px'
+    )};
     &::before {
       font-size: ${(props: TPageMenuItemLink) => (
-        (props.active === '1')
-          ? `${ FA_SMALL_FONT_SIZE }` : `${ FA_BIG_FONT_SIZE }`
-        )};
+        props.submenu ? `${ FA_SMALL_FONT_SIZE }` : `${ FA_BIG_FONT_SIZE }`
+      )};
       margin-right:  ${(props: TPageMenuItemLink) => (
-        (props.active === '1') ? '6px' : '0' )};
+        props.submenu ? '6px' : '0' 
+      )};
     }
   }
 `;
@@ -429,8 +397,8 @@ export const PageMenuItemLink = styled(NavLink)`
  */
 interface PageMenuItemAnchorProps {
   icon: string | null,
-  isActive: boolean,
-  active: string,
+  isSubmenuActiveOnBigScreen: boolean,
+  isSubmenuActiveOnSmallScreen: boolean,
 }
 
 export const PageMenuItemAnchor = styled.a`
@@ -458,9 +426,11 @@ export const PageMenuItemAnchor = styled.a`
   }
   @media screen and ( min-width: ${ BIG_SCREEN_MIN} ) {
     &::after {
-      content: "\\${(props: PageMenuItemAnchorProps) => (
-        props.isActive ? 'f107' : 'f104'
-      )}";
+      content: "\\f104";
+      transform: ${(props: PageMenuItemAnchorProps) => (
+        props.isSubmenuActiveOnBigScreen ? 'rotate(-90deg)' : 'none'
+      )};
+      transition: transform 0.4s ease 0.4s;
       position: absolute;
       top: 16px;
       right: 20px;
@@ -472,19 +442,18 @@ export const PageMenuItemAnchor = styled.a`
   }
   @media screen and ( max-width: ${ MIDDLE_SCREEN_MAX} ) {
     font-size: ${(props: PageMenuItemAnchorProps) => (
-      (props.active === '1') ? `${FA_SMALL_FONT_SIZE}` : '0'
+      props.isSubmenuActiveOnSmallScreen ? `${FA_SMALL_FONT_SIZE}` : '0'
     )};
     padding: ${(props: PageMenuItemAnchorProps) => (
-      (props.active === '1')
-        ? '14px 20px 14px 25px' : '10px 14px 10px 14px'
+      props.isSubmenuActiveOnSmallScreen ? '14px 20px 14px 25px' : '10px 14px 10px 14px'
     )};
     &::before {
       font-size: ${(props: PageMenuItemAnchorProps) => (
-        (props.active === '1')
+        props.isSubmenuActiveOnSmallScreen
           ? `${FA_SMALL_FONT_SIZE}` : `${FA_BIG_FONT_SIZE}`
       )};
       margin-right:  ${(props: PageMenuItemAnchorProps) => (
-        (props.active === '1') ? '6px' : '0')};
+        props.isSubmenuActiveOnSmallScreen ? '6px' : '0')};
       }
     }
   }
@@ -497,21 +466,25 @@ export const PageMenuItemAnchor = styled.a`
  * @return {React.Component}
  */
 type TPageSubMenuLayout = {
-  isActive: boolean,
+  isSubmenuActiveOnSmallScreen: boolean,
+  isSubmenuActiveOnBigScreen: boolean,
   subMenuHeight: string
 }
 export const PageSubMenuLayout = styled.ul`
   display: block;
   transition: ${(props: TPageSubMenuLayout) => (
-    props.isActive ? 'height 0.4s ease 0.4s' : 'height 0.4s'
+    props.isSubmenuActiveOnBigScreen ? 'height 0.4s ease 0.4s' : 'height 0.4s'
   )};
   height: ${(props: TPageSubMenuLayout) => (
-    props.isActive ? props.subMenuHeight + 'px' : '0'
+    props.isSubmenuActiveOnBigScreen ? props.subMenuHeight + 'px' : '0px'
   )};
   overflow: hidden;
   @media screen and ( max-width: ${ MIDDLE_SCREEN_MAX} ) {
-    transition: ${(props: { isActive: boolean }) => (
-      props.isActive ? 'height .4s ease 0.8s' : 'height .4s'
+    height: ${(props: TPageSubMenuLayout) => (
+      props.isSubmenuActiveOnSmallScreen ? props.subMenuHeight + 'px' : '0px'
+    )};
+    transition: ${(props: TPageSubMenuLayout) => (
+      props.isSubmenuActiveOnSmallScreen ? 'height .4s ease 0.8s' : 'height .4s'
     )};
   }
 `;
@@ -525,9 +498,6 @@ export const PageSubMenuItem = styled.li`
   list-style-position: inside;
   list-style-type: none;
   display: block;
-  color: ${(props: { isActive: boolean }) => (
-    props.isActive ? '#fff' : '#a7b1c2'
-  )};
   &:hover {
     color: #fff;
   }
@@ -567,66 +537,8 @@ export const PageSubMenuItemLink = styled(NavLink)`
     font-size: ${ FA_SMALL_FONT_SIZE};
     margin-right: 6px;
   }
-  `;
-    // @media screen and ( max-width: ${ MIDDLE_SCREEN_MAX} ) {
-    //     padding: ${(props: TPageSubMenuItemLink) => (
-    //       (props.active === '1') ? '7px 10px 7px 52px' : '10px 14px 10px 14px'
-    //     )};
-    //     height: ${(props: TPageSubMenuItemLink) => (
-    //       (props.active === '1') ? '32px' : 'auto'
-    //     )};
-    //     background-color: transparent;
-    //     &:hover {
-    //       background-color: #293846;
-    //     }
-    //     &::before {
-    //       content: "\\${(props: { icon: string | null }) => (
-    //         props.icon !== null ? props.icon : 'f05e'
-    //       )}";
-    //       display: inline-block;
-    //       vertical-align: sub;
-    //       font-family: 'FontAwesome';
-    //       font-weight: normal;
-    //       font-size: ${(props: PageMenuItemAnchorProps) => (
-    //         (props.active === '1')
-    //           ? `${FA_SMALL_FONT_SIZE}` : `${FA_BIG_FONT_SIZE}`
-    //       )};
-    //       margin-right:  ${(props: PageMenuItemAnchorProps) => (
-    //         (props.active === '1') ? '6px' : '0')};
-    //       }
-    //     }
-    //   }
+`;
 
-
-
-  
-  // @media screen and ( max-width: ${ MIDDLE_SCREEN_MAX} ) {
-  //   display: block;
-  //   width: calc( 100% - ${ MENU_LAYOUT_MIDDLE_WIDTH} - 30px );
-  //   position: fixed;
-  //   top: calc( ${ MENU_LAYOUT_MIDDLE_WIDTH} / 4 );
-  //   left: calc( ${ MENU_LAYOUT_MIDDLE_WIDTH} + 15px );
-  //   transform: ${(props: TPageSubMenuLayout) => (
-  //     props.isActive ? 'translateX(0)' : 'translateX(20px)'
-  //   )};
-  //   z-index: 10;
-  //   transition: height 0s;
-  //   transition: transform 1s;
-  //   overflow: ${(props: PageSubMenuLayoutProps) => (
-  //     props.isActive ? 'visible' : 'hidden'
-  //   )};
-  //   &::before {
-  //     content: "";
-  //     display: ${(props: PageSubMenuLayoutProps) => (
-  //       props.isActive ? 'block' : 'none'
-  //     )};
-  //     position: fixed;
-  //     width: 100%;
-  //     height: calc( 100vh - 30px );
-  //     background-color: #293846;
-  //     opacity: 0.9;
-  //   }
-  // }
 
 
 

@@ -1,7 +1,8 @@
-// import { sendRequestToAPI } from '@src/core/libs';
+import { sendRequestToAPI } from '@src/core/libs';
 
 import { Dispatch } from '@src/core/redux';
-import { IMenuItem, IUser, ISelecSubmenu } from '@src/core/interfaces';
+import { IMenuItem, IUser, ISelectSubmenu } from '@src/core/interfaces';
+import {syncActionCreators as loginActionCreators} from '@src/core/redux/login';
 
 export const CHANGE_MENU_LOADED_KEY = 'CHANGE_MENU_LOADED_KEY';
 export const CHANGE_ERROR_KEY = 'CHANGE_ERROR_KEY';
@@ -9,9 +10,16 @@ export const CREATE_USERINFO = 'CREATE_USERINFO';
 export const CREATE_MAIN_MENU = 'CREATE_MAIN_MENU';
 export const CHANGE_DROPPED_MENU_ITEM_ID = 'CHANGE_DROPPED_MENU_ITEM_ID';
 export const SWITCH_PAGE_MENU_SIMPLE_ITEM_ACTIVE = 'SWITCH_PAGE_MENU_SIMPLE_ITEM_ACTIVE';
-export const SWITCH_MENU_ITEM_ON_SMALL_SCREEN = 'SWITCH_MENU_ITEM_ON_SMALL_SCREEN';
-export const SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE = 'SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE';
-export const SWITCH_PAGE_SUBMENU_ITEM_ACTIVE = 'SWITCH_PAGE_SUBMENU_ITEM_ACTIVE';
+export const SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE_ON_BIG_SCREEN =
+  'SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE_ON_BIG_SCREEN';
+export const SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE_ON_SMALL_SCREEN = 
+  'SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE_ON_SMALL_SCREEN';
+export const TURN_ON_SUBMENU_ACTIVE = 'TURN_ON_SUBMENU_ACTIVE';
+export const TURN_OFF_SUBMENU_ACTIVE_ON_SMALL_SCREEN = 
+  'TURN_OFF_SUBMENU_ACTIVE_ON_SMALL_SCREEN';
+export const TURN_OFF_SUBMENU_ACTIVE_ON_BIG_SCREEN = 
+  'TURN_OFF_SUBMENU_ACTIVE_ON_BIG_SCREEN';
+
 
 export type Actions = {
   CHANGE_MENU_LOADED_KEY: {
@@ -44,19 +52,27 @@ export type Actions = {
     payload: string,
   },
 
-  SWITCH_MENU_ITEM_ON_SMALL_SCREEN: {
-    type: typeof SWITCH_MENU_ITEM_ON_SMALL_SCREEN,
-  },
-
-  SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE: {
-    type: typeof SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE,
+  SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE_ON_BIG_SCREEN: {
+    type: typeof SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE_ON_BIG_SCREEN,
     payload: string,
   },
 
-  SWITCH_PAGE_SUBMENU_ITEM_ACTIVE: {
-    type: typeof SWITCH_PAGE_SUBMENU_ITEM_ACTIVE,
+  SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE_ON_SMALL_SCREEN: {
+    type: typeof SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE_ON_SMALL_SCREEN,
     payload: string,
   }
+  
+  TURN_ON_SUBMENU_ACTIVE: {
+    type: typeof TURN_ON_SUBMENU_ACTIVE,
+  },
+  
+  TURN_OFF_SUBMENU_ACTIVE_ON_BIG_SCREEN: {
+    type: typeof TURN_OFF_SUBMENU_ACTIVE_ON_BIG_SCREEN,
+  },
+
+  TURN_OFF_SUBMENU_ACTIVE_ON_SMALL_SCREEN: {
+    type: typeof TURN_OFF_SUBMENU_ACTIVE_ON_SMALL_SCREEN,
+  },
 };
 
 export const syncActionCreators = {
@@ -93,21 +109,29 @@ export const syncActionCreators = {
   }),
   
   /** Изменяет ИД активного пункта основного меню, у которого есть подменю */
-  switchPageMenuItemMultiActive: (payload: string):
-  Actions[typeof SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE] => ({
-    type: SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE, payload
+  switchPageMenuMultiItemActiveOnBigScreen: (payload: string):
+  Actions[typeof SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE_ON_BIG_SCREEN] => ({
+    type: SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE_ON_BIG_SCREEN, payload
   }),
   
-  /** Изменяет ИД активного пункта дополнительного подменю */
-  switchPageSubmenuItemActive: (payload: string):
-  Actions[typeof SWITCH_PAGE_SUBMENU_ITEM_ACTIVE] => ({
-    type: SWITCH_PAGE_SUBMENU_ITEM_ACTIVE, payload,
+  switchPageMenuMultiItemActiveOnSmallScreen: (payload: string):
+  Actions[typeof SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE_ON_SMALL_SCREEN] => ({
+    type: SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE_ON_SMALL_SCREEN, payload
   }),
 
-  /** на малых экранах включает полноразмерное по ширине меню */
-  switchMenuItemOnSmallScreen: (): Actions[typeof SWITCH_MENU_ITEM_ON_SMALL_SCREEN] => ({
-    type: SWITCH_MENU_ITEM_ON_SMALL_SCREEN
+  turnOnSubmenuActive: (): Actions[typeof TURN_ON_SUBMENU_ACTIVE] => ({
+    type: TURN_ON_SUBMENU_ACTIVE
   }),
+
+  turnOffSubmenuActiveOnBigScreen: (): 
+  Actions[typeof TURN_OFF_SUBMENU_ACTIVE_ON_BIG_SCREEN] => ({
+    type: TURN_OFF_SUBMENU_ACTIVE_ON_BIG_SCREEN,
+  }),
+
+  turnOffSubmenuActiveOnSmallScreen: (): 
+  Actions[typeof TURN_OFF_SUBMENU_ACTIVE_ON_SMALL_SCREEN] => ({
+    type: TURN_OFF_SUBMENU_ACTIVE_ON_SMALL_SCREEN,
+  })
 };
 
 export const asyncActionCreators = {
@@ -118,74 +142,67 @@ export const asyncActionCreators = {
   getAllMenusFromAPI: () => {
     return async (dispatch: Dispatch) => {
       try {
-        // const requests = [
-        //   sendRequestToAPI.get('/menu_data.php'),
-        //   sendRequestToAPI.get('/menu_devices.php'),
-        // ];
+        const requests = [
+          sendRequestToAPI.get('/menu_data.php'),
+          sendRequestToAPI.get('/menu_devices.php'),
+        ];
 
-        // const [menu, submenu] = await Promise.all(requests);
+        const [mainMenu, devicesMenu] = await Promise.all(requests);
 
-        const mainMenu = {
-          data: {
-            menu: {
-              "user": [
-                { "login": "Ivan" }
-              ], 
-              "menu": [{ 
-                  "value": "Обзор системы",
-                  "to": "overview",
-                  "icon": "f1e5"
-                }, {
-                  "value": "Мои дашборды",
-                  "to": "dashboards",
-                  "icon": "f080"
-                }, {
-                  "value": "Устройства",
-                  "to": "devices",
-                  "icon": "f233"
-                }, {
-                  "value": "Сообщения",
-                  "to": "messages",
-                  "icon": "f003"
-                }, {
-                  "value": "Пользователи",
-                  "to": "users",
-                  "icon": "f2c0"
-                }, {
-                  "value": "Настройки",
-                  "to": "options",
-                  "icon": "f085"
-                }, {
-                  "value": "Обновление агента",
-                  "to": "agent_update",
-                  "icon": "f021"
-                }, {
-                  "value": "Резервные копии",
-                  "to": "backups",
-                  "icon": "f24d"
-                }],
-                "dashboards": [] }
-          }
-        };
+        // const mainMenu: any = {
+        //   data: {
+        //     "user": [
+        //       { "login": "Ivan" }
+        //     ], 
+        //     "menu": [{ 
+        //         "value": "Обзор системы",
+        //         "to": "overview",
+        //         "icon": "f1e5"
+        //       }, {
+        //         "value": "Мои дашборды",
+        //         "to": "dashboards",
+        //         "icon": "f080"
+        //       }, {
+        //         "value": "Устройства",
+        //         "to": "devices",
+        //         "icon": "f233"
+        //       }, {
+        //         "value": "Сообщения",
+        //         "to": "messages",
+        //         "icon": "f003"
+        //       }, {
+        //         "value": "Пользователи",
+        //         "to": "users",
+        //         "icon": "f2c0"
+        //       }, {
+        //         "value": "Настройки",
+        //         "to": "options",
+        //         "icon": "f085"
+        //       }, {
+        //         "value": "Обновление агента",
+        //         "to": "agent_update",
+        //         "icon": "f021"
+        //       }, {
+        //         "value": "Резервные копии",
+        //         "to": "backups",
+        //         "icon": "f24d"
+        //       }],
+        //       "dashboards": [] }
+        // };
 
-        const devicesMenu = {
-          data: {
-            devices_list: {
-              "devices_list": [{
-                "value": "soloviev",
-                "to": "d4ed7aa4-3cf2-4f2a-afc5-b650a3ba4996",
-                "icon": "f17a"
-              }
-            ]}
-          }
-        }
+        // const devicesMenu: any = {
+        //   data: {
+        //     "devices_list": [{
+        //       "value": "soloviev",
+        //       "to": "d4ed7aa4-3cf2-4f2a-afc5-b650a3ba4996",
+        //       "icon": "f17a"
+        //     }
+        //   ]}
+        // };
 
         if (mainMenu.data.menu !== null && devicesMenu.data.devices_list !== null) {
           /** оба меню пришли */
-          console.log('[PAGE].action menu:', mainMenu);
-          console.log('[PAGE].action submenu:', devicesMenu);
-
-          const menuData: IMenuItem[] = mainMenu.data.menu.menu.map((e) => {
+          const menuData: IMenuItem[] = mainMenu.data.menu.map((e: IMenuItem) => {
             switch (e.to) {
               case "devices": return {
                   ...e,
@@ -194,7 +211,7 @@ export const asyncActionCreators = {
                     "to": "devices",
                     "icon": "f233",
                   },
-                    ...devicesMenu.data.devices_list.devices_list,
+                    ...devicesMenu.data.devices_list,
                   ],
                 };
               default: return { ...e, submenu: [] };
@@ -202,7 +219,7 @@ export const asyncActionCreators = {
           });
 
           const userData: IUser = {
-            login: mainMenu.data.menu.user[0].login,
+            login: mainMenu.data.user[0].login,
             links: [{
                 to: 'details',
                 value: 'Мои данные',
@@ -215,42 +232,82 @@ export const asyncActionCreators = {
           dispatch(syncActionCreators.createUserinfo(userData));
           dispatch(syncActionCreators.createMainMenu(menuData));
           dispatch(syncActionCreators.changeMenuLoadedKey(true));
+        } else {
+          dispatch(loginActionCreators.userIsNotAuthorized());
         }
-        
       } catch (error) {
+        console.error('[ERROR]:', error);
         dispatch(syncActionCreators.changeErrorKey(true));
       }
     }
   },
-  
+
+  selectSimpleItemMainMenu: (payload: string) => {
+    return (dispatch: Dispatch) => {
+      /** делает активным простой элемент меню и закрывает подменю на малых экранах */
+      dispatch(syncActionCreators.switchPageMenuSimpleItemActive(payload));
+      dispatch(syncActionCreators.switchPageMenuMultiItemActiveOnSmallScreen(''));
+      dispatch(syncActionCreators.turnOffSubmenuActiveOnSmallScreen());
+    }
+  },
+
+  /**
+   * Является точкой входа в активное состояние составного итема основного меню.
+   * А также является точкой выхода по умолчанию из этого состояния.
+   * По умолчанию, из этого состояния элемент меню должен выйти через 10 секунд
+   * (на малых экранах; на больших -- нет).
+   * Если происходит какое-то иное событие, влияющее на его состояние, выход из
+   * состояния по умолчанию сбрасывается.
+   */
   openSubmenu: (payload: string) => {
     return (dispatch: Dispatch) => {
-      dispatch(syncActionCreators.switchMenuItemOnSmallScreen());
-      dispatch(syncActionCreators.switchPageMenuItemMultiActive(payload));
+      /** Вход в активное состояние составного элемента меню (оба экрана) */
+      dispatch(syncActionCreators.switchPageMenuMultiItemActiveOnBigScreen(payload));
+      dispatch(syncActionCreators.switchPageMenuMultiItemActiveOnSmallScreen(payload));
+      dispatch(syncActionCreators.turnOnSubmenuActive());////////
+      /** Выход из активного состояния по умолчанию (только на малых экранах) */
       setTimeout(() => {
-        dispatch(syncActionCreators.switchMenuItemOnSmallScreen());
-        dispatch(syncActionCreators.switchPageMenuItemMultiActive(''));
+        dispatch(syncActionCreators.switchPageMenuMultiItemActiveOnSmallScreen(''));
+        dispatch(syncActionCreators.turnOffSubmenuActiveOnSmallScreen());
       }, 10000);
     }
   },
 
-  closeSubmenu: () => {
+  /**
+   * Обрабатывает событие, которое влияет на состояние активности элемента
+   * основного меню, в составе которого есть подменю (MultiItem). Если с событием
+   * переданы идентификаторы в payload, тогда состояние элемента основгого меню
+   * остается активным. Если payload пуст -- состояние сбрасывается.
+   */
+  closeSubmenu: (payload?: string) => {
     return (dispatch: Dispatch) => {
-      let max_id = setTimeout(function () { });
-      while (max_id--) {
-        clearTimeout(max_id);
+      console.log('close');
+      let maxId = setTimeout(() => {});
+      while (maxId--) {
+        clearTimeout(maxId);
       }
-      dispatch(syncActionCreators.switchMenuItemOnSmallScreen());
-      dispatch(syncActionCreators.switchPageMenuItemMultiActive(''));
+
+      if (payload) {
+        /** закрытие меню инициировано пунктом подменю */
+        dispatch(syncActionCreators.switchPageMenuSimpleItemActive(payload));
+        dispatch(syncActionCreators.turnOffSubmenuActiveOnSmallScreen());
+      } else {
+        /** закрытие меню инициировано тем же самым составным путктом меню 
+         * (оба экрана)
+         */
+        dispatch(syncActionCreators.switchPageMenuMultiItemActiveOnBigScreen(''));
+        dispatch(syncActionCreators.switchPageMenuMultiItemActiveOnSmallScreen(''));
+        dispatch(syncActionCreators.turnOffSubmenuActiveOnSmallScreen());
+        dispatch(syncActionCreators.turnOffSubmenuActiveOnBigScreen());
+      }
     }
   },
 
-  selectSubmenu: (payload: ISelecSubmenu) => {
+  selectSubmenu: (payload: ISelectSubmenu) => {
     return (dispatch: Dispatch) => {
-      console.warn('selectSubmenu', payload)
-      dispatch(syncActionCreators.switchPageMenuSimpleItemActive(payload.parent));
-      dispatch(syncActionCreators.switchPageSubmenuItemActive(payload.child));
-      dispatch(asyncActionCreators.closeSubmenu());
+      dispatch(syncActionCreators.switchPageMenuMultiItemActiveOnBigScreen(payload.parent));
+      dispatch(syncActionCreators.switchPageMenuSimpleItemActive(payload.child));
+      dispatch(syncActionCreators.turnOffSubmenuActiveOnSmallScreen());
     }
   }
 };

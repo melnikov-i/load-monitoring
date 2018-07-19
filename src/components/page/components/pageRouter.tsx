@@ -12,9 +12,7 @@ interface PageRouterProps extends RouteComponentProps<void> {
 
 export const PageRouter: React.SFC<PageRouterProps> = (props) => {
   const { switchPageMenuSimpleItemActive } = props;
-
-  console.log('[PageRouter]');
-
+  
   const notify = (page: string) => (<NotificationPage
     hint={'компонент ' + page + ' находится на стадии разработки.'}
     type={'error'}
@@ -44,7 +42,7 @@ export const PageRouter: React.SFC<PageRouterProps> = (props) => {
       {/* {devicesMenu.map((e, i) => {
         return (
           <Route
-            key={i}
+            key={'devicesMenu' + i}
             exact path={'/' + e.to}
             // <DashboardConnected id={e.to} />
             render={() => (

@@ -9,12 +9,12 @@ import {
   CREATE_USERINFO,
   CREATE_MAIN_MENU,
   SWITCH_PAGE_MENU_SIMPLE_ITEM_ACTIVE,
-  SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE,
-  SWITCH_PAGE_SUBMENU_ITEM_ACTIVE,
-  SWITCH_MENU_ITEM_ON_SMALL_SCREEN,
+  SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE_ON_BIG_SCREEN,
+  SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE_ON_SMALL_SCREEN,
+  TURN_ON_SUBMENU_ACTIVE,
+  TURN_OFF_SUBMENU_ACTIVE_ON_SMALL_SCREEN,
+  TURN_OFF_SUBMENU_ACTIVE_ON_BIG_SCREEN,
 } from './'
-
-import { USER_IS_NOT_AUTHORIZED } from '../login';
 
 export type State = {
   readonly isMenuLoaded: boolean,
@@ -22,10 +22,11 @@ export type State = {
   readonly droppedMenuItemId: string,
   readonly userinfo: IUser,
   readonly mainMenuCollection: IMenuItem[],
-  readonly pageMenuItemActive: string,
-  readonly pageMenuItemMultiActive: string,
-  readonly isMenuItemActiveOnSmallScreen: string,
-  readonly pageSubmenuItemActive: string,
+  readonly pageMenuSimpleItemActive: string,
+  readonly pageMenuItemMultiActiveOnBigScreen: string,
+  readonly pageMenuItemMultiActiveOnSmallScreen: string,
+  readonly isSubmenuActiveOnSmallScreen: boolean,
+  readonly isSubmenuActiveOnBigScreen: boolean,
 };
 
 const _userinfo: IUser = {
@@ -94,53 +95,61 @@ export const reducer = combineReducers<State>({
   },
 
   /**
-   * [PageMenu]
-   * Идентификатор активного простого пункта основного меню 
+   * [PageMenuSimpleItem / pageSubmenuItem]
+   * Идентификатор активного простого пункта основного меню.
+   * Участвует в переключении состояния только в простых пунктах
+   * основного меню.
    */
-  pageMenuItemActive: (state = '', action) => {
+  pageMenuSimpleItemActive: (state = '', action) => {
     switch (action.type) {
-      case SWITCH_PAGE_MENU_SIMPLE_ITEM_ACTIVE:
-        return action.payload;
-      case USER_IS_NOT_AUTHORIZED:
-        return '';
-      default:
-        return state;
-    }
-  },
-
-  /* Идентификатор активного составного пункта основного меню */
-  pageMenuItemMultiActive: (state = '', action) => {
-    switch (action.type) {
-      case SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE:
-        return action.payload;
-      case USER_IS_NOT_AUTHORIZED:
-        return '';
-      default:
-        return state;
-    }
-  },
-
-  /* Идентификатор активного составного пункта основного меню */
-  pageSubmenuItemActive: (state = '', action) => {
-    switch (action.type) {
-      case SWITCH_PAGE_SUBMENU_ITEM_ACTIVE:
-        return action.payload;
-      case USER_IS_NOT_AUTHORIZED:
-        return '';
-      default:
-        return state;
+      /** Присваивает идентификатор */
+      case SWITCH_PAGE_MENU_SIMPLE_ITEM_ACTIVE: return action.payload;
+      default: return state;
     }
   },
 
   /**
-   * [PageLayout / PageMenuItem]
+   * [pageMenuMultiItem]
+   *  Идентификатор активного составного пункта основного меню
+   */
+  pageMenuItemMultiActiveOnBigScreen: (state = '', action) => {
+    switch (action.type) {
+      /** Присваивает идентификатор */
+      case SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE_ON_BIG_SCREEN: return action.payload;
+      default: return state;
+    }
+  },
+
+  /**
+   * [pageMenuMultiItem]
+   * Идентификатор активного составного пункта меню на малых экранах.
+   * Необходим для придания разного поведения для меню на большом и малом дисплеях.
+   */
+  pageMenuItemMultiActiveOnSmallScreen: (state = '', action) => {
+    switch (action.type) {
+      case SWITCH_PAGE_MENU_ITEM_MULTI_ACTIVE_ON_SMALL_SCREEN: return action.payload;
+      default: return state;
+    }
+  },
+
+  /**
+   * [PageLayout / PageMenuSimpleItem / pageMenuMultiItem]
    * Переключатель, раскрывающий или убирающий меню для составного элемента меню
    * на малых экранах
    */
-  isMenuItemActiveOnSmallScreen: (state = '0', action) => {
+  isSubmenuActiveOnSmallScreen: (state = false, action) => {
     switch (action.type) {
-      case SWITCH_MENU_ITEM_ON_SMALL_SCREEN: return (state === '0') ? '1' : '0';
+      case TURN_ON_SUBMENU_ACTIVE: return true;
+      case TURN_OFF_SUBMENU_ACTIVE_ON_SMALL_SCREEN: return false;
       default: return state;
     }
-  },   
+  },
+
+  isSubmenuActiveOnBigScreen: (state = false, action) => {
+    switch (action.type) {
+      case TURN_ON_SUBMENU_ACTIVE: return true;
+      case TURN_OFF_SUBMENU_ACTIVE_ON_BIG_SCREEN: return false;
+      default: return state;
+    }
+  }
 });

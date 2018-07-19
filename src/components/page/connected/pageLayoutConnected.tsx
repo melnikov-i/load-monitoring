@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 import { PageLayout } from '../components';
 
 interface StateProps {
-  isMenuItemActiveOnSmallScreen: string
+  isSubmenuActiveOnSmallScreen: boolean,
 }
 
 interface DispatchProps { }
@@ -17,8 +17,8 @@ interface OwnProps { }
 const mapStateToProps:
   MapStateToPropsParam<StateProps, OwnProps, RootState> =
   createStructuredSelector<RootState, StateProps>({
-    isMenuItemActiveOnSmallScreen: (state: RootState) =>    
-      state.page.isMenuItemActiveOnSmallScreen
+    isSubmenuActiveOnSmallScreen: (state: RootState) => 
+      state.page.isSubmenuActiveOnSmallScreen
   });
 
 const mapDispatchToProps:

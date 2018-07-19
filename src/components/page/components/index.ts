@@ -2,7 +2,7 @@ export * from './pageInitialize';
 export * from './pageLayout';
 export * from './pageUserinfo';
 export * from './pageMenu';
-export * from './pageMenuItem';
+export * from './pageMenuSimpleItem';
 export * from './pageMenuMultiItem';
 export * from './pageSubmenuItem';
 export * from './pageRouter';
