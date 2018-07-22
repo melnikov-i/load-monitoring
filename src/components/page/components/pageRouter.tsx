@@ -20,13 +20,6 @@ export const PageRouter: React.SFC<PageRouterProps> = (props) => {
       switchPageMenuSimpleItemActive('30');
     }} />);
   
-  const notFound = () => (<NotificationPage
-    hint={'Страница не найдена.'}
-    type={'error'}
-    callback={() => {
-      switchPageMenuSimpleItemActive('30');
-    }} />);
-
   return (
     <Switch>
       <Route exact path={"/overview"} render={() => (notify('overview'))} />
@@ -38,7 +31,7 @@ export const PageRouter: React.SFC<PageRouterProps> = (props) => {
       <Route exact path={'/agent_update'} render={() => (notify('agent_update'))} />
       <Route exact path={'/backups'} render={() => (notify('backups'))} />
       <Route exact path={'/'} render={() => <Redirect to={'/overview'} />} />
-      <Route path={'/'} render={() => (notFound())} />
+      <Route path={'/'} render={() => <Redirect to={'/404'} />} />
       {/* {devicesMenu.map((e, i) => {
         return (
           <Route

@@ -21,6 +21,7 @@ import Login from '@src/components/login';
 import Registration from '@src/components/registration';
 import Recovery from '@src/components/recovery';
 import Page from '@src/components/page';
+import NotFound from '@src/components/notFound';
 
 /** Глобальные стили */
 injectGlobal`
@@ -74,6 +75,7 @@ export const Router: React.SFC<RouterProps> = (props) => {
       {/** Страницы, доступ на которые открыт */}
       <Route exact path={'/registration'} render={() => <Registration />} />
       <Route exact path={'/recovery'} render={() => <Recovery />} />
+      <Route exact path={'/404'} render={() => <NotFound />} />
       {/** Страницы, доступ на которые возможен после проверки авторизации */}
       <Route exact path={'/login'} render={() => !isAuthorized ? <Login /> : <Redirect to={'/'} />} />
       <Route path={'/'} render={() => isAuthorized ? <Page /> : <Redirect to={'/login'} />} />

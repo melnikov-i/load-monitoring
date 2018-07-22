@@ -6,4 +6,3 @@ export * from './pageMenuSimpleItemConnected';
 export * from './pageMenuMultiItemConnected';
 export * from './pageSubmenuItemConnected';
 export * from './pageRouterConnected';
-// export * from './oldConnected';
