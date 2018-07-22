@@ -5,6 +5,7 @@ import { reducer as form, State as FormState } from './form';
 import { reducer as registration, State as RegistrationState } from './registration';
 import { reducer as recovery, State as RecoveryState } from './recovery';
 import { reducer as page, State as PageState } from './page';
+import { reducer as overview, State as OverviewState } from './overview';
 
 // import { reducer as main, State as MainState} from './main';
 // import { reducer as devices, State as DevicesState } from '@src/redux/devices';
@@ -19,6 +20,7 @@ export interface RootState {
   registration: RegistrationState,
   recovery: RecoveryState,
   page: PageState,
+  overview: OverviewState,
   // main: MainState,
   // devices: DevicesState,
   // mainHead: MainHeadState,
@@ -30,8 +32,9 @@ export const rootReducer = combineReducers<RootState>({
   login,
   form,
   registration,
-  page,
   recovery,
+  page,
+  overview,
   // main,
   // devices,
   // overview,
