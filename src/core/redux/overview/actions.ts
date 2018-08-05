@@ -1,4 +1,4 @@
-import { Dispatch } from '@src/core/redux';
+// import { Dispatch } from '@src/core/redux';
 
 export const CHANGE_OVERVIEW_LOADED_KEY = 'CHANGE_OVERVIEW_LOADED_KEY';
 export const CHANGE_OVERVIEW_ERROR_KEY = 'CHANGE_OVERVIEW_ERROR_KEY';
@@ -29,7 +29,7 @@ export const syncActionCreators = {
 
 export const asyncActionCreators = {
   getOverviewCollection: () => {
-    return async (dispatch: Dispatch) => {
+    return async (/* dispatch: Dispatch */) => {
 
     }
   }

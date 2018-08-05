@@ -41,8 +41,7 @@ import {
 } from '@src/interfaces';
 
 // import { Spinner } from '@src/components';
-import MainHeaderConnected from
-  '@src/usage/MainHeaderUsage';
+import MainHeaderConnected from '@src/usage/MainHeaderUsage';
 
 interface OverviewProps extends RouteComponentProps<void> {
   OverviewItemsWasRequestedFromAPI: boolean,
@@ -149,9 +148,11 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
     return (
       <div>
         <MainHeaderConnected data={MainHeaderState} />
+
         <WidgetsLayout>
           <Widget bg={false}>
             <WidgetContent>
+
               <OverviewIconsLayout>
                 <OverviewIconWrapper bgcolor={'#1ab394'}>
                   <OverviewIcon icon={'f058'} />
@@ -181,15 +182,18 @@ export const Overview: React.SFC<OverviewProps> = (props) => {
                   </OverviewIconText>
                 </OverviewIconWrapper>
               </OverviewIconsLayout>
+
             </WidgetContent>
           </Widget>
         </WidgetsLayout>
+
         <WidgetsLayout>
           <Widget>
             <WidgetHeaderWrapper>
               <WidgetHeader>{'Все события'}</WidgetHeader>              
             </WidgetHeaderWrapper>
             <WidgetContent>
+
               {(overviewItems.events_table.length !== 0) 
                 ? (
                   <OverviewTable>

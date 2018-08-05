@@ -1,4 +1,4 @@
-import { sendRequestToAPI } from '@src/core/libs';
+// import { sendRequestToAPI } from '@src/core/libs';
 
 import { Dispatch } from '@src/core/redux';
 import { IMenuItem, IUser, ISelectSubmenu } from '@src/core/interfaces';
@@ -142,63 +142,63 @@ export const asyncActionCreators = {
   getAllMenusFromAPI: () => {
     return async (dispatch: Dispatch) => {
       try {
-        const requests = [
-          sendRequestToAPI.get('/menu_data.php'),
-          sendRequestToAPI.get('/menu_devices.php'),
-        ];
+        // const requests = [
+        //   sendRequestToAPI.get('/menu_data.php'),
+        //   sendRequestToAPI.get('/menu_devices.php'),
+        // ];
 
-        const [mainMenu, devicesMenu] = await Promise.all(requests);
+        // const [mainMenu, devicesMenu] = await Promise.all(requests);
 
-        // const mainMenu: any = {
-        //   data: {
-        //     "user": [
-        //       { "login": "Ivan" }
-        //     ], 
-        //     "menu": [{ 
-        //         "value": "Обзор системы",
-        //         "to": "overview",
-        //         "icon": "f1e5"
-        //       }, {
-        //         "value": "Мои дашборды",
-        //         "to": "dashboards",
-        //         "icon": "f080"
-        //       }, {
-        //         "value": "Устройства",
-        //         "to": "devices",
-        //         "icon": "f233"
-        //       }, {
-        //         "value": "Сообщения",
-        //         "to": "messages",
-        //         "icon": "f003"
-        //       }, {
-        //         "value": "Пользователи",
-        //         "to": "users",
-        //         "icon": "f2c0"
-        //       }, {
-        //         "value": "Настройки",
-        //         "to": "options",
-        //         "icon": "f085"
-        //       }, {
-        //         "value": "Обновление агента",
-        //         "to": "agent_update",
-        //         "icon": "f021"
-        //       }, {
-        //         "value": "Резервные копии",
-        //         "to": "backups",
-        //         "icon": "f24d"
-        //       }],
-        //       "dashboards": [] }
-        // };
+        const mainMenu: any = {
+          data: {
+            "user": [
+              { "login": "Ivan" }
+            ], 
+            "menu": [{ 
+                "value": "Обзор системы",
+                "to": "overview",
+                "icon": "f1e5"
+              }, {
+                "value": "Мои дашборды",
+                "to": "dashboards",
+                "icon": "f080"
+              }, {
+                "value": "Устройства",
+                "to": "devices",
+                "icon": "f233"
+              }, {
+                "value": "Сообщения",
+                "to": "messages",
+                "icon": "f003"
+              }, {
+                "value": "Пользователи",
+                "to": "users",
+                "icon": "f2c0"
+              }, {
+                "value": "Настройки",
+                "to": "options",
+                "icon": "f085"
+              }, {
+                "value": "Обновление агента",
+                "to": "agent_update",
+                "icon": "f021"
+              }, {
+                "value": "Резервные копии",
+                "to": "backups",
+                "icon": "f24d"
+              }],
+              "dashboards": [] }
+        };
 
-        // const devicesMenu: any = {
-        //   data: {
-        //     "devices_list": [{
-        //       "value": "soloviev",
-        //       "to": "d4ed7aa4-3cf2-4f2a-afc5-b650a3ba4996",
-        //       "icon": "f17a"
-        //     }
-        //   ]}
-        // };
+        const devicesMenu: any = {
+          data: {
+            "devices_list": [{
+              "value": "soloviev",
+              "to": "d4ed7aa4-3cf2-4f2a-afc5-b650a3ba4996",
+              "icon": "f17a"
+            }
+          ]}
+        };
 
         if (mainMenu.data.menu !== null && devicesMenu.data.devices_list !== null) {
           /** оба меню пришли */

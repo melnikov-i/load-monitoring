@@ -70,12 +70,11 @@ React.SFC<DashboardWidgetProps> = (props) => {
     /**
      * Вычисляет координату по оси Х для верхнего
      * левого угла всплывающей подсказки
-     * @return {number}
+     * @returns {number}
      */
     const clientX = () => {
       const x = e.clientX;
-      if ( x >= 65 ) return x - 29;
-      return x + 1;
+      return ( x >= 65 ) ? x - 29 : x + 1;
     };
 
     /**

@@ -5,12 +5,15 @@ import { Dispatch, RootState } from '@src/core/redux';
 import { withRouter } from 'react-router-dom';
 
 import { PageLayout } from '../components';
+import { asyncActionCreators } from '@src/core/redux/login';
 
 interface StateProps {
   isSubmenuActiveOnSmallScreen: boolean,
 }
 
-interface DispatchProps { }
+interface DispatchProps {
+  sendLogoutToApi: () => any,
+}
 
 interface OwnProps { }
 
@@ -23,7 +26,9 @@ const mapStateToProps:
 
 const mapDispatchToProps:
   MapDispatchToPropsParam<DispatchProps, OwnProps> =
-  (dispatch: Dispatch) => bindActionCreators({}, dispatch);
+  (dispatch: Dispatch) => bindActionCreators({
+    sendLogoutToApi: asyncActionCreators.sendLogoutToApi,
+  }, dispatch);
 
 export const PageLayoutConnected = withRouter(
   connect<StateProps, DispatchProps, OwnProps, RootState>(

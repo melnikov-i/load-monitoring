@@ -5,7 +5,7 @@ const HeaderProfile = require('@src/images/HeaderProfile');
 const Logo = require('@src/images/Logo');
 
 import {
-  SMALL_SCREEN_MAX,
+  // SMALL_SCREEN_MAX,
   MIDDLE_SCREEN_MAX,
   BIG_SCREEN_MIN,
   MENU_LAYOUT_BIG_WIDTH,
@@ -17,6 +17,7 @@ import {
   DROPPED_MENU_ITEM_HEIGHT,
   TOP_HEIGHT,
   emergence,
+  colors,
 } from '@src/core/styled';
 
 /** ### PageLayout ### */
@@ -83,6 +84,93 @@ export const PageLayoutContentCollumn = styled.div`
   transition: padding-left 0.4s;
   @media screen and ( max-width: ${ MIDDLE_SCREEN_MAX } ) {
     padding-left: ${MENU_LAYOUT_MIDDLE_WIDTH};
+  }
+`;
+
+/**
+ * Шапка страницы
+ * @return {React.Component}
+ */
+export const PageLayoutHeader = styled.div`
+  width: 100%;
+  height: ${ TOP_HEIGHT};
+  background-color: ${colors.blueGrey};
+  border-bottom: 1px solid ${colors.lightGrey2};
+  box-sizing: border-box;
+  position: relative;
+`;
+
+/**
+ * Обертка для кнопки выхода в шапке страницы
+ * @return {React.Component}
+ */
+export const PageHeaderExitWrapper = styled.div`
+  width: ${ TOP_HEIGHT};
+  height: ${ TOP_HEIGHT};
+  line-height: ${ TOP_HEIGHT};
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 20px;
+`;
+
+/**
+ * Кнопка выхода в шапке страницы
+ * @return {React.Component}
+ */
+export const PageHeaderExitLink = styled(NavLink)`
+  color: #999c9e;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  &:hover {
+    color: #23527c;
+  }
+  &::before {
+    content: "\f08b";
+    font-family: 'FontAwesome';
+    font-weight: normal;
+    font-size: ${ FA_SMALL_FONT_SIZE};
+    margin-right: 8px;
+  }
+`;
+
+/**
+ * Подвал страницы
+ * @return {React.Component}
+ */
+export const PageLayoutFooter = styled.div`
+  width: 100%;
+  height: ${ FOOTER_HEIGHT};
+  box-sizing: border-box;
+  border-top: 1px solid #e7eaec;
+  position: relative;
+  background-color: #fff;
+`;
+
+/**
+ * Копирайт страницы
+ * @return {React.Component}
+ */
+export const PageLayoutFooterCopyright = styled.div`
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  font-size: calc( ${ FA_SMALL_FONT_SIZE} - 2px );
+  font-weight: 600;
+  color: #676a6c;
+  &::before {
+    content: "\f1f9";
+    font-family: 'FontAwesome';
+    font-size: calc( ${ FA_SMALL_FONT_SIZE} - 2px );
+    color: #676a6c;
+    margin-right: 3px;
+  }
+  &::after {
+    content: "${ new Date().getFullYear()}";
+    font-size: calc( ${ FA_SMALL_FONT_SIZE} - 2px );
+    color: #676a6c;
+    margin-left: 3px;
   }
 `;
 
@@ -538,213 +626,3 @@ export const PageSubMenuItemLink = styled(NavLink)`
     margin-right: 6px;
   }
 `;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * Шапка страницы
- * @return {React.Component}
- */
-export const PageHeader = styled.div`
-  width: 100%;
-  height: ${ TOP_HEIGHT};
-  background-color: #f3f3f4;
-  border-bottom: 1px solid #e7eaec;
-  box-sizing: border-box;
-  position: relative;
-`;
-
-/**
- * Обертка для кнопки выхода в шапке страницы
- * @return {React.Component}
- */
-export const PageHeaderExitWrapper = styled.div`
-  width: ${ TOP_HEIGHT};
-  height: ${ TOP_HEIGHT};
-  line-height: ${ TOP_HEIGHT};
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 20px;
-`;
-
-/**
- * Кнопка выхода в шапке страницы
- * @return {React.Component}
- */
-export const PageHeaderExitLink = styled(NavLink)`
-  color: #999c9e;
-  font-size: 14px;
-  font-weight: 600;
-  text-decoration: none;
-  &:hover {
-    color: #23527c;
-  }
-  &::before {
-    content: "\f08b";
-    font-family: 'FontAwesome';
-    font-weight: normal;
-    font-size: ${ FA_SMALL_FONT_SIZE};
-    margin-right: 8px;
-  }
-`;
-
-/**
- * Блок с основным контентом страницы
- * @return {React.Component}
- */
-export const PageContent = styled.div`
-  overflow-x: hidden;
-  width: 100%;
-  background-color: #f3f3f4;
-  min-height: calc( 100vh - ${ TOP_HEIGHT} - ${FOOTER_HEIGHT} );
-  padding-bottom: ${ FOOTER_HEIGHT};
-`;
-
-/**
- * Подвал страницы
- * @return {React.Component}
- */
-export const PageFooter = styled.div`
-  width: 100%;
-  height: ${ FOOTER_HEIGHT};
-  box-sizing: border-box;
-  border-top: 1px solid #e7eaec;
-  position: relative;
-  background-color: #fff;
-`;
-
-/**
- * Копирайт страницы
- * @return {React.Component}
- */
-export const PageFooterCopyright = styled.div`
-  position: absolute;
-  top: 5px;
-  right: 10px;
-  font-size: calc( ${ FA_SMALL_FONT_SIZE} - 2px );
-  font-weight: 600;
-  color: #676a6c;
-  &::before {
-    content: "\f1f9";
-    font-family: 'FontAwesome';
-    font-size: calc( ${ FA_SMALL_FONT_SIZE} - 2px );
-    color: #676a6c;
-    margin-right: 3px;
-  }
-  &::after {
-    content: "${ new Date().getFullYear()}";
-    font-size: calc( ${ FA_SMALL_FONT_SIZE} - 2px );
-    color: #676a6c;
-    margin-left: 3px;
-  }
-`;
-
-/**
- * Кнопка открытия меню на малых экранах
- * На больших экранах скрыта.
- * @param {boolean} isMenuOpenedOnSmallScreen
- * @return {React.Component}
- */
-export const PageSmallMenuAnchor = styled.a`
-  display: none;
-  @media screen
-    and ( max-width: ${ SMALL_SCREEN_MAX} ) {
-      display: block;
-      cursor: pointer;
-      position: absolute;
-      top: 15px;
-      left: ${(props: { isMenuOpenedOnSmallScreen: boolean }) => (
-    props.isMenuOpenedOnSmallScreen
-      ? `calc( ${MENU_LAYOUT_MIDDLE_WIDTH} + 15px )`
-      : '15px'
-  )};
-      z-index: 1;
-      width: 40px;
-      height: 40px;
-      line-height: 40px;
-      background-color: #19aa8d;
-      border-radius: 4px;
-      &::before {
-        content: "\f0c9";
-        font-family: 'FontAwesome';
-        font-weight: normal;
-        font-size: ${ FA_BIG_FONT_SIZE};
-        color: #fff;
-        padding: 0 8px;
-      }
-    }
-`;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * Кнопка закрытия выпадающего меню, оторбажаемая на малых экранах
- * @param {boolean} isActive
- * @return {React.Component}
- */
-// export const PageSubMenuCloseAnchor = styled.a`
-//   display: none;
-//   @media screen
-//     and ( max-width: ${ MIDDLE_SCREEN_MAX} ) {
-//       display: ${(props: { isActive: boolean }) => (
-//     props.isActive ? 'block' : 'none'
-//   )};
-//       color: #a7b1c2;
-//       position: fixed;
-//       right: 0;
-//       width: 46px;
-//       height: 46px;
-//       cursor: pointer;
-//       z-index: 200;
-//       &:hover {
-//         color: #fff;
-//         background-color: #293846;
-//       }      
-//       &::before {
-//         content: "\002b";
-//         display: block;
-//         font-weight: normal;
-//         font-size: 54px;
-//         margin-top: -16px;
-//         text-align: center;
-//         transform: rotateZ(45deg)
-//       }
-//     }
-// `;
-
-

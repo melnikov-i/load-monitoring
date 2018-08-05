@@ -14,15 +14,28 @@ import {
 import {
   Layout,
   PageLayoutMenuCollumn,
-  PageLayoutContentCollumn
+  PageLayoutHeader,
+  PageLayoutContentCollumn,
+  PageHeaderExitWrapper,
+  PageHeaderExitLink,
+  PageLayoutFooter,
+  PageLayoutFooterCopyright,
 } from './'
 
 interface PageLayoutProps extends RouteComponentProps<void> {
   isSubmenuActiveOnSmallScreen: boolean,
+  sendLogoutToApi: () => any,
 }
 
 export const PageLayout: React.SFC<PageLayoutProps> = (props) => {
-  const { isSubmenuActiveOnSmallScreen } = props;
+  const { isSubmenuActiveOnSmallScreen, sendLogoutToApi } = props;
+
+  /** Обработчики событий */
+  const logoutHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    sendLogoutToApi();
+  };
+
   return (
     <Layout>
       <PageLayoutMenuCollumn
@@ -31,8 +44,22 @@ export const PageLayout: React.SFC<PageLayoutProps> = (props) => {
         <PageMenu />
       </PageLayoutMenuCollumn>
       <PageLayoutContentCollumn>
+      
+        <PageLayoutHeader>
+          <PageHeaderExitWrapper>
+            <PageHeaderExitLink
+              to={'/'}
+              onClick={logoutHandler}
+            >{'Выход'}</PageHeaderExitLink>
+          </PageHeaderExitWrapper>
+        </PageLayoutHeader>
+        
         <PageRouter />
+      
       </PageLayoutContentCollumn>
+      <PageLayoutFooter>
+        <PageLayoutFooterCopyright>{'Monyze'}</PageLayoutFooterCopyright>
+      </PageLayoutFooter>
     </Layout>
   );
 };

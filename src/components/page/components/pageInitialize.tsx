@@ -25,7 +25,7 @@ export const PageInitialize: React.SFC<PageInitializeProps> = (props) => {
      if (isError) {
        /** Из-за ошибки */
        return (<NotificationPage
-         hint={'Произошла ошибка запроса данных. Пожалуйста, обновите страницу.'}
+         hint={'Произошла ошибка запроса страницы. Пожалуйста, обновите страницу.'}
          type={'error'}
        callback={() => {}} />);
      } else {

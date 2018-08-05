@@ -1,7 +1,8 @@
 // import { bindActionCreators } from 'redux';
 // import { connect, MapStateToPropsParam, MapDispatchToPropsParam } from 'react-redux';
-// import { createStructuredSelector, createSelector } from 'reselect';
+// import { createStructuredSelector/* , createSelector */ } from 'reselect';
 // import { Dispatch, RootState } from '@src/core/redux';
+// import { withRouter } from 'react-router-dom';
 
 // import { } from '../components';
 
@@ -30,5 +31,6 @@
 
 //   }, dispatch);
 
-// export const InputInitializeConnected =
-//   connect<StateProps, DispatchProps, OwnProps, RootState>(mapStateToProps, mapDispatchToProps)(InputInitialize);
+// export const InputInitializeConnected = withRouter(
+//   connect<StateProps, DispatchProps, OwnProps, RootState>(
+//     mapStateToProps, mapDispatchToProps)(InputInitialize));
